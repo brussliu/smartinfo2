@@ -1,0 +1,1460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+
+	<sql id="update_02_r1">
+		update "RES_注文情報" RES 
+		set
+			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			, "ORDER_注文ステータス" = IPT."order-status"
+			, "ORDER_出荷方式" = IPT."fulfillment-channel"
+			, "ORDER_配送方式" = IPT."ship-service-level"
+			, "ORDER_ASIN番号" = IPT."asin"
+			, "ORDER_数量" = to_number(IPT."quantity", '999999999')
+			, "ORDER_通貨" = IPT."currency"
+			, "ORDER_価格" = to_number(IPT."item-price", '999999999.99')
+			, "ORDER_税金" = to_number(IPT."item-tax", '999999999.99')
+			, "ORDER_配送料" = to_number(IPT."shipping-price", '999999999.99')
+			, "ORDER_配送料税金" = to_number(IPT."shipping-tax", '999999999.99')
+			, "ORDER_包装料" = to_number(IPT."gift-wrap-price", '999999999.99')
+			, "ORDER_包装料税金" = to_number(IPT."gift-wrap-tax", '999999999.99')
+			, "ORDER_注文プロモーション用割引額" = to_number(IPT."item-promotion-discount", '999999999.99')
+			, "ORDER_配送プロモーション用割引額" = to_number(IPT."ship-promotion-discount", '999999999.99')
+			, "ORDER_配送住所-市区町村" = IPT."ship-city"
+			, "ORDER_配送住所-都道府県" = IPT."ship-state"
+			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
+			, "ORDER_配送住所-国" = IPT."ship-country"
+			, "ORDER_プロモーション内容" = IPT."promotion-ids"
+			, "更新日時" = current_timestamp 
+		from
+			"IPT_全注文情報" IPT 
+		where
+			IPT."amazon-order-id" = RES."Amazon注文番号" 
+			and IPT."sku" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+
+	<sql id="update_04_r1">
+		update "RES_注文情報" RES 
+		set
+			"PAYMENT_日付/時間" = to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
+			, "PAYMENT_決済番号" = IPT."決済番号"
+			, "PAYMENT_トランザクションの種類" = IPT."トランザクションの種類"
+			, "PAYMENT_説明" = IPT."説明"
+			, "PAYMENT_数量" = to_number(IPT."数量", '999999999')
+			, "PAYMENT_Amazon 出品サービス" = IPT."Amazon 出品サービス"
+			, "PAYMENT_フルフィルメント" = IPT."フルフィルメント1"
+			, "PAYMENT_市町村" = IPT."市町村1"
+			, "PAYMENT_都道府県" = IPT."都道府県1"
+			, "PAYMENT_郵便番号" = IPT."郵便番号1"
+			, "PAYMENT_税金徴収型" = IPT."税金徴収型1"
+			, "PAYMENT_商品売上" = to_number(IPT."商品売上1", '999999999.99')
+			, "PAYMENT_商品の売上税" = to_number(IPT."商品の売上税", '999999999.99')
+			, "PAYMENT_配送料" = to_number(IPT."配送料", '999999999.99')
+			, "PAYMENT_配送料の税金" = to_number(IPT."配送料の税金", '999999999.99')
+			, "PAYMENT_ギフト包装手数料" = to_number(IPT."ギフト包装手数料", '999999999.99')
+			, "PAYMENT_ギフト包装クレジットの税金" = to_number(IPT."ギフト包装クレジットの税金", '999999999.99')
+			, "PAYMENT_Amazonポイントの費用" = to_number(IPT."Amazon1ポイントの費用", '999999999.99')
+			, "PAYMENT_プロモーション割引額" = to_number(IPT."プロモーション割引額", '999999999.99')
+			, "PAYMENT_プロモーション割引の税金" = to_number(IPT."プロモーション割引の税金", '999999999.99')
+			, "PAYMENT_源泉徴収税を伴うマーケットプレイス" = IPT."源泉徴収税を伴うマーケットプレイス"
+			, "PAYMENT_手数料" = to_number(IPT."手数料", '999999999.99')
+			, "PAYMENT_FBA 手数料" = to_number(IPT."FBA 手数料1", '999999999.99')
+			, "PAYMENT_トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
+			, "PAYMENT_その他" = to_number(IPT."その他", '999999999.99')
+			, "PAYMENT_合計" = to_number(IPT."合計", '999999999.99')
+			, "更新日時" = current_timestamp 
+		from
+			"IPT_ペイメント情報" IPT 
+		where
+			IPT."注文番号" = RES."Amazon注文番号" 
+			and IPT."SKU" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+	<sql id="update_11_r1">
+		update "RES_注文情報" RES 
+		set
+			"SHIP_注文受付日" = to_timestamp(IPT."注文受付日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "SHIP_支払日" = to_timestamp(IPT."支払日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "SHIP_発送日" = to_timestamp(IPT."発送日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "SHIP_配送サービスレベル" = IPT."配送サービスレベル"
+			, "SHIP_受取人" = IPT."受取人"
+			, "SHIP_お届け先1" = IPT."お届け先1"
+			, "SHIP_お届け先2" = IPT."お届け先2"
+			, "SHIP_お届け先3" = IPT."お届け先3"
+			, "SHIP_市区町村" = IPT."市区町村"
+			, "SHIP_都道府県" = IPT."都道府県"
+			, "SHIP_発送先郵便番号" = IPT."発送先郵便番号"
+			, "SHIP_国" = IPT."国"
+			, "SHIP_お届け先電話番号" = IPT."お届け先電話番号"
+			, "SHIP_請求先の住所1" = IPT."請求先の住所1"
+			, "SHIP_請求先の住所2" = IPT."請求先の住所2"
+			, "SHIP_請求先の住所3" = IPT."請求先の住所3"
+			, "SHIP_請求先の市区町村" = IPT."請求先の市区町村"
+			, "SHIP_請求先の都道府県" = IPT."請求先の都道府県"
+			, "SHIP_請求先の郵便番号" = IPT."請求先の郵便番号"
+			, "SHIP_請求先の国" = IPT."請求先の国"
+			, "SHIP_配送業者" = IPT."配送業者"
+			, "SHIP_問い合わせ番号" = IPT."問い合わせ番号"
+			, "SHIP_配送予定日" = to_timestamp(IPT."配送予定日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "SHIP_FC" = IPT."FC"
+			, "SHIP_出荷経路" = IPT."出荷経路"
+			, "SHIP_販売経路" = IPT."販売経路"
+			, "更新日時" = current_timestamp 
+		from
+			"IPT_FBA在庫出荷情報" IPT 
+		where
+			IPT."Amazon注文番号" = RES."Amazon注文番号" 
+			and IPT."出品者SKU" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+	<sql id="update_12_r1">
+		update "RES_注文情報" RES 
+		set
+			"SHIP_出荷日" = to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "更新日時" = current_timestamp 
+		from
+			"IPT_出荷情報" IPT 
+		where
+			IPT."Amazon注文番号" = RES."Amazon注文番号" 
+			and IPT."出品者SKU" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+	
+	<sql id="insert_02_r1">
+		insert into "RES_注文情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "ORDER_最終更新日時"
+			, "ORDER_注文ステータス"
+			, "ORDER_出荷方式"
+			, "ORDER_配送方式"
+			, "ORDER_ASIN番号"
+			, "ORDER_数量"
+			, "ORDER_通貨"
+			, "ORDER_価格"
+			, "ORDER_税金"
+			, "ORDER_配送料"
+			, "ORDER_配送料税金"
+			, "ORDER_包装料"
+			, "ORDER_包装料税金"
+			, "ORDER_注文プロモーション用割引額"
+			, "ORDER_配送プロモーション用割引額"
+			, "ORDER_配送住所-市区町村"
+			, "ORDER_配送住所-都道府県"
+			, "ORDER_配送住所-郵便番号"
+			, "ORDER_配送住所-国"
+			, "ORDER_プロモーション内容"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			  "amazon-order-id"
+			, "sku"
+			, to_timestamp("last-updated-date",'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "order-status"
+			, "fulfillment-channel"
+			, "ship-service-level"
+			, "asin"
+			, to_number("quantity",'999999999')
+			, "currency"
+			, to_number("item-price",'999999999.99')
+			, to_number("item-tax",'999999999.99')
+			, to_number("shipping-price",'999999999.99')
+			, to_number("shipping-tax",'999999999.99')
+			, to_number("gift-wrap-price",'999999999.99')
+			, to_number("gift-wrap-tax",'999999999.99')
+			, to_number("item-promotion-discount",'999999999.99')
+			, to_number("ship-promotion-discount",'999999999.99')
+			, "ship-city"
+			, "ship-state"
+			, "ship-postal-code"
+			, "ship-country"
+			, "promotion-ids"
+			, "店舗ID"
+			, current_timestamp
+			, current_timestamp
+		from
+			"IPT_全注文情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_注文情報" RES 
+				where
+					IPT."amazon-order-id" = RES."Amazon注文番号" 
+					and IPT."sku" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = 'Smart-Bear'
+	</sql>
+	<sql id="insert_04_r1">
+		insert into "RES_注文情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "PAYMENT_日付/時間"
+			, "PAYMENT_決済番号"
+			, "PAYMENT_トランザクションの種類"
+			, "PAYMENT_説明"
+			, "PAYMENT_数量"
+			, "PAYMENT_Amazon 出品サービス"
+			, "PAYMENT_フルフィルメント"
+			, "PAYMENT_市町村"
+			, "PAYMENT_都道府県"
+			, "PAYMENT_郵便番号"
+			, "PAYMENT_税金徴収型"
+			, "PAYMENT_商品売上"
+			, "PAYMENT_商品の売上税"
+			, "PAYMENT_配送料"
+			, "PAYMENT_配送料の税金"
+			, "PAYMENT_ギフト包装手数料"
+			, "PAYMENT_ギフト包装クレジットの税金"
+			, "PAYMENT_Amazonポイントの費用"
+			, "PAYMENT_プロモーション割引額"
+			, "PAYMENT_プロモーション割引の税金"
+			, "PAYMENT_源泉徴収税を伴うマーケットプレイス"
+			, "PAYMENT_手数料"
+			, "PAYMENT_FBA 手数料"
+			, "PAYMENT_トランザクションに関するその他の手数"
+			, "PAYMENT_その他"
+			, "PAYMENT_合計"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			"注文番号"
+			, "SKU"
+			, to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
+			, IPT."決済番号"
+			, IPT."トランザクションの種類"
+			, IPT."説明"
+			, to_number(IPT."数量", '999999999')
+			, IPT."Amazon 出品サービス"
+			, IPT."フルフィルメント1"
+			, IPT."市町村1"
+			, IPT."都道府県1"
+			, IPT."郵便番号1"
+			, IPT."税金徴収型1"
+			, to_number(IPT."商品売上1", '999999999.99')
+			, to_number(IPT."商品の売上税", '999999999.99')
+			, to_number(IPT."配送料", '999999999.99')
+			, to_number(IPT."配送料の税金", '999999999.99')
+			, to_number(IPT."ギフト包装手数料", '999999999.99')
+			, to_number(IPT."ギフト包装クレジットの税金", '999999999.99')
+			, to_number(IPT."Amazon1ポイントの費用", '999999999.99')
+			, to_number(IPT."プロモーション割引額", '999999999.99')
+			, to_number(IPT."プロモーション割引の税金", '999999999.99')
+			, IPT."源泉徴収税を伴うマーケットプレイス"
+			, to_number(IPT."手数料", '999999999.99')
+			, to_number(IPT."FBA 手数料1", '999999999.99')
+			, to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
+			, to_number(IPT."その他", '999999999.99')
+			, to_number(IPT."合計", '999999999.99')
+			, IPT."店舗ID"
+			, current_timestamp
+			, current_timestamp 
+		from
+			"IPT_ペイメント情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_注文情報" RES 
+				where
+					IPT."注文番号" = RES."Amazon注文番号" 
+					and IPT."SKU" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+	<sql id="insert_11_r1">
+		insert into "RES_注文情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "SHIP_注文受付日"
+			, "SHIP_支払日"
+			, "SHIP_発送日"
+			, "SHIP_配送サービスレベル"
+			, "SHIP_受取人"
+			, "SHIP_お届け先1"
+			, "SHIP_お届け先2"
+			, "SHIP_お届け先3"
+			, "SHIP_市区町村"
+			, "SHIP_都道府県"
+			, "SHIP_発送先郵便番号"
+			, "SHIP_国"
+			, "SHIP_お届け先電話番号"
+			, "SHIP_請求先の住所1"
+			, "SHIP_請求先の住所2"
+			, "SHIP_請求先の住所3"
+			, "SHIP_請求先の市区町村"
+			, "SHIP_請求先の都道府県"
+			, "SHIP_請求先の郵便番号"
+			, "SHIP_請求先の国"
+			, "SHIP_配送業者"
+			, "SHIP_問い合わせ番号"
+			, "SHIP_配送予定日"
+			, "SHIP_FC"
+			, "SHIP_出荷経路"
+			, "SHIP_販売経路"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			"Amazon注文番号"
+			, "出品者SKU"
+			, to_timestamp(IPT."注文受付日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, to_timestamp(IPT."支払日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, to_timestamp(IPT."発送日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, IPT."配送サービスレベル"
+			, IPT."受取人"
+			, IPT."お届け先1"
+			, IPT."お届け先2"
+			, IPT."お届け先3"
+			, IPT."市区町村"
+			, IPT."都道府県"
+			, IPT."発送先郵便番号"
+			, IPT."国"
+			, IPT."お届け先電話番号"
+			, IPT."請求先の住所1"
+			, IPT."請求先の住所2"
+			, IPT."請求先の住所3"
+			, IPT."請求先の市区町村"
+			, IPT."請求先の都道府県"
+			, IPT."請求先の郵便番号"
+			, IPT."請求先の国"
+			, IPT."配送業者"
+			, IPT."問い合わせ番号"
+			, to_timestamp(IPT."配送予定日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, IPT."FC"
+			, IPT."出荷経路"
+			, IPT."販売経路"
+			, IPT."店舗ID"
+			, current_timestamp
+			, current_timestamp 
+		from
+			"IPT_FBA在庫出荷情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_注文情報" RES 
+				where
+					IPT."Amazon注文番号" = RES."Amazon注文番号" 
+					and IPT."出品者SKU" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+	<sql id="insert_12_r1">
+		insert 
+		into "RES_注文情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "SHIP_出荷日"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			"Amazon注文番号"
+			, "出品者SKU"
+			, to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
+			, IPT."店舗ID"
+			, current_timestamp
+			, current_timestamp 
+		from
+			"IPT_出荷情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_注文情報" RES 
+				where
+					IPT."Amazon注文番号" = RES."Amazon注文番号" 
+					and IPT."出品者SKU" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = 'Smart-Bear'
+
+	</sql>
+
+	<sql id="deleteFile_h1">
+			delete 
+			from
+				"HIS_注文情報" 
+			where
+				exists ( 
+					select
+						1 
+					from
+						"IPT_全注文情報" 
+					where
+							"IPT_全注文情報"."amazon-order-id" = "HIS_注文情報"."amazon-order-id" 
+						and "IPT_全注文情報"."sku" = "HIS_注文情報"."sku" 
+						and "IPT_全注文情報"."asin" = "HIS_注文情報"."asin"
+						and "IPT_全注文情報"."店舗ID" = "HIS_注文情報"."店舗ID"
+						and "IPT_全注文情報"."店舗ID" = :shopId
+				)
+	</sql>
+	<sql id="deleteFile_h2">
+			delete 
+			from
+				"HIS_ペイメント情報" 
+			where
+				exists ( 
+					select
+						1 
+					from
+						"IPT_ペイメント情報" 
+					where
+						    "IPT_ペイメント情報"."日付/時間" = "HIS_ペイメント情報"."日付/時間" 
+						and "IPT_ペイメント情報"."決済番号" = "HIS_ペイメント情報"."決済番号" 
+						and "IPT_ペイメント情報"."トランザクションの種類" = "HIS_ペイメント情報"."トランザクションの種類" 				
+						and COALESCE("IPT_ペイメント情報"."注文番号",'') = COALESCE("HIS_ペイメント情報"."注文番号",'')
+						and COALESCE("IPT_ペイメント情報"."SKU",'') = COALESCE("HIS_ペイメント情報"."SKU",'') 						
+						and COALESCE("IPT_ペイメント情報"."説明",'') = COALESCE("HIS_ペイメント情報"."説明",'')						
+						and "IPT_ペイメント情報"."店舗ID" = "HIS_ペイメント情報"."店舗ID" 
+						and "IPT_ペイメント情報"."店舗ID" = :shopId 
+						
+				)
+	</sql>
+	<sql id="deleteFile_h3">
+			delete 
+			from
+				"HIS_在庫保管手数料情報" 
+			where
+				exists ( 
+					select
+						1 
+					from
+						"IPT_在庫保管手数料情報" 
+					where
+						    "IPT_在庫保管手数料情報"."ASIN" = "HIS_在庫保管手数料情報"."ASIN" 
+						and "IPT_在庫保管手数料情報"."Fulfillment center" = "HIS_在庫保管手数料情報"."Fulfillment center" 						
+						and "IPT_在庫保管手数料情報"."Country code" = "HIS_在庫保管手数料情報"."Country code" 
+						and "IPT_在庫保管手数料情報"."Month of charge" = "HIS_在庫保管手数料情報"."Month of charge"												
+						and "IPT_在庫保管手数料情報"."店舗ID" = "HIS_在庫保管手数料情報"."店舗ID" 
+						and "IPT_在庫保管手数料情報"."店舗ID" = :shopId    
+					)	
+	</sql>
+	<sql id="deleteFile_h4">
+		delete 
+		from
+			"HIS_長期在庫保管手数料請求額情報" 
+		where
+			exists ( 
+				select
+					1 
+				from
+					"IPT_長期在庫保管手数料請求額情報" 
+				where
+					"IPT_長期在庫保管手数料請求額情報"."日付" = "HIS_長期在庫保管手数料請求額情報"."日付" 
+					and "IPT_長期在庫保管手数料請求額情報"."出品者SKU" = "HIS_長期在庫保管手数料請求額情報"."出品者SKU" 
+					and "IPT_長期在庫保管手数料請求額情報"."ASIN" = "HIS_長期在庫保管手数料請求額情報"."ASIN" 
+					and "IPT_長期在庫保管手数料請求額情報"."コンディション" = "HIS_長期在庫保管手数料請求額情報"."コンディション" 
+					and "IPT_長期在庫保管手数料請求額情報"."国" = "HIS_長期在庫保管手数料請求額情報"."国" 
+					and "IPT_長期在庫保管手数料請求額情報"."店舗ID" = "HIS_長期在庫保管手数料請求額情報"."店舗ID" 
+					and "IPT_長期在庫保管手数料請求額情報"."店舗ID" = :shopId 
+			)
+	</sql>
+
+
+	<sql id="insertFile_h1">
+		insert into "HIS_注文情報" ( 
+			"amazon-order-id"
+			, "merchant-order-id"
+			, "purchase-date"
+			, "last-updated-date"
+			, "order-status"
+			, "fulfillment-channel"
+			, "sales-channel"
+			, "order-channel"
+			, url
+			, "ship-service-level"
+			, "product-name" 
+			, sku
+			, asin
+			, "item-status"
+			, quantity
+			, currency
+			, "item-price"
+			, "item-tax"
+			, "shipping-price"
+			, "shipping-tax"
+			, "gift-wrap-price"
+			, "gift-wrap-tax"
+			, "item-promotion-discount"
+			, "ship-promotion-discount"
+			, "ship-city"
+			, "ship-state"
+			, "ship-postal-code"
+			, "ship-country"
+			, "promotion-ids" 
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		) 
+		select
+			"amazon-order-id"
+			, "merchant-order-id"
+			, "purchase-date"
+			, "last-updated-date"
+			, "order-status"
+			, "fulfillment-channel"
+			, "sales-channel"
+			, "order-channel"
+			, url
+			, "ship-service-level"
+			, "product-name" 
+			, sku
+			, asin
+			, "item-status"
+			, quantity
+			, currency
+			, "item-price"
+			, "item-tax"
+			, "shipping-price"
+			, "shipping-tax"
+			, "gift-wrap-price"
+			, "gift-wrap-tax"
+			, "item-promotion-discount"
+			, "ship-promotion-discount"
+			, "ship-city"
+			, "ship-state"
+			, "ship-postal-code"
+			, "ship-country"
+			, "promotion-ids" 
+			, :shopId
+			, :aaa 
+			, :aaa
+		from
+			"IPT_全注文情報"
+
+		
+
+	</sql>
+	<sql id="insertFile_h2">
+		insert into "HIS_ペイメント情報" (
+			"日付/時間" 
+			, "決済番号" 
+			, "トランザクションの種類" 
+			, "注文番号" 
+			, "SKU" 
+			, "説明" 
+			, "数量" 
+			, "Amazon 出品サービス" 
+			, "フルフィルメント1" 
+			, "市町村1" 
+			, "都道府県1" 
+			, "郵便番号1" 
+			, "税金徴収型1" 
+			, "商品売上1" 
+			, "商品の売上税" 
+			, "配送料" 
+			, "配送料の税金" 
+			, "ギフト包装手数料" 
+			, "ギフト包装クレジットの税金" 
+			, "Amazon1ポイントの費用" 
+			, "プロモーション割引額" 
+			, "プロモーション割引の税金" 
+			, "源泉徴収税を伴うマーケットプレイス" 
+			, "手数料" 
+			, "FBA 手数料1" 
+			, "トランザクションに関するその他の手数料" 
+			, "その他" 
+			, "合計" 
+			, "Amazon2 出品サービス" 
+			, "フルフィルメント2" 
+			, "市町村2" 
+			, "都道府県2" 
+			, "郵便番号2" 
+			, "税金徴収型" 
+			, "商品売上" 
+			, "商品の売上税2" 
+			, "配送料2" 
+			, "配送料の税金2" 
+			, "ギフト包装手数料2" 
+			, "ギフト包装クレジットの税金2" 
+			, "Amazon3ポイントの費用 " 
+			, "プロモーション割引額2" 
+			, "プロモーション割引の税金2" 
+			, "源泉徴収税を伴うマーケットプレイス2" 
+			, "手数料2" 
+			, "FBA 手数料" 
+			, "トランザクションに関するその他の手数料2" 
+			, "その他2" 
+			, "合計2" 
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		)
+		select 
+			"日付/時間" 
+			, "決済番号" 
+			, "トランザクションの種類" 
+			, "注文番号" 
+			, "SKU" 
+			, "説明" 
+			, "数量" 
+			, "Amazon 出品サービス" 
+			, "フルフィルメント1" 
+			, "市町村1" 
+			, "都道府県1" 
+			, "郵便番号1" 
+			, "税金徴収型1" 
+			, "商品売上1" 
+			, "商品の売上税" 
+			, "配送料" 
+			, "配送料の税金" 
+			, "ギフト包装手数料" 
+			, "ギフト包装クレジットの税金" 
+			, "Amazon1ポイントの費用" 
+			, "プロモーション割引額" 
+			, "プロモーション割引の税金" 
+			, "源泉徴収税を伴うマーケットプレイス" 
+			, "手数料" 
+			, "FBA 手数料1" 
+			, "トランザクションに関するその他の手数料" 
+			, "その他" 
+			, "合計" 
+			, "Amazon2 出品サービス" 
+			, "フルフィルメント2" 
+			, "市町村2" 
+			, "都道府県2" 
+			, "郵便番号2" 
+			, "税金徴収型" 
+			, "商品売上" 
+			, "商品の売上税2" 
+			, "配送料2" 
+			, "配送料の税金2" 
+			, "ギフト包装手数料2" 
+			, "ギフト包装クレジットの税金2" 
+			, "Amazon3ポイントの費用 " 
+			, "プロモーション割引額2" 
+			, "プロモーション割引の税金2" 
+			, "源泉徴収税を伴うマーケットプレイス2" 
+			, "手数料2" 
+			, "FBA 手数料" 
+			, "トランザクションに関するその他の手数料2" 
+			, "その他2" 
+			, "合計2" 
+			, :shopId 
+			, :aaa 
+			, :aaa
+		from 
+			"IPT_ペイメント情報"
+
+	</sql>
+	<sql id="insertFile_h3">
+		insert into "HIS_在庫保管手数料情報" (
+			  "ASIN" 
+			, "fnsku" 
+			, "商品名" 
+			, "Fulfillment center" 
+			, "Country code" 
+			, "Longest side" 
+			, "Median side" 
+			, "Shortest side" 
+			, "Measurement units" 
+			, "weight"
+			, "Weight units" 
+			, "Item volume" 
+			, "Volume units" 
+			, "Product size tier" 
+			, "Average quantity on hand" 
+			, "Average quantity pending removal" 
+			, "Total item volume (est.)" 
+			, "Month of charge" 
+			, "Storage rate" 
+			, "通貨" 
+			, "Monthly storage fee (est.)" 
+			, "category" 
+			, "Total Incentive Amount" 
+			, "breakdown_incentive_fee_amount" 
+			, "average_quantity_customer_orders" 
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		)
+		select
+			  "ASIN" 
+			, "fnsku" 
+			, "商品名" 
+			, "Fulfillment center" 
+			, "Country code" 
+			, "Longest side" 
+			, "Median side" 
+			, "Shortest side" 
+			, "Measurement units" 
+			, "weight"
+			, "Weight units" 
+			, "Item volume" 
+			, "Volume units" 
+			, "Product size tier" 
+			, "Average quantity on hand" 
+			, "Average quantity pending removal" 
+			, "Total item volume (est.)" 
+			, "Month of charge" 
+			, "Storage rate" 
+			, "通貨" 
+			, "Monthly storage fee (est.)" 
+			, "category" 
+			, "Total Incentive Amount" 
+			, "breakdown_incentive_fee_amount" 
+			, "average_quantity_customer_orders"  
+			, :shopId 
+			, :aaa 
+			, :aaa  
+		from
+			"IPT_在庫保管手数料情報"
+
+	</sql>
+	<sql id="insertFile_h4">
+		
+		insert into "HIS_長期在庫保管手数料請求額情報" ( 
+			  "日付" 
+			, "出品者SKU" 
+			, "FNSKU" 
+			, "ASIN" 
+			, "商品名" 
+			, "コンディション" 
+			, "qty-charged-long-time-range-long-term-storage-fee" 
+			, "商品サイズ" 
+			, "通貨" 
+			, "long-time-range-long-term-storage-fee" 
+			, "qty-charged-short-time-range-long-term-storage-fee" 
+			, "short-time-range-long-term-storage-fee" 
+			, "volume-unit" 
+			, "国" 
+			, "enrolled-in-small-and-light" 
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		) 
+		select
+			  "日付" 
+			, "出品者SKU" 
+			, "FNSKU" 
+			, "ASIN" 
+			, "商品名" 
+			, "コンディション" 
+			, "qty-charged-long-time-range-long-term-storage-fee" 
+			, "商品サイズ" 
+			, "通貨" 
+			, "long-time-range-long-term-storage-fee" 
+			, "qty-charged-short-time-range-long-term-storage-fee" 
+			, "short-time-range-long-term-storage-fee" 
+			, "volume-unit" 
+			, "国" 
+			, "enrolled-in-small-and-light"  
+			, :shopId 
+			, :aaa 
+			, :aaa
+		from
+			"IPT_長期在庫保管手数料請求額情報"
+
+	</sql>
+
+
+	<sql id="selectInitInfo">
+		select
+			"店舗ID"
+			, "データ種別"
+			, "導入日時"
+			, "導入件数" 
+		from
+			( 
+				select
+					"店舗ID"
+					, "データ種別"
+					, "導入日時"
+					, "導入件数"
+					, row_number() over (partition by "データ種別" order by "導入日時" desc) rn 
+				from
+					"TRN_データ導入履歴" 
+				where
+					"店舗ID" = :shopId
+			) temp 
+		where
+			rn = 1 
+		order by
+			"データ種別"
+
+	</sql>
+
+
+	<sql id="delAllFile01">
+		DELETE FROM "IPT_全出品情報"
+	</sql>
+	<sql id="insertFile01">
+		INSERT INTO "IPT_全出品情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29,
+			:col30,
+			:col31,
+			:col32,
+			:col33,
+			:col34,
+			:col35,
+			:col36,
+			:col37,
+			:col38,
+			:col39,
+			:col40,
+			:col41,
+			:col42,
+			:col43,
+			:col44,
+			:col45,
+			:col46  
+		)
+	</sql>
+	<sql id="delAllFile02">
+		DELETE FROM "IPT_全注文情報"
+	</sql>
+	<sql id="insertFile02">
+		INSERT INTO "IPT_全注文情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29,
+			:col30,
+			:col31			 
+		)
+	</sql>
+	<sql id="delAllFile03">
+		DELETE FROM "IPT_FBA在庫情報"
+	</sql>
+	<sql id="insertFile03">
+		INSERT INTO "IPT_FBA在庫情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8
+		)
+	</sql>
+	<sql id="delAllFile04">
+		DELETE FROM "IPT_ペイメント情報"
+	</sql>
+	<sql id="insertFile04">
+		INSERT INTO "IPT_ペイメント情報" 
+		 
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29,
+			:col30,
+			:col31,
+			:col32,
+			:col33,
+			:col34,
+			:col35,
+			:col36,
+			:col37,
+			:col38,
+			:col39,
+			:col40,
+			:col41,
+			:col42,
+			:col43,
+			:col44,
+			:col45,
+			:col46, 
+			:col47,
+			:col48,
+			:col49,
+			:col50,
+			:col51
+			
+		)
+	</sql>
+	<sql id="delAllFile05">
+		DELETE FROM "IPT_FBA未出荷情報"
+	</sql>
+	<sql id="insertFile05">
+		INSERT INTO "IPT_FBA未出荷情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29,
+			:col30,
+			:col31,
+			:col32,
+			:col33,
+			:col34,
+			:col35,
+			:col36,
+			:col37,
+			:col38,
+			:col39,
+			:col40,
+			:col41,
+			:col42,
+			:col43,
+			:col44,
+			:col45,
+			:col46, 
+			:col47,
+			:col48,
+			:col49,
+			:col50,
+			:col51,
+			:col52,
+			:col53,
+			:col54,
+			:col55,
+			:col56,
+			:col57,
+			:col58,
+			:col59,
+			:col60,
+			:col61,
+			:col62,
+			:col63,
+			:col64,
+			:col65,
+			:col66,
+			:col67, 
+			:col68,
+			:col69,
+			:col70,
+			:col71,
+			:col72   
+		)
+	</sql>
+<!-- 06 数据库里没有建表 路过 下面07 -->
+	<sql id="delAllFile06">	
+	</sql>
+	<sql id="insertFile06">	
+	</sql>
+	<sql id="delAllFile07">
+		DELETE FROM "IPT_ビジネスレポート-1"
+	</sql>
+	<sql id="insertFile07">
+		INSERT INTO "IPT_ビジネスレポート-1"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20 
+		)
+	</sql>
+	<sql id="delAllFile08">
+		DELETE FROM "IPT_ビジネスレポート-2"
+	</sql>
+	<sql id="insertFile08">
+		INSERT INTO "IPT_ビジネスレポート-2"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16
+		)
+	</sql>
+	<sql id="delAllFile09">
+		DELETE FROM "IPT_ビジネスレポート-3"
+	</sql>
+	<sql id="insertFile09">
+		INSERT INTO "IPT_ビジネスレポート-3"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19
+			  
+		)
+	</sql>
+	<sql id="delAllFile10">
+		DELETE FROM "IPT_ビジネスレポート-4"
+	</sql>
+	<sql id="insertFile10">
+		INSERT INTO "IPT_ビジネスレポート-4"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24   
+		)
+	</sql>
+	<sql id="delAllFile11">
+		DELETE FROM "IPT_FBA在庫出荷情報"
+	</sql>
+	<sql id="insertFile11">
+		INSERT INTO "IPT_FBA在庫出荷情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29,
+			:col30,
+			:col31,
+			:col32,
+			:col33,
+			:col34,
+			:col35,
+			:col36,
+			:col37,
+			:col38,
+			:col39,
+			:col40,
+			:col41,
+			:col42,
+			:col43,
+			:col44,
+			:col45,
+			:col46, 
+			:col47,
+			:col48,
+			:col49,
+			:col50,
+			:col51
+			 
+		)
+	</sql>
+	<sql id="delAllFile12">
+		DELETE FROM "IPT_出荷情報"
+	</sql>
+	<sql id="insertFile12">
+		INSERT INTO "IPT_出荷情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17   
+		)
+	</sql>
+	<sql id="delAllFile13">
+		DELETE FROM "IPT_手数料見積り額情報"
+	</sql>
+	<sql id="insertFile13">
+		INSERT INTO "IPT_手数料見積り額情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27,
+			:col28,
+			:col29   
+		)
+	</sql>
+	<sql id="delAllFile14">
+		DELETE FROM "IPT_在庫保管手数料情報"
+	</sql>
+	<sql id="insertFile14">
+		INSERT INTO "IPT_在庫保管手数料情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18,
+			:col19,
+			:col20,
+			:col21,
+			:col22,
+			:col23,
+			:col24,
+			:col25,
+			:col26,
+			:col27   
+		)
+	</sql>
+	<sql id="delAllFile15">
+		DELETE FROM "IPT_長期在庫保管手数料請求額情報"
+	</sql>
+	<sql id="insertFile15">
+		INSERT INTO "IPT_長期在庫保管手数料請求額情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17   
+		)
+	</sql>
+	<sql id="delAllFile16">
+		DELETE FROM "IPT_返品情報"
+	</sql>
+	<sql id="insertFile16">
+		INSERT INTO "IPT_返品情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14  
+		)
+	</sql>
+	<sql id="delAllFile17">
+		DELETE FROM "IPT_返送推奨情報"
+	</sql>
+	<sql id="insertFile17">
+		INSERT INTO "IPT_返送推奨情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17,
+			:col18   
+		)
+	</sql>
+	<sql id="delAllFile18">
+		DELETE FROM "IPT_返送所有権放棄依頼詳細情報"
+	</sql>
+	<sql id="insertFile18">
+		INSERT INTO "IPT_返送所有権放棄依頼詳細情報"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3,
+			:col4,
+			:col5,
+			:col6,
+			:col7,
+			:col8,
+			:col9,
+			:col10,
+			:col11,
+			:col12,
+			:col13,
+			:col14,
+			:col15,
+			:col16,
+			:col17  
+		)
+	</sql>
+
+
+	<sql id="insertHistory">
+		INSERT INTO "TRN_データ導入履歴"
+		VALUES (
+			:col0,
+			:col1,
+			:col2,
+			:col3
+						 
+		)
+	</sql>
+
+</sqls>
+
+
+
+

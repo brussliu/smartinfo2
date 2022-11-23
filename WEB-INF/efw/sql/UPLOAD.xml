@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	<sql id="delAllProduct">
+		DELETE FROM "INPUT_出品詳細情報" WHERE "店舗名" = :shop
+	</sql>
+	<sql id="insertProduct">
+		INSERT INTO "INPUT_出品詳細情報"
+		VALUES (
+			:col0,--出品者SKU
+			:col1,--ASIN 1
+			:col2,--商品名
+			:col3,--商品の説明
+			:col4,--出品ID
+			:col5,--価格
+			:col6,--数量
+			:col7,--出品日
+			:col8,--商品IDタイプ
+			:col9,--コンディション説明
+			:col10,--コンディション
+			:col11,--国外へ配送可
+			:col12,--迅速な配送
+			:col13,--商品ID
+			:col14,--在庫数
+			:col15,--フルフィルメント・チャンネル
+			:col16,--使用しない支払い方法
+			:col17,--配送日時指定SKUリスト
+			:col18,--merchant-shipping-group
+			:col19,--ポイント
+			:col20,--商品税コード
+			:col21,--調達タイプ
+			:col22 --店舗名
+		)
+	</sql>
+	<sql id="updateProduct">
+		update "MASTER_出品マスタ情報"
+		set
+			"商品名称"	= :col2
+			,
+			"価格"	= :col5
+			,
+			"FBM在庫数量" = :col6
+		where
+			"店舗名" = :col22
+			and
+			"SKU番号" = :col0
+			and
+			"ASIN番号" = :col1
+	</sql>
+	<sql id="delAllFba">
+		DELETE FROM "INPUT_FBA在庫情報" WHERE "店舗名" = :shop
+	</sql>
+	<sql id="insertFba">
+		INSERT INTO "INPUT_FBA在庫情報"
+		VALUES (
+			:col0,--seller-sku	
+			:col1,--fulfillment-channel-sku	
+			:col2,--asin	
+			:col3,--condition-type	
+			:col4,--Warehouse-Condition-code	
+			:col5,--Quantity Available
+			:col6 --shop
+		)
+	</sql>
+	<sql id="updateFba">
+		UPDATE "MASTER_出品マスタ情報"
+		SET
+		  "FBA在庫数量" = :col5
+		WHERE 
+		  "SKU番号" = :col0
+		  AND
+		  "ASIN番号" = :col2
+		  AND
+		  "ラベル番号" = :col1
+		  AND
+		  "店舗名" = :col6
+	</sql>
+	<sql id="selectOrder">
+		SELECT COUNT(*) FROM "INPUT_注文情報" 
+		WHERE
+			"Amazon注文番号" = :col0
+			AND
+			"注文日時"	= :col2
+			AND
+			"店舗名" = :col3
+	</sql>
+	<sql id="delOrder">
+		DELETE FROM "INPUT_注文情報" 
+		WHERE
+			"Amazon注文番号" = :col0
+			AND
+			"注文日時"	= :col2
+			AND
+			"店舗名" = :col3
+	</sql>
+	<sql id="insertOrder">
+		INSERT INTO "INPUT_注文情報"
+		VALUES (
+			:col0,--amazon-order-id
+			:col1,--merchant-order-id
+			:col2,--purchase-date
+			:col3,--last-updated-date
+			:col4,--order-status
+			:col5,--fulfillment-channel
+			:col6,--sales-channel
+			:col7,--order-channel
+			:col8,--url
+			:col9,--ship-service-level
+			:col10,--product-name
+			:col11,--sku
+			:col12,--asin
+			:col13,--item-status
+			:col14,--quantity
+			:col15,--currency
+			:col16,--item-price
+			:col17,--item-tax
+			:col18,--shipping-price
+			:col19,--shipping-tax
+			:col20,--gift-wrap-price
+			:col21,--gift-wrap-tax
+			:col22,--item-promotion-discount
+			:col23,--ship-promotion-discount
+			:col24,--ship-city
+			:col25,--ship-state
+			:col26,--ship-postal-code
+			:col27,--ship-country
+			:col28,--promotion-ids
+			:col29 --shop
+		)
+	</sql>
+
+	<sql id="insertHistory">
+		INSERT INTO "データ導入履歴"
+		VALUES (
+			:col0,--店舗名
+			:col1,--データ種別
+			now(),--導入日時
+			:col2,--基準日時
+			:col3--導入件数
+		)
+	</sql>
+
+	<sql id="searchHistory">
+		select
+		TEMP."データ種別" as importtype,
+		TO_CHAR(TEMP."導入日時",'YYYY-mm-dd HH24：MI：SS') as importtime,
+		TEMP."基準日時" as basetime,
+		TEMP."導入件数" || '件' as importcount
+		from
+		(
+		select
+		 T."データ種別",
+		 T."導入日時",
+		 T."基準日時",
+		 T."導入件数",
+		 ROW_NUMBER() OVER(partition BY T."データ種別" ORDER BY T."導入日時" DESC) NB
+		from 
+		"データ導入履歴" T
+		where
+		T."店舗名" = :shop
+		) TEMP
+		where
+		NB = 1
+	</sql>
+
+	<sql id="updateOnboardstock">
+		update "MASTER_出品マスタ情報"
+		set
+		"ONBOARD在庫数量" = :onboardstock
+		where
+		 "ラベル番号" = :label
+	</sql>
+
+	<sql id="insertLabel">
+		INSERT INTO "TEMP_在庫確認"
+		VALUES (
+			:col0,--店舗名
+			:col1,--ラベル番号
+			:col2 --分類名(シート名)
+		)
+	</sql>
+
+	<sql id="selectLabel">
+		SELECT
+			A."分類名" as "div",
+			B."商品管理番号" as "productno",
+			B."商品分類" as "productdiv",
+			B."SKU番号" as "sku",
+			B."ASIN番号" as "asin",
+			coalesce(B."ラベル番号",A."ラベル番号") as "label",
+			B."商品名称" as "productname",
+			B."色" as "color",
+			B."サイズ" as "size",
+			A."数量" as "count"
+		FROM
+			(
+			SELECT 
+				"店舗名",
+				"分類名",
+				"ラベル番号",
+				COUNT("ラベル番号") AS "数量"
+			FROM
+				"TEMP_在庫確認"
+			WHERE
+				"店舗名" = :col0
+				AND
+				"分類名" = :col1
+			GROUP BY 
+				"店舗名","分類名","ラベル番号"
+			) A
+			LEFT JOIN "MASTER_出品マスタ情報" B
+			ON A."店舗名" = B."店舗名" AND A."ラベル番号" = B."ラベル番号"
+		ORDER BY A."分類名",
+			B."商品管理番号",
+			B."並び順",
+			A."数量"
+	</sql>
+
+	<sql id="selectAllLabel">
+		SELECT
+			B."商品管理番号" as "productno",
+			B."商品分類" as "productdiv",
+			B."SKU番号" as "sku",
+			B."ASIN番号" as "asin",
+			coalesce(B."ラベル番号",A."ラベル番号") as "label",
+			B."商品名称" as "productname",
+			B."色" as "color",
+			B."サイズ" as "size",
+			A."数量" as "count"
+		FROM
+			(
+			SELECT 
+				"店舗名",
+				"ラベル番号",
+				COUNT("ラベル番号") AS "数量"
+			FROM
+				"TEMP_在庫確認"
+			WHERE
+				"店舗名" = :col0
+			GROUP BY 
+				"店舗名","ラベル番号"
+			) A
+			LEFT JOIN "MASTER_出品マスタ情報" B
+			ON A."店舗名" = B."店舗名" AND A."ラベル番号" = B."ラベル番号"
+		ORDER BY
+			B."商品管理番号",
+			B."並び順",
+			A."数量"
+	</sql>
+
+	<sql id="deleteLabel">
+		DELETE FROM "TEMP_在庫確認"
+		WHERE
+			"店舗名" = :col0
+	</sql>
+
+	<sql id="updateAllLocalStock">
+		UPDATE
+		"MASTER_出品マスタ情報"
+		SET "LOCAL在庫数量" = '0'
+		WHERE
+		"店舗名" = :col0
+		AND
+		"商品種別" = '子商品'
+	</sql>
+
+	<sql id="updateLocalStock">
+		UPDATE
+		"MASTER_出品マスタ情報"
+		SET "LOCAL在庫数量" = :col2
+		WHERE
+		"店舗名" = :col0
+		AND "ラベル番号" = :col1
+	</sql>
+
+	<sql id="addLocalStock">
+		UPDATE
+		"MASTER_出品マスタ情報"
+		SET "LOCAL在庫数量" = to_number("LOCAL在庫数量",'99999') + :col2
+		WHERE
+		"店舗名" = :col0
+		AND "ラベル番号" = :col1
+	</sql>
+
+	<sql id="selectShipAmazon">
+		SELECT
+			*
+		FROM
+			"INPUT_発送情報_AMAZON"
+		WHERE
+			"注文番号" = :orderno
+			AND
+			"注文項目番号" = :orderitemno
+	</sql>
+
+	<sql id="insertShipAmazon">
+		INSERT INTO "INPUT_発送情報_AMAZON"
+		VALUES (
+			'未発送',
+			:col0, --注文番号
+			:col1, --注文項目番号
+			:col2, --注文時間
+			:col3, --支払時間
+			:col4, --購入者メール
+			:col5, --購入者名称
+			:col6, --購入者電話番号
+			:col7, --SKU番号
+			:col8, --商品名称
+			:col9, --商品数量
+			:col10,--通貨
+			:col11,--価格
+			:col12,--税金
+			:col13,--送料
+			:col14,--送料税金
+			:col15,--発送レベル
+			:col16,--宛先名称
+			:col17,--宛先住所１
+			:col18,--宛先住所２
+			:col19,--宛先住所３
+			:col20,--宛先住所市
+			:col21,--宛先都道府県
+			:col22,--宛先郵便番号
+			:col23 --宛先国
+		)
+	</sql>
+
+	<sql id="selectShipQoo10Product">
+		SELECT
+			*
+		FROM
+			"INPUT_発送情報_QOO10"
+		WHERE
+			"注文番号" = :orderno
+			AND
+			"カート番号" = :cartno
+	</sql>
+
+	<sql id="insertShipQoo10Product">
+		INSERT INTO "INPUT_発送情報_QOO10"
+		VALUES (
+			'未発送',
+			:col0, --配送状態
+			:col1, --注文番号
+			:col2, --カート番号
+			:col3, --配送会社
+			:col4, --送り状番号
+			:col5, --発送日
+			:col6, --発送予定日
+			:col7, --商品名
+			:col8, --数量
+			:col9, --オプション情報
+			:col10,--オプションコード
+			:col11,--受取人名
+			:col12,--販売者商品コード
+			:col13, --外部広告
+			null,
+			null,
+			null,
+			null,
+			null
+		)
+	</sql>
+
+	<sql id="updateShipQoo10ShipInfo">
+		UPDATE "INPUT_発送情報_QOO10"
+		SET
+			"購入者名" = :col0 ,
+			"受取人名" = :col1 ,
+			"郵便番号" = :col2 ,
+			"お届け先" = :col3 ,
+			"電話番号" = :col4 ,
+			"携帯電話" = :col5
+		WHERE
+			"注文番号" = :orderno
+
+	</sql>
+
+	<sql id="delLocalstock">
+		DELETE FROM "NEW_在庫情報"
+		WHERE
+			"SKU番号" = :sku
+			AND
+			"ASIN番号" = :asin
+	</sql>
+
+	<sql id="insLocalstock">
+		INSERT INTO "NEW_在庫情報"
+		VALUES (
+			:sku,
+			:asin,
+			:localstock,
+			:onboardstock
+		)
+	</sql>
+
+	<sql id="searchSKUASIN">
+		SELECT 
+			T1."SKU番号" as sku,
+			T1."ASIN番号" as asin
+		FROM
+			"NEW_出品マスタ情報" T1
+			JOIN "INPUT_FBA在庫情報" T2 ON  T1."SKU番号" = T2."SKU番号" AND T1."ASIN番号" = T2."ASIN番号"
+		WHERE
+			T2."ラベル番号" = :label
+			and
+			T1."店舗名" = :shop
+	</sql>
+
+	<sql id="updateNewLocalstock">
+		UPDATE "NEW_在庫情報"
+		SET
+			"LOCAL在庫数量" = to_number("LOCAL在庫数量", '99999') - to_number(:delivery, '99999')
+		WHERE
+			"SKU番号" = :sku
+			AND
+			"ASIN番号" = :asin
+	</sql>
+
+
+
+</sqls>
+
