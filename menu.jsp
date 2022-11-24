@@ -24,6 +24,7 @@
       	font-size: 20px;
       	font-weight: bold;
       }
+	  
     </style>
 </head>
 <body style="background-color:ghostwhite;">
