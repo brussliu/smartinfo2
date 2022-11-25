@@ -58,10 +58,12 @@ import_importfile.fire = function (params) {   //
 		flg_file01 = true;
 		var fa = params["#importfile_01"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
-		flg_file01.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		//flg_file01.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, "\t");
+		//var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
 		
 		// データ全件削除
 		var delResult = db.change(
@@ -93,6 +95,7 @@ import_importfile.fire = function (params) {   //
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
+		
 		// ******************数据读取******************
 
 		// ******************核心逻辑操作******************
