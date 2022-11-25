@@ -112,14 +112,14 @@ function excute_12_r1() {
 	);
 }
 
-function h1() {
+function excute_02_h1() {
 	    SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
 	var nowTime = today.format("yyyy-MM-dd HH:mm:ss");
 
 	var deleteResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"deleteFile_h1",
+		"deleteFile_02_h1",
 		{
 			 "shopId": SHOP_ID //放这个的意思是什么
 
@@ -128,21 +128,21 @@ function h1() {
 
 	var insertResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"insertFile_h1",
+		"insertFile_02_h1",
 		{
 			"shopId": SHOP_ID,
 			"nowTime": nowTime
 		}
 	);//导入数据库
 }
-function h2() {
+function excute_04_h2() {
 	SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
 	var nowTime = today.format("yyyy-MM-dd HH:mm:ss");
 
 	var deleteResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"deleteFile_h2",
+		"deleteFile_04_h2",
 		{
 			"shopId": SHOP_ID
 
@@ -151,7 +151,7 @@ function h2() {
 
 	var insertResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"insertFile_h2",
+		"insertFile_04_h2",
 		{
 			"shopId": SHOP_ID,
 			"nowTime": nowTime
@@ -159,14 +159,14 @@ function h2() {
 	);//导入数据库
 
 }
-function h3() {
+function excute_14_h3() {
 	SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
 	var nowTime = today.format("yyyy-MM-dd HH:mm:ss");
 
 	var deleteResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"deleteFile_h3",
+		"deleteFile_14_h3",
 		{
 			"shopId": SHOP_ID
 
@@ -175,7 +175,7 @@ function h3() {
 
 	var insertResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"insertFile_h3",
+		"insertFile_14_h3",
 		{
 			"shopId": SHOP_ID,
 			"nowTime": nowTime
@@ -183,14 +183,14 @@ function h3() {
 	);//导入数据库
 
 }
-function h4() {
+function excute_15_h4() {
 	SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
 	var nowTime = today.format("yyyy-MM-dd HH:mm:ss");
 
 	var deleteResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"deleteFile_h4",
+		"deleteFile_15_h4",
 		{
 			"shopId": SHOP_ID
 
@@ -199,7 +199,7 @@ function h4() {
 
 	var insertResult = db.change(//插入 删除用change ,检索用select;
 		"IMPORT",
-		"insertFile_h4",
+		"insertFile_15_h4",
 		{
 			"shopId": SHOP_ID,
 			"nowTime": nowTime
