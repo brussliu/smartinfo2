@@ -727,7 +727,7 @@
 			"IPT_在庫保管手数料情報"
 
 	</sql>
-	<sql id="deleteFile_15_h4">
+	<sql id="insertFile_15_h4">
 		
 		insert into "HIS_長期在庫保管手数料請求額情報" ( 
 			  "日付" 
