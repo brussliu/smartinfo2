@@ -10,7 +10,7 @@
 
 	<script>
         function init(){
-			Efw('initimport');
+			Efw('import_initimport');
 		}
 		function setInit(objectname,importdate,importcount){
 			$("#"+objectname).html(importdate);
@@ -42,7 +42,7 @@
 </div>
 <div style="text-align: right;width: 95%;">
 	<input type="button" id="import" style="width: 170px;height: 30px;background-color: rgb(199, 199, 227);" value="導入"
-		onclick="Efw('import/importfile')">
+		onclick="Efw('import_importfile')">
 </div>
 <table border="1" style="width: 95%;height: 100%;">
 	<tr style="background-color:rgba(86, 86, 207, 0.696) ;">
