@@ -1,11 +1,11 @@
-var login={};
-login.name="ログイン";//
-login.paramsFormat={  
+var common_login={};
+common_login.name="ログイン";//
+common_login.paramsFormat={  
 
 
 };
 
-login.fire=function(params){   //
+common_login.fire=function(params){   //
 
 	var ret = new Result();
 	

@@ -1,10 +1,10 @@
-var searchhistory={};
-searchhistory.name="データ導入履歴検索";
-searchhistory.paramsFormat={
+var common_searchhistory={};
+common_searchhistory.name="データ導入履歴検索";
+common_searchhistory.paramsFormat={
 	"#shop":null
 };
 var shopname = "";
-searchhistory.fire=function(params){
+common_searchhistory.fire=function(params){
 	
 	var ret = new Result();
 

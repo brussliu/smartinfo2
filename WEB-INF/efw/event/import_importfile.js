@@ -1,6 +1,6 @@
-var importfile = {};
-importfile.name = "データ導入";//
-importfile.paramsFormat = {
+var import_importfile = {};
+import_importfile.name = "データ導入";//
+import_importfile.paramsFormat = {
 
 	// 商品マスタ情報　18
 	"#importfile_01": null,//#
@@ -29,7 +29,7 @@ var registrationDate = "";//表里显示的时间
 
 var SHOP_ID = session.get("SHOP_ID");
 
-importfile.fire = function (params) {   //
+import_importfile.fire = function (params) {   //
 
 	var ret = new Result();
 	var flg_file01 = false;
@@ -58,12 +58,11 @@ importfile.fire = function (params) {   //
 		flg_file01 = true;
 		var fa = params["#importfile_01"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
-
-		var today = new Date();
+		flg_file01.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, "\t");
-
+		
 		// データ全件削除
 		var delResult = db.change(
 			"IMPORT",//IMPORT.xml
@@ -73,6 +72,7 @@ importfile.fire = function (params) {   //
 
 		//データ全件導入
 		num = 0;
+		
 		csvReader.loopAllLines(import_01);//针对文件 aryField 的每一行执行一次方法import_01
 		//履历表插入
 
@@ -88,7 +88,7 @@ importfile.fire = function (params) {   //
 		// ******************数据读取****************** 
 		var fa = params["#importfile_02"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
-
+		f.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -551,9 +551,9 @@ importfile.fire = function (params) {   //
 		saveHistory(SHOP_ID, "file18", today, num);
 	}
 
-	excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
-		flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-		flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
+	// excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
+	// 	flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
+	// 	flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
 
 	return ret.navigate("upload.jsp");//跳转
 };

@@ -1,10 +1,10 @@
-var initimport = {};
-initimport.name = "インポート画面初期表示";
-initimport.paramsFormat = {
+var import_initimport = {};
+import_initimport.name = "インポート画面初期表示";
+import_initimport.paramsFormat = {
 
 };
 var SHOP_ID ="";
-initimport.fire = function (params) {
+import_initimport.fire = function (params) {
 
 	var ret = new Result();
 
@@ -18,7 +18,7 @@ initimport.fire = function (params) {
 		"IMPORT",//IMPORT.xml
 		"selectInitInfo",
 		{
-			"shopId": SHOP_ID
+			 "shopId": SHOP_ID
 		}
 	).getArray();
 
@@ -28,8 +28,6 @@ initimport.fire = function (params) {
 		var datetype = selectResult[i]["データ種別"];
 		if (datetype == "file01") {
 			script = script + "setInit('file01','" + selectResult[i]["導入日時"].format("yyyy-MM-dd HH:mm:ss") + "','" + selectResult[i]["導入件数"] + "');";
-
-
 		}
 		if (datetype == "file02") {
 			script = script + "setInit('file02','" + selectResult[i]["導入日時"].format("yyyy-MM-dd HH:mm:ss") + "','" + selectResult[i]["導入件数"] + "');";
@@ -82,9 +80,7 @@ initimport.fire = function (params) {
 		if (datetype == "file18") {
 			script = script + "setInit('file18','" + selectResult[i]["導入日時"].format("yyyy-MM-dd HH:mm:ss") + "','" + selectResult[i]["導入件数"] + "');";
 		}
-
 	}
-
 	return ret.eval(script);
 };
 
