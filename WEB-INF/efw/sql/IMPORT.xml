@@ -25,14 +25,14 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = current_timestamp 
+			, "更新日時" = :nowTime 
 		from
 			"IPT_全注文情報" IPT 
 		where
 			IPT."amazon-order-id" = RES."Amazon注文番号" 
 			and IPT."sku" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 
@@ -45,34 +45,34 @@
 			, "PAYMENT_説明" = IPT."説明"
 			, "PAYMENT_数量" = to_number(IPT."数量", '999999999')
 			, "PAYMENT_Amazon 出品サービス" = IPT."Amazon 出品サービス"
-			, "PAYMENT_フルフィルメント" = IPT."フルフィルメント1"
-			, "PAYMENT_市町村" = IPT."市町村1"
-			, "PAYMENT_都道府県" = IPT."都道府県1"
-			, "PAYMENT_郵便番号" = IPT."郵便番号1"
-			, "PAYMENT_税金徴収型" = IPT."税金徴収型1"
-			, "PAYMENT_商品売上" = to_number(IPT."商品売上1", '999999999.99')
+			, "PAYMENT_フルフィルメント" = IPT."フルフィルメント"
+			, "PAYMENT_市町村" = IPT."市町村"
+			, "PAYMENT_都道府県" = IPT."都道府県"
+			, "PAYMENT_郵便番号" = IPT."郵便番号"
+			, "PAYMENT_税金徴収型" = IPT."税金徴収型"
+			, "PAYMENT_商品売上" = to_number(IPT."商品売上", '999999999.99')
 			, "PAYMENT_商品の売上税" = to_number(IPT."商品の売上税", '999999999.99')
 			, "PAYMENT_配送料" = to_number(IPT."配送料", '999999999.99')
 			, "PAYMENT_配送料の税金" = to_number(IPT."配送料の税金", '999999999.99')
 			, "PAYMENT_ギフト包装手数料" = to_number(IPT."ギフト包装手数料", '999999999.99')
 			, "PAYMENT_ギフト包装クレジットの税金" = to_number(IPT."ギフト包装クレジットの税金", '999999999.99')
-			, "PAYMENT_Amazonポイントの費用" = to_number(IPT."Amazon1ポイントの費用", '999999999.99')
+			, "PAYMENT_Amazonポイントの費用" = to_number(IPT."Amazonポイントの費用", '999999999.99')
 			, "PAYMENT_プロモーション割引額" = to_number(IPT."プロモーション割引額", '999999999.99')
 			, "PAYMENT_プロモーション割引の税金" = to_number(IPT."プロモーション割引の税金", '999999999.99')
 			, "PAYMENT_源泉徴収税を伴うマーケットプレイス" = IPT."源泉徴収税を伴うマーケットプレイス"
 			, "PAYMENT_手数料" = to_number(IPT."手数料", '999999999.99')
-			, "PAYMENT_FBA 手数料" = to_number(IPT."FBA 手数料1", '999999999.99')
+			, "PAYMENT_FBA 手数料" = to_number(IPT."FBA 手数料", '999999999.99')
 			, "PAYMENT_トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
 			, "PAYMENT_その他" = to_number(IPT."その他", '999999999.99')
 			, "PAYMENT_合計" = to_number(IPT."合計", '999999999.99')
-			, "更新日時" = current_timestamp 
+			, "更新日時" = :nowTime 
 		from
 			"IPT_ペイメント情報" IPT 
 		where
 			IPT."注文番号" = RES."Amazon注文番号" 
 			and IPT."SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 	<sql id="update_11_r1">
@@ -104,14 +104,14 @@
 			, "SHIP_FC" = IPT."FC"
 			, "SHIP_出荷経路" = IPT."出荷経路"
 			, "SHIP_販売経路" = IPT."販売経路"
-			, "更新日時" = current_timestamp 
+			, "更新日時" = :nowTime  
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
 			IPT."Amazon注文番号" = RES."Amazon注文番号" 
 			and IPT."出品者SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 	<sql id="update_12_r1">
@@ -125,7 +125,7 @@
 			IPT."Amazon注文番号" = RES."Amazon注文番号" 
 			and IPT."出品者SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 	
@@ -181,8 +181,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, current_timestamp
-			, current_timestamp
+			, :nowTime
+			, :nowTime
 		from
 			"IPT_全注文情報" IPT 
 		where
@@ -196,7 +196,7 @@
 					and IPT."sku" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 	</sql>
 	<sql id="insert_04_r1">
 		insert into "RES_注文情報" ( 
@@ -262,8 +262,8 @@
 			, to_number(IPT."その他", '999999999.99')
 			, to_number(IPT."合計", '999999999.99')
 			, IPT."店舗ID"
-			, current_timestamp
-			, current_timestamp 
+			, :nowTime
+			, :nowTime
 		from
 			"IPT_ペイメント情報" IPT 
 		where
@@ -277,7 +277,7 @@
 					and IPT."SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 	<sql id="insert_11_r1">
@@ -344,8 +344,8 @@
 			, IPT."出荷経路"
 			, IPT."販売経路"
 			, IPT."店舗ID"
-			, current_timestamp
-			, current_timestamp 
+			, :nowTime
+			, :nowTime
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
@@ -359,7 +359,7 @@
 					and IPT."出品者SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 	<sql id="insert_12_r1">
@@ -377,8 +377,8 @@
 			, "出品者SKU"
 			, to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
 			, IPT."店舗ID"
-			, current_timestamp
-			, current_timestamp 
+			, :nowTime
+			, :nowTime 
 		from
 			"IPT_出荷情報" IPT 
 		where
@@ -392,11 +392,11 @@
 					and IPT."出品者SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = 'Smart-Bear'
+			and IPT."店舗ID" = :shopId
 
 	</sql>
 
-	<sql id="deleteFile_h1">
+	<sql id="deleteFile_02_h1">
 			delete 
 			from
 				"HIS_注文情報" 
@@ -414,7 +414,7 @@
 						and "IPT_全注文情報"."店舗ID" = :shopId
 				)
 	</sql>
-	<sql id="deleteFile_h2">
+	<sql id="deleteFile_04_h2">
 			delete 
 			from
 				"HIS_ペイメント情報" 
@@ -436,7 +436,7 @@
 						
 				)
 	</sql>
-	<sql id="deleteFile_h3">
+	<sql id="deleteFile_14_h3">
 			delete 
 			from
 				"HIS_在庫保管手数料情報" 
@@ -455,7 +455,7 @@
 						and "IPT_在庫保管手数料情報"."店舗ID" = :shopId    
 					)	
 	</sql>
-	<sql id="deleteFile_h4">
+	<sql id="deleteFile_15_h4">
 		delete 
 		from
 			"HIS_長期在庫保管手数料請求額情報" 
@@ -477,7 +477,7 @@
 	</sql>
 
 
-	<sql id="insertFile_h1">
+	<sql id="insertFile_02_h1">
 		insert into "HIS_注文情報" ( 
 			"amazon-order-id"
 			, "merchant-order-id"
@@ -551,7 +551,7 @@
 		
 
 	</sql>
-	<sql id="insertFile_h2">
+	<sql id="insertFile_04_h2">
 		insert into "HIS_ペイメント情報" (
 			"日付/時間" 
 			, "決済番号" 
@@ -663,7 +663,7 @@
 			"IPT_ペイメント情報"
 
 	</sql>
-	<sql id="insertFile_h3">
+	<sql id="insertFile_14_h3">
 		insert into "HIS_在庫保管手数料情報" (
 			  "ASIN" 
 			, "fnsku" 
@@ -727,7 +727,7 @@
 			"IPT_在庫保管手数料情報"
 
 	</sql>
-	<sql id="insertFile_h4">
+	<sql id="deleteFile_15_h4">
 		
 		insert into "HIS_長期在庫保管手数料請求額情報" ( 
 			  "日付" 
