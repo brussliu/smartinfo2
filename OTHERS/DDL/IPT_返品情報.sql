@@ -9,7 +9,7 @@ create table public."IPT_返品情報" (
   , "FC" character varying(50)
   , "商品の状態" character varying(50)
   , "理由" character varying(50)
-  , lpn character varying(50)
+  , "lpn" character varying(50)
   , "お客様のコメント" character varying(200)
   , "店舗ID" character varying(20)
   , "登録日時" character varying(20)
