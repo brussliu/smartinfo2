@@ -7,7 +7,7 @@
 		auth			=	"Container"
 		type			=	"javax.sql.DataSource"
 		driverClassName	=	"org.postgresql.Driver"
-		url				=	"jdbc:postgresql://localhost:5432/smartinfo"
+		url				=	"jdbc:postgresql://localhost:5432/postgres"
 		username		=	"postgres"
 		password		=	"12345678"
 		maxActive		=	"100"
