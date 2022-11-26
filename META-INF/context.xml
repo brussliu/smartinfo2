@@ -10,9 +10,9 @@
 		url				=	"jdbc:postgresql://localhost:5432/smartinfo"
 		username		=	"postgres"
 		password		=	"12345678"
-		maxActive		=	"100"
-		maxIdle			=	"20"
-		maxWait			=	"10"
+		maxTotal		=	"100"
+		maxIdle			=	"10"
+		maxWaitMillis	=	"10"
 	/>
 
 	<Resource
@@ -23,9 +23,9 @@
 		url				=	"jdbc:mysql://rm-6wea2hgv255a4r0kuxo.mysql.japan.rds.aliyuncs.com:3306/smartinfo"
 		username		=	"smartuser"
 		password		=	"Smartuser2022"
-		maxActive		=	"100"
-		maxIdle			=	"20"
-		maxWait			=	"10"
+		maxTotal		=	"100"
+		maxIdle			=	"10"
+		maxWaitMillis	=	"10"
 	/>
 
 	<Resource
