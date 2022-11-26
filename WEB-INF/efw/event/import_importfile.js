@@ -58,6 +58,11 @@ import_importfile.fire = function (params) {   //
 		flg_file01 = true;
 		var fa = params["#importfile_01"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
+
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+
 		//flg_file01.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
@@ -154,6 +159,10 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_04"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -186,6 +195,8 @@ import_importfile.fire = function (params) {   //
 		flg_file05 = true;
 		var fa = params["#importfile_05"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
+
+		
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
@@ -350,12 +361,19 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_11"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+
+		// txt = txt.substring(1);
+
+		file.writeAllLines("upload/" + f,txt);
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
-		var csvReader = new CSVReader("upload/" + f, ",", "\"");
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
+		//var csvReader = new CSVReader("upload/" + f, ",");
+		var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -378,10 +396,14 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_12"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"");
+		var csvReader = new CSVReader("upload/" + f, ",");
 		//var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -522,7 +544,7 @@ import_importfile.fire = function (params) {   //
 		);
 		num = 0;
 		//データ全件導入
-		csvReader.loopAllLines(import_17);//针对文件 aryField 的每一行执行一次方法import_01
+		csvReader.loopAllLines(import_17);//针对文件 aryField 的每一行执行一次方法import_01	
 
 		//履历表插入
 		saveHistory(SHOP_ID, "file17", today, num);
@@ -550,13 +572,15 @@ import_importfile.fire = function (params) {   //
 		//データ全件導入
 		csvReader.loopAllLines(import_18);//针对文件 aryField 的每一行执行一次方法import_01
 
+		//csvReader._offsetRows
+
 		//履历表插入
 		saveHistory(SHOP_ID, "file18", today, num);
 	}
 
-	// excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
-	// 	flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-	// 	flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
+	excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
+		flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
+		flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
 
 	return ret.navigate("upload.jsp");//跳转
 };
