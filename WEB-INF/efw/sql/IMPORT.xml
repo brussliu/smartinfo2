@@ -543,8 +543,8 @@
 			, "ship-country"
 			, "promotion-ids" 
 			, :shopId
-			, :aaa 
-			, :aaa
+			, :nowTime 
+			, :nowTime
 		from
 			"IPT_全注文情報"
 
@@ -657,8 +657,8 @@
 			, "その他2" 
 			, "合計2" 
 			, :shopId 
-			, :aaa 
-			, :aaa
+			, :nowTime 
+			, :nowTime
 		from 
 			"IPT_ペイメント情報"
 
@@ -721,8 +721,8 @@
 			, "breakdown_incentive_fee_amount" 
 			, "average_quantity_customer_orders"  
 			, :shopId 
-			, :aaa 
-			, :aaa  
+			, :nowTime 
+			, :nowTime  
 		from
 			"IPT_在庫保管手数料情報"
 
@@ -766,8 +766,8 @@
 			, "国" 
 			, "enrolled-in-small-and-light"  
 			, :shopId 
-			, :aaa 
-			, :aaa
+			, :nowTime 
+			, :nowTime
 		from
 			"IPT_長期在庫保管手数料請求額情報"
 
@@ -950,29 +950,7 @@
 			:col27,
 			:col28,
 			:col29,
-			:col30,
-			:col31,
-			:col32,
-			:col33,
-			:col34,
-			:col35,
-			:col36,
-			:col37,
-			:col38,
-			:col39,
-			:col40,
-			:col41,
-			:col42,
-			:col43,
-			:col44,
-			:col45,
-			:col46, 
-			:col47,
-			:col48,
-			:col49,
-			:col50,
-			:col51
-			
+			:col30			
 		)
 	</sql>
 	<sql id="delAllFile05">
