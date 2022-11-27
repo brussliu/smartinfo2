@@ -23,7 +23,6 @@ import_importfile.paramsFormat = {
 	"#importfile_18": null,
 
 };
-
 var num = 0;//履歴登録処理の件数
 var registrationDate = "";//表里显示的时间
 
@@ -51,7 +50,7 @@ import_importfile.fire = function (params) {   //
 	var flg_file17 = false;
 	var flg_file18 = false;
 
-	file.saveUploadFiles("upload");//importfile_01文件上传到upload文件 不写也可以上传
+	file.saveUploadFiles("upload");//importfile_01文件上传到upload文件 
 
 	if (params["#importfile_01"] != null && params["#importfile_01"] != "") {
 
@@ -63,12 +62,9 @@ import_importfile.fire = function (params) {   //
 		txt = txt.replaceAll("\n","\r\n");
 		file.writeAllLines("upload/" + f,txt);
 
-		//flg_file01.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
 		var csvReader = new CSVReader("upload/" + f, "\t");
-		//var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
 		
 		// データ全件削除
 		var delResult = db.change(
@@ -76,16 +72,11 @@ import_importfile.fire = function (params) {   //
 			"delAllFile01",
 			{}
 		);
-
 		//データ全件導入
-		num = 0;
-		
+		num = 0;	
 		csvReader.loopAllLines(import_01);//针对文件 aryField 的每一行执行一次方法import_01
 		//履历表插入
-
 		saveHistory(SHOP_ID, "file01", today, num);
-
-
 	}
 	
 	if (params["#importfile_02"] != null && params["#importfile_02"] != "") {
@@ -95,7 +86,7 @@ import_importfile.fire = function (params) {   //
 		// ******************数据读取****************** 
 		var fa = params["#importfile_02"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
-		f.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -115,15 +106,8 @@ import_importfile.fire = function (params) {   //
 		num = 0;
 		csvReader.loopAllLines(import_02);//针对文件 aryField 的每一行执行一次方法import_01
 		// ******************核心逻辑操作******************	
-
-		// ******************同等插入H1******************	
-		//csvReader.loopAllLines(import_02_1);//针对文件 aryField 的每一行执行一次方法import_01_1
-
-
 		//履历表插入
 		saveHistory(SHOP_ID, "file02", today, num);
-
-
 
 	}
 
@@ -168,15 +152,13 @@ import_importfile.fire = function (params) {   //
 
 		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
 
-		//var csvReader = new CSVReader("upload/" + f, ",");
-
 		// データ全件削除
 		var delResult = db.change(
 
 			"IMPORT",//IMPORT.xml
 
 			"delAllFile04",
-			//执行到这里
+			
 			{}
 
 		);
@@ -195,8 +177,6 @@ import_importfile.fire = function (params) {   //
 		flg_file05 = true;
 		var fa = params["#importfile_05"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
-
-		
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
@@ -251,6 +231,10 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_07"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -278,11 +262,14 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_08"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, ",");
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -290,11 +277,11 @@ import_importfile.fire = function (params) {   //
 			"delAllFile08",
 			{}
 		);
-		//f.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		//データ全件導入
 		num = 0;
 		csvReader.loopAllLines(import_08);//针对文件 aryField 的每一行执行一次方法import_01
-		//f.debug("22222222222222222222>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		//履历表插入
 		saveHistory(SHOP_ID, "file08", today, num);
 	}
@@ -305,11 +292,13 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_09"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+		
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		//var csvReader = new CSVReader("upload/" + f, "\t","\"","MS932");
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
 		var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -333,11 +322,13 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_10"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f);
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt);
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		//var csvReader = new CSVReader("upload/" + f, "\t","\"","MS932");
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
 		var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -363,16 +354,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-
 		// txt = txt.substring(1);
-
 		file.writeAllLines("upload/" + f,txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
-		//var csvReader = new CSVReader("upload/" + f, ",");
 		var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -404,7 +391,6 @@ import_importfile.fire = function (params) {   //
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, ",");
-		//var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -412,14 +398,9 @@ import_importfile.fire = function (params) {   //
 			"delAllFile12",
 			{}
 		);
-		// f.debug("1111111111111111111111111111111111111111111111111111111111111111111");
 		//データ全件導入
 		num = 0;
 		csvReader.loopAllLines(import_12);//针对文件 aryField 的每一行执行一次方法import_01
-		// f.debug("222222222222222222222222222222222222222222222222222222222222");
-		//履历表插入
-		//aryField[0].length
-		//var con = SELECT *  FROM `IPT_出荷情報`;
 
 		saveHistory(SHOP_ID, "file12", today, num);
 
@@ -430,6 +411,10 @@ import_importfile.fire = function (params) {   //
 		flg_file13 = true;
 		var fa = params["#importfile_13"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
+
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
@@ -456,11 +441,15 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_14"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
-
+		
 		// データ全件削除
 		var delResult = db.change(
 			"IMPORT",//IMPORT.xml
@@ -480,6 +469,10 @@ import_importfile.fire = function (params) {   //
 		flg_file15 = true;
 		var fa = params["#importfile_15"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
+
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
@@ -506,6 +499,10 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_16"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -531,6 +528,10 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_17"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -548,7 +549,6 @@ import_importfile.fire = function (params) {   //
 
 		//履历表插入
 		saveHistory(SHOP_ID, "file17", today, num);
-
 	}
 
 	if (params["#importfile_18"] != null && params["#importfile_18"] != "") {
@@ -557,10 +557,14 @@ import_importfile.fire = function (params) {   //
 		var fa = params["#importfile_18"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
+		var txt=file.readAllLines("upload/" + f,"MS932");
+		txt = txt.replaceAll("\n","\r\n");
+		file.writeAllLines("upload/" + f,txt,"MS932");
+
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f, ",", "\"","MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -571,8 +575,6 @@ import_importfile.fire = function (params) {   //
 		num = 0;
 		//データ全件導入
 		csvReader.loopAllLines(import_18);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//csvReader._offsetRows
 
 		//履历表插入
 		saveHistory(SHOP_ID, "file18", today, num);
