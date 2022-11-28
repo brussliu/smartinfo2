@@ -354,12 +354,16 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
+
 		// txt = txt.substring(1);
+
 		file.writeAllLines("upload/" + f,txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
+		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
+		//var csvReader = new CSVReader("upload/" + f, ",");
 		var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -385,12 +389,15 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		txt = txt.substring(1);
+
+		file.writeAllLines("upload/" + f, txt, "MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		var csvReader = new CSVReader("upload/" + f, ",");
+		//var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
 		var delResult = db.change(
