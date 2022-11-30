@@ -55,6 +55,8 @@ import_importfile.fire = function (params) {   //
 	if (params["#importfile_01"] != null && params["#importfile_01"] != "") {
 
 		flg_file01 = true;
+
+		// ******************创建新方法****************** 
 		var fa = params["#importfile_01"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
 
@@ -65,6 +67,7 @@ import_importfile.fire = function (params) {   //
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 		var csvReader = new CSVReader("upload/" + f, "\t");
+		// ******************提取公共部分****************** 
 		
 		// データ全件削除
 		var delResult = db.change(
@@ -351,13 +354,13 @@ import_importfile.fire = function (params) {   //
 		flg_file11 = true;
 		var fa = params["#importfile_11"].split("\\");
 		var f = fa[fa.length - 1];//取出文件名
+		
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-
 		// txt = txt.substring(1);
-
 		file.writeAllLines("upload/" + f,txt);
+
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
