@@ -2,6 +2,75 @@
 <!DOCTYPE sqls>
 <sqls>
 
+	<sql id="update_15_r3">
+		update "RES_長期在庫保管手数料請求額情報" RES 
+		set
+			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			, "ORDER_注文ステータス" = IPT."order-status"
+			, "ORDER_出荷方式" = IPT."fulfillment-channel"
+			, "ORDER_配送方式" = IPT."ship-service-level"
+			, "ORDER_ASIN番号" = IPT."asin"
+			, "ORDER_数量" = to_number(IPT."quantity", '999999999')
+			, "ORDER_通貨" = IPT."currency"
+			, "ORDER_価格" = to_number(IPT."item-price", '999999999.99')
+			, "ORDER_税金" = to_number(IPT."item-tax", '999999999.99')
+			, "ORDER_配送料" = to_number(IPT."shipping-price", '999999999.99')
+			, "ORDER_配送料税金" = to_number(IPT."shipping-tax", '999999999.99')
+			, "ORDER_包装料" = to_number(IPT."gift-wrap-price", '999999999.99')
+			, "ORDER_包装料税金" = to_number(IPT."gift-wrap-tax", '999999999.99')
+			, "ORDER_注文プロモーション用割引額" = to_number(IPT."item-promotion-discount", '999999999.99')
+			, "ORDER_配送プロモーション用割引額" = to_number(IPT."ship-promotion-discount", '999999999.99')
+			, "ORDER_配送住所-市区町村" = IPT."ship-city"
+			, "ORDER_配送住所-都道府県" = IPT."ship-state"
+			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
+			, "ORDER_配送住所-国" = IPT."ship-country"
+			, "ORDER_プロモーション内容" = IPT."promotion-ids"
+			, "更新日時" = :nowTime 
+		from
+			"IPT_長期在庫保管手数料請求額情報" IPT 
+		where
+			IPT."amazon-order-id" = RES."Amazon注文番号" 
+			and IPT."sku" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = :shopId
+
+	</sql>
+
+	<sql id="update_14_r2">
+		update "RES_在庫保管手数料情報" RES 
+		set
+			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			, "ORDER_注文ステータス" = IPT."order-status"
+			, "ORDER_出荷方式" = IPT."fulfillment-channel"
+			, "ORDER_配送方式" = IPT."ship-service-level"
+			, "ORDER_ASIN番号" = IPT."asin"
+			, "ORDER_数量" = to_number(IPT."quantity", '999999999')
+			, "ORDER_通貨" = IPT."currency"
+			, "ORDER_価格" = to_number(IPT."item-price", '999999999.99')
+			, "ORDER_税金" = to_number(IPT."item-tax", '999999999.99')
+			, "ORDER_配送料" = to_number(IPT."shipping-price", '999999999.99')
+			, "ORDER_配送料税金" = to_number(IPT."shipping-tax", '999999999.99')
+			, "ORDER_包装料" = to_number(IPT."gift-wrap-price", '999999999.99')
+			, "ORDER_包装料税金" = to_number(IPT."gift-wrap-tax", '999999999.99')
+			, "ORDER_注文プロモーション用割引額" = to_number(IPT."item-promotion-discount", '999999999.99')
+			, "ORDER_配送プロモーション用割引額" = to_number(IPT."ship-promotion-discount", '999999999.99')
+			, "ORDER_配送住所-市区町村" = IPT."ship-city"
+			, "ORDER_配送住所-都道府県" = IPT."ship-state"
+			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
+			, "ORDER_配送住所-国" = IPT."ship-country"
+			, "ORDER_プロモーション内容" = IPT."promotion-ids"
+			, "更新日時" = :nowTime 
+		from
+			"IPT_在庫保管手数料情報" IPT 
+		where
+			IPT."amazon-order-id" = RES."Amazon注文番号" 
+			and IPT."sku" = RES."SKU番号" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = :shopId
+
+	</sql>
+
+
 	<sql id="update_02_r1">
 		update "RES_注文情報" RES 
 		set
@@ -35,7 +104,6 @@
 			and IPT."店舗ID" = :shopId
 
 	</sql>
-
 	<sql id="update_04_r1">
 		update "RES_注文情報" RES 
 		set
@@ -129,6 +197,144 @@
 
 	</sql>
 	
+	<sql id="insert_15_r3">
+		insert into "RES_長期在庫保管手数料請求額情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "ORDER_最終更新日時"
+			, "ORDER_注文ステータス"
+			, "ORDER_出荷方式"
+			, "ORDER_配送方式"
+			, "ORDER_ASIN番号"
+			, "ORDER_数量"
+			, "ORDER_通貨"
+			, "ORDER_価格"
+			, "ORDER_税金"
+			, "ORDER_配送料"
+			, "ORDER_配送料税金"
+			, "ORDER_包装料"
+			, "ORDER_包装料税金"
+			, "ORDER_注文プロモーション用割引額"
+			, "ORDER_配送プロモーション用割引額"
+			, "ORDER_配送住所-市区町村"
+			, "ORDER_配送住所-都道府県"
+			, "ORDER_配送住所-郵便番号"
+			, "ORDER_配送住所-国"
+			, "ORDER_プロモーション内容"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			  "amazon-order-id"
+			, "sku"
+			, to_timestamp("last-updated-date",'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "order-status"
+			, "fulfillment-channel"
+			, "ship-service-level"
+			, "asin"
+			, to_number("quantity",'999999999')
+			, "currency"
+			, to_number("item-price",'999999999.99')
+			, to_number("item-tax",'999999999.99')
+			, to_number("shipping-price",'999999999.99')
+			, to_number("shipping-tax",'999999999.99')
+			, to_number("gift-wrap-price",'999999999.99')
+			, to_number("gift-wrap-tax",'999999999.99')
+			, to_number("item-promotion-discount",'999999999.99')
+			, to_number("ship-promotion-discount",'999999999.99')
+			, "ship-city"
+			, "ship-state"
+			, "ship-postal-code"
+			, "ship-country"
+			, "promotion-ids"
+			, "店舗ID"
+			, :nowTime
+			, :nowTime
+		from
+			"IPT_長期在庫保管手数料請求額情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_長期在庫保管手数料請求額情報" RES 
+				where
+					IPT."amazon-order-id" = RES."Amazon注文番号" 
+					and IPT."sku" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = :shopId
+	</sql>
+	<sql id="insert_14_r2">
+		insert into "RES_在庫保管手数料情報" ( 
+			"Amazon注文番号"
+			, "SKU番号"
+			, "ORDER_最終更新日時"
+			, "ORDER_注文ステータス"
+			, "ORDER_出荷方式"
+			, "ORDER_配送方式"
+			, "ORDER_ASIN番号"
+			, "ORDER_数量"
+			, "ORDER_通貨"
+			, "ORDER_価格"
+			, "ORDER_税金"
+			, "ORDER_配送料"
+			, "ORDER_配送料税金"
+			, "ORDER_包装料"
+			, "ORDER_包装料税金"
+			, "ORDER_注文プロモーション用割引額"
+			, "ORDER_配送プロモーション用割引額"
+			, "ORDER_配送住所-市区町村"
+			, "ORDER_配送住所-都道府県"
+			, "ORDER_配送住所-郵便番号"
+			, "ORDER_配送住所-国"
+			, "ORDER_プロモーション内容"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			  "amazon-order-id"
+			, "sku"
+			, to_timestamp("last-updated-date",'YYYY-MM-DD HH24:MI:SS+09:00')
+			, "order-status"
+			, "fulfillment-channel"
+			, "ship-service-level"
+			, "asin"
+			, to_number("quantity",'999999999')
+			, "currency"
+			, to_number("item-price",'999999999.99')
+			, to_number("item-tax",'999999999.99')
+			, to_number("shipping-price",'999999999.99')
+			, to_number("shipping-tax",'999999999.99')
+			, to_number("gift-wrap-price",'999999999.99')
+			, to_number("gift-wrap-tax",'999999999.99')
+			, to_number("item-promotion-discount",'999999999.99')
+			, to_number("ship-promotion-discount",'999999999.99')
+			, "ship-city"
+			, "ship-state"
+			, "ship-postal-code"
+			, "ship-country"
+			, "promotion-ids"
+			, "店舗ID"
+			, :nowTime
+			, :nowTime
+		from
+			"IPT_在庫保管手数料情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_在庫保管手数料情報" RES 
+				where
+					IPT."amazon-order-id" = RES."Amazon注文番号" 
+					and IPT."sku" = RES."SKU番号" 
+					and IPT."店舗ID" = RES."店舗ID"
+			) 
+			and IPT."店舗ID" = :shopId
+	</sql>
 	<sql id="insert_02_r1">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
