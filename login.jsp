@@ -24,13 +24,20 @@
       	font-size: 20px;
       	font-weight: bold;
       }
+	  img{
+		position: relative;
+		left: 50%;
+		top: 50%;
+		margin: -70px 0 0 -70px;
+	  }
     </style>
 </head>
 <!-- //onload="init()" -->
 <body style="background-color:ghostwhite;">
-
+	<img src="img/smiley-2.png"  onclick="Efw('common_login');">
 	<!-- <input type=button value= "ログイン"style="width:400px;height: 40px;" onclick="Efw('login')"> -->
-	<input type=button value= "ログイン"style="width:400px;height: 40px;" onclick="Efw('common_login')">
+	<!-- <input type=button value= "ログイン"style="width:400px;height: 40px;" > -->
+	
 			
 
 
