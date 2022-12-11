@@ -9,7 +9,7 @@ common_menu_goto.fire = function (params) {
 	var ret = new Result();
 	//SHOP_ID.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 	if (SHOP_ID == null || SHOP_ID == "") {
-		params["page"].debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+		
 		return ret.navigate("login.jsp");//跳转到登陆页面
 		//return ret.navigate(params["page"]);
 	}
