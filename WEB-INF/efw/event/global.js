@@ -15,11 +15,14 @@ global.fire = function () {
 function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
 				flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
 				flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18) {
-		
 					
-					
-
-		
+					// excute_02_r1();
+					// excute_04_r1();
+					// excute_11_r1();
+					// excute_12_r1();
+					//excute_14_r2();
+					//excute_15_r3();
+							
 }
 function excute_15_r3() {
 	SHOP_ID = session.get("SHOP_ID");
@@ -68,6 +71,7 @@ function excute_14_r2() {
 	);
 }
 
+
 function excute_02_r1() {
 	SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
@@ -91,7 +95,6 @@ function excute_02_r1() {
 		}
 	);
 }
-
 function excute_04_r1() {
 	SHOP_ID = session.get("SHOP_ID");
 	var today = new Date();
@@ -161,6 +164,7 @@ function excute_12_r1() {
 		}
 	);
 }
+
 
 function excute_02_h1() {
 	    SHOP_ID = session.get("SHOP_ID");
