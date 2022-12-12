@@ -1,3 +1,5 @@
+drop table public."IPT_FBA在庫情報";
+
 create table public."IPT_FBA在庫情報" (
   "seller-sku" character varying(50)
   , "fulfillment-channel-sku" character varying(50)

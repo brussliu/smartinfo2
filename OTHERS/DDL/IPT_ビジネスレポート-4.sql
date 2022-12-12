@@ -1,3 +1,5 @@
+drop table public."IPT_ビジネスレポート-4";
+
 create table public."IPT_ビジネスレポート-4" (
   "(親) ASIN" character varying(50)
   , "(子) ASIN" character varying(50)

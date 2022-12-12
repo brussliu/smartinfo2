@@ -1,3 +1,5 @@
+drop table public."IPT_返品情報";
+
 create table public."IPT_返品情報" (
   "返品日" character varying(50)
   , "注文番号" character varying(50)

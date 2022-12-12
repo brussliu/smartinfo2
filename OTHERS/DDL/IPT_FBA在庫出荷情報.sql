@@ -1,3 +1,5 @@
+drop table public."IPT_FBA在庫出荷情報";
+
 create table public."IPT_FBA在庫出荷情報" (
   "Amazon注文番号" character varying(50)
   , "出品者注文ID" character varying(50)

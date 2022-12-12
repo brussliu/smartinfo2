@@ -1,3 +1,5 @@
+drop table public."IPT_ビジネスレポート-3";
+
 create table public."IPT_ビジネスレポート-3" (
   "日付" character varying(20)
   , "注文商品売上" character varying(20)

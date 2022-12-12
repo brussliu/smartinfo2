@@ -1,3 +1,5 @@
+drop table public."IPT_FBA未出荷情報";
+
 create table public."IPT_FBA未出荷情報" (
   "order-id" character varying(50)
   , "order-item-id" character varying(50)

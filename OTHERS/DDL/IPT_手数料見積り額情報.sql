@@ -1,3 +1,5 @@
+drop table public."IPT_手数料見積り額情報";
+
 create table public."IPT_手数料見積り額情報" (
   "sku"character varying(50)
   , "fnsku" character varying(50)

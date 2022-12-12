@@ -1,3 +1,5 @@
+drop table public."RES_注文情報";
+
 create table public."RES_注文情報" (
   "Amazon注文番号" character varying(19)
   , "SKU番号" character varying(12)

@@ -1,3 +1,5 @@
+drop table public."IPT_返送所有権放棄依頼詳細情報";
+
 create table public."IPT_返送所有権放棄依頼詳細情報" (
   "依頼日" character varying(50)
   , "依頼番号" character varying(50)

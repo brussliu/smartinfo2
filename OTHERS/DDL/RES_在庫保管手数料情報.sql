@@ -1,3 +1,5 @@
+drop table public."RES_在庫保管手数料情報";
+
 create table public."RES_在庫保管手数料情報" (
   "ASIN" character varying(20)
   , fnsku character varying(20)

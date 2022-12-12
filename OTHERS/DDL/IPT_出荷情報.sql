@@ -1,3 +1,5 @@
+drop table public."IPT_出荷情報";
+
 create table public."IPT_出荷情報" (
   "出荷日" character varying(50)
   , "出品者SKU" character varying(50)

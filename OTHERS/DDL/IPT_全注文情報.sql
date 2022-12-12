@@ -1,3 +1,5 @@
+drop table public."IPT_全注文情報";
+
 create table public."IPT_全注文情報" (
   "amazon-order-id" character varying(50)
   , "merchant-order-id" character varying(50)

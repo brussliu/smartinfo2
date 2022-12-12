@@ -1,3 +1,5 @@
+drop table public."IPT_全出品情報";
+
 create table public."IPT_全出品情報" (
   "出品者SKU" character varying(50)
   , "ASIN 1" character varying(50)

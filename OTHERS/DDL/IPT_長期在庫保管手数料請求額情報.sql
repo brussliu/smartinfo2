@@ -1,3 +1,5 @@
+drop table public."IPT_長期在庫保管手数料請求額情報";
+
 create table public."IPT_長期在庫保管手数料請求額情報" (
   "日付" character varying(50)
   , "出品者SKU" character varying(50)

@@ -1,3 +1,5 @@
+drop table public."TRN_データ導入履歴";
+
 create table public."TRN_データ導入履歴" (
   "店舗ID" character varying(20)
   , "データ種別" character varying(20)

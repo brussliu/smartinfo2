@@ -1,3 +1,5 @@
+drop table public."HIS_ペイメント情報";
+
 create table public."HIS_ペイメント情報" (
   "日付/時間" character varying(50)
   , "決済番号" character varying(50)
