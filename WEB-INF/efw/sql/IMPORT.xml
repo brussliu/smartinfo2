@@ -2,7 +2,7 @@
 <!DOCTYPE sqls>
 <sqls>
 
-	<sql id="update_15_r3">
+	<sql id="update_15_r3" paramPrefix="!">
 		update "RES_長期在庫保管手数料請求額情報" RES 
 		set
 			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
@@ -25,18 +25,18 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = :nowTime 
+			, "更新日時" = !nowTime 
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
 			IPT."amazon-order-id" = RES."Amazon注文番号" 
 			and IPT."sku" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
 
-	<sql id="update_14_r2">
+	<sql id="update_14_r2" paramPrefix="!">
 		update "RES_在庫保管手数料情報" RES 
 		set
 			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
@@ -59,19 +59,19 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = :nowTime 
+			, "更新日時" = !nowTime 
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
 			IPT."amazon-order-id" = RES."Amazon注文番号" 
 			and IPT."sku" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
 
 
-	<sql id="update_02_r1">
+	<sql id="update_02_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
 			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
@@ -94,17 +94,17 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = :nowTime 
+			, "更新日時" = !nowTime 
 		from
 			"IPT_全注文情報" IPT 
 		where
 			IPT."amazon-order-id" = RES."Amazon注文番号" 
 			and IPT."sku" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="update_04_r1">
+	<sql id="update_04_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
 			"PAYMENT_日付/時間" = to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
@@ -133,17 +133,17 @@
 			, "PAYMENT_トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
 			, "PAYMENT_その他" = to_number(IPT."その他", '999999999.99')
 			, "PAYMENT_合計" = to_number(IPT."合計", '999999999.99')
-			, "更新日時" = :nowTime 
+			, "更新日時" = !nowTime 
 		from
 			"IPT_ペイメント情報" IPT 
 		where
 			IPT."注文番号" = RES."Amazon注文番号" 
 			and IPT."SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="update_11_r1">
+	<sql id="update_11_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
 			"SHIP_注文受付日" = to_timestamp(IPT."注文受付日", 'YYYY-MM-DD HH24:MI:SS+09:00')
@@ -172,17 +172,17 @@
 			, "SHIP_FC" = IPT."FC"
 			, "SHIP_出荷経路" = IPT."出荷経路"
 			, "SHIP_販売経路" = IPT."販売経路"
-			, "更新日時" = :nowTime  
+			, "更新日時" = !nowTime  
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
 			IPT."Amazon注文番号" = RES."Amazon注文番号" 
 			and IPT."出品者SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="update_12_r1">
+	<sql id="update_12_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
 			"SHIP_出荷日" = to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
@@ -193,11 +193,11 @@
 			IPT."Amazon注文番号" = RES."Amazon注文番号" 
 			and IPT."出品者SKU" = RES."SKU番号" 
 			and IPT."店舗ID" = RES."店舗ID" 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
 	
-	<sql id="insert_15_r3">
+	<sql id="insert_15_r3" paramPrefix="!">
 		insert into "RES_長期在庫保管手数料請求額情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -249,8 +249,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, :nowTime
-			, :nowTime
+			, !nowTime
+			, !nowTime
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
@@ -266,7 +266,7 @@
 			) 
 			and IPT."店舗ID" = :shopId
 	</sql>
-	<sql id="insert_14_r2">
+	<sql id="insert_14_r2" paramPrefix="!">
 		insert into "RES_在庫保管手数料情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -318,8 +318,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, :nowTime
-			, :nowTime
+			, !nowTime
+			, !nowTime
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
@@ -333,9 +333,9 @@
 					and IPT."sku" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 	</sql>
-	<sql id="insert_02_r1">
+	<sql id="insert_02_r1" paramPrefix="!">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -387,8 +387,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, :nowTime
-			, :nowTime
+			, !nowTime
+			, !nowTime
 		from
 			"IPT_全注文情報" IPT 
 		where
@@ -402,9 +402,9 @@
 					and IPT."sku" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 	</sql>
-	<sql id="insert_04_r1">
+	<sql id="insert_04_r1" paramPrefix="!">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -468,8 +468,8 @@
 			, to_number(IPT."その他", '999999999.99')
 			, to_number(IPT."合計", '999999999.99')
 			, IPT."店舗ID"
-			, :nowTime
-			, :nowTime
+			, !nowTime
+			, !nowTime
 		from
 			"IPT_ペイメント情報" IPT 
 		where
@@ -483,10 +483,10 @@
 					and IPT."SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="insert_11_r1">
+	<sql id="insert_11_r1" paramPrefix="!">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -550,8 +550,8 @@
 			, IPT."出荷経路"
 			, IPT."販売経路"
 			, IPT."店舗ID"
-			, :nowTime
-			, :nowTime
+			, !nowTime
+			, !nowTime
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
@@ -565,10 +565,10 @@
 					and IPT."出品者SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="insert_12_r1">
+	<sql id="insert_12_r1" paramPrefix="!">
 		insert 
 		into "RES_注文情報" ( 
 			"Amazon注文番号"
@@ -583,8 +583,8 @@
 			, "出品者SKU"
 			, to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
 			, IPT."店舗ID"
-			, :nowTime
-			, :nowTime 
+			, !nowTime
+			, !nowTime 
 		from
 			"IPT_出荷情報" IPT 
 		where
@@ -598,7 +598,7 @@
 					and IPT."出品者SKU" = RES."SKU番号" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 
 	</sql>
 

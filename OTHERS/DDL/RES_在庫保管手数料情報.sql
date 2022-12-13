@@ -26,7 +26,7 @@ create table public."RES_在庫保管手数料情報" (
   , "Total Incentive Amount" numeric(7, 2)
   , breakdown_incentive_fee_amount character varying(50)
   , average_quantity_customer_orders numeric(7, 2)
-  , "店舗ID" character varying(50)
-  , "登録日時" character varying(50)
-  , "更新日時" character varying(50)
+  , "店舗ID" character varying(20)
+  , "登録日時" timestamp(6) without time zone
+  , "更新日時" timestamp(6) without time zone
 );

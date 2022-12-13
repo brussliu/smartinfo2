@@ -17,6 +17,6 @@ create table public."RES_長期在庫保管手数料請求額情報" (
   , "国" character varying(50)
   , "enrolled-in-small-and-light" character varying(50)
   , "店舗ID" character varying(20)
-  , "登録日時" character varying(20)
-  , "更新日時" character varying(20)
+  , "登録日時" timestamp(6) without time zone
+  , "更新日時" timestamp(6) without time zone
 );
