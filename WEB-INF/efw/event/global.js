@@ -22,6 +22,11 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					// excute_12_r1();
 					//excute_14_r2();
 					//excute_15_r3();
+
+					excute_02_h1();
+					excute_04_h2();
+					excute_14_h3();
+					excute_15_h4();
 							
 }
 function excute_15_r3() {
