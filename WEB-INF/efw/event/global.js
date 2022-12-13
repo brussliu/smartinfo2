@@ -17,9 +17,9 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 				flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18) {
 					
 					excute_02_r1();
-					excute_04_r1();
-					excute_11_r1();
-					excute_12_r1();
+					// excute_04_r1();
+					// excute_11_r1();
+					// excute_12_r1();
 
 					//excute_14_r2();
 					//excute_15_r3();
