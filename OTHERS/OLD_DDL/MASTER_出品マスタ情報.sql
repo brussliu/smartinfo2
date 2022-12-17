@@ -1,0 +1,18 @@
+create table public."MASTER_出品マスタ情報" (
+  "店舗名" character varying(20)
+  , "商品管理番号" character varying(50)
+  , "商品分類" character varying(50)
+  , "SKU番号" character varying(50)
+  , "ASIN番号" character varying(50)
+  , "ラベル番号" character varying(50)
+  , "商品名称" character varying(500)
+  , "価格" character varying(50)
+  , "FBM在庫数量" character varying(50)
+  , "FBA在庫数量" character varying(50)
+  , "商品種別" character varying(50)
+  , "出品タイプ" character varying(50)
+  , "商品写真" character varying(99999)
+  , "並び順" character varying(10)
+  , "色" character varying(50)
+  , "サイズ" character varying(50)
+);

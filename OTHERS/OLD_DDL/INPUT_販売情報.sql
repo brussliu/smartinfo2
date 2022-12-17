@@ -1,0 +1,17 @@
+create table public."INPUT_販売情報" (
+  "商品管理番号" character varying(50)
+  , "ASIN番号" character varying(50)
+  , "評価数" character varying(50)
+  , "評価度" character varying(50)
+  , "レベル1種類" character varying(50)
+  , "レベル1数" character varying(50)
+  , "レベル2種類" character varying(50)
+  , "レベル2数" character varying(50)
+  , "質問数" character varying(50)
+  , "最新評価1" character varying(50)
+  , "最新評価2" character varying(50)
+  , "最新評価3" character varying(50)
+  , "販売数量(週間平均値)" character varying(50)
+  , "在库合計" character varying(50)
+  , "更新日" character varying(50)
+);
