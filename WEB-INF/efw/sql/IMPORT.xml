@@ -104,45 +104,50 @@
 			and IPT."店舗ID" = !shopId
 
 	</sql>
-	<sql id="update_04_r1" paramPrefix="!">
-		update "RES_注文情報" RES 
+
+	<sql id="update_04_r2" paramPrefix="!">
+		update "RES_注文ペイメント情報" RES 
 		set
-			"PAYMENT_日付/時間" = to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
-			, "PAYMENT_決済番号" = IPT."決済番号"
-			, "PAYMENT_トランザクションの種類" = IPT."トランザクションの種類"
-			, "PAYMENT_説明" = IPT."説明"
-			, "PAYMENT_数量" = to_number(IPT."数量", '999999999')
-			, "PAYMENT_Amazon 出品サービス" = IPT."Amazon 出品サービス"
-			, "PAYMENT_フルフィルメント" = IPT."フルフィルメント"
-			, "PAYMENT_市町村" = IPT."市町村"
-			, "PAYMENT_都道府県" = IPT."都道府県"
-			, "PAYMENT_郵便番号" = IPT."郵便番号"
-			, "PAYMENT_税金徴収型" = IPT."税金徴収型"
-			, "PAYMENT_商品売上" = to_number(IPT."商品売上", '999999999.99')
-			, "PAYMENT_商品の売上税" = to_number(IPT."商品の売上税", '999999999.99')
-			, "PAYMENT_配送料" = to_number(IPT."配送料", '999999999.99')
-			, "PAYMENT_配送料の税金" = to_number(IPT."配送料の税金", '999999999.99')
-			, "PAYMENT_ギフト包装手数料" = to_number(IPT."ギフト包装手数料", '999999999.99')
-			, "PAYMENT_ギフト包装クレジットの税金" = to_number(IPT."ギフト包装クレジットの税金", '999999999.99')
-			, "PAYMENT_Amazonポイントの費用" = to_number(IPT."Amazonポイントの費用", '999999999.99')
-			, "PAYMENT_プロモーション割引額" = to_number(IPT."プロモーション割引額", '999999999.99')
-			, "PAYMENT_プロモーション割引の税金" = to_number(IPT."プロモーション割引の税金", '999999999.99')
-			, "PAYMENT_源泉徴収税を伴うマーケットプレイス" = IPT."源泉徴収税を伴うマーケットプレイス"
-			, "PAYMENT_手数料" = to_number(IPT."手数料", '999999999.99')
-			, "PAYMENT_FBA 手数料" = to_number(IPT."FBA 手数料", '999999999.99')
-			, "PAYMENT_トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
-			, "PAYMENT_その他" = to_number(IPT."その他", '999999999.99')
-			, "PAYMENT_合計" = to_number(IPT."合計", '999999999.99')
+			"日付/時間" = to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
+			, "決済番号" = IPT."決済番号"
+			, "トランザクションの種類" = IPT."トランザクションの種類"
+			, "説明" = IPT."説明"
+			, "数量" = to_number(IPT."数量", '999999999')
+			, "Amazon 出品サービス" = IPT."Amazon 出品サービス"
+			, "フルフィルメント" = IPT."フルフィルメント"
+			, "市町村" = IPT."市町村"
+			, "都道府県" = IPT."都道府県"
+			, "郵便番号" = IPT."郵便番号"
+			, "税金徴収型" = IPT."税金徴収型"
+			, "商品売上" = to_number(IPT."商品売上", '999999999.99')
+			, "商品の売上税" = to_number(IPT."商品の売上税", '999999999.99')
+			, "配送料" = to_number(IPT."配送料", '999999999.99')
+			, "配送料の税金" = to_number(IPT."配送料の税金", '999999999.99')
+			, "ギフト包装手数料" = to_number(IPT."ギフト包装手数料", '999999999.99')
+			, "ギフト包装クレジットの税金" = to_number(IPT."ギフト包装クレジットの税金", '999999999.99')
+			, "Amazonポイントの費用" = to_number(IPT."Amazonポイントの費用", '999999999.99')
+			, "プロモーション割引額" = to_number(IPT."プロモーション割引額", '999999999.99')
+			, "プロモーション割引の税金" = to_number(IPT."プロモーション割引の税金", '999999999.99')
+			, "源泉徴収税を伴うマーケットプレイス" = IPT."源泉徴収税を伴うマーケットプレイス"
+			, "手数料" = to_number(IPT."手数料", '999999999.99')
+			, "FBA 手数料" = to_number(IPT."FBA 手数料", '999999999.99')
+			, "トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
+			, "その他" = to_number(IPT."その他", '999999999.99')
+			, "合計" = to_number(IPT."合計", '999999999.99')
 			, "更新日時" = !nowTime 
 		from
 			"IPT_ペイメント情報" IPT 
 		where
-			IPT."注文番号" = RES."Amazon注文番号" 
-			and IPT."SKU" = RES."SKU番号" 
+			IPT."注文番号" = RES."注文番号" 
+			and IPT."SKU" = RES."SKU" 
 			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."トランザクションの種類" in ('注文','返金')
 			and IPT."店舗ID" = !shopId
 
 	</sql>
+
+
+
 	<sql id="update_11_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
@@ -404,46 +409,47 @@
 			) 
 			and IPT."店舗ID" = !shopId
 	</sql>
-	<sql id="insert_04_r1" paramPrefix="!">
-		insert into "RES_注文情報" ( 
-			"Amazon注文番号"
-			, "SKU番号"
-			, "PAYMENT_日付/時間"
-			, "PAYMENT_決済番号"
-			, "PAYMENT_トランザクションの種類"
-			, "PAYMENT_説明"
-			, "PAYMENT_数量"
-			, "PAYMENT_Amazon 出品サービス"
-			, "PAYMENT_フルフィルメント"
-			, "PAYMENT_市町村"
-			, "PAYMENT_都道府県"
-			, "PAYMENT_郵便番号"
-			, "PAYMENT_税金徴収型"
-			, "PAYMENT_商品売上"
-			, "PAYMENT_商品の売上税"
-			, "PAYMENT_配送料"
-			, "PAYMENT_配送料の税金"
-			, "PAYMENT_ギフト包装手数料"
-			, "PAYMENT_ギフト包装クレジットの税金"
-			, "PAYMENT_Amazonポイントの費用"
-			, "PAYMENT_プロモーション割引額"
-			, "PAYMENT_プロモーション割引の税金"
-			, "PAYMENT_源泉徴収税を伴うマーケットプレイス"
-			, "PAYMENT_手数料"
-			, "PAYMENT_FBA 手数料"
-			, "PAYMENT_トランザクションに関するその他の手数"
-			, "PAYMENT_その他"
-			, "PAYMENT_合計"
+
+	<sql id="insert_04_r2" paramPrefix="!">
+		insert into "RES_注文ペイメント情報" ( 
+			  "日付/時間"
+			, "決済番号"
+			, "トランザクションの種類"
+			, "注文番号"
+			, "SKU"
+			, "説明"
+			, "数量"
+			, "Amazon 出品サービス"
+			, "フルフィルメント"
+			, "市町村"
+			, "都道府県"
+			, "郵便番号"
+			, "税金徴収型"
+			, "商品売上"
+			, "商品の売上税"
+			, "配送料"
+			, "配送料の税金"
+			, "ギフト包装手数料"
+			, "ギフト包装クレジットの税金"
+			, "Amazonポイントの費用"
+			, "プロモーション割引額"
+			, "プロモーション割引の税金"
+			, "源泉徴収税を伴うマーケットプレイス"
+			, "手数料"
+			, "FBA 手数料"
+			, "トランザクションに関するその他の手数"
+			, "その他"
+			, "合計"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"
 		) 
 		select
-			"注文番号"
-			, "SKU"
-			, to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
+			  to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
 			, IPT."決済番号"
 			, IPT."トランザクションの種類"
+			, IPT."注文番号"
+			, IPT."SKU"
 			, IPT."説明"
 			, to_number(IPT."数量", '999999999')
 			, IPT."Amazon 出品サービス"
@@ -477,15 +483,65 @@
 				select
 					1 
 				from
-					"RES_注文情報" RES 
+					"RES_注文ペイメント情報" RES 
 				where
-					IPT."注文番号" = RES."Amazon注文番号" 
-					and IPT."SKU" = RES."SKU番号" 
+					IPT."注文番号" = RES."注文番号" 
+					and IPT."SKU" = RES."SKU" 
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
+			and IPT."トランザクションの種類" in ('注文','返金')
 			and IPT."店舗ID" = !shopId
 
 	</sql>
+
+
+	<sql id="insert_04_r3" paramPrefix="!">
+		insert into "RES_非注文ペイメント情報" ( 
+			  "日付/時間"
+			, "決済番号"
+			, "トランザクションの種類"
+			, "注文番号"
+			, "SKU"
+			, "説明"
+			, "合計"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			  to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ')
+			, IPT."決済番号"
+			, IPT."トランザクションの種類"
+			, IPT."注文番号"
+			, IPT."SKU"
+			, IPT."説明"
+			, to_number(IPT."合計", '999999999.99')
+			, IPT."店舗ID"
+			, !nowTime
+			, !nowTime
+		from
+			"IPT_ペイメント情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_非注文ペイメント情報" RES 
+				where
+					to_timestamp(IPT."日付/時間", 'YYYY/MM/DD HH24:MI:SS    ') = RES."日付/時間" 
+					and IPT."決済番号" = RES."決済番号" 
+					and IPT."トランザクションの種類" = RES."トランザクションの種類"
+					and COALESCE(IPT."注文番号",'') = COALESCE(RES."注文番号",'')
+					and COALESCE(IPT."SKU",'') = COALESCE(RES."SKU",'')
+					and COALESCE(IPT."説明",'') = COALESCE(RES."説明",'')
+			) 
+			and IPT."トランザクションの種類" not in ('注文','返金')
+			and IPT."店舗ID" = !shopId
+
+	</sql>
+
+
+
 	<sql id="insert_11_r1" paramPrefix="!">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"

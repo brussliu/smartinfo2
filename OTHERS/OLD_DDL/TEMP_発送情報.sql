@@ -1,4 +1,4 @@
-create table public."TEMP_ç™ºé€æƒ…å ±" (
+create table public."TEMP_°kËÍÇéˆó" (
   "NO" character varying(20) default NULL
   , "POST_NO" character varying(10) default NULL
   , "ADDRESS1" character varying(200) default NULL

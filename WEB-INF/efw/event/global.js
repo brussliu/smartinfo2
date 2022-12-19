@@ -17,10 +17,12 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 				flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18) {
 					
 					// --------------------------------↓↓↓確認済↓↓↓--------------------------------
-					// excute_02_r1();
-					// excute_04_r1();
-					// excute_11_r1();
-					// excute_12_r1();
+					excute_02_r1();
+					excute_11_r1();
+					excute_12_r1();
+
+					excute_04_r2();
+					excute_04_r3();
 
 					// excute_02_h1();
 					// excute_04_h2();
@@ -30,9 +32,8 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 
 					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
 
-
-					// excute_14_r2();
-					// excute_15_r3();
+					// excute_14_r4();
+					// excute_15_r5();
 
 
 							
@@ -85,6 +86,44 @@ function excute_14_r2() {
 }
 
 
+function excute_04_r2() {
+	SHOP_ID = session.get("SHOP_ID");
+	var now = new Date();
+
+	var updateResult = db.change(
+		"IMPORT",
+		"update_04_r2",
+		{
+			"shopId": SHOP_ID, 
+			"nowTime": now
+		}
+	);
+
+	var insertResult = db.change(
+		"IMPORT",
+		"insert_04_r2",
+		{
+			"shopId": SHOP_ID,
+			"nowTime": now
+		}
+	);
+}
+
+function excute_04_r3() {
+	SHOP_ID = session.get("SHOP_ID");
+	var now = new Date();
+
+	var insertResult = db.change(
+		"IMPORT",
+		"insert_04_r3",
+		{
+			"shopId": SHOP_ID,
+			"nowTime": now
+		}
+	);
+}
+
+
 function excute_02_r1() {
 	SHOP_ID = session.get("SHOP_ID");
 	var now = new Date();
@@ -107,28 +146,28 @@ function excute_02_r1() {
 		}
 	);
 }
-function excute_04_r1() {
-	SHOP_ID = session.get("SHOP_ID");
-	var now = new Date();
+// function excute_04_r1() {
+// 	SHOP_ID = session.get("SHOP_ID");
+// 	var now = new Date();
 
-	var updateResult = db.change(
-		"IMPORT",
-		"update_04_r1",
-		{
-			"shopId": SHOP_ID, 
-			"nowTime": now
-		}
-	);
+// 	var updateResult = db.change(
+// 		"IMPORT",
+// 		"update_04_r1",
+// 		{
+// 			"shopId": SHOP_ID, 
+// 			"nowTime": now
+// 		}
+// 	);
 
-	var insertResult = db.change(
-		"IMPORT",
-		"insert_04_r1",
-		{
-			"shopId": SHOP_ID,
-			"nowTime": now
-		}
-	);
-}
+// 	var insertResult = db.change(
+// 		"IMPORT",
+// 		"insert_04_r1",
+// 		{
+// 			"shopId": SHOP_ID,
+// 			"nowTime": now
+// 		}
+// 	);
+// }
 function excute_11_r1() {
 	SHOP_ID = session.get("SHOP_ID");
 	var now = new Date();

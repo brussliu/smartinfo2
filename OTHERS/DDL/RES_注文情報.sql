@@ -23,32 +23,6 @@ create table public."RES_注文情報" (
   , "ORDER_配送住所-郵便番号" character varying(50)
   , "ORDER_配送住所-国" character varying(50)
   , "ORDER_プロモーション内容" character varying(200)
-  , "PAYMENT_日付/時間" timestamp(6) without time zone
-  , "PAYMENT_決済番号" character varying(50)
-  , "PAYMENT_トランザクションの種類" character varying(50)
-  , "PAYMENT_説明" character varying(200)
-  , "PAYMENT_数量" integer
-  , "PAYMENT_Amazon 出品サービス" character varying(50)
-  , "PAYMENT_フルフィルメント" character varying(50)
-  , "PAYMENT_市町村" character varying(50)
-  , "PAYMENT_都道府県" character varying(50)
-  , "PAYMENT_郵便番号" character varying(50)
-  , "PAYMENT_税金徴収型" character varying(50)
-  , "PAYMENT_商品売上" money
-  , "PAYMENT_商品の売上税" money
-  , "PAYMENT_配送料" money
-  , "PAYMENT_配送料の税金" money
-  , "PAYMENT_ギフト包装手数料" money
-  , "PAYMENT_ギフト包装クレジットの税金" money
-  , "PAYMENT_Amazonポイントの費用" money
-  , "PAYMENT_プロモーション割引額" money
-  , "PAYMENT_プロモーション割引の税金" money
-  , "PAYMENT_源泉徴収税を伴うマーケットプレイス" character varying(99)
-  , "PAYMENT_手数料" money
-  , "PAYMENT_FBA 手数料" money
-  , "PAYMENT_トランザクションに関するその他の手数" money
-  , "PAYMENT_その他" money
-  , "PAYMENT_合計" money
   , "SHIP_注文受付日" timestamp(6) without time zone
   , "SHIP_支払日" timestamp(6) without time zone
   , "SHIP_発送日" timestamp(6) without time zone
