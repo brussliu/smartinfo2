@@ -62,11 +62,11 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		file.writeAllLines("upload/" + f + ".01",txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-		var csvReader = new CSVReader("upload/" + f, "\t");
+		var csvReader = new CSVReader("upload/" + f + ".01", "\t");
 		// ******************提取公共部分****************** 
 		
 		// データ全件削除
@@ -148,12 +148,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".04",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".04", ",", "\"", "MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -236,13 +236,13 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		file.writeAllLines("upload/" + f + ".07",txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
-		var csvReader = new CSVReader("upload/" + f, ",");
+		var csvReader = new CSVReader("upload/" + f + ".07", ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -267,12 +267,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		file.writeAllLines("upload/" + f + ".08",txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",");
+		var csvReader = new CSVReader("upload/" + f + ".08", ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -297,12 +297,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		file.writeAllLines("upload/" + f + ".09",txt);
 		
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",");
+		var csvReader = new CSVReader("upload/" + f + ".09", ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -327,12 +327,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f);
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt);
+		file.writeAllLines("upload/" + f + ".10",txt);
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",");
+		var csvReader = new CSVReader("upload/" + f + ".10", ",");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -360,14 +360,14 @@ import_importfile.fire = function (params) {   //
 
 		txt = txt.substring(1);
 
-		file.writeAllLines("upload/" + f, txt, "MS932");
+		file.writeAllLines("upload/" + f + ".11", txt, "MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
 		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
 		//var csvReader = new CSVReader("upload/" + f, ",");
-		var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
+		var csvReader = new CSVReader("upload/" + f + ".11", ",","\"","MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -394,12 +394,12 @@ import_importfile.fire = function (params) {   //
 		txt = txt.replaceAll("\n","\r\n");
 		txt = txt.substring(1);
 
-		file.writeAllLines("upload/" + f, txt, "MS932");
+		file.writeAllLines("upload/" + f + ".12", txt, "MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
+		var csvReader = new CSVReader("upload/" + f + ".12", ",","\"","MS932");
 		//var csvReader = new CSVReader("upload/" + f, ",");
 
 		// データ全件削除
@@ -424,12 +424,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".13",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".13", ",", "\"", "MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -453,12 +453,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".14",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".14", ",", "\"", "MS932");
 		
 		// データ全件削除
 		var delResult = db.change(
@@ -482,12 +482,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".15",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".15", ",", "\"", "MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -511,12 +511,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".16",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".16", ",", "\"", "MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -540,12 +540,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".17",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"", "MS932");
+		var csvReader = new CSVReader("upload/" + f + ".17", ",", "\"", "MS932");
 
 		// データ全件削除
 		var delResult = db.change(
@@ -569,12 +569,12 @@ import_importfile.fire = function (params) {   //
 
 		var txt=file.readAllLines("upload/" + f,"MS932");
 		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f,txt,"MS932");
+		file.writeAllLines("upload/" + f + ".18",txt,"MS932");
 
 		var today = new Date();
 		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		var csvReader = new CSVReader("upload/" + f, ",", "\"","MS932");
+		var csvReader = new CSVReader("upload/" + f + ".18", ",", "\"","MS932");
 
 		// データ全件削除
 		var delResult = db.change(
