@@ -8,6 +8,11 @@ SET PGPASSWORD=12345678
 SET IPADDRESS=localhost
 SET PORT=5432
 
+%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f MST_在庫情報.sql
+%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f MST_出品マスタ情報.sql
+%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f MST_出品マスタ情報_BACKUP.sql
+%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f MST_入庫仕入推奨数量情報.sql
+%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f MST_販売数量情報.sql
 
 %PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f IPT_FBA未出荷情報.sql
 %PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f IPT_FBA在庫出荷情報.sql
