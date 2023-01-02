@@ -3,6 +3,7 @@ drop table public."RES_注文情報";
 create table public."RES_注文情報" (
   "Amazon注文番号" character varying(19)
   , "SKU番号" character varying(12)
+  , "ORDER_注文日時" timestamp(6) without time zone
   , "ORDER_最終更新日時" timestamp(6) without time zone
   , "ORDER_注文ステータス" character varying(50)
   , "ORDER_出荷方式" character varying(50)

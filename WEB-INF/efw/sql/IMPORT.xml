@@ -74,7 +74,8 @@
 	<sql id="update_02_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
 		set
-			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			  "ORDER_注文日時" = to_timestamp(IPT."purchase-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			, "ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
 			, "ORDER_注文ステータス" = IPT."order-status"
 			, "ORDER_出荷方式" = IPT."fulfillment-channel"
 			, "ORDER_配送方式" = IPT."ship-service-level"
@@ -344,6 +345,7 @@
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
+			, "ORDER_注文日時"
 			, "ORDER_最終更新日時"
 			, "ORDER_注文ステータス"
 			, "ORDER_出荷方式"
@@ -371,6 +373,7 @@
 		select
 			  "amazon-order-id"
 			, "sku"
+			, to_timestamp("purchase-date",'YYYY-MM-DD HH24:MI:SS+09:00')
 			, to_timestamp("last-updated-date",'YYYY-MM-DD HH24:MI:SS+09:00')
 			, "order-status"
 			, "fulfillment-channel"
