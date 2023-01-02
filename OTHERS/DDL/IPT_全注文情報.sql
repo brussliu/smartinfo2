@@ -1,6 +1,6 @@
-drop table public."IPT_å…¨æ³¨æ–‡æƒ…å ±";
+drop table public."IPT_‘S’•¶î•ñ";
 
-create table public."IPT_å…¨æ³¨æ–‡æƒ…å ±" (
+create table public."IPT_‘S’•¶î•ñ" (
   "amazon-order-id" character varying(50)
   , "merchant-order-id" character varying(50)
   , "purchase-date" character varying(50)
@@ -30,7 +30,7 @@ create table public."IPT_å…¨æ³¨æ–‡æƒ…å ±" (
   , "ship-postal-code" character varying(50)
   , "ship-country" character varying(50)
   , "promotion-ids" character varying(200)
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" character varying(20)
-  , "æ›´æ–°æ—¥æ™‚" character varying(20)
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" character varying(20)
+  , "XV“ú" character varying(20)
 );

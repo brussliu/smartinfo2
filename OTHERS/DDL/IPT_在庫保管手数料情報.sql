@@ -1,9 +1,9 @@
-drop table public."IPT_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±";
+drop table public."IPT_İŒÉ•ÛŠÇè”—¿î•ñ";
 
-create table public."IPT_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±" (
+create table public."IPT_İŒÉ•ÛŠÇè”—¿î•ñ" (
   "ASIN" character varying(50)
   , "fnsku" character varying(50)
-  , "å•†å“å" character varying(200)
+  , "¤•i–¼" character varying(200)
   , "Fulfillment center" character varying(50)
   , "Country code" character varying(50)
   , "Longest side" character varying(50)
@@ -20,13 +20,13 @@ create table public."IPT_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±" (
   , "Total item volume (est.)" character varying(50)
   , "Month of charge" character varying(50)
   , "Storage rate" character varying(50)
-  , "é€šè²¨" character varying(50)
+  , "’Ê‰İ" character varying(50)
   , "Monthly storage fee (est.)" character varying(50)
   , "category" character varying(50)
   , "Total Incentive Amount" character varying(50)
   , "breakdown_incentive_fee_amount" character varying(50)
   , "average_quantity_customer_orders" character varying(50)
-  , "åº—èˆ—ID" character varying(50)
-  , "ç™»éŒ²æ—¥æ™‚" character varying(50)
-  , "æ›´æ–°æ—¥æ™‚" character varying(50)
+  , "“X•ÜID" character varying(50)
+  , "“o˜^“ú" character varying(50)
+  , "XV“ú" character varying(50)
 );

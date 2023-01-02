@@ -1,56 +1,56 @@
-drop table public."RES_æ³¨æ–‡æƒ…å ±";
+drop table public."RES_’•¶î•ñ";
 
-create table public."RES_æ³¨æ–‡æƒ…å ±" (
-  "Amazonæ³¨æ–‡ç•ªå·" character varying(19)
-  , "SKUç•ªå·" character varying(12)
-  , "ORDER_æœ€çµ‚æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
-  , "ORDER_æ³¨æ–‡ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹" character varying(50)
-  , "ORDER_å‡ºè·æ–¹å¼" character varying(50)
-  , "ORDER_é…é€æ–¹å¼" character varying(50)
-  , "ORDER_ASINç•ªå·" character varying(50)
-  , "ORDER_æ•°é‡" integer
-  , "ORDER_é€šè²¨" character varying(6)
-  , "ORDER_ä¾¡æ ¼" money
-  , "ORDER_ç¨é‡‘" money
-  , "ORDER_é…é€æ–™" money
-  , "ORDER_é…é€æ–™ç¨é‡‘" money
-  , "ORDER_åŒ…è£…æ–™" money
-  , "ORDER_åŒ…è£…æ–™ç¨é‡‘" money
-  , "ORDER_æ³¨æ–‡ãƒ—ãƒ­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ç”¨å‰²å¼•é¡" money
-  , "ORDER_é…é€ãƒ—ãƒ­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ç”¨å‰²å¼•é¡" money
-  , "ORDER_é…é€ä½æ‰€-å¸‚åŒºç”ºæ‘" character varying(50)
-  , "ORDER_é…é€ä½æ‰€-éƒ½é“åºœçœŒ" character varying(50)
-  , "ORDER_é…é€ä½æ‰€-éƒµä¾¿ç•ªå·" character varying(50)
-  , "ORDER_é…é€ä½æ‰€-å›½" character varying(50)
-  , "ORDER_ãƒ—ãƒ­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³å†…å®¹" character varying(200)
-  , "SHIP_æ³¨æ–‡å—ä»˜æ—¥" timestamp(6) without time zone
-  , "SHIP_æ”¯æ‰•æ—¥" timestamp(6) without time zone
-  , "SHIP_ç™ºé€æ—¥" timestamp(6) without time zone
-  , "SHIP_é…é€ã‚µãƒ¼ãƒ“ã‚¹ãƒ¬ãƒ™ãƒ«" character varying(50)
-  , "SHIP_å—å–äºº" character varying(50)
-  , "SHIP_ãŠå±Šã‘å…ˆ1" character varying(50)
-  , "SHIP_ãŠå±Šã‘å…ˆ2" character varying(50)
-  , "SHIP_ãŠå±Šã‘å…ˆ3" character varying(50)
-  , "SHIP_å¸‚åŒºç”ºæ‘" character varying(50)
-  , "SHIP_éƒ½é“åºœçœŒ" character varying(50)
-  , "SHIP_ç™ºé€å…ˆéƒµä¾¿ç•ªå·" character varying(50)
-  , "SHIP_å›½" character varying(50)
-  , "SHIP_ãŠå±Šã‘å…ˆé›»è©±ç•ªå·" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®ä½æ‰€1" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®ä½æ‰€2" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®ä½æ‰€3" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®å¸‚åŒºç”ºæ‘" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®éƒ½é“åºœçœŒ" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®éƒµä¾¿ç•ªå·" character varying(50)
-  , "SHIP_è«‹æ±‚å…ˆã®å›½" character varying(50)
-  , "SHIP_é…é€æ¥­è€…" character varying(50)
-  , "SHIP_å•ã„åˆã‚ã›ç•ªå·" character varying(50)
-  , "SHIP_é…é€äºˆå®šæ—¥" timestamp(6) without time zone
+create table public."RES_’•¶î•ñ" (
+  "Amazon’•¶”Ô†" character varying(19)
+  , "SKU”Ô†" character varying(12)
+  , "ORDER_ÅIXV“ú" timestamp(6) without time zone
+  , "ORDER_’•¶ƒXƒe[ƒ^ƒX" character varying(50)
+  , "ORDER_o‰×•û®" character varying(50)
+  , "ORDER_”z‘—•û®" character varying(50)
+  , "ORDER_ASIN”Ô†" character varying(50)
+  , "ORDER_”—Ê" integer
+  , "ORDER_’Ê‰İ" character varying(6)
+  , "ORDER_‰¿Ši" money
+  , "ORDER_Å‹à" money
+  , "ORDER_”z‘——¿" money
+  , "ORDER_”z‘——¿Å‹à" money
+  , "ORDER_•ï‘•—¿" money
+  , "ORDER_•ï‘•—¿Å‹à" money
+  , "ORDER_’•¶ƒvƒƒ‚[ƒVƒ‡ƒ“—pŠ„ˆøŠz" money
+  , "ORDER_”z‘—ƒvƒƒ‚[ƒVƒ‡ƒ“—pŠ„ˆøŠz" money
+  , "ORDER_”z‘—ZŠ-s‹æ’¬‘º" character varying(50)
+  , "ORDER_”z‘—ZŠ-“s“¹•{Œ§" character varying(50)
+  , "ORDER_”z‘—ZŠ-—X•Ö”Ô†" character varying(50)
+  , "ORDER_”z‘—ZŠ-‘" character varying(50)
+  , "ORDER_ƒvƒƒ‚[ƒVƒ‡ƒ““à—e" character varying(200)
+  , "SHIP_’•¶ó•t“ú" timestamp(6) without time zone
+  , "SHIP_x•¥“ú" timestamp(6) without time zone
+  , "SHIP_”­‘—“ú" timestamp(6) without time zone
+  , "SHIP_”z‘—ƒT[ƒrƒXƒŒƒxƒ‹" character varying(50)
+  , "SHIP_óæl" character varying(50)
+  , "SHIP_‚¨“Í‚¯æ1" character varying(50)
+  , "SHIP_‚¨“Í‚¯æ2" character varying(50)
+  , "SHIP_‚¨“Í‚¯æ3" character varying(50)
+  , "SHIP_s‹æ’¬‘º" character varying(50)
+  , "SHIP_“s“¹•{Œ§" character varying(50)
+  , "SHIP_”­‘—æ—X•Ö”Ô†" character varying(50)
+  , "SHIP_‘" character varying(50)
+  , "SHIP_‚¨“Í‚¯æ“d˜b”Ô†" character varying(50)
+  , "SHIP_¿‹æ‚ÌZŠ1" character varying(50)
+  , "SHIP_¿‹æ‚ÌZŠ2" character varying(50)
+  , "SHIP_¿‹æ‚ÌZŠ3" character varying(50)
+  , "SHIP_¿‹æ‚Ìs‹æ’¬‘º" character varying(50)
+  , "SHIP_¿‹æ‚Ì“s“¹•{Œ§" character varying(50)
+  , "SHIP_¿‹æ‚Ì—X•Ö”Ô†" character varying(50)
+  , "SHIP_¿‹æ‚Ì‘" character varying(50)
+  , "SHIP_”z‘—‹ÆÒ" character varying(50)
+  , "SHIP_–â‚¢‡‚í‚¹”Ô†" character varying(50)
+  , "SHIP_”z‘——\’è“ú" timestamp(6) without time zone
   , "SHIP_FC" character varying(50)
-  , "SHIP_å‡ºè·çµŒè·¯" character varying(50)
-  , "SHIP_è²©å£²çµŒè·¯" character varying(50)
-  , "SHIP_å‡ºè·æ—¥" timestamp(6) without time zone
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" timestamp(6) without time zone
-  , "æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
+  , "SHIP_o‰×Œo˜H" character varying(50)
+  , "SHIP_”Ì”„Œo˜H" character varying(50)
+  , "SHIP_o‰×“ú" timestamp(6) without time zone
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" timestamp(6) without time zone
+  , "XV“ú" timestamp(6) without time zone
 );

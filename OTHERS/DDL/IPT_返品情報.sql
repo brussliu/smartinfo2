@@ -1,19 +1,19 @@
-drop table public."IPT_è¿”å“æƒ…å ±";
+drop table public."IPT_•Ô•iî•ñ";
 
-create table public."IPT_è¿”å“æƒ…å ±" (
-  "è¿”å“æ—¥" character varying(50)
-  , "æ³¨æ–‡ç•ªå·" character varying(50)
-  , "å‡ºå“è€…SKU" character varying(50)
+create table public."IPT_•Ô•iî•ñ" (
+  "•Ô•i“ú" character varying(50)
+  , "’•¶”Ô†" character varying(50)
+  , "o•iÒSKU" character varying(50)
   , "ASIN" character varying(50)
   , "FNSKU" character varying(50)
-  , "å•†å“å" character varying(200)
-  , "æ•°é‡" character varying(50)
+  , "¤•i–¼" character varying(200)
+  , "”—Ê" character varying(50)
   , "FC" character varying(50)
-  , "å•†å“ã®çŠ¶æ…‹" character varying(50)
-  , "ç†ç”±" character varying(50)
+  , "¤•i‚Ìó‘Ô" character varying(50)
+  , "——R" character varying(50)
   , "lpn" character varying(50)
-  , "ãŠå®¢æ§˜ã®ã‚³ãƒ¡ãƒ³ãƒˆ" character varying(200)
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" character varying(20)
-  , "æ›´æ–°æ—¥æ™‚" character varying(20)
+  , "‚¨‹q—l‚ÌƒRƒƒ“ƒg" character varying(200)
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" character varying(20)
+  , "XV“ú" character varying(20)
 );

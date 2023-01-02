@@ -1,22 +1,22 @@
-drop table public."IPT_é•·æœŸåœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™è«‹æ±‚é¡æƒ…å ±";
+drop table public."IPT_’·ŠúİŒÉ•ÛŠÇè”—¿¿‹Šzî•ñ";
 
-create table public."IPT_é•·æœŸåœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™è«‹æ±‚é¡æƒ…å ±" (
-  "æ—¥ä»˜" character varying(50)
-  , "å‡ºå“è€…SKU" character varying(50)
+create table public."IPT_’·ŠúİŒÉ•ÛŠÇè”—¿¿‹Šzî•ñ" (
+  "“ú•t" character varying(50)
+  , "o•iÒSKU" character varying(50)
   , "FNSKU" character varying(50)
   , "ASIN" character varying(50)
-  , "å•†å“å" character varying(200)
-  , "ã‚³ãƒ³ãƒ‡ã‚£ã‚·ãƒ§ãƒ³" character varying(50)
+  , "¤•i–¼" character varying(200)
+  , "ƒRƒ“ƒfƒBƒVƒ‡ƒ“" character varying(50)
   , "qty-charged-long-time-range-long-term-storage-fee" character varying(50)
-  , "å•†å“ã‚µã‚¤ã‚º" character varying(50)
-  , "é€šè²¨" character varying(50)
+  , "¤•iƒTƒCƒY" character varying(50)
+  , "’Ê‰İ" character varying(50)
   , "long-time-range-long-term-storage-fee" character varying(50)
   , "qty-charged-short-time-range-long-term-storage-fee" character varying(50)
   , "short-time-range-long-term-storage-fee" character varying(50)
   , "volume-unit" character varying(50)
-  , "å›½" character varying(50)
+  , "‘" character varying(50)
   , "enrolled-in-small-and-light" character varying(50)
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" character varying(20)
-  , "æ›´æ–°æ—¥æ™‚" character varying(20)
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" character varying(20)
+  , "XV“ú" character varying(20)
 );

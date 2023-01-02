@@ -1,22 +1,22 @@
-drop table public."RES_é•·æœŸåœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™è«‹æ±‚é¡æƒ…å ±";
+drop table public."RES_’·ŠúİŒÉ•ÛŠÇè”—¿¿‹Šzî•ñ";
 
-create table public."RES_é•·æœŸåœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™è«‹æ±‚é¡æƒ…å ±" (
-  "æ—¥ä»˜" timestamp(6) without time zone
-  , "å‡ºå“è€…SKU" character varying(50)
+create table public."RES_’·ŠúİŒÉ•ÛŠÇè”—¿¿‹Šzî•ñ" (
+  "“ú•t" timestamp(6) without time zone
+  , "o•iÒSKU" character varying(50)
   , "FNSKU" character varying(50)
   , "ASIN" character varying(50)
-  , "å•†å“å" character varying(500)
-  , "ã‚³ãƒ³ãƒ‡ã‚£ã‚·ãƒ§ãƒ³" character varying(50)
+  , "¤•i–¼" character varying(500)
+  , "ƒRƒ“ƒfƒBƒVƒ‡ƒ“" character varying(50)
   , "qty-charged-long-time-range-long-term-storage-fee" integer
-  , "å•†å“ã‚µã‚¤ã‚º" character varying(50)
-  , "é€šè²¨" character varying(50)
+  , "¤•iƒTƒCƒY" character varying(50)
+  , "’Ê‰İ" character varying(50)
   , "long-time-range-long-term-storage-fee" numeric(7, 2)
   , "qty-charged-short-time-range-long-term-storage-fee" integer
   , "short-time-range-long-term-storage-fee" numeric(7, 2)
   , "volume-unit" character varying(50)
-  , "å›½" character varying(50)
+  , "‘" character varying(50)
   , "enrolled-in-small-and-light" character varying(50)
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" timestamp(6) without time zone
-  , "æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" timestamp(6) without time zone
+  , "XV“ú" timestamp(6) without time zone
 );

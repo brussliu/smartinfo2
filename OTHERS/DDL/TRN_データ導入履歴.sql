@@ -1,8 +1,8 @@
-drop table public."TRN_ãƒ‡ãƒ¼ã‚¿å°å…¥å±¥æ­´";
+drop table public."TRN_ƒf[ƒ^“±“ü—š—ğ";
 
-create table public."TRN_ãƒ‡ãƒ¼ã‚¿å°å…¥å±¥æ­´" (
-  "åº—èˆ—ID" character varying(20)
-  , "ãƒ‡ãƒ¼ã‚¿ç¨®åˆ¥" character varying(20)
-  , "å°å…¥æ—¥æ™‚" timestamp(6) without time zone
-  , "å°å…¥ä»¶æ•°" integer
+create table public."TRN_ƒf[ƒ^“±“ü—š—ğ" (
+  "“X•ÜID" character varying(20)
+  , "ƒf[ƒ^í•Ê" character varying(20)
+  , "“±“ü“ú" timestamp(6) without time zone
+  , "“±“üŒ”" integer
 );

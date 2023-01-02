@@ -1,14 +1,14 @@
-drop table public."RES_éæ³¨æ–‡ãƒšã‚¤ãƒ¡ãƒ³ãƒˆæƒ…å ±";
+drop table public."RES_”ñ’•¶ƒyƒCƒƒ“ƒgî•ñ";
 
-create table public."RES_éæ³¨æ–‡ãƒšã‚¤ãƒ¡ãƒ³ãƒˆæƒ…å ±" (
-    "æ—¥ä»˜/æ™‚é–“" timestamp(6) without time zone
-  , "æ±ºæ¸ˆç•ªå·" character varying(50)
-  , "ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã®ç¨®é¡" character varying(50)
-  , "æ³¨æ–‡ç•ªå·" character varying(19)
+create table public."RES_”ñ’•¶ƒyƒCƒƒ“ƒgî•ñ" (
+    "“ú•t/ŠÔ" timestamp(6) without time zone
+  , "ŒˆÏ”Ô†" character varying(50)
+  , "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚Ìí—Ş" character varying(50)
+  , "’•¶”Ô†" character varying(19)
   , "SKU" character varying(12)
-  , "èª¬æ˜" character varying(200)
-  , "åˆè¨ˆ" money
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" timestamp(6) without time zone
-  , "æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
+  , "à–¾" character varying(200)
+  , "‡Œv" money
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" timestamp(6) without time zone
+  , "XV“ú" timestamp(6) without time zone
 );

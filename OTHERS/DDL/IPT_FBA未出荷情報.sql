@@ -1,6 +1,6 @@
-drop table public."IPT_FBAæœªå‡ºè·æƒ…å ±";
+drop table public."IPT_FBA–¢o‰×î•ñ";
 
-create table public."IPT_FBAæœªå‡ºè·æƒ…å ±" (
+create table public."IPT_FBA–¢o‰×î•ñ" (
   "order-id" character varying(50)
   , "order-item-id" character varying(50)
   , "purchase-date" character varying(50)
@@ -71,7 +71,7 @@ create table public."IPT_FBAæœªå‡ºè·æƒ…å ±" (
   , "ssa-ship-method" character varying(50)
   , "tax-collection-model" character varying(50)
   , "tax-collection-responsible-party" character varying(50)
-  , "åº—èˆ—ID" character varying(50)
-  , "ç™»éŒ²æ—¥æ™‚" character varying(50)
-  , "æ›´æ–°æ—¥æ™‚" character varying(50)
+  , "“X•ÜID" character varying(50)
+  , "“o˜^“ú" character varying(50)
+  , "XV“ú" character varying(50)
 );

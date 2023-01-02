@@ -1,9 +1,9 @@
-drop table public."RES_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±";
+drop table public."RES_İŒÉ•ÛŠÇè”—¿î•ñ";
 
-create table public."RES_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±" (
+create table public."RES_İŒÉ•ÛŠÇè”—¿î•ñ" (
   "ASIN" character varying(20)
   , fnsku character varying(20)
-  , "å•†å“å" character varying(500)
+  , "¤•i–¼" character varying(500)
   , "Fulfillment center" character varying(20)
   , "Country code" character varying(20)
   , "Longest side" numeric(7, 2)
@@ -20,13 +20,13 @@ create table public."RES_åœ¨åº«ä¿ç®¡æ‰‹æ•°æ–™æƒ…å ±" (
   , "Total item volume (est.)" character varying(50)
   , "Month of charge" character varying(50)
   , "Storage rate" numeric(7, 2)
-  , "é€šè²¨" character varying(50)
+  , "’Ê‰İ" character varying(50)
   , "Monthly storage fee (est.)" numeric(7, 2)
   , category character varying(50)
   , "Total Incentive Amount" numeric(7, 2)
   , breakdown_incentive_fee_amount character varying(50)
   , average_quantity_customer_orders numeric(7, 2)
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" timestamp(6) without time zone
-  , "æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" timestamp(6) without time zone
+  , "XV“ú" timestamp(6) without time zone
 );

@@ -1,35 +1,35 @@
-drop table public."RES_æ³¨æ–‡ãƒšã‚¤ãƒ¡ãƒ³ãƒˆæƒ…å ±";
+drop table public."RES_’•¶ƒyƒCƒƒ“ƒgî•ñ";
 
-create table public."RES_æ³¨æ–‡ãƒšã‚¤ãƒ¡ãƒ³ãƒˆæƒ…å ±" (
-    "æ—¥ä»˜/æ™‚é–“" timestamp(6) without time zone
-  , "æ±ºæ¸ˆç•ªå·" character varying(50)
-  , "ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã®ç¨®é¡" character varying(50)
-  , "æ³¨æ–‡ç•ªå·" character varying(19)
+create table public."RES_’•¶ƒyƒCƒƒ“ƒgî•ñ" (
+    "“ú•t/ŠÔ" timestamp(6) without time zone
+  , "ŒˆÏ”Ô†" character varying(50)
+  , "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚Ìí—Ş" character varying(50)
+  , "’•¶”Ô†" character varying(19)
   , "SKU" character varying(12)
-  , "èª¬æ˜" character varying(200)
-  , "æ•°é‡" integer
-  , "Amazon å‡ºå“ã‚µãƒ¼ãƒ“ã‚¹" character varying(50)
-  , "ãƒ•ãƒ«ãƒ•ã‚£ãƒ«ãƒ¡ãƒ³ãƒˆ" character varying(50)
-  , "å¸‚ç”ºæ‘" character varying(50)
-  , "éƒ½é“åºœçœŒ" character varying(50)
-  , "éƒµä¾¿ç•ªå·" character varying(50)
-  , "ç¨é‡‘å¾´åå‹" character varying(50)
-  , "å•†å“å£²ä¸Š" money
-  , "å•†å“ã®å£²ä¸Šç¨" money
-  , "é…é€æ–™" money
-  , "é…é€æ–™ã®ç¨é‡‘" money
-  , "ã‚®ãƒ•ãƒˆåŒ…è£…æ‰‹æ•°æ–™" money
-  , "ã‚®ãƒ•ãƒˆåŒ…è£…ã‚¯ãƒ¬ã‚¸ãƒƒãƒˆã®ç¨é‡‘" money
-  , "Amazonãƒã‚¤ãƒ³ãƒˆã®è²»ç”¨" money
-  , "ãƒ—ãƒ­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³å‰²å¼•é¡" money
-  , "ãƒ—ãƒ­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³å‰²å¼•ã®ç¨é‡‘" money
-  , "æºæ³‰å¾´åç¨ã‚’ä¼´ã†ãƒãƒ¼ã‚±ãƒƒãƒˆãƒ—ãƒ¬ã‚¤ã‚¹" character varying(99)
-  , "æ‰‹æ•°æ–™" money
-  , "FBA æ‰‹æ•°æ–™" money
-  , "ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ã«é–¢ã™ã‚‹ãã®ä»–ã®æ‰‹æ•°" money
-  , "ãã®ä»–" money
-  , "åˆè¨ˆ" money
-  , "åº—èˆ—ID" character varying(20)
-  , "ç™»éŒ²æ—¥æ™‚" timestamp(6) without time zone
-  , "æ›´æ–°æ—¥æ™‚" timestamp(6) without time zone
+  , "à–¾" character varying(200)
+  , "”—Ê" integer
+  , "Amazon o•iƒT[ƒrƒX" character varying(50)
+  , "ƒtƒ‹ƒtƒBƒ‹ƒƒ“ƒg" character varying(50)
+  , "s’¬‘º" character varying(50)
+  , "“s“¹•{Œ§" character varying(50)
+  , "—X•Ö”Ô†" character varying(50)
+  , "Å‹à’¥ûŒ^" character varying(50)
+  , "¤•i”„ã" money
+  , "¤•i‚Ì”„ãÅ" money
+  , "”z‘——¿" money
+  , "”z‘——¿‚ÌÅ‹à" money
+  , "ƒMƒtƒg•ï‘•è”—¿" money
+  , "ƒMƒtƒg•ï‘•ƒNƒŒƒWƒbƒg‚ÌÅ‹à" money
+  , "Amazonƒ|ƒCƒ“ƒg‚Ì”ï—p" money
+  , "ƒvƒƒ‚[ƒVƒ‡ƒ“Š„ˆøŠz" money
+  , "ƒvƒƒ‚[ƒVƒ‡ƒ“Š„ˆø‚ÌÅ‹à" money
+  , "Œ¹ò’¥ûÅ‚ğ”º‚¤ƒ}[ƒPƒbƒgƒvƒŒƒCƒX" character varying(99)
+  , "è”—¿" money
+  , "FBA è”—¿" money
+  , "ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ÉŠÖ‚·‚é‚»‚Ì‘¼‚Ìè”" money
+  , "‚»‚Ì‘¼" money
+  , "‡Œv" money
+  , "“X•ÜID" character varying(20)
+  , "“o˜^“ú" timestamp(6) without time zone
+  , "XV“ú" timestamp(6) without time zone
 );
