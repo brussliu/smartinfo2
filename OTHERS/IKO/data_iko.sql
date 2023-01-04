@@ -1,20 +1,20 @@
-delete from "MST_å‡ºå“ãƒã‚¹ã‚¿æƒ…å ±_BACKUP";
+delete from "MST_o•iƒ}ƒXƒ^î•ñ_BACKUP";
 
-insert into "MST_å‡ºå“ãƒã‚¹ã‚¿æƒ…å ±_BACKUP"
+insert into "MST_o•iƒ}ƒXƒ^î•ñ_BACKUP"
 select
 current_timestamp,
-T."SKUç•ªå·",
-T."ASINç•ªå·",
-T."å•†å“ç®¡ç†ç•ªå·",
-T."å•†å“ç¨®åˆ¥",
-T."å•†å“åˆ†é¡",
-T."è‰²",
-T."ã‚µã‚¤ã‚º",
-to_number(T."ä»•å…¥ä¾¡æ ¼",'999999.99'),
+T."SKU”Ô†",
+T."ASIN”Ô†",
+T."¤•iŠÇ—”Ô†",
+T."¤•ií•Ê",
+T."¤•i•ª—Ş",
+T."F",
+T."ƒTƒCƒY",
+to_number(T."d“ü‰¿Ši",'999999.99'),
 null,
 null,
 'Smart-Bear',
 current_timestamp,
 current_timestamp
 from
-"ZZZ_NEW_å‡ºå“ãƒã‚¹ã‚¿æƒ…å ±" T;
+"ZZZ_NEW_o•iƒ}ƒXƒ^î•ñ" T;
