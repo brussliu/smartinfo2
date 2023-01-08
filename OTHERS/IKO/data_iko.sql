@@ -5,6 +5,7 @@ select
 current_timestamp,
 T."SKU”Ô†",
 T."ASIN”Ô†",
+null,
 T."¤•iŠÇ—”Ô†",
 T."¤•ií•Ê",
 T."¤•i•ª—Ş",

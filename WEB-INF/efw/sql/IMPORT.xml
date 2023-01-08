@@ -239,36 +239,30 @@
 	<sql id="excute_13_m5">
 		update "MST_手数料見積り額情報"
 			set 
-			
-
-	, "fnsku" character varying(20)
-
-	, "商品名" character varying(500)
-	, "商品グループ" character varying(50)
-	, "ブランド" character varying(50)
-	, "フルフィルメント" character varying(50)
-	, "一番長い辺" numeric(7, 2)
-	, "中間の辺" numeric(7, 2)
-	, "一番短い辺" numeric(7, 2)
-	, "長さと周囲の寸法" numeric(7, 2)
-	, "商品の寸法" character varying(50)
-	, "商品パッケージの重量" numeric(7, 2)
-	, "商品重量" character varying(50)
-	, "通貨" character varying(50)
-	, "手数料見積り額" money
-	, "販売手数料見積り額(個数あたり)" money
-	, "カテゴリー別成約料見積り額" money
-	, "出荷作業手数料見積り額（個数あたり）" character varying(50)
-	, "発送重量手数料の見積り額（個数あたり）" character varying(50)
-	, "配送代行手数料見積り額（個数あたり）" money
-	, "今後の手数料見積り額（現在のAmazon出品サービ" character varying(50)
-	, "今後の出荷作業手数料の見積り額（個数あたり" character varying(50)
-	, "今後の発送重量手数料見積り額（個数あたり）" character varying(50)
-	, "今後の配送代行手数料（個数あたり）" character varying(50)
-
-	, "更新日時" timestamp(6) without time zone
-
-
+			, "fnsku"  = IPT."fnsku"
+			, "商品名"  = IPT."商品名"
+			, "商品グループ"  = IPT."商品グループ"
+			, "ブランド" = IPT."ブランド"
+			, "フルフィルメント" = IPT."フルフィルメント"
+			, "一番長い辺" = to_number(IPT."一番長い辺",'99999.99')
+			, "中間の辺" = to_number(IPT."中間の辺",'99999.99')
+			, "一番短い辺" = to_number(IPT."一番短い辺",'99999.99')
+			, "長さと周囲の寸法" = to_number(IPT."長さと周囲の寸法",'99999.99')
+			, "商品の寸法" = IPT."商品の寸法"
+			, "商品パッケージの重量" = to_number(IPT."商品パッケージの重量",'99999.99')
+			, "商品重量" = IPT."商品重量"
+			, "通貨" = IPT."通貨"
+			, "手数料見積り額" = to_number(IPT."手数料見積り額",'99999.99')
+			, "販売手数料見積り額(個数あたり)" = to_number(IPT."販売手数料見積り額(個数あたり)",'99999.99')
+			, "カテゴリー別成約料見積り額" = to_number(IPT."カテゴリー別成約料見積り額",'99999.99')
+			, "出荷作業手数料見積り額（個数あたり）" = IPT."出荷作業手数料見積り額（個数あたり）"
+			, "発送重量手数料の見積り額（個数あたり）" = IPT."発送重量手数料の見積り額（個数あたり）"
+			, "配送代行手数料見積り額（個数あたり）" = to_number(IPT."配送代行手数料見積り額（個数あたり）",'99999.99')
+			, "今後の手数料見積り額（現在のAmazon出品サービ" = IPT."今後の手数料見積り額（現在のAmazon出品サービ"
+			, "今後の出荷作業手数料の見積り額（個数あたり" = IPT."今後の出荷作業手数料の見積り額（個数あたり"
+			, "今後の発送重量手数料見積り額（個数あたり）" = IPT."今後の発送重量手数料見積り額（個数あたり）"
+			, "今後の配送代行手数料（個数あたり）" = IPT."今後の配送代行手数料（個数あたり）"
+			, "更新日時" = now()
 		from 
 			"IPT_手数料見積り額情報" IPT
 		where
@@ -700,11 +694,11 @@
 			) 
 			and MST1."店舗ID" = :shopId
 	</sql>
-
+<!--
 	<sql id="excute_01_m1_00">
 		select max("BACKUP日時") as BACKUPDATETIME from "MST_出品マスタ情報_BACKUP" where "店舗ID" = :shopId
 	</sql>
-
+-->
 	<sql id="excute_01_m1_01">
 		insert into "MST_出品マスタ情報_BACKUP"
 		select :nowTime, * from "MST_出品マスタ情報" where "店舗ID" = :shopId
@@ -753,13 +747,15 @@
 	<sql id="excute_01_m1_04">
 		update "MST_出品マスタ情報"
 		set 
+			"LABEL番号" = case when BK."LABEL番号" is not null then BK."LABEL番号" else "MST_出品マスタ情報"."LABEL番号" end,
 			"商品管理番号" = case when BK."商品管理番号" is not null then BK."商品管理番号" else "MST_出品マスタ情報"."商品管理番号" end,
 			"商品種別" = case when BK."商品種別" is not null then BK."商品種別" else "MST_出品マスタ情報"."商品種別" end,
 			"分類１" = case when BK."分類１" is not null then BK."分類１" else "MST_出品マスタ情報"."分類１" end,
 			"分類２" = case when BK."分類２" is not null then BK."分類２" else "MST_出品マスタ情報"."分類２" end,
 			"仕入価格" = case when BK."仕入価格" is not null then BK."仕入価格" else "MST_出品マスタ情報"."仕入価格" end,
 			"FBA発送方式" = case when BK."FBA発送方式" is not null then BK."FBA発送方式" else "MST_出品マスタ情報"."FBA発送方式" end,
-			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end
+			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end,
+			"更新日時" = :nowTime
 		from "MST_出品マスタ情報_BACKUP" BK
 		where
 			"MST_出品マスタ情報"."SKU番号" = BK."SKU番号"
@@ -770,13 +766,24 @@
 			and
 			BK."店舗ID" = :shopId
 			and
-			BK."BACKUP日時" = :backDateTime
+			BK."BACKUP日時" = (select max("BACKUP日時") as BACKUPDATETIME from "MST_出品マスタ情報_BACKUP" where "店舗ID" = :shopId)
 	</sql>
 
-
-
-
-
+	<sql id="excute_01_m1_05">
+		update "MST_出品マスタ情報"
+		set 
+			"LABEL番号" = IPT."fulfillment-channel-sku",
+			"更新日時" = :nowTime
+		from "IPT_FBA在庫情報" IPT
+		where
+			"MST_出品マスタ情報"."SKU番号" = IPT."seller-sku"
+			and
+			"MST_出品マスタ情報"."ASIN番号" = IPT."asin"
+			and
+			"MST_出品マスタ情報"."店舗ID" = IPT."店舗ID"
+			and
+			IPT."店舗ID" = :shopId
+	</sql>
 
 
 	<sql id="update_15_r3" paramPrefix="!">

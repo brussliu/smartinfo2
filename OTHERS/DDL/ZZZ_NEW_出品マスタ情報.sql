@@ -1,14 +1,14 @@
-drop table public."ZZZ_NEW_å‡ºå“ãƒã‚¹ã‚¿æƒ…å ±";
+drop table public."ZZZ_NEW_o•iƒ}ƒXƒ^î•ñ";
 
-create table public."ZZZ_NEW_å‡ºå“ãƒã‚¹ã‚¿æƒ…å ±" (
+create table public."ZZZ_NEW_o•iƒ}ƒXƒ^î•ñ" (
   req_no character varying(6)
-  , "åº—èˆ—å" character varying(20)
-  , "å•†å“ç®¡ç†ç•ªå·" character varying(50)
-  , "å•†å“åˆ†é¡" character varying(50)
-  , "å•†å“ç¨®åˆ¥" character varying(50)
-  , "è‰²" character varying(50)
-  , "ã‚µã‚¤ã‚º" character varying(50)
-  , "SKUç•ªå·" character varying(20)
-  , "ASINç•ªå·" character varying(20)
-  , "ä»•å…¥ä¾¡æ ¼" character varying(20)
+  , "“X•Ü–¼" character varying(20)
+  , "¤•iŠÇ—”Ô†" character varying(50)
+  , "¤•i•ª—Ş" character varying(50)
+  , "¤•ií•Ê" character varying(50)
+  , "F" character varying(50)
+  , "ƒTƒCƒY" character varying(50)
+  , "SKU”Ô†" character varying(20)
+  , "ASIN”Ô†" character varying(20)
+  , "d“ü‰¿Ši" character varying(20)
 );
