@@ -1,3 +1,5 @@
+drop table public."ZZZ_NEW_出品マスタ情報";
+
 create table public."ZZZ_NEW_出品マスタ情報" (
   req_no character varying(6)
   , "店舗名" character varying(20)

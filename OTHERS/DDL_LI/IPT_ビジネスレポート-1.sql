@@ -1,0 +1,25 @@
+drop table public."IPT_ビジネスレポート-1";
+
+create table public."IPT_ビジネスレポート-1" (
+  "日付" character varying(20)
+  , "注文商品売上" character varying(20)
+  , "注文商品売上-B2B" character varying(20)
+  , "注文された商品点数" character varying(20)
+  , "注文された商品点数 - B2B" character varying(20)
+  , "注文品目総数" character varying(20)
+  , "注文品目総数 - B2B" character varying(20)
+  , "品目あたりの平均売上" character varying(20)
+  , "品目あたりの平均売上 - B2B" character varying(20)
+  , "品目あたりの平均点数" character varying(20)
+  , "品目あたりの平均点数 - B2B" character varying(20)
+  , "平均売価" character varying(20)
+  , "平均売価 - B2B" character varying(20)
+  , "セッション - 合計" character varying(20)
+  , "セッション-合計-B2B" character varying(20)
+  , "注文品目数セッション比率" character varying(20)
+  , "注文品目数セッション比率 - B2B" character varying(20)
+  , "平均出品数" character varying(20)
+  , "店舗ID" character varying(20)
+  , "登録日時" character varying(20)
+  , "更新日時" character varying(20)
+);
