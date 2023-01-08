@@ -3,6 +3,7 @@ drop table public."MST_出品マスタ情報";
 create table public."MST_出品マスタ情報" (
     "SKU番号" character varying(12)
   , "ASIN番号" character varying(20)
+  , "LABEL番号" character varying(20)
   , "商品管理番号" character varying(20)
   , "親子区分" character varying(20)
   , "商品種別" character varying(50)

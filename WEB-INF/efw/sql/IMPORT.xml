@@ -2,20 +2,515 @@
 <!DOCTYPE sqls>
 <sqls>
 
-	<sql id="excute_01_r1_00">
+	<sql id="excute_m1_m5">
+		insert into "MST_手数料見積り額情報" (
+			  "sku"
+			, "asin"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, now()
+			, now()
+		from
+			"MST_出品マスタ情報" MST1
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"MST_販売数量情報" MST2
+				where
+					MST1."SKU番号" = MST2."SKU番号" 
+					and MST1."ASIN番号" = MST2."ASIN番号" 
+					and MST1."店舗ID" = MST2."店舗ID"
+			) 
+			and MST1."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_13_m5">
+		update "MST_手数料見積り額情報"
+			set 
+			
+
+  , "fnsku" character varying(20)
+
+  , "商品名" character varying(500)
+  , "商品グループ" character varying(50)
+  , "ブランド" character varying(50)
+  , "フルフィルメント" character varying(50)
+  , "一番長い辺" numeric(7, 2)
+  , "中間の辺" numeric(7, 2)
+  , "一番短い辺" numeric(7, 2)
+  , "長さと周囲の寸法" numeric(7, 2)
+  , "商品の寸法" character varying(50)
+  , "商品パッケージの重量" numeric(7, 2)
+  , "商品重量" character varying(50)
+  , "通貨" character varying(50)
+  , "手数料見積り額" money
+  , "販売手数料見積り額(個数あたり)" money
+  , "カテゴリー別成約料見積り額" money
+  , "出荷作業手数料見積り額（個数あたり）" character varying(50)
+  , "発送重量手数料の見積り額（個数あたり）" character varying(50)
+  , "配送代行手数料見積り額（個数あたり）" money
+  , "今後の手数料見積り額（現在のAmazon出品サービ" character varying(50)
+  , "今後の出荷作業手数料の見積り額（個数あたり" character varying(50)
+  , "今後の発送重量手数料見積り額（個数あたり）" character varying(50)
+  , "今後の配送代行手数料（個数あたり）" character varying(50)
+
+  , "更新日時" timestamp(6) without time zone
+
+
+		from 
+			"IPT_手数料見積り額情報" IPT
+		where
+			"MST_手数料見積り額情報"."sku" = IPT."sku"
+			and
+			"MST_手数料見積り額情報"."asin" = IPT."asin"
+			and
+			"MST_手数料見積り額情報"."店舗ID" = IPT."店舗ID"
+			and
+			"MST_手数料見積り額情報"."店舗ID" = :shopId
+
+	</sql>
+
+
+
+	<sql id="excute_r1_m3_01">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近３日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-3 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_r1_m3_02">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近７日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-7 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_03">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近３０日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-30 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_04">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近６０日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-60 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_05">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近９０日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-90 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_06">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近１８０日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-180 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_07">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（直近３６０日間）" = LIST."数量"
+		from
+			(
+			select
+				MST."店舗ID",
+				MST."SKU番号", 
+				MST."ASIN番号", 
+				COALESCE(RES."数量",0) as "数量"
+			from
+				"MST_販売数量情報" MST left join
+				( 
+					SELECT
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号", 
+						sum(T."ORDER_数量") AS "数量" 
+					FROM
+						"RES_注文情報" T
+					WHERE
+						T."ORDER_注文ステータス" in ('Pending', 'Shipping', 'Shipped') 
+						AND 
+						T."ORDER_注文日時" >= now() + '-360 day' 
+						AND 
+						T."店舗ID" = :shopId
+					GROUP BY
+						T."店舗ID",
+						T."SKU番号", 
+						T."ORDER_ASIN番号"
+				) RES on 	MST."SKU番号" = RES."SKU番号" 
+								and 
+							MST."ASIN番号" = RES."ORDER_ASIN番号" 
+								and 
+							MST."店舗ID" = RES."店舗ID" 
+			) LIST
+		where
+			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m1_m3">
+		insert into "MST_販売数量情報" (
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, now()
+			, now()
+		from
+			"MST_出品マスタ情報" MST1
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"MST_販売数量情報" MST2
+				where
+					MST1."SKU番号" = MST2."SKU番号" 
+					and MST1."ASIN番号" = MST2."ASIN番号" 
+					and MST1."店舗ID" = MST2."店舗ID"
+			) 
+			and MST1."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_03_m2">
+		update "MST_在庫情報"
+			set "FBA在庫" = TO_NUMBER(IPT."Quantity Available",'999999')
+		from 
+			"IPT_FBA在庫情報" IPT
+		where
+			"MST_在庫情報"."SKU番号" = IPT."seller-sku"
+			and
+			"MST_在庫情報"."ASIN番号" = IPT."asin"
+			and
+			"MST_在庫情報"."店舗ID" = IPT."店舗ID"
+			and
+			IPT."Warehouse-Condition-code" = 'SELLABLE'
+			and
+			"MST_在庫情報"."店舗ID" = :shopId
+	</sql>
+
+
+	<sql id="excute_02_m2">
+		update "MST_在庫情報"
+			set "FBM在庫" = TO_NUMBER(IPT."数量",'999999')
+		from 
+			"IPT_全出品情報" IPT
+		where
+			"MST_在庫情報"."SKU番号" = IPT."出品者SKU"
+			and
+			"MST_在庫情報"."ASIN番号" = IPT."ASIN 1"
+			and
+			"MST_在庫情報"."店舗ID" = IPT."店舗ID"
+			and
+			"MST_在庫情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m1_m2">
+		insert into "MST_在庫情報" (
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, now()
+			, now()
+		from
+			"MST_出品マスタ情報" MST1
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"MST_在庫情報" MST2
+				where
+					MST1."SKU番号" = MST2."SKU番号" 
+					and MST1."ASIN番号" = MST2."ASIN番号" 
+					and MST1."店舗ID" = MST2."店舗ID"
+			) 
+			and MST1."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_01_m1_00">
 		select max("BACKUP日時") as BACKUPDATETIME from "MST_出品マスタ情報_BACKUP" where "店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_01_r1_01">
+	<sql id="excute_01_m1_01">
 		insert into "MST_出品マスタ情報_BACKUP"
 		select :nowTime, * from "MST_出品マスタ情報" where "店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_01_r1_02">
+	<sql id="excute_01_m1_02">
 		delete from "MST_出品マスタ情報" where "店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_01_r1_03">
+	<sql id="excute_01_m1_03">
 		insert into "MST_出品マスタ情報" (
 			  "SKU番号"
 			, "ASIN番号"
@@ -51,7 +546,7 @@
 			"店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_01_r1_04">
+	<sql id="excute_01_m1_04">
 		update "MST_出品マスタ情報"
 		set 
 			"商品管理番号" = case when BK."商品管理番号" is not null then BK."商品管理番号" else "MST_出品マスタ情報"."商品管理番号" end,

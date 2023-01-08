@@ -4,6 +4,7 @@ create table public."MST_出品マスタ情報_BACKUP" (
     "BACKUP日時" timestamp(6) without time zone
   , "SKU番号" character varying(12)
   , "ASIN番号" character varying(20)
+  , "LABEL番号" character varying(20)
   , "商品管理番号" character varying(20)
   , "親子区分" character varying(20)
   , "商品種別" character varying(50)
