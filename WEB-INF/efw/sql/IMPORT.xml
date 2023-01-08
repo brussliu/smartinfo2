@@ -2,6 +2,210 @@
 <!DOCTYPE sqls>
 <sqls>
 
+	<sql id="update_14_r4" paramPrefix="!">
+		update "RES_在庫保管手数料情報" RES 
+		set 
+			  "fnsku" = IPT."fnsku"
+			, "商品名" = IPT."商品名"			 			
+			, "Longest side" = to_number(IPT."Longest side", '9999999.99')
+			, "Median side" = to_number(IPT."Median side", '9999999.99')
+			, "Shortest side" = to_number(IPT."Shortest side", '9999999.99')
+			, "Measurement units" = IPT."Measurement units" 
+			, "weight" = IPT."weight"
+			, "Weight units" = IPT."Weight units"
+			, "Item volume" = IPT."Item volume"
+			, "Volume units" = IPT."Volume units"
+			, "Product size tier" = IPT."Product size tier"
+			, "Average quantity on hand" = to_number(IPT."Average quantity on hand", '9999999.99')
+			, "Average quantity pending removal" = to_number(IPT."Average quantity pending removal", '9999999.99')
+			, "Total item volume (est.)" = IPT."Total item volume (est.)"			 
+			, "Storage rate" = to_number(IPT."Storage rate", '9999999.99')
+			, "通貨" = IPT."通貨"
+			, "Monthly storage fee (est.)" = to_number(IPT."Monthly storage fee (est.)", '9999999.99')
+			, "category" = IPT."category"
+			, "Total Incentive Amount" = to_number(IPT."Total Incentive Amount", '9999999.99')
+			, "breakdown_incentive_fee_amount" = IPT."breakdown_incentive_fee_amount"
+			, "average_quantity_customer_orders" =	to_number(IPT."average_quantity_customer_orders", '9999999.99')		
+			, "更新日時" = !nowTime
+		from
+			"IPT_在庫保管手数料情報" IPT 
+		where
+			IPT."ASIN" = RES."ASIN" 
+			and IPT."Fulfillment center" = RES."Fulfillment center" 
+			and IPT."Country code" = RES."Country code" 
+			and IPT."Month of charge" = RES."Month of charge" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = !shopId
+	</sql>
+	<sql id="insert_14_r4" paramPrefix="!">
+		insert into "RES_在庫保管手数料情報" ( 
+			  "ASIN" 
+			, "fnsku" 
+			, "商品名" 
+			, "Fulfillment center" 
+			, "Country code" 
+			, "Longest side" 
+			, "Median side" 
+			, "Shortest side" 
+			, "Measurement units" 
+			, "weight" 
+			, "Weight units" 
+			, "Item volume" 
+			, "Volume units" 
+			, "Product size tier" 
+			, "Average quantity on hand" 
+			, "Average quantity pending removal" 
+			, "Total item volume (est.)" 
+			, "Month of charge" 
+			, "Storage rate" 
+			, "通貨" 
+			, "Monthly storage fee (est.)" 
+			, "category" 
+			, "Total Incentive Amount" 
+			, "breakdown_incentive_fee_amount" 
+			, "average_quantity_customer_orders" 
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		) 
+		select
+			  "ASIN"
+			, "fnsku" 
+			, "商品名"
+			, "Fulfillment center" 
+			, "Country code"
+			, to_number(IPT."Longest side", '9999999.99')
+			, to_number(IPT."Median side", '9999999.99')
+			, to_number(IPT."Shortest side", '9999999.99')
+			, "Measurement units"
+			, "weight" 
+			, "Weight units" 
+			, "Item volume" 
+			, "Volume units" 
+			, "Product size tier" 
+			, to_number(IPT."Average quantity on hand", '9999999.99')
+			, to_number(IPT."Average quantity pending removal", '9999999.99')
+			, "Total item volume (est.)" 
+			, "Month of charge"
+			, to_number(IPT."Storage rate", '9999999.99')
+			, "通貨" 
+			, to_number(IPT."Monthly storage fee (est.)", '9999999.99')
+			, "category" 
+			, to_number(IPT."Total Incentive Amount", '9999999.99')
+			, "breakdown_incentive_fee_amount" 
+			, to_number(IPT."average_quantity_customer_orders", '9999999.99')
+			, "店舗ID"
+			, !nowTime
+			, !nowTime
+		from
+			"IPT_在庫保管手数料情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_在庫保管手数料情報" RES 
+				where
+						IPT."ASIN" = RES."ASIN" 
+					and IPT."Fulfillment center" = RES."Fulfillment center" 
+					and IPT."Country code" = RES."Country code" 
+					and IPT."Month of charge" = RES."Month of charge" 
+					and IPT."店舗ID" = RES."店舗ID" 
+			) 
+			and IPT."店舗ID" = !shopId
+	</sql>
+	<sql id="update_15_r5" paramPrefix="!">
+		update "RES_長期在庫保管手数料請求額情報" RES 
+		set
+			  "日付" = to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ')
+			, "出品者SKU" = IPT."出品者SKU"
+			, "FNSKU" = IPT."FNSKU"
+			, "ASIN" = IPT."ASIN"
+			, "商品名" = IPT."商品名"
+			, "コンディション" = IPT."コンディション"			
+			, "qty-charged-long-time-range-long-term-storage-fee" = to_number(IPT."qty-charged-long-time-range-long-term-storage-fee", '999999999')
+			, "商品サイズ" = IPT."商品サイズ"
+			, "通貨" = IPT."通貨"
+			, "long-time-range-long-term-storage-fee" = to_number(IPT."long-time-range-long-term-storage-fee", '9999999.99')
+			, "qty-charged-short-time-range-long-term-storage-fee" = to_number(IPT."qty-charged-short-time-range-long-term-storage-fee", '999999999')
+			, "short-time-range-long-term-storage-fee" = to_number(IPT."short-time-range-long-term-storage-fee", '9999999.99')
+			, "volume-unit" = IPT."volume-unit"
+			, "国" = IPT."国"
+			, "enrolled-in-small-and-light" = IPT."enrolled-in-small-and-light"
+			, "更新日時" = !nowTime
+		from
+			"IPT_長期在庫保管手数料請求額情報" IPT 
+		where
+				to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ') = RES."日付" 
+				and IPT."出品者SKU" = RES."出品者SKU" 
+				and IPT."ASIN" = RES."ASIN" 
+				and IPT."コンディション" = RES."コンディション" 
+				and IPT."国" = RES."国" 
+				and IPT."店舗ID" = RES."店舗ID" 
+				and IPT."店舗ID" = !shopId 
+
+	</sql>
+	<sql id="insert_15_r5" paramPrefix="!">
+		insert into "RES_長期在庫保管手数料請求額情報" ( 
+			  "日付" 
+			, "出品者SKU" 
+			, "FNSKU" 
+			, "ASIN" 
+			, "商品名" 
+			, "コンディション" 
+			, "qty-charged-long-time-range-long-term-storage-fee" 
+			, "商品サイズ" 
+			, "通貨" 
+			, "long-time-range-long-term-storage-fee" 
+			, "qty-charged-short-time-range-long-term-storage-fee" 
+			, "short-time-range-long-term-storage-fee" 
+			, "volume-unit" 
+			, "国" 
+			, "enrolled-in-small-and-light" 
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時"
+		) 
+		select
+			to_timestamp(IPT."日付", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			, IPT."出品者SKU"
+			, IPT."FNSKU"
+			, IPT."ASIN"
+			, IPT."商品名"
+			, IPT."コンディション"			
+			, to_number(IPT."qty-charged-long-time-range-long-term-storage-fee", '999999999.99')
+			, IPT."商品サイズ"
+			, IPT."通貨"
+			, to_number(IPT."long-time-range-long-term-storage-fee", '999999999.99')
+			, to_number(IPT."qty-charged-short-time-range-long-term-storage-fee", '999999999.99')
+			, to_number(IPT."short-time-range-long-term-storage-fee", '999999999.99')
+			, IPT."volume-unit"
+			, IPT."国"
+			, IPT."enrolled-in-small-and-light"
+			, "店舗ID"
+			, !nowTime
+			, !nowTime
+		from
+			"IPT_長期在庫保管手数料請求額情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"RES_長期在庫保管手数料請求額情報" RES 
+				where
+						to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ') = RES."日付"  
+					and IPT."出品者SKU" = RES."出品者SKU" 
+					and IPT."ASIN" = RES."ASIN" 
+					and IPT."コンディション" = RES."コンディション" 
+					and IPT."国" = RES."国" 
+					and IPT."店舗ID" = RES."店舗ID" 					
+			) 
+			and IPT."店舗ID" = !shopId 
+			
+	</sql>
+
+
 	<sql id="excute_m1_m5">
 		insert into "MST_手数料見積り額情報" (
 			  "sku"
@@ -37,32 +241,32 @@
 			set 
 			
 
-  , "fnsku" character varying(20)
+	, "fnsku" character varying(20)
 
-  , "商品名" character varying(500)
-  , "商品グループ" character varying(50)
-  , "ブランド" character varying(50)
-  , "フルフィルメント" character varying(50)
-  , "一番長い辺" numeric(7, 2)
-  , "中間の辺" numeric(7, 2)
-  , "一番短い辺" numeric(7, 2)
-  , "長さと周囲の寸法" numeric(7, 2)
-  , "商品の寸法" character varying(50)
-  , "商品パッケージの重量" numeric(7, 2)
-  , "商品重量" character varying(50)
-  , "通貨" character varying(50)
-  , "手数料見積り額" money
-  , "販売手数料見積り額(個数あたり)" money
-  , "カテゴリー別成約料見積り額" money
-  , "出荷作業手数料見積り額（個数あたり）" character varying(50)
-  , "発送重量手数料の見積り額（個数あたり）" character varying(50)
-  , "配送代行手数料見積り額（個数あたり）" money
-  , "今後の手数料見積り額（現在のAmazon出品サービ" character varying(50)
-  , "今後の出荷作業手数料の見積り額（個数あたり" character varying(50)
-  , "今後の発送重量手数料見積り額（個数あたり）" character varying(50)
-  , "今後の配送代行手数料（個数あたり）" character varying(50)
+	, "商品名" character varying(500)
+	, "商品グループ" character varying(50)
+	, "ブランド" character varying(50)
+	, "フルフィルメント" character varying(50)
+	, "一番長い辺" numeric(7, 2)
+	, "中間の辺" numeric(7, 2)
+	, "一番短い辺" numeric(7, 2)
+	, "長さと周囲の寸法" numeric(7, 2)
+	, "商品の寸法" character varying(50)
+	, "商品パッケージの重量" numeric(7, 2)
+	, "商品重量" character varying(50)
+	, "通貨" character varying(50)
+	, "手数料見積り額" money
+	, "販売手数料見積り額(個数あたり)" money
+	, "カテゴリー別成約料見積り額" money
+	, "出荷作業手数料見積り額（個数あたり）" character varying(50)
+	, "発送重量手数料の見積り額（個数あたり）" character varying(50)
+	, "配送代行手数料見積り額（個数あたり）" money
+	, "今後の手数料見積り額（現在のAmazon出品サービ" character varying(50)
+	, "今後の出荷作業手数料の見積り額（個数あたり" character varying(50)
+	, "今後の発送重量手数料見積り額（個数あたり）" character varying(50)
+	, "今後の配送代行手数料（個数あたり）" character varying(50)
 
-  , "更新日時" timestamp(6) without time zone
+	, "更新日時" timestamp(6) without time zone
 
 
 		from 

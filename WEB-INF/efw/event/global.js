@@ -38,8 +38,7 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					// excute_m1_m3();
 					// excute_r1_m3();
 
-					excute_m1_m5();
-					excute_13_m5();
+			
 
 
 
@@ -48,12 +47,59 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
 
 					// excute_14_r4();
-					// excute_15_r5();
+					 excute_15_r5();
 
-					
+					// excute_m1_m5();
+					// excute_13_m5();
 
 
 							
+}
+function excute_15_r5() {
+	SHOP_ID = session.get("SHOP_ID");
+	var nowTime = new Date();
+
+	var updateResult = db.change(
+		"IMPORT",
+		"update_15_r5",
+		{
+			"shopId": SHOP_ID, 
+			"nowTime": nowTime
+		}
+	);
+
+	var insertResult = db.change(
+		"IMPORT",
+		"insert_15_r5",
+		{
+			"shopId": SHOP_ID,
+			"nowTime": nowTime
+		}
+	);
+}
+
+function excute_14_r4() {
+	SHOP_ID = session.get("SHOP_ID");
+	var now = new Date();
+	
+
+	var updateResult = db.change(
+		"IMPORT",
+		"update_14_r4",
+		{
+			"shopId": SHOP_ID, 
+			"nowTime": now
+		}
+	);
+
+	var insertResult = db.change(
+		"IMPORT",
+		"insert_14_r4",
+		{
+			"shopId": SHOP_ID,
+			"nowTime": now
+		}
+	);
 }
 
 function excute_m1_m5() {
