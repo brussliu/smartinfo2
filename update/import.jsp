@@ -33,7 +33,7 @@
                 .hright_r {
                     float: right;
                     margin-right: 3vw;
-                    margin-top: 2.5vh;
+                    margin-top: 2vh;
                     width: 90px;
                     height: 30px;
                     border: 0;
@@ -71,8 +71,8 @@
                     height: 30px;
                     margin: auto;
 
-                    margin-top: 1vh;
-                
+                    margin-top: 2vh;
+
                 }
 
                 .c_btn button {
@@ -87,10 +87,12 @@
                     visibility: hidden;
                     border: 0;
                 }
-                th{
+
+                th {
                     border: 1px solid black;
                 }
-                td{
+
+                td {
                     /* border-top: 1px solid black; */
                     border-left: 1px solid black;
                     border-right: 1px solid black;
@@ -110,7 +112,7 @@
                 }
 
                 .datatr {
-                    height: 30px;
+                    height: 40px;
                 }
             </style>
         </head>
@@ -119,7 +121,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="margin-top:2.5vh ;margin-left:3vw;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px;margin-left:3vw;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -127,7 +129,9 @@
                             <p>UserID：<span>XXXX</span></p>
                         </div>
                         <div>
+
                             <button class="hright_r">ログオフ</button>
+                            <button class="hright_r" style="visibility: hidden;"></button>
                         </div>
                     </div>
                 </div>
@@ -136,11 +140,21 @@
                 </div>
                 <div class="content">
                     <div class="c_btn">
-                        <button>ファイル識別</button>
-                        <button>データ取込</button>
+                        <table style="width: 100%;border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20%;border: 0;"></td>
+                                    <td style="width: 20%;border: 0;"></td>
+                                    <td style="width: 20%;border: 0;"></td>
+                                    <td style="width: 20%;border: 0;"><button>ファイル識別</button></td>
+                                    <td style="width: 20%;border: 0;"><button>データ取込</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
                     </div>
-                    <div style="transform: scale(0.7);margin-top: -100vh;width: 120vw;margin-left:-15vw;">
-                        <table  style="width: 110%;margin:3vh auto ;border-collapse:collapse;" >
+                    <div style="    width: 87vw; margin-left: 2vw;">
+                        <table style="width: 110%;margin:3vh auto ;border-collapse:collapse;">
                             <tr class="datatr">
                                 <th class="vh"></th>
                                 <th class="vh"></th>
@@ -150,14 +164,14 @@
                                 <th class="" colspan="2">前回導入済み</th>
                             </tr>
                             <tr style="background-color:#c8ffff ;height: 30px;">
-                                <th style="width:4vw">No</th>
-                                <th style="width:40vw">ファイル名称</th>
-                                <th style="width:8vw">更新頻度</th>
-                                <th style="width:40vw;">導入ファイル名</th>
-                                <th style="width:20vw">導入日時</th>
-                                <th style="width:12vw">導入件数</th>
-                                <th style="width:20vw">導入日時</th>
-                                <th style="width:12vw">導入件数</th>
+                                <th style="width:4%">No</th>
+                                <th style="width:24%">ファイル名称</th>
+                                <th style="width:6%">更新頻度</th>
+                                <th style="width:24%;">導入ファイル名</th>
+                                <th style="width:12%">導入日時</th>
+                                <th style="width:8%">導入件数</th>
+                                <th style="width:12%">導入日時</th>
+                                <th style="width:8%">導入件数</th>
 
                             </tr>
                             <tr class="datatr">
@@ -165,9 +179,9 @@
                                 <td class="td2">すべての出品商品のレポート</td>
                                 <td class="td3">1回／日</td>
                                 <td class="td4"></td>
-                                <td class="td5" id="file01">2023-01-12 18:32:17	</td>
+                                <td class="td5" >2023-01-12 18:32:17 </td>
                                 <td class="td6"></td>
-                                <td class="td6">2023-01-12 18:32:17	</td>
+                                <td class="td6">2023-01-12 18:32:17 </td>
                                 <td class="td6"></td>
                             </tr>
                             <tr class="datatr">
@@ -175,27 +189,27 @@
                                 <td class="td2">全注文レポート</td>
                                 <td class="td3">1回／日</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file02"></td>
+                                <td class="td5"  ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
                                 <td class="td1">3</td>
                                 <td class="td2">FBA在庫レポート</td>
                                 <td class="td3">1回／日</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file03"></td>
+                                <td class="td5"  ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
                                 <td class="td1">4</td>
                                 <td class="td2">ペイメントレポート</td>
                                 <td class="td3">1回／日</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file04"></td>
+                                <td class="td5"  ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -205,7 +219,7 @@
                                 <td class="td2">FBA未出荷レポート</td>
                                 <td class="td3">随時</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file05"></td>
+                                <td class="td5"  ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -215,7 +229,7 @@
                                 <td class="td2">Qoo10未出荷レポート</td>
                                 <td class="td3">随時</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file06"></td>
+                                <td class="td5"  ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -225,7 +239,7 @@
                                 <td class="td2">日付別_売上およびトラフィック</td>
                                 <td class="td3">？？？</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file07"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -235,7 +249,7 @@
                                 <td class="td2">日付別_詳細ページ 売上・トラフィック</td>
                                 <td class="td3">？？？</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file08"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -245,7 +259,7 @@
                                 <td class="td2">日付別_パフォーマンス</td>
                                 <td class="td3">？？？</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file09"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -255,17 +269,17 @@
                                 <td class="td2">ASIN別_詳細ページ 売上・トラフィック</td>
                                 <td class="td3">？？？</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file10"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
                                 <td class="td1">11</td>
                                 <td class="td2">FBA在庫出荷レポート</td>
                                 <td class="td3">1回／週</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file11"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -275,7 +289,7 @@
                                 <td class="td2">出荷レポート</td>
                                 <td class="td3">1回／週</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file12"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -285,7 +299,7 @@
                                 <td class="td2">手数料見積り額レポート</td>
                                 <td class="td3">1回／週</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file13"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -295,7 +309,7 @@
                                 <td class="td2">在庫保管手数料レポート</td>
                                 <td class="td3">月初</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file14"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -305,7 +319,7 @@
                                 <td class="td2">長期在庫保管手数料請求額レポート</td>
                                 <td class="td3">月初</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file15"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -315,8 +329,9 @@
                                 <td class="td2">返品レポート</td>
                                 <td class="td3">1回／月</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file16"></td>
-                                <td class="td6"></td> <td class="td6"></td>
+                                <td class="td5" ></td>
+                                <td class="td6"></td>
+                                <td class="td6"></td>
                                 <td class="td6"></td>
                             </tr>
                             <tr class="datatr">
@@ -324,7 +339,7 @@
                                 <td class="td2">返送推奨レポート</td>
                                 <td class="td3">1回／月</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file17"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
@@ -334,7 +349,7 @@
                                 <td class="td2">返送所有権の放棄依頼の詳細レポート</td>
                                 <td class="td3">1回／月</td>
                                 <td class="td4"> </td>
-                                <td class="td5" id="file18"></td>
+                                <td class="td5" ></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
                                 <td class="td6"></td>
