@@ -115,7 +115,7 @@
 
                 .detail {
                     width: 1000px;
-                    height: 600px;
+                    height: 520px;
                     position: absolute;
                     left: 40%;
                     top: 50%;
