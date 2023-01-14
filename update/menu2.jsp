@@ -14,7 +14,7 @@
                 }
 
                 .head {
-                    width: 99vw;
+                    width: 100vw;
                     height: 60px;
                     background-color: rgb(178, 178, 240);
                     color: aliceblue;
@@ -28,18 +28,20 @@
 
                 .hright {
                     float: right;
-                    width: 40%;
+                    width: 30%;
                     height: 60px;
+
                 }
 
                 .hright_r {
                     float: right;
                     margin-right: 3vw;
-                    margin-top: 2.5vh;
+                    margin-top: 2vh;
                     width: 90px;
                     height: 30px;
                     border: 0;
                     border-radius: 20px;
+
                 }
 
                 .hright_l {
@@ -52,7 +54,7 @@
 
                 /* content */
                 .content {
-                    width: 99vw;
+                    width: 100vw;
                     height: 86vh;
                     vertical-align: middle;
                 }
@@ -104,12 +106,9 @@
 
                 }
 
-                .content_l_btn>.content_l_btn_r {
-                    display: flex;
-                    align-items: center;
-                    border-bottom: 1px dashed black;
-                    justify-content: space-between;
-                }
+            td{
+                border-bottom :1px dashed black ;
+            }
 
 
 
@@ -121,14 +120,7 @@
                     box-shadow: 2px 2px 5px rgb(145, 139, 139);
                 }
 
-                .btn_r {
-                    float: right;
-                    width: 140px;
-                    height: 40px;
-                    margin: 0 3vw;
-                    box-shadow: 2px 2px 5px rgb(145, 139, 139);
-                   overflow: auto;
-                }
+             
 
                 /* content_l_con */
                 .content_l_con p {
@@ -136,7 +128,7 @@
                     justify-content: flex-start;
                     flex-wrap: wrap;
                     flex-direction: column;
-                    word-break:break-all;
+                    word-break: break-all;
                 }
 
                 .span_t {
@@ -146,23 +138,24 @@
                 }
 
 
-                        /*滚动条样式*/
-        .content_r::-webkit-scrollbar {
-            width: 4px;    
-            /*height: 4px;*/
-        }
-        .content_r::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            background: rgba(0,0,0,0.2);
-        }
-        .content_r::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            border-radius: 0;
-            background: rgba(0,0,0,0.1);
+                /*滚动条样式*/
+                .content_r::-webkit-scrollbar {
+                    width: 4px;
+                    /*height: 4px;*/
+                }
 
-        }
+                .content_r::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+                    background: rgba(0, 0, 0, 0.2);
+                }
 
+                .content_r::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+                    border-radius: 0;
+                    background: rgba(0, 0, 0, 0.1);
+
+                }
             </style>
         </head>
 
@@ -170,7 +163,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="margin-top:2.5vh ;margin-left:3vw;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px;margin-left:3vw;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -178,6 +171,7 @@
                             <p>UserID：<span>XXXX</span></p>
                         </div>
                         <div>
+
                             <button class="hright_r">ログオフ</button>
                             <button class="hright_r">切換える</button>
 
@@ -187,6 +181,50 @@
 
                 <div class="content">
                     <div class="content_l">
+                        <div class="content_l_nav">
+                            <p>メニュー </p>
+                        </div>
+                        <table class="content_l_btn">
+                            <tbody>
+                                <tr>
+                                    <td><button class="btn">データ導入</button></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><button class="btn">マスタ情報管理</button>
+                                    </td>
+                                    <td> <button class="btn">在庫情報管理</button>
+                                    </td>
+                                    <td> <button class="btn">販売情報管理</button></td>
+                                </tr>
+                                <tr>
+                                    <td> <button class="btn">納品管理</button>
+                                    </td>
+                                    <td> <button class="btn">仕入管理</button></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td> <button class="btn">代行発送商品管理</button></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><button class="btn">発送情報管理</button>
+                                    </td>
+                                    <td></td>
+                                    <td> <button class="btn">売上管理</button></td>
+                                </tr>
+                                <tr>
+                                    <td> <button class="btn">商品スキャン</button>
+                                    </td>
+                                    <td></td>
+                                    <td> <button class="btn">TODO管理</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="content_l">
                         <div class="content_l_nav">
                             <p>メニュー </p>
                         </div>
@@ -218,7 +256,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
                     <div class="content_r">
                         <div class="content_l_nav">
                             <p>TODO</p>
