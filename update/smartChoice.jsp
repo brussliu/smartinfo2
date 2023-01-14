@@ -33,7 +33,7 @@
                 .hright_r {
                     float: right;
                     margin-right: 3vw;
-                    margin-top: 2.5vh;
+                    margin-top: 2vh;
                     width: 90px;
                     height: 30px;
                     border: 0;
@@ -86,7 +86,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="margin-top:2.5vh ;margin-left:3vw;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px; margin-left:3vw;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -94,7 +94,9 @@
                             <p>UserID：<span>XXXX</span></p>
                         </div>
                         <div>
+                          
                             <button class="hright_r">ログオフ</button>
+                            <button class="hright_r" style="visibility: hidden;"></button>
                         </div>
                     </div>
                 </div>
