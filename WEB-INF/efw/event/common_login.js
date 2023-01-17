@@ -9,8 +9,6 @@ common_login.fire=function(params){   //
 
 	var ret = new Result();
 	
-	
-	
 	session.create();
 	// session.invalidate();
 	
@@ -19,7 +17,7 @@ common_login.fire=function(params){   //
 
 	
 	
-	return ret.navigate("menu.jsp");//跳转
+	return ret.navigate("menu.jsp");
 
 };
 

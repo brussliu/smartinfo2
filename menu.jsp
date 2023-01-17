@@ -1,62 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="efw" uri="efw" %>
         <html>
-
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>店舗を選択してください。</title>
+            <title>SmartInfo 2.0</title>
             <efw:Client />
+            <link rel="stylesheet" href="css/common.css" type="text/css"/>
             <style>
-                :root {
-                    --width: 1920px;
-                }
-
-                * {
-                    margin: 0;
-                    border: 0;
-                    overflow: hidden;
-                    letter-spacing: 3px;
-                }
-
-                .head {
-                    width: var(--width);
-                    height: 60px;
-                    background-color: rgb(178, 178, 240);
-                    color: aliceblue;
-                }
-
-                .hleft {
-                    float: left;
-                    width: 50%;
-                    height: 60px;
-                }
-
-                .hright {
-                    float: right;
-                    width: 30%;
-                    height: 60px;
-
-                }
-
-                .hright_r {
-                    float: right;
-                    margin-right: 3vw;
-                    margin-top: 2vh;
-                    width: 90px;
-                    height: 30px;
-                    border: 0;
-                    border-radius: 20px;
-
-                }
-
-                .hright_l {
-                    float: left;
-                    line-height: 30px;
-                    height: 60px;
-                }
-
-
-
                 /* content */
                 .content {
                     width: var(--width);
@@ -70,12 +20,12 @@
                 }
 
                 .content_l {
-                    width: 73%;
+                    width: 68%;
                     height: 86vh;
                 }
 
                 .content_r {
-                    width: 26.5%;
+                    width: 31.5%;
                     height: 86vh;
                     vertical-align: top;
                     overflow-y: auto;
@@ -83,9 +33,9 @@
 
                 /* content_l_nav     */
                 .content_l_nav {
-                    line-height: 43px;
-                    height: 43px;
-                    background: rgb(233, 229, 173);
+                    line-height: 35px;
+                    height: 35px;
+                    background: rgb(255, 255, 100);
                 }
 
                 .content_l_nav p {
@@ -95,7 +45,7 @@
                 /* content_l_btn */
                 .content_l_btn {
                     width: 90%;
-                    height: 82vh;
+                    height: 68vh;
                     margin: auto;
                 }
 
@@ -172,32 +122,28 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="height: 60px;line-height: 60px;margin-left:40px;">SmartInfo 2.0</h1>
+                        <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
-                            <p>店舗ID：<span>未选择</span></p>
-                            <p>UserID：<span>XXXX</span></p>
+                            <p>店舗ID：<span id="shopid">未选择</span></p>
+                            <p>UserID：<span id="userid">XXXX</span></p>
                         </div>
                         <div>
-
-
-                            <button class="hright_r">ログオフ</button>
-                            <button class="hright_r">切換える</button>
-
+                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
                         </div>
                     </div>
                 </div>
-
+                <div class="topnav">
+                    <p>メニュー</p>
+                </div>
                 <div class="content">
                     <div class="content_l">
-                        <div class="content_l_nav">
-                            <p>メニュー </p>
-                        </div>
                         <table class="content_l_btn">
                             <tbody>
                                 <tr>
-                                    <td><button class="btn">データ導入</button></td>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -234,17 +180,14 @@
                                     <td> <button class="btn">商品スキャン</button>
                                     </td>
                                     <td></td>
-                                    <td> <button class="btn">TODO管理</button></td>
                                     <td></td>
+                                    <td><button class="btn">TODO管理</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                  
                     <div class="content_r">
-                        <div class="content_l_nav">
-                            <p>TODO</p>
-                        </div>
                         <div class="content_l_con">
                             <p>
                                 <span class="span_t">

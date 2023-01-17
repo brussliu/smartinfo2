@@ -6,63 +6,8 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>データ導入</title>
             <efw:Client />
+            <link rel="stylesheet" href="css/common.css" type="text/css"/>
             <style>
-                    :root {
-                    --width: 1920px;
-                }
-
-                * {
-                    margin: 0;
-                    letter-spacing: 3px;
-                }
-
-                .head {
-                    width: var(--width);
-                    height: 60px;
-                    background-color: rgb(178, 178, 240);
-                    color: aliceblue;
-                }
-
-                .hleft {
-                    float: left;
-                    width: 50%;
-                    height: 60px;
-                }
-
-                .hright {
-                    float: right;
-                    width: 30%;
-                    height: 60px;
-                }
-
-                .hright_r {
-                    float: right;
-                    margin-right: 3vw;
-                    margin-top: 2vh;
-                    width: 90px;
-                    height: 30px;
-                    border: 0;
-                    border-radius: 20px;
-                }
-
-                .hright_l {
-                    float: left;
-                    line-height: 30px;
-                }
-
-                /* topnav */
-                .topnav {
-                    width: var(--width);
-                    line-height: 43px;
-                    height: 43px;
-                    background: rgb(233, 229, 173);
-                }
-
-                .topnav p {
-                    text-indent: 2.5em;
-
-                }
-
                 /* content */
                 .content {
                     width: var(--width);
@@ -71,56 +16,20 @@
 
                 }
 
-                table {
+                /* table {
                     width: 100%;
                     border-collapse: collapse;
-                    margin-top: 27px;
-                }
-                .table1{
-                    width: 100%;
-               
-                }
-                .table1 td {
-                    width: 13%;
-                    
-                }
-                .table1 td button{
-                    float: right;
-                }
+                } */
 
-                .table2 {
-                    width: 110%;
-                 
-                }
-                .table2 td{
-                    border-left: 1px solid black;
-                    border-right: 1px solid black;
-                    border-bottom: 1px dashed black;
-                }
-                .table2  th {
-                    border: 1px solid black;
-                }
-                .btn {
-                    width: 160px;
-                    height: 50px;
-                    background: rgb(253, 253, 253);
-                    font-size: 20px;
-                    border: 1px solid rgb(206, 205, 205);
-                    box-shadow: 5px 5px 2px #888888;
-                
-                }
+
+
 
                 /* table */
-                .table2   .vh {
+                .table_detail .vh {
                     visibility: hidden;
                     border: 0;
                 }
-                .c_btn{
-                    width: 95%;
-                    margin: auto;
-                }
-              
- 
+
 
                 .td1,
                 .td3,
@@ -144,28 +53,25 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="height: 60px;line-height: 60px;margin-left:40px;">SmartInfo 2.0</h1>
+                        <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
-                            <p>店舗ID：<span>未选择</span></p>
-                            <p>UserID：<span>XXXX</span></p>
+                            <p>店舗ID：<span id="shopid">未选择</span></p>
+                            <p>UserID：<span id="userid">XXXX</span></p>
                         </div>
                         <div>
-
-
-                            <button class="hright_r">ログオフ</button>
-                            <button class="hright_r">切換える</button>
-
+                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
                         </div>
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="#">メニュー</a> > 店舗を選択してください。</p>
+                    <p><a href="#">メニュー</a> > ファイルを格納してから、ファイル識別ボタンを押下してください。</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">
-                        <table class="table1">
+                        <table class="table_btn">
                             <tbody>
                                 <tr>
                                     <td></td>
@@ -173,15 +79,15 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn">ファイル識別</button></td>
-                                    <td><button class="btn">データ取込</button></td>
+                                    <td style="width: 200px;"><button>ファイル識別</button></td>
+                                    <td style="width: 200px;"><button>データ取込</button></td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
-                    <div style="    width: 87vw; margin-left: 2vw;">
-                        <table class="table2">
+                    <div class="c_detail">
+                        <table class="table_detail">
                             <thead>
                             <tr class="datatr">
                                 <th class="vh"></th>

@@ -1,0 +1,101 @@
+:root {
+    --width: 1920px;
+}
+
+* {
+    margin: 0;
+    border: 0;
+    overflow: hidden;
+    letter-spacing: 3px;
+}
+
+.head {
+    width: var(--width);
+    height: 80px;
+    background-color: rgb(0, 100, 200);
+    color: aliceblue;
+}
+
+.hleft {
+    float: left;
+    width: 50%;
+    height: 80px;
+}
+
+.hright {
+    float: right;
+    width: 30%;
+    height: 80px;
+
+}
+
+.hright_r {
+    float: right;
+    margin-right: 20px;
+    margin-top: 2vh;
+    width: 90px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+
+}
+
+.hright_l {
+    float: left;
+    line-height: 40px;
+    height: 80px;
+}
+
+/* topnav */
+.topnav {
+    width: var(--width);
+    line-height: 35px;
+    height: 35px;
+    background: rgb(255, 255, 100);
+}
+
+.topnav p {
+    text-indent: 2.5em;
+
+}
+
+/* content */
+/* btn */
+.c_btn{
+    width: 95%;
+    margin: auto;
+}
+.table_btn{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table_btn td button{
+    float: right;
+    width: 180px;
+    height: 40px;
+    background: rgb(253, 253, 253);
+    font-size: 16px;
+    border: 1px solid rgb(206, 205, 205);
+    box-shadow: 5px 5px 2px #888888;
+}
+
+/* detail */
+.c_detail{
+    width: 95%;
+    margin: auto;
+}
+.table_detail {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.table_detail td{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px dashed black;
+}
+.table_detail th {
+    border: 1px solid black;
+}
