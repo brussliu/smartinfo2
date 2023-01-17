@@ -7,12 +7,16 @@
             <title>店舗を選択してください。</title>
             <efw:Client />
             <style>
+                  :root {
+                    --width: 1920px;
+                }
                 * {
                     margin: 0;
+                    letter-spacing: 3px;
                 }
 
                 .head {
-                    width: 100vw;
+                    width: var(--width);
                     height: 60px;
                     background-color: rgb(178, 178, 240);
                     color: aliceblue;
@@ -47,9 +51,9 @@
 
                 /* topnav */
                 .topnav {
-                    width: 100vw;
-                    line-height: 4vh;
-                    height: 4vh;
+                    width: var(--width);
+                    line-height: 43px;
+                    height: 43px;
                     background: rgb(233, 229, 173);
                 }
 
@@ -58,9 +62,10 @@
 
                 }
 
+
                 /* content */
                 .content {
-                    width: 100vw;
+                    width: var(--width);
                     height: 86vh;
                     display: flex;
                     justify-content: center;
@@ -77,7 +82,11 @@
                     text-align: center;
                 }
                 th{
-                    background-color: rgb(167, 214, 241);
+                    background-color:#f6f6f6;
+                }
+                a{
+                    text-decoration-line: none;
+                    color: black;
                 }
             </style>
         </head>
@@ -86,7 +95,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="height: 60px;line-height: 60px; margin-left:3vw;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -94,9 +103,11 @@
                             <p>UserID：<span>XXXX</span></p>
                         </div>
                         <div>
-                          
+
+
                             <button class="hright_r">ログオフ</button>
-                            <button class="hright_r" style="visibility: hidden;"></button>
+                            <button class="hright_r" style="display: none;">切換える</button>
+
                         </div>
                     </div>
                 </div>
@@ -112,13 +123,14 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Smart-bear</td>
+                           
+                                <td><a onclick="Efw('common_smartChoice',{UserID:this.innerHTML})">Smart-bear</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
+ 
         </body>
 
         </html>
