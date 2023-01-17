@@ -1781,10 +1781,11 @@
 	</sql>
 
 
-	<sql id="selectInitInfo">
+	<sql id="selectInitInfo1">
 		select
 			"店舗ID"
 			, "データ種別"
+			, "導入ファイル名"
 			, "導入日時"
 			, "導入件数" 
 		from
@@ -1792,12 +1793,15 @@
 				select
 					"店舗ID"
 					, "データ種別"
+					, "導入ファイル名"
 					, "導入日時"
 					, "導入件数"
 					, row_number() over (partition by "データ種別" order by "導入日時" desc) rn 
 				from
 					"TRN_データ導入履歴" 
 				where
+					"ステータス" = '取込済み'
+					and
 					"店舗ID" = :shopId
 			) temp 
 		where
@@ -1806,7 +1810,35 @@
 			"データ種別"
 
 	</sql>
+	<sql id="selectInitInfo2">
+		select
+			"店舗ID"
+			, "データ種別"
+			, "導入ファイル名"
+			, "導入日時"
+			, "導入件数" 
+		from
+			( 
+				select
+					"店舗ID"
+					, "データ種別"
+					, "導入ファイル名"
+					, "導入日時"
+					, "導入件数"
+					, row_number() over (partition by "データ種別" order by "導入日時" desc) rn 
+				from
+					"TRN_データ導入履歴" 
+				where
+					"ステータス" = '識別済み'
+					and
+					"店舗ID" = :shopId
+			) temp 
+		where
+			rn = 1 
+		order by
+			"データ種別"
 
+	</sql>
 
 	<sql id="delAllFile01">
 		DELETE FROM "IPT_全出品情報"
@@ -2426,18 +2458,43 @@
 		)
 	</sql>
 
-
-	<sql id="insertHistory">
+	<sql id="insertImportFileInfo">
 		INSERT INTO "TRN_データ導入履歴"
 		VALUES (
 			:col0,
 			:col1,
 			:col2,
-			:col3
-						 
+			:col3,
+			:col4,
+			:col5		 
 		)
 	</sql>
 
+	<sql id="deleteImportFileInfo">
+		DELETE FROM "TRN_データ導入履歴"
+		WHERE
+			"店舗ID" = :col0
+			AND
+  			"データ種別" = :col1
+			AND
+  			"ステータス" = :col2
+
+	</sql>
+
+	<sql id="updateImportFileInfo">
+		UPDATE "TRN_データ導入履歴"
+		SET 
+			"導入日時" = :col0
+			,"導入件数" = :col1
+			,"ステータス" = :col2
+		WHERE
+			"店舗ID" = :col3
+			AND
+  			"データ種別" = :col4
+			AND
+  			"導入ファイル名" = :col5
+
+	</sql>
 </sqls>
 
 

@@ -2,1338 +2,358 @@ var import_importfile = {};
 import_importfile.name = "データ導入";//
 import_importfile.paramsFormat = {
 
-	// 商品マスタ情報　18
-	"#importfile_01": null,//#
-	"#importfile_02": null,
-	"#importfile_03": null,//#
-	"#importfile_04": null,
-	"#importfile_05": null,//#
-	"#importfile_06": null,
-	"#importfile_07": null,//#
-	"#importfile_08": null,
-	"#importfile_09": null,//#
-	"#importfile_10": null,
-	"#importfile_11": null,//#
-	"#importfile_12": null,
-	"#importfile_13": null,//#
-	"#importfile_14": null,
-	"#importfile_15": null,//#
-	"#importfile_16": null,
-	"#importfile_17": null,//#
-	"#importfile_18": null,
 
 };
-var num = 0;//履歴登録処理の件数
-var registrationDate = "";//表里显示的时间
+var num = 0;
 
 var SHOP_ID = session.get("SHOP_ID");
+
+var today = null;
+var registrationDate = null;
+
+var UPLOAD_FILE_PATH = "UPLOAD_FILE";
+var PROCESS_FILE_PATH = "PROCESS_FILE";
+var BACKUP_FILE_PATH = "BACKUP_FILE";
+
+var UPLOADBK_FILE_PATH = "UPLOAD_FILE_BK";
+
+var FILE01_NAME = "01.すべての出品商品のレポート (カスタム)";
+var FILE02_NAME = "02.全注文レポート";
+var FILE03_NAME = "03.FBA在庫レポート";
+var FILE04_NAME = "04.ペイメントレポート";
+var FILE05_NAME = "05.FBA未出荷レポート";
+var FILE07_NAME = "07.日付別_売上およびトラフィック";
+var FILE08_NAME = "08.日付別_パフォーマンス";
+var FILE09_NAME = "09.日付別_詳細ページ 売上トラフィック";
+var FILE10_NAME = "10.ASIN別_詳細ページ 売上トラフィック";
+var FILE11_NAME = "11.FBA在庫出荷レポート";
+var FILE12_NAME = "12.出荷レポート";
+var FILE13_NAME = "13.手数料見積り額レポート";
+var FILE14_NAME = "14.在庫保管手数料レポート";
+var FILE15_NAME = "15.長期在庫保管手数料請求額レポート";
+var FILE16_NAME = "16.返品レポート";
+var FILE17_NAME = "17.返送推奨レポート";
+var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
 
 import_importfile.fire = function (params) {   //
 
 	var ret = new Result();
-	var flg_file01 = false;
-	var flg_file02 = false;
-	var flg_file03 = false;
-	var flg_file04 = false;
-	var flg_file05 = false;
-	var flg_file06 = false;
-	var flg_file07 = false;
-	var flg_file08 = false;
-	var flg_file09 = false;
-	var flg_file10 = false;
-	var flg_file11 = false;
-	var flg_file12 = false;
-	var flg_file13 = false;
-	var flg_file14 = false;
-	var flg_file15 = false;
-	var flg_file16 = false;
-	var flg_file17 = false;
-	var flg_file18 = false;
 
-	file.saveUploadFiles("upload");//importfile_01文件上传到upload文件 
-
-	if (params["#importfile_01"] != null && params["#importfile_01"] != "") {
-
-		flg_file01 = true;
-
-		// ******************创建新方法****************** 
-		var fa = params["#importfile_01"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".01",txt);
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-		var csvReader = new CSVReader("upload/" + f + ".01", "\t");
-		// ******************提取公共部分****************** 
-		
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile01",
-			{}
-		);
-		//データ全件導入
-		num = 0;	
-		csvReader.loopAllLines(import_01);//针对文件 aryField 的每一行执行一次方法import_01
-		//履历表插入
-		saveHistory(SHOP_ID, "file01", today, num);
-	}
-	
-	if (params["#importfile_02"] != null && params["#importfile_02"] != "") {
-
-		flg_file02 = true;
-
-		// ******************数据读取****************** 
-		var fa = params["#importfile_02"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-		
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
-		
-		// ******************数据读取******************
-
-		// ******************核心逻辑操作******************
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile02",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_02);//针对文件 aryField 的每一行执行一次方法import_01
-		// ******************核心逻辑操作******************	
-		//履历表插入
-		saveHistory(SHOP_ID, "file02", today, num);
-
+	if(SHOP_ID == null|| SHOP_ID == ""){
+		return ret.navigate("login.jsp");
 	}
 
-	if (params["#importfile_03"] != null && params["#importfile_03"] != "") {
+	today = new Date();
+	registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
-		flg_file03 = true;
-		var fa = params["#importfile_03"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
+	bakupUploadFile(today);
 
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
+	var flg_file01 = importFile("01",	"UTF-8(BOM)",	"\t",	"\r\n",		null);
+	var flg_file02 = importFile("02",	"S-JIS",		"\t",	"\r\n",		null);
+	var flg_file03 = importFile("03",	"UTF-8",		"\t",	"\r\n",		null);
+	var flg_file04 = importFile("04",	"S-JIS",		",",	"\r\n",		null);
+	var flg_file05 = importFile("05",	"S-JIS",		"\t",	"\r\n",		null);
 
-		var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
+	var flg_file07 = importFile("07",	"UTF-8(BOM)",	",",	"\r\n",		null);
+	var flg_file08 = importFile("08",	"UTF-8(BOM)",	",",	"\r\n",		null);
+	var flg_file09 = importFile("09",	"UTF-8(BOM)",	",",	"\r\n",		null);
+	var flg_file10 = importFile("10",	"UTF-8(BOM)",	",",	"\r\n",		null);
 
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile03",
-			{}
+	var flg_file11 = importFile("11",	"UTF-8(BOM)",	",",	"\r\n",		1);
+	var flg_file12 = importFile("12",	"UTF-8(BOM)",	",",	"\r\n",		1);
+
+	var flg_file13 = importFile("13",	"S-JIS",		",",	"\r\n",		null);
+	var flg_file14 = importFile("14",	"S-JIS",		",",	"\r\n",		null);
+
+	var flg_file15 = importFile("15",	"S-JIS",		",",	"\r\n",		null);
+
+	var flg_file16 = importFile("16",	"S-JIS",		",",	"\r\n",		null);
+	var flg_file17 = importFile("17",	"S-JIS",		",",	"\r\n",		null);
+
+	var flg_file18 = importFile("18",	"S-JIS",		",",	"\r\n",		null);
+
+	moveFile("01");
+	moveFile("02");
+	moveFile("03");
+	moveFile("04");
+	moveFile("05");
+	moveFile("07");
+	moveFile("08");
+	moveFile("09");
+	moveFile("10");
+	moveFile("11");
+	moveFile("12");
+	moveFile("13");
+	moveFile("14");
+	moveFile("15");
+	moveFile("16");
+	moveFile("17");
+	moveFile("18");
+
+	// excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
+	// 	flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
+	// 	flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
+
+	return ret.navigate("import.jsp");
+};
+
+function bakupUploadFile(){
+
+	var daystr = today.format("yyyyMMdd-HHmmss");
+		// ファイル移動
+		file.duplicate(
+			PROCESS_FILE_PATH,
+			UPLOADBK_FILE_PATH + "\\" + daystr
 		);
+}
 
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_03);//针对文件 aryField 的每一行执行一次方法import_01
 
-		//履历表插入
-		saveHistory(SHOP_ID, "file03", today, num);
+function moveFile(fileno){
+
+	var filefoldername = "";
+	eval('filefoldername = FILE' + fileno + '_NAME;');
+
+	var filelist = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
+
+	if(filelist.length == 0){
+
+	}
+	if(filelist.length == 1){
+
+		// ファイル取込
+		var filename = filelist[0]["name"];
+		// ファイル移動
+		file.duplicate(
+			PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename,
+			BACKUP_FILE_PATH + "\\" + filefoldername + "\\" + filename
+		);
+		
+		file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
 	}
 
-	if (params["#importfile_04"] != null && params["#importfile_04"] != "") {
+}
 
-		flg_file04 = true;
-		var fa = params["#importfile_04"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
+function importFile(fileno, encoding, separator, breakcode, opt){
 
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".04",txt,"MS932");
 
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
+	var filefoldername = "";
+	eval('filefoldername = FILE' + fileno + '_NAME;');
 
-		var csvReader = new CSVReader("upload/" + f + ".04", ",", "\"", "MS932");
+	var filelist = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
 
-		// データ全件削除
-		var delResult = db.change(
+	if(filelist.length == 0){
 
-			"IMPORT",//IMPORT.xml
+		return false;
 
-			"delAllFile04",
+	}
+	if(filelist.length == 1){
+
+		// ファイル取込
+		var fileinfo = filelist[0];
+		var filename = fileinfo["name"];
+
+		///////////////////////////////////////////////////////////////////////////////////
+
+		if(opt != null){
 			
-			{}
-
-		);
-
-		//データ全件導入
-		num = 0;
-
-		csvReader.loopAllLines(import_04);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file04", today, num);
-	}
-
-	if (params["#importfile_05"] != null && params["#importfile_05"] != "") {
-
-		flg_file05 = true;
-		var fa = params["#importfile_05"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
-
-		// データ全件削除
-
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile05",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_05);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file05", today, num);
-	}
-
-	if (params["#importfile_06"] != null && params["#importfile_06"] != "") {
-
-		flg_file06 = true;
-		var fa = params["#importfile_06"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f, "\t", "\"", "MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile06",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_06);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file06", today, num);
-	}
-
-	if (params["#importfile_07"] != null && params["#importfile_07"] != "") {
-
-		flg_file07 = true;
-		var fa = params["#importfile_07"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".07",txt);
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
-		var csvReader = new CSVReader("upload/" + f + ".07", ",");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile07",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_07);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file07", today, num);
-	}
-
-	if (params["#importfile_08"] != null && params["#importfile_08"] != "") {
-
-		flg_file08 = true;
-		var fa = params["#importfile_08"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".08",txt);
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".08", ",");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile08",
-			{}
-		);
-		
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_08);//针对文件 aryField 的每一行执行一次方法import_01
-		
-		//履历表插入
-		saveHistory(SHOP_ID, "file08", today, num);
-	}
-
-	if (params["#importfile_09"] != null && params["#importfile_09"] != "") {
-
-		flg_file09 = true;
-		var fa = params["#importfile_09"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".09",txt);
-		
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".09", ",");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile09",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_09);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file09", today, num);
-	}
-
-	if (params["#importfile_10"] != null && params["#importfile_10"] != "") {
-
-		flg_file10 = true;
-		var fa = params["#importfile_10"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".10",txt);
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".10", ",");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile10",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_10);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file10", today, num);
-	}
-
-	if (params["#importfile_11"] != null && params["#importfile_11"] != "") {
-
-		flg_file11 = true;
-		var fa = params["#importfile_11"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-
-		txt = txt.substring(1);
-
-		file.writeAllLines("upload/" + f + ".11", txt, "MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		//var csvReader = new CSVReader("upload/" + f, ",","\"","MS932");
-		//var csvReader = new CSVReader("upload/" + f, ",");
-		var csvReader = new CSVReader("upload/" + f + ".11", ",","\"","MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile11",
-			{}
-		);
-
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_11);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file11", today, num);
-	}
-
-	if (params["#importfile_12"] != null && params["#importfile_12"] != "") {
-
-		flg_file12 = true;
-		var fa = params["#importfile_12"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f);
-		txt = txt.replaceAll("\n","\r\n");
-		txt = txt.substring(1);
-
-		file.writeAllLines("upload/" + f + ".12", txt, "MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".12", ",","\"","MS932");
-		//var csvReader = new CSVReader("upload/" + f, ",");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile12",
-			{}
-		);
-		//データ全件導入
-		num = 0;
-		csvReader.loopAllLines(import_12);//针对文件 aryField 的每一行执行一次方法import_01
-
-		saveHistory(SHOP_ID, "file12", today, num);
-
-	}
-
-	if (params["#importfile_13"] != null && params["#importfile_13"] != "") {
-
-		flg_file13 = true;
-		var fa = params["#importfile_13"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".13",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".13", ",", "\"", "MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile13",
-			{}
-		);
-		num = 0;
-		//データ全件導入
-		csvReader.loopAllLines(import_13);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file13", today, num);
-	}
-
-	if (params["#importfile_14"] != null && params["#importfile_14"] != "") {
-
-		flg_file14 = true;
-		var fa = params["#importfile_14"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".14",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".14", ",", "\"", "MS932");
+			var txt = null;
+
+			if(encoding == "S-JIS"){
+				txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, "MS932");
+			}else{
+				txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
+			}
+			
+			txt = txt.substring(opt);
+
+			// if(encoding == "S-JIS"){
+				file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, txt, "MS932");
+			// }else{
+			// 	file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, txt);
+			// }
+			
+		}
+
+		var csvReader = null;
+
+		if(encoding == "S-JIS" || opt != null){
+			csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, separator, "\"", "MS932");
+		}else{
+			csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, separator);
+		}
 		
 		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile14",
-			{}
-		);
-		num = 0;
+		var delResult = db.change("IMPORT",	"delAllFile" + fileno,{});
+
 		//データ全件導入
-		csvReader.loopAllLines(import_14);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file14", today, num);
-	}
-
-	if (params["#importfile_15"] != null && params["#importfile_15"] != "") {
-
-		flg_file15 = true;
-		var fa = params["#importfile_15"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".15",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".15", ",", "\"", "MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile15",
-			{}
-		);
 		num = 0;
-		//データ全件導入
-		csvReader.loopAllLines(import_15);//针对文件 aryField 的每一行执行一次方法import_01
 
-		//履历表插入
-		saveHistory(SHOP_ID, "file15", today, num);
+		eval('csvReader.loopAllLines(import_' + fileno +');');
+
+		///////////////////////////////////////////////////////////////////////////////////
+
+		// 履歴テーブル挿入
+		updateImortFileInfo(fileno, filename, num);
+
+		return true;
+	
 	}
+}
 
-	if (params["#importfile_16"] != null && params["#importfile_16"] != "") {
+function updateImortFileInfo(fileno, filename, recordCount) {
 
-		flg_file16 = true;
-		var fa = params["#importfile_16"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".16",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".16", ",", "\"", "MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile16",
-			{}
-		);
-		num = 0;
-		//データ全件導入
-		csvReader.loopAllLines(import_16);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file16", today, num);
-	}
-
-	if (params["#importfile_17"] != null && params["#importfile_17"] != "") {
-
-		flg_file17 = true;
-		var fa = params["#importfile_17"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".17",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".17", ",", "\"", "MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile17",
-			{}
-		);
-		num = 0;
-		//データ全件導入
-		csvReader.loopAllLines(import_17);//针对文件 aryField 的每一行执行一次方法import_01	
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file17", today, num);
-	}
-
-	if (params["#importfile_18"] != null && params["#importfile_18"] != "") {
-
-		flg_file18 = true;
-		var fa = params["#importfile_18"].split("\\");
-		var f = fa[fa.length - 1];//取出文件名
-
-		var txt=file.readAllLines("upload/" + f,"MS932");
-		txt = txt.replaceAll("\n","\r\n");
-		file.writeAllLines("upload/" + f + ".18",txt,"MS932");
-
-		var today = new Date();
-		registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
-
-		var csvReader = new CSVReader("upload/" + f + ".18", ",", "\"","MS932");
-
-		// データ全件削除
-		var delResult = db.change(
-			"IMPORT",//IMPORT.xml
-			"delAllFile18",
-			{}
-		);
-		num = 0;
-		//データ全件導入
-		csvReader.loopAllLines(import_18);//针对文件 aryField 的每一行执行一次方法import_01
-
-		//履历表插入
-		saveHistory(SHOP_ID, "file18", today, num);
-	}
-
-	excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
-		flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-		flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
-
-	return ret.navigate("upload.jsp");//跳转
-};
-function import_01(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-
-			"IMPORT",
-			"insertFile01",
-
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": aryField[27],
-				"col28": aryField[28],
-				"col29": aryField[29],
-				"col30": aryField[30],
-				"col31": aryField[31],
-				"col32": aryField[32],
-				"col33": aryField[33],
-				"col34": aryField[34],
-				"col35": aryField[35],
-				"col36": aryField[36],
-				"col37": aryField[37],
-				"col38": aryField[38],
-				"col39": aryField[39],
-				"col40": aryField[40],
-				"col41": aryField[41],
-				"col42": aryField[41],
-				"col43": aryField[43],
-				"col44": SHOP_ID,
-				"col45": registrationDate,
-				"col46": registrationDate,
-			}
-		);//导入数据库
-		num++;
-
-	}
-};
-function import_02(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile02",
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": aryField[27],
-				"col28": aryField[28],
-				"col29": SHOP_ID,
-				"col30": registrationDate,
-				"col31": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_03(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(
-			"IMPORT",
-			"insertFile03",
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": SHOP_ID,
-				"col7": registrationDate,
-				"col8": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_04(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 7) {
-
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile04",//加在这个后面？？？
-
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": aryField[27],				
-				"col28": SHOP_ID,
-				"col29": registrationDate,
-				"col30": registrationDate
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_05(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile05",
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": aryField[27],
-				"col28": aryField[28],
-				"col29": aryField[29],
-				"col30": aryField[30],
-				"col31": aryField[31],
-				"col32": aryField[32],
-				"col33": aryField[33],
-				"col34": aryField[34],
-				"col35": aryField[35],
-				"col36": aryField[36],
-				"col37": aryField[37],
-				"col38": aryField[38],
-				"col39": aryField[39],
-				"col40": aryField[40],
-				"col41": aryField[41],
-				"col42": aryField[41],
-				"col43": aryField[43],
-				"col44": aryField[44],
-				"col45": aryField[45],
-				"col46": aryField[46],
-				"col47": aryField[47],
-				"col48": aryField[48],
-				"col49": aryField[49],
-				"col50": aryField[50],
-				"col51": aryField[51],
-				"col52": aryField[52],
-				"col53": aryField[53],
-				"col54": aryField[54],
-				"col55": aryField[55],
-				"col56": aryField[56],
-				"col57": aryField[57],
-				"col58": aryField[58],
-				"col59": aryField[59],
-				"col60": aryField[60],
-				"col61": aryField[61],
-				"col62": aryField[62],
-				"col63": aryField[63],
-				"col64": aryField[64],
-				"col65": aryField[65],
-				"col66": aryField[66],
-				"col67": aryField[67],
-				"col68": aryField[68],
-				"col69": aryField[69],
-				"col70": SHOP_ID,
-				"col71": registrationDate,
-				"col72": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-// 第六个方法空的，没写 以后定义
-function import_06(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	// if(index > 0){
-	// 	var insertResult = db.change(//插入 删除用change ,检索用select;
-	// 		"IMPORT",
-	// 		"insertFile07",//加在这个后面？？？
-	// 		{
-	// 			"col0":aryField[0],
-	// 			"col1":aryField[1],
-	// 			"col2":aryField[2],
-	// 			"col3":aryField[3],
-	// 			"col4":aryField[4],
-	// 			"col5":aryField[5],
-	// 			"col6":aryField[6],
-	// 			"col7":aryField[7],
-	// 			"col8":aryField[8],
-	// 			"col9":aryField[9],
-	// 			"col10":aryField[10],
-	// 			"col11":aryField[11],
-	// 			"col12":aryField[12],
-	// 			"col13":aryField[13],
-	// 			"col14":aryField[14],
-	// 			"col15":aryField[15],
-	// 			"col16":aryField[16],
-	// 			"col17":aryField[17],
-	// 			"col18":SHOP_ID,
-	// 			"col19":registrationDate,
-	// 			"col20":registrationDate,				
-	// 		}
-	// 	);//导入数据库
-	//num++;
-	// }
-};
-function import_07(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile07",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": SHOP_ID,
-				"col19": registrationDate,
-				"col20": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_08(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile08",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": SHOP_ID,
-				"col15": registrationDate,
-				"col16": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_09(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile09",//加在这个后面？？？
-
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": SHOP_ID,
-				"col18": registrationDate,
-				"col19": registrationDate,
-
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_10(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile10",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": SHOP_ID,
-				"col23": registrationDate,
-				"col24": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_11(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile11",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": aryField[27],
-				"col28": aryField[28],
-				"col29": aryField[29],
-				"col30": aryField[30],
-				"col31": aryField[31],
-				"col32": aryField[32],
-				"col33": aryField[33],
-				"col34": aryField[34],
-				"col35": aryField[35],
-				"col36": aryField[36],
-				"col37": aryField[37],
-				"col38": aryField[38],
-				"col39": aryField[39],
-				"col40": aryField[40],
-				"col41": aryField[41],
-				"col42": aryField[41],
-				"col43": aryField[43],
-				"col44": aryField[44],
-				"col45": aryField[45],
-				"col46": aryField[46],
-				"col47": aryField[47],
-				"col48": aryField[48],
-				"col49": SHOP_ID,
-				"col50": registrationDate,
-				"col51": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_12(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile12",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": SHOP_ID,
-				"col16": registrationDate,
-				"col17": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_13(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile13",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": aryField[25],
-				"col26": aryField[26],
-				"col27": SHOP_ID,
-				"col28": registrationDate,
-				"col29": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_14(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile14",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": aryField[16],
-				"col17": aryField[17],
-				"col18": aryField[18],
-				"col19": aryField[19],
-				"col20": aryField[20],
-				"col21": aryField[21],
-				"col22": aryField[22],
-				"col23": aryField[23],
-				"col24": aryField[24],
-				"col25": SHOP_ID,
-				"col26": registrationDate,
-				"col27": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_15(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile15",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": SHOP_ID,
-				"col16": registrationDate,
-				"col17": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_16(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile16",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": SHOP_ID,
-				"col13": registrationDate,
-				"col14": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_17(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile17",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": aryField[15],
-				"col16": SHOP_ID,
-				"col17": registrationDate,
-				"col18": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function import_18(aryField, index) {//aryField第一个参数是当前行的数据（数组） index指的是行索引（第一行时index=0,第二行时index=1）........+1;
-
-	if (index > 0) {
-		var insertResult = db.change(//插入 删除用change ,检索用select;
-			"IMPORT",
-			"insertFile18",//加在这个后面？？？
-			{
-				"col0": aryField[0],
-				"col1": aryField[1],
-				"col2": aryField[2],
-				"col3": aryField[3],
-				"col4": aryField[4],
-				"col5": aryField[5],
-				"col6": aryField[6],
-				"col7": aryField[7],
-				"col8": aryField[8],
-				"col9": aryField[9],
-				"col10": aryField[10],
-				"col11": aryField[11],
-				"col12": aryField[12],
-				"col13": aryField[13],
-				"col14": aryField[14],
-				"col15": SHOP_ID,
-				"col16": registrationDate,
-				"col17": registrationDate,
-			}
-		);//导入数据库
-		num++;
-	}
-};
-function saveHistory(shopId, fileId, importData, ct) {
-
-	var historyResult = db.change(
+	var saveResult = db.change(
 		"IMPORT",
-		"insertHistory",
+		"updateImportFileInfo",
 		{
-			"col0": shopId,
-			"col1": fileId,
-			"col2": importData,
-			"col3": ct
+			"col0": today,
+			"col1": recordCount,
+			"col2": "取込済み",
+			"col3": SHOP_ID,
+			"col4": "file" + fileno,
+			"col5": filename
 		}
 	);
-};
-function formatNumber(str) {
+}
 
-	if (str == null || str == "") {
-		return str;
-	} else {
-		return str.replaceAll(",", "");
+function makeSQLObj(aryField){
+
+	var obj = {};
+
+	for(var i = 0; i < aryField.length; i ++){
+		obj["col"+i] = aryField[i]
 	}
+	
+	obj["col" + (aryField.length+1)] = SHOP_ID;
+	obj["col" + (aryField.length+2)] = registrationDate;
+	obj["col" + (aryField.length+3)] = registrationDate;
 
+	return obj;
+
+}
+
+
+
+function import_01(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile01",	makeSQLObj(aryField));
+		num++;
+
+	}
+};
+function import_02(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile02",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_03(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile03",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_04(aryField, index) {
+
+	if (index > 7) {
+		var insertResult = db.change("IMPORT",	"insertFile04",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_05(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile05",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_06(aryField, index) {
+
+};
+function import_07(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile07",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_08(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile08",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_09(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile09",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_10(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile10",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_11(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile11",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_12(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile12",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_13(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile13",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_14(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile14",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_15(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile15",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_16(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile16",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_17(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile17",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_18(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile18",	makeSQLObj(aryField));
+		num++;
+	}
 };
