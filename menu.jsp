@@ -124,7 +124,7 @@
                     height: 40px;
                     margin: 0 3vw;
                     box-shadow: 2px 2px 5px rgb(145, 139, 139);
-                  
+                    background: rgb(253, 253, 253);
                 }
 
 
