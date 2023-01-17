@@ -198,9 +198,7 @@
 </head>
 
 <body style="background-color:ghostwhite;">
-	<!-- <img src="img/smiley-2.png"  onclick="Efw('common_login');"> -->
-	<!-- <input type=button value= "ログイン"style="width:400px;height: 40px;" onclick="Efw('login')"> -->
-	<!-- <input type=button value= "ログイン"style="width:400px;height: 40px;" > -->
+ 
 	<div class="container right-panel-active">
 		<div class="container__form container--signup">
 		  <div  class="form" id="form1">
