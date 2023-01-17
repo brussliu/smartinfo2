@@ -13,6 +13,7 @@
 
                 * {
                     margin: 0;
+                    letter-spacing: 3px;
                 }
 
                 .head {
@@ -67,14 +68,21 @@
                 /* c_query */
                 .c_query {
                     width: var(--width);
-                    height: 216px;
+                    /* height: 216px; */
                 }
 
-                form {
+                .c_q_nav {
                     width: 95%;
-
-                    margin: auto;
-                    border-bottom: 1px solid black;
+                  margin-top: 30px;
+                    line-height: 66px;
+                    border-collapse: collapse;
+                    /* display: inline-block; */
+                }
+                .one td{
+                    width: 13%;
+                }
+                .two input:not(:first-child){
+                    margin-left: 40px;
                 }
 
                 /* info */
@@ -85,9 +93,10 @@
 
                 }
 
-                th {
+                .info th {
                     height: 45px;
                     border: 1px solid black;
+                    background-color:#f6f6f6;
                 }
 
                 td {
@@ -103,10 +112,8 @@
                 }
 
                 .btn {
-                    width: 130px;
+                    width: 160px;
                     height: 50px;
-
-
                     background: rgb(253, 253, 253);
                     font-size: 20px;
                     border: 1px solid rgb(206, 205, 205);
@@ -119,7 +126,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="height: 60px;line-height: 60px;margin-left:57px;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -139,60 +146,75 @@
                     <p><a href="#">メニュー</a> > 在庫情報管理</p>
                 </div>
                 <div class="c_query">
-                    <form>
-                        <table
-                            style="width: 95%;height: 212px;  line-height: 106px; border-collapse:collapse;display: inline-block;">
+                    <div style="width: 95%;margin: auto;border-bottom: 1px solid black;">
+                        <table class="c_q_nav one" >
                             <tbody>
                                 <tr>
-                                    <td style="width: 8%;">商品分類：</td>
-                                    <td style="width: 10%;">
-                                        <input type="radio" name="type" value="レインコート" checked>レインコート
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="type" value="靴下">靴下
-                                    </td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td><button class="btn">検索</button></td>
                                     <td><button class="btn">更新</button></td>
                                     <td><button class="btn">出力</button></td>
+                                   
                                 </tr>
+                            </tbody>
+                        </table>
+                        <table class="c_q_nav two">
+                            <tbody>
                                 <tr>
-                                    <td style="width: 8%;"> 商品番号：</td>
-                                    <td style="width: 10%;">
-                                        <select style="width: 152px;height:42px;">
+                                    <td style="width: 7%;">商品分類：</td>
+                                    <td style="width: 93%;">
+                                        <input type="checkbox" name="rain" value="レインコート" checked> レインコート
+                                        <input type="checkbox" name="type" value="靴下"> 靴下
+                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+
+                            <table  class="c_q_nav">
+                                <tbody>
+
+                              
+
+                                <tr>
+                                    <td style="width: 6%;">商品番号：</td>
+                                    <td style="width: 12%;">
+                                        <select style="width: 240px;height:42px;">
                                         </select>
                                     </td>
-                                    <td style="width: 8%;">キーワード：</td>
-                                    <td style="width: 8%;">
-                                        <input type="text" style="width: 152px;height: 42px;"></input>
+                                    <td style="width: 7%;">キーワード：</td>
+                                    <td style="width: 12%;">
+                                        <input type="text" style="width:  240px;height: 42px;"></input>
                                     </td>
-                                    <td style="width: 8%;">
-                                        発送方式：
-                                    </td>
+                                    <td style="width: 5%;">発送方式：</td>
                                     <td style="width: 10%;">
-                                        <input type="radio" name="send" value="FBA" checked>FBA
-                                        <input type="radio" name="send" value="FBM" style="margin-left:40px">FBM
+                                        <input type="checkbox" name="send" value="FBA" checked> FBA
+                                        <input type="checkbox" name="send" value="FBM" style="margin-left:40px"> FBM
 
                                     </td>
-                                    <td style="width: 8%;">表示項目：</td>
-                                    <td style="width: 10%;">
-                                        <input type="checkbox" name="project" value="ASIN、SKU、LABEL">ASIN、SKU、LABEL
+                                    <td style="width: 5%;">表示項目：</td>
+                                    <td style="width: 20%;">
+                                        <input type="checkbox" name="project" value="ASIN、SKU、LABEL"> ASIN、SKU、LABEL
+                                        <input type="checkbox" name="project" value="商品名称" style="margin-left: 40px;"> 商品名称
                                     </td>
-                                    <td style="width: 10%;">
-                                        <input type="checkbox" name="project" value="商品名称">商品名称
+                                 
+                                    <td style="width: 5%;">
+                                        
                                     </td>
 
                                 </tr>
                             </tbody>
                         </table>
 
-                    </form>
+                    </div>
 
 
                     <div class="info">
-                        <table style=" border-collapse:collapse; text-align: center;width: 100%;word-break: break-all;">
+                        <table  
+                            style=" border-collapse:collapse; text-align: center;width: 100%;word-break: break-all;">
                             <thead>
                                 <tr>
                                     <th style="width: 6%;">操作</th>
