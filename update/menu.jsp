@@ -7,14 +7,19 @@
             <title>店舗を選択してください。</title>
             <efw:Client />
             <style>
+                :root {
+                    --width: 1920px;
+                }
+
                 * {
                     margin: 0;
                     border: 0;
                     overflow: hidden;
+                    letter-spacing: 3px;
                 }
 
                 .head {
-                    width: 100vw;
+                    width: var(--width);
                     height: 60px;
                     background-color: rgb(178, 178, 240);
                     color: aliceblue;
@@ -54,7 +59,7 @@
 
                 /* content */
                 .content {
-                    width: 100vw;
+                    width: var(--width);
                     height: 86vh;
                     vertical-align: middle;
                 }
@@ -78,8 +83,8 @@
 
                 /* content_l_nav     */
                 .content_l_nav {
-                    line-height: 4vh;
-                    height: 4vh;
+                    line-height: 43px;
+                    height: 43px;
                     background: rgb(233, 229, 173);
                 }
 
@@ -106,9 +111,10 @@
 
                 }
 
-            td{
-                border-bottom :1px dashed black ;
-            }
+                .content_l_btn td {
+                    width: ;
+                    border-bottom: 1px dashed black;
+                }
 
 
 
@@ -118,9 +124,15 @@
                     height: 40px;
                     margin: 0 3vw;
                     box-shadow: 2px 2px 5px rgb(145, 139, 139);
+                    /* width: 160px;
+                    height: 50px;
+                    background: rgb(253, 253, 253);
+                    font-size: 20px;
+                    border: 1px solid rgb(206, 205, 205);
+                    box-shadow: 5px 5px 2px #888888; */
                 }
 
-             
+
 
                 /* content_l_con */
                 .content_l_con p {
@@ -163,7 +175,7 @@
             <div>
                 <div class="head">
                     <div class="hleft">
-                        <h1 style="height: 60px;line-height: 60px;margin-left:3vw;">SmartInfo 2.0</h1>
+                        <h1 style="height: 60px;line-height: 60px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
                         <div class="hright_l">
@@ -171,6 +183,7 @@
                             <p>UserID：<span>XXXX</span></p>
                         </div>
                         <div>
+
 
                             <button class="hright_r">ログオフ</button>
                             <button class="hright_r">切換える</button>
@@ -190,6 +203,7 @@
                                     <td><button class="btn">データ導入</button></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td><button class="btn">マスタ情報管理</button>
@@ -197,15 +211,18 @@
                                     <td> <button class="btn">在庫情報管理</button>
                                     </td>
                                     <td> <button class="btn">販売情報管理</button></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td> <button class="btn">納品管理</button>
                                     </td>
                                     <td> <button class="btn">仕入管理</button></td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td> <button class="btn">代行発送商品管理</button></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -214,49 +231,19 @@
                                     </td>
                                     <td></td>
                                     <td> <button class="btn">売上管理</button></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td> <button class="btn">商品スキャン</button>
                                     </td>
                                     <td></td>
                                     <td> <button class="btn">TODO管理</button></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <!-- <div class="content_l">
-                        <div class="content_l_nav">
-                            <p>メニュー </p>
-                        </div>
-                        <div class="content_l_btn">
-                            <div>
-                                <button class="btn">データ導入</button>
-
-
-                            </div>
-                            <div class="content_l_btn_r">
-                                <button class="btn">マスタ情報管理</button>
-                                <button class="btn">在庫情報管理</button>
-                                <button class="btn">販売情報管理</button>
-                            </div>
-                            <div>
-                                <button class="btn">納品管理</button>
-                                <button class="btn" style="margin-left:9vw;">仕入管理</button>
-                            </div>
-                            <div>
-                                <button class="btn">代行発送商品管理</button>
-                            </div>
-                            <div class="content_l_btn_r">
-                                <button class="btn">発送情報管理</button>
-                                <button class="btn_r">売上管理</button>
-                            </div>
-                            <div class="content_l_btn_r">
-                                <button class="btn">商品スキャン</button>
-                                <button class="btn_r">TODO管理</button>
-                            </div>
-
-                        </div>
-                    </div> -->
+                 
                     <div class="content_r">
                         <div class="content_l_nav">
                             <p>TODO</p>
