@@ -66,9 +66,6 @@
                     border-bottom: 1px dashed black;
                 }
 
-
-
-
                 .btn {
         
                     width: 235px;
@@ -78,8 +75,6 @@
                     border: 1px solid rgb(206, 205, 205);
                     box-shadow: 5px 5px 2px #888888;
                 }
-
-
 
                 /* content_l_con */
                 .content_l_con p {

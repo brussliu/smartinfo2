@@ -8,21 +8,6 @@
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css"/>
             <style>
-                /* content */
-                .content {
-                    width: var(--width);
-                    height: 83vh;
-                    overflow: hidden;
-
-                }
-
-                /* table {
-                    width: 100%;
-                    border-collapse: collapse;
-                } */
-
-
-
 
                 /* table */
                 .table_detail .vh {
@@ -67,7 +52,7 @@
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="#">メニュー</a> > ファイルを格納してから、ファイル識別ボタンを押下してください。</p>
+                    <p><a href="menu.jsp">メニュー</a> > ファイルを格納してから、ファイル識別ボタンを押下してください。</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">
@@ -94,18 +79,18 @@
                                 <th class="vh"></th>
                                 <th class="vh"></th>
                                 <th class="vh"></th>
-                                <th class="" colspan="2">今回未導入</th>
-                                <th class="" colspan="2">前回導入済み</th>
+                                <th colspan="2" style="background-color: pink;">今回未導入</th>
+                                <th colspan="2" style="background-color: cornflowerblue;">前回導入済み</th>
                             </tr>
-                            <tr style="background-color:#f6f6f6;height: 30px;">
-                                <th style="width:4%">No</th>
-                                <th style="width:24%">ファイル名称</th>
-                                <th style="width:6%">更新頻度</th>
-                                <th style="width:24%;">導入ファイル名</th>
-                                <th style="width:12%">導入日時</th>
-                                <th style="width:8%">導入件数</th>
-                                <th style="width:12%">導入日時</th>
-                                <th style="width:8%">導入件数</th>
+                            <tr style="height: 40px;">
+                                <th style="width:4%;background-color: aquamarine;">No</th>
+                                <th style="width:24%;background-color: aquamarine;">ファイル名称</th>
+                                <th style="width:6%;background-color: aquamarine;">更新頻度</th>
+                                <th style="width:24%;background-color: aquamarine;">導入ファイル名</th>
+                                <th style="width:12%;background-color: pink;">導入日時</th>
+                                <th style="width:8%;background-color: pink;">導入件数</th>
+                                <th style="width:12%;background-color: cornflowerblue;">導入日時</th>
+                                <th style="width:8%;background-color: cornflowerblue;">導入件数</th>
 
                             </tr>
                         </thead>

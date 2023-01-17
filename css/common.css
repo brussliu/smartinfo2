@@ -60,6 +60,13 @@
 }
 
 /* content */
+.content {
+    width: var(--width);
+    height: 83vh;
+    overflow: hidden;
+
+}
+
 /* btn */
 .c_btn{
     width: 95%;
