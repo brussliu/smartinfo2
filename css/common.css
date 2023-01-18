@@ -4,9 +4,9 @@
 
 * {
     margin: 0;
-    border: 0;
+    /* border: 0; */
     overflow: hidden;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 .head {
@@ -59,15 +59,15 @@
 
 }
 
-/* content */
+/* ----------------------------------------------------------------------content---------------------------------------------------------------------- */
 .content {
     width: var(--width);
-    height: 83vh;
+    height: 87vh;
     overflow: hidden;
 
 }
 
-/* btn */
+/* -----------------------------------btn----------------------------------- */
 .c_btn{
     width: 95%;
     margin: auto;
@@ -87,22 +87,57 @@
     border: 1px solid rgb(206, 205, 205);
     box-shadow: 5px 5px 2px #888888;
 }
-
-/* detail */
-.c_detail{
+/* -----------------------------------condition----------------------------------- */
+.c_condition{
     width: 95%;
     margin: auto;
+    border-bottom: 1px solid black;
+}
+
+/* -----------------------------------detail----------------------------------- */
+.c_detail{
+    width: 95%;
+    height: 680px;
+    margin: auto;
+    overflow: auto;
+
 }
 .table_detail {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    font-size: 12px;
+
 }
+.table_detail .header{
+    height: 40px;
+    background-color: #f6f6f6;
+}
+.table_detail tr{
+    height: 32px;
+}
+
 .table_detail td{
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px dashed black;
 }
+.table_detail .c{
+    text-align: center;
+}
+.table_detail .l{
+    text-align: left;
+    padding-left: 5px;
+}
+.table_detail .r{
+    text-align: right;
+    padding-right: 5px;
+}
 .table_detail th {
     border: 1px solid black;
+}
+
+.table_detail button {
+    width: 50px;
+    font-size: 14px;
 }

@@ -78,7 +78,7 @@
                 }
 
                 .datatr {
-                    height: 40px;
+                    height: 32px;
                 }
             </style>
         </head>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="menu.jsp">メニュー</a> > ファイルを格納してから、ファイル識別ボタンを押下してください。</p>
+                    <p><a href="menu.jsp">メニュー</a> >データ導入</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">
@@ -118,12 +118,11 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                     <div class="c_detail">
                         <table class="table_detail">
                             <thead>
-                            <tr class="datatr">
+                            <tr class="header">
                                 <th class="vh"></th>
                                 <th class="vh"></th>
                                 <th class="vh"></th>
@@ -131,7 +130,7 @@
                                 <th colspan="2" style="background-color: pink;">今回未導入</th>
                                 <th colspan="2" style="background-color: cornflowerblue;">前回導入済み</th>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr class="header">
                                 <th style="width:4%;background-color: aquamarine;">No</th>
                                 <th style="width:24%;background-color: aquamarine;">ファイル名称</th>
                                 <th style="width:6%;background-color: aquamarine;">更新頻度</th>
@@ -144,7 +143,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="datatr">
+                            <tr>
                                 <td class="td1">1</td>
                                 <td class="td2">すべての出品商品のレポート</td>
                                 <td class="td3">1回／日</td>

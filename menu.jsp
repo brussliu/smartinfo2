@@ -144,7 +144,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn">マスタ情報管理</button>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'masterinfo.jsp'})">マスタ情報管理</button>
                                     </td>
                                     <td> <button class="btn">在庫情報管理</button>
                                     </td>

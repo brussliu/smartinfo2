@@ -17,7 +17,7 @@ common_login.fire=function(params){   //
 
 	
 	
-	return ret.navigate("menu.jsp");
+	return ret.navigate("shoplist.jsp");
 
 };
 
