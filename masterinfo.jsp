@@ -10,131 +10,6 @@
 
             <style>
       
-                /* .c_q_nav {
-                    width: 100%;
-                    line-height: 55px;
-                    border-collapse: collapse;
-
-                } */
-
-                /* .one {
-                    margin-top: 10px;
-                }
-
-                .one td {
-                    width: 13%;
-                }
-
-                .one td button {
-                    float: right;
-                } */
-
-                /* .two input:not(:first-child) {
-                    margin-left: 40px;
-                } */
-
-                /* .three table {
-                    border-collapse: collapse;
-                    text-align: center;
-                    width: 1824px;
-                    white-space:nowrap;three
-                    overflow: auto;
-                }
-                .three td:last-child{
-                    table-layout: auto;
-                } */
-                /* info */
-                /* .info {
-                    width: 1824px;
-                    margin: auto;
-               
-                    overflow: auto;
-                    height: 750px;
-                } */
-
-                /* .info th {
-                    height: 45px;
-                    border: 1px solid black;
-                    background-color: #f6f6f6;
-                }
-
-                .info .btn {
-                    width: 60px;
-                    font-size: 16px;
-                } */
-
-                /* .three td {
-                    height: 65px;
-                } */
-
-                /* .info div {
-                    width: 100px;
-                    height: 30px;
-                    border: 1px solid whitesmoke;
-                    border-radius: 20px;
-                    box-shadow: 2px 2px 1px #888888;
-                } */
- 
-
-                /* detail */
-                /* .detail {
-                    width: 1000px;
-                    position: absolute;
-                    left: 40%;
-                    top: 50%;
-                    margin-top: -200px;
-                    margin-left: -300px;
-                    background: #ffffff;
-                    border: 1px solid black;
-
-                }
-
-                .d2 {
-                    margin-top: 20px;
-                    border-top: 1px solid black;
-                    padding-top: 20px;
-                }
-
-                .d2 tr {
-                    line-height: 40px;
-                }
-
-                .d2 select {
-                    width: 140px;
-                    height: 30px;
-                }
-
-                .d2 input {
-                    width: 140px;
-                    height: 30px;
-                } */
-
-                /* input[type="text"] {
-                    border: 1px solid black;
-                } */
-
-
-                /* number */
-                /* .number {
-                    width: 100%;
-                    text-align: center;
-                    border-collapse: collapse;
-                    line-height: 30px;
-                }
-
-                .footbtn {
-                    width: 100%;
-                    height: 80px;
-                }
-
-                .footbtn tr {
-                    line-height: 60px;
-                }
-
-                .footbtn td {
-                    width: 25%;
-
-                } */
             </style>
         </head>
 
@@ -146,15 +21,22 @@
                         <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
-                        <div class="hright_l">
-                            <p>店舗ID：<span id="shopid">未选择</span></p>
-                            <p>UserID：<span id="userid">XXXX</span></p>
-                        </div>
-                        <div>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
-                        </div>
-                    </div>  
+                        <table style="float: right;width: 100%;color: aliceblue;">
+                            <tr>
+                                <td>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;padding-right: 20px;">
+                                    店舗ID：<span id="shopid">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid">XXXX</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="topnav">
                     <p><a href="menu.jsp">メニュー</a> >マスタ情報管理</p>

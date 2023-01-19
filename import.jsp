@@ -120,7 +120,7 @@
                         </table>
                     </div>
                     <div class="c_detail">
-                        <table class="table_detail">
+                        <table class="table_detail" style="font-size: 14px;">
                             <thead>
                             <tr class="header">
                                 <th class="vh"></th>

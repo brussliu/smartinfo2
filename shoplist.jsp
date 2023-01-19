@@ -49,14 +49,21 @@
                         <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
-                        <div class="hright_l">
-                            <p>店舗ID：<span id="shopid">未选择</span></p>
-                            <p>UserID：<span id="userid">XXXX</span></p>
-                        </div>
-                        <div>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})" style="visibility: hidden;">切替</button>
-                        </div>
+                        <table style="float: right;width: 100%;color: aliceblue;">
+                            <tr>
+                                <td>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;padding-right: 20px;">
+                                    店舗ID：<span id="shopid">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid">XXXX</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
         
