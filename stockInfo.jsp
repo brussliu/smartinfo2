@@ -95,7 +95,12 @@
                                 <td style="width: 250px;">
                                     <input type="checkbox" value="ASIN、SKU、LABEL"> ASIN、SKU、LABEL
                                 </td>
-                                 
+                                <td style="width: 120px;">発送方式：</td>
+                                <td style="width: 235px;">
+                                    <input type="checkbox" value="FBA" checked> FBA
+                                    &ensp; <input type="checkbox" value="FBM"> FBM
+                                  
+                                </td>
                             </tr>
                         </tbody>
                     </table>
