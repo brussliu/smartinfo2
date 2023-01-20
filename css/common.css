@@ -135,7 +135,13 @@
 .table_detail th {
     border: 1px solid black;
 }
-
+.table_detail tr:last-child{
+     border-bottom: 1px solid black;
+}
+.table_detail td input[type='text']{
+    width: 80px;
+    height: 30px;
+}
 .table_detail button {
     width: 50px;
     font-size: 14px;
