@@ -11,6 +11,7 @@
             <style>
            
                 /* content */
+                
                 .content {
                     width: var(--width);
                     height: 55vh;
@@ -19,12 +20,13 @@
                     align-items: center;
 
                 }
-                .content table{
+
+
+                .shoplist{
                     border-collapse: collapse;
 
                 }
-                th,
-                td {
+                .shoplist td {
                     width: 2000px;
                     max-width: 200px;
                     height: 45px;
@@ -32,13 +34,14 @@
                     text-align: center;
                     border: 1px solid black;
                 }
-                th{
+                .shoplist th{
                     background-color:#f6f6f6;
                 }
-               td a{
+               .link {
                     text-decoration-line: underline;
                     color: rgb(29, 18, 177);
-                }
+                    cursor: pointer;
+                } 
             </style>
         </head>
 
@@ -68,9 +71,11 @@
                 </div>
         
                 <div class="topnav">
-                    <p>店舗を選択してください。</p>                </div>
+                    <p>店舗を選択してください。</p>
+                </div>
+
                 <div class="content">
-                    <table border="1">
+                    <table border="1" class="shoplist">
                         <thead>
                             <tr>
                                 <th>店舗名称</th>
@@ -78,8 +83,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                           
-                                <td><a onclick="Efw('common_smartChoice',{UserID:this.innerHTML})">Smart-bear</a></td>
+                                <td><a class="link" onclick="Efw('common_chooseshop',{UserID:this.innerHTML})">Smart-bear</a></td>
                             </tr>
                         </tbody>
                     </table>

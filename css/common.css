@@ -29,7 +29,7 @@
 
 }
 
-.hright_r {
+.hright button {
     float: right;
     margin-right: 20px;
     margin-top: 10px;
@@ -37,7 +37,7 @@
     height: 30px;
     border: 0;
     border-radius: 10px;
-
+    cursor:pointer;
 }
 
 .hright_l {
@@ -73,6 +73,7 @@
 }
 .table_btn{
     width: 100%;
+    height: 50px;
     border-collapse: collapse;
     margin-top: 10px;
 }
@@ -84,7 +85,8 @@
     background: rgb(240, 240, 240);
     font-size: 16px;
     border: 1px solid rgb(206, 205, 205);
-    box-shadow: 5px 5px 2px #888888;
+    box-shadow: 2px 2px 2px #888888;
+    cursor:pointer;
 }
 /* -----------------------------------condition----------------------------------- */
 .c_condition{
@@ -94,6 +96,7 @@
 }
 
 /* -----------------------------------detail----------------------------------- */
+/* -----------------------------------detail(メニュー)----------------------------------- */
 .c_detail{
     width: 95%;
     height: 680px;
@@ -121,38 +124,98 @@
     border-right: 1px solid black;
     border-bottom: 1px dashed black;
 }
-.table_detail .c{
-    text-align: center;
-}
-.table_detail .l{
-    text-align: left;
-    padding-left: 5px;
-}
-.table_detail .r{
-    text-align: right;
-    padding-right: 5px;
-}
 .table_detail th {
     border: 1px solid black;
 }
-.table_detail tr:last-child{
-     border-bottom: 1px solid black;
+
+/* -----------------------------------detail(スクロールテーブルHeader)----------------------------------- */
+.c_detail_header {
+    width: 95%;
+    /* height: 680px; */
+    margin: auto;
+    overflow: auto;
 }
-.table_detail td input[type='text']{
+.table_detail_header {
+    /* width: 100%; */
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+
+}
+.table_detail_header .header{
+    height: 40px;
+    background-color: #f6f6f6;
+}
+.table_detail_header th{
+    border: 1px solid black;
+}
+/* -----------------------------------detail(スクロールテーブルContent)----------------------------------- */
+.c_detail_content{
+    width: 95%;
+    height: 600px;
+    margin: auto;
+    overflow: auto;
+
+}
+.table_detail_content {
+    /* width: 100%; */
+    border-collapse: collapse;
+    /* margin-top: 10px; */
+    font-size: 12px;
+
+}
+
+.table_detail_content tr{
+    height: 32px;
+}
+
+.table_detail_content td{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px dashed black;
+}
+.table_detail_content .c{
+    text-align: center;
+}
+.table_detail_content .l{
+    text-align: left;
+    /* padding-left: 5px; */
+}
+.table_detail_content .l5{
+    margin-left: 5px;
+}
+.table_detail_content .r{
+    text-align: right;
+    /* padding-right: 5px; */
+}
+.table_detail_content .r5{
+    margin-right: 5px;
+}
+.table_detail_content tr:last-child{
+    border-bottom: 1px solid black;
+}
+.table_detail_content td input[type='text']{
     width: 80px;
     height: 30px;
 }
-.table_detail button {
+.table_detail_content button {
+
+    background: rgb(240, 240, 240);
+    border: 1px solid rgb(206, 205, 205);
+    box-shadow: 2px 2px 2px #888888;
+
     width: 50px;
     font-size: 14px;
+    cursor:pointer;
 }
 
+
+/* -----------------------------------詳細画面----------------------------------- */
 .ui-widget-header {
     background-color: rgb(0, 100, 200);
     color: aliceblue;
 }
 
-/* -----------------------------------詳細画面----------------------------------- */
 .table_inputdialog tr{
 
     line-height: 40px;
@@ -178,5 +241,6 @@
     background: rgb(240, 240, 240);
     font-size: 16px;
     border: 1px solid rgb(206, 205, 205);
-    box-shadow: 5px 5px 2px #888888;
+    box-shadow: 2px 2px 2px #888888;
+    cursor:pointer;
 }

@@ -85,14 +85,21 @@
                         <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
-                        <div class="hright_l">
-                            <p>店舗ID：<span id="shopid">未选择</span></p>
-                            <p>UserID：<span id="userid">XXXX</span></p>
-                        </div>
-                        <div>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
-                        </div>
+                        <table style="float: right;width: 100%;color: aliceblue;">
+                            <tr>
+                                <td>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;padding-right: 20px;">
+                                    店舗ID：<span id="shopid">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid">XXXX</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="topnav">
@@ -103,7 +110,7 @@
                         <table class="table_btn">
                             <tbody>
                                 <tr>
-                                    <td style="font-weight: bold;">【検索条件】</td>
+                                    <td style="font-weight: bold;color: maroon">【検索条件】</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -123,7 +130,7 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td style="width: 120px;">&nbsp;&nbsp;商品分類：</td>
+                                    <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品分類：</td>
                                     <td>
                                         &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
                                         &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
@@ -143,27 +150,27 @@
                         </table>
 
 
-                        <table>
+                        <table border="0">
                             <tbody>
                                 <tr>
-                                    <td style="width: 120px;">&nbsp;&nbsp;商品番号：</td>
+                                    <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品番号：</td>
                                     <td style="width: 140px;">
                                         <select style="width: 100px;height:30px;border-style: solid;">
                                             <option>W001</option>
                                         </select>
                                     </td>
-                                    <td style="width: 120px;">キーワード：</td>
+                                    <td style="width: 120px;font-weight: bold;">キーワード：</td>
                                     <td style="width: 190px;">
                                         <input type="text" style="width: 150px;height: 30px;"></input>
                                     </td>
-                                    <td style="width: 120px;">表示項目：</td>
-                                    <td style="width: 360px;">
+                                    <td style="width: 110px;font-weight: bold;">表示項目：</td>
+                                    <td style="width: 350px;">
                                         <input type="checkbox" value="ASIN、SKU、LABEL"> ASIN、SKU、LABEL
-                                        &nbsp; <input type="checkbox" value="商品名称"> 商品名称
-
+                                        &nbsp;
+                                        <input type="checkbox" value="商品名称"> 商品名称
                                     </td>
-                                    <td style="width: 120px;">発送方式：</td>
-                                    <td style="width: 235px;">
+                                    <td style="width: 110px;font-weight: bold;">発送方式：</td>
+                                    <td style="width: 180px;">
                                         <input type="checkbox" value="FBA" checked> FBA
                                         &ensp; <input type="checkbox" value="FBM"> FBM
                                       
