@@ -78,7 +78,7 @@
                 }
 
                 .datatr {
-                    height: 40px;
+                    height: 32px;
                 }
             </style>
         </head>
@@ -90,18 +90,25 @@
                         <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
-                        <div class="hright_l">
-                            <p>店舗ID：<span id="shopid">未选择</span></p>
-                            <p>UserID：<span id="userid">XXXX</span></p>
-                        </div>
-                        <div>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
-                        </div>
+                        <table style="float: right;width: 100%;color: aliceblue;">
+                            <tr>
+                                <td>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;padding-right: 20px;">
+                                    店舗ID：<span id="shopid">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid">XXXX</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="menu.jsp">メニュー</a> > ファイルを格納してから、ファイル識別ボタンを押下してください。</p>
+                    <p><a href="menu.jsp">メニュー</a> >データ導入</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">
@@ -118,12 +125,11 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                     <div class="c_detail">
-                        <table class="table_detail">
+                        <table class="table_detail" style="font-size: 14px;">
                             <thead>
-                            <tr class="datatr">
+                            <tr class="header">
                                 <th class="vh"></th>
                                 <th class="vh"></th>
                                 <th class="vh"></th>
@@ -131,7 +137,7 @@
                                 <th colspan="2" style="background-color: pink;">今回未導入</th>
                                 <th colspan="2" style="background-color: cornflowerblue;">前回導入済み</th>
                             </tr>
-                            <tr style="height: 40px;">
+                            <tr class="header">
                                 <th style="width:4%;background-color: aquamarine;">No</th>
                                 <th style="width:24%;background-color: aquamarine;">ファイル名称</th>
                                 <th style="width:6%;background-color: aquamarine;">更新頻度</th>
@@ -144,7 +150,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="datatr">
+                            <tr>
                                 <td class="td1">1</td>
                                 <td class="td2">すべての出品商品のレポート</td>
                                 <td class="td3">1回／日</td>

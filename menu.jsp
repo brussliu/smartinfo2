@@ -67,13 +67,13 @@
                 }
 
                 .btn {
-        
                     width: 235px;
                     height: 50px;
-                    background: rgb(253, 253, 253);
+                    background: rgb(240, 240, 240);
                     font-size: 20px;
                     border: 1px solid rgb(206, 205, 205);
                     box-shadow: 5px 5px 2px #888888;
+                    cursor:pointer;
                 }
 
                 /* content_l_con */
@@ -120,14 +120,21 @@
                         <h1 style="height: 80px;line-height: 80px;margin-left:40px;">SmartInfo 2.0</h1>
                     </div>
                     <div class="hright">
-                        <div class="hright_l">
-                            <p>店舗ID：<span id="shopid">未选择</span></p>
-                            <p>UserID：<span id="userid">XXXX</span></p>
-                        </div>
-                        <div>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                            <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
-                        </div>
+                        <table style="float: right;width: 100%;color: aliceblue;">
+                            <tr>
+                                <td>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;padding-right: 20px;">
+                                    店舗ID：<span id="shopid">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid">XXXX</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="topnav">
@@ -144,11 +151,11 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn">マスタ情報管理</button>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'masterinfo.jsp'})">マスタ情報管理</button>
                                     </td>
-                                    <td> <button class="btn">在庫情報管理</button>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'stockinfo.jsp'})">在庫情報管理</button>
                                     </td>
-                                    <td> <button class="btn">販売情報管理</button></td>
+                                    <td> <button class="btn" disabled>販売情報管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -183,6 +190,174 @@
                     </div>
                  
                     <div class="content_r">
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
+                        <div class="content_l_con">
+                            <p>
+                                <span class="span_t">
+                                    20230101
+                                </span>
+                                <span class="span_t">
+                                    優先度：高
+                                </span>
+                                <span class="span_t">
+                                    期限：2023/02/10
+                                </span>
+                                <span class="span_t">
+                                    進捗率：40%
+                                </span>
+                            </p>
+                            <p>
+                                XXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </p>
+                        </div>
                         <div class="content_l_con">
                             <p>
                                 <span class="span_t">
