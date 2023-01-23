@@ -194,10 +194,7 @@
 .table_detail_content tr:last-child{
     border-bottom: 1px solid black;
 }
-.table_detail_content td input[type='text']{
-    width: 80px;
-    height: 30px;
-}
+
 .table_detail_content button {
 
     background: rgb(240, 240, 240);
@@ -222,19 +219,21 @@
 }
 
 .table_inputdialog input{
-
     height: 30px;
+    background-color: lightcyan;
 }
 .table_inputdialog select{
-
     height: 30px;
+    background-color: lightcyan;
 }
-
-.table_btn_inputdialog {
+.table_inputdialog textarea{
+    background-color: lightcyan;
+}
+.table_inputdialog_btn {
     width: 100%;
     height: 80px;
 }
-.table_btn_inputdialog button{
+.table_inputdialog_btn button{
     float: right;
     width: 170px;
     height: 40px;

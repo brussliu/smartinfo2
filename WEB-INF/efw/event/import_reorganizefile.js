@@ -36,28 +36,28 @@ import_reorganizefile.fire = function (params) {   //
 		return ret.navigate("login.jsp");
 	}
 
-	processFile("01");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("02");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("03");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("04");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("05");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("07");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("08");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("09");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("10");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("11");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("12");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("13");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("14");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("15");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("16");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("17");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("18");	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("01", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("02", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("03", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("04", -9);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("05", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("07", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("08", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("09", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("10", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("11", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("12", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("13", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("14", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("15", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("16", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("17", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("18", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 
 	return ret.navigate("import.jsp");
 };
 
-function processFile(fileno){
+function processFile(fileno, countKS){
 
 	var filefoldername = "";
 	eval('filefoldername = FILE' + fileno + '_NAME;');
@@ -72,7 +72,7 @@ function processFile(fileno){
 		var filename_old = fileinfo["name"];
 		var filename_old_exe = getFileExe(fileinfo["name"]);
 
-		var recordCount = getFileRecordCount(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+		var recordCount = getFileRecordCount(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old) + countKS;
 
 		var today = new Date();
 		var nowTime = today.format("yyyyMMdd_HHmmss");
@@ -86,21 +86,30 @@ function processFile(fileno){
 			);
 	
 			file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+
+			fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
 		}else{
 
-			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+			var fileinfo2 = filelist2[0];
+			var filename2_old = fileinfo2["name"];
+
+			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename2_old);
 
 			file.duplicate(
 				UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old,
 				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new
 			);
 
+			file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+			
 			deleteImortFileInfo(fileno);
+
+			fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
 
 		}
 
 		// 履歴テーブル挿入
-		saveImortFileInfo(fileno, filename_new, today, recordCount);
+		saveImortFileInfo(fileno, filename_old, today, recordCount);
 	
 	}
 
@@ -119,7 +128,7 @@ function deleteImortFileInfo(fileno) {
 	);
 }
 
-function saveImortFileInfo(fileno, filename_new, today, recordCount) {
+function saveImortFileInfo(fileno, filename_old, today, recordCount) {
 
 	var saveResult = db.change(
 		"IMPORT",
@@ -127,7 +136,7 @@ function saveImortFileInfo(fileno, filename_new, today, recordCount) {
 		{
 			"col0": SHOP_ID,
 			"col1": "file" + fileno,
-			"col2": filename_new,
+			"col2": filename_old,
 			"col3": today,
 			"col4": recordCount,
 			"col5": "識別済み"
