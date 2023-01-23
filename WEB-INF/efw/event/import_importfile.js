@@ -53,7 +53,7 @@ import_importfile.fire = function (params) {   //
 	var flg_file03 = importFile("03",	"UTF-8",		"\t",	"\r\n",		null);
 	var flg_file04 = importFile("04",	"S-JIS",		",",	"\r\n",		null);
 	var flg_file05 = importFile("05",	"S-JIS",		"\t",	"\r\n",		null);
-
+	var flg_file06 = false;
 	var flg_file07 = importFile("07",	"UTF-8(BOM)",	",",	"\r\n",		null);
 	var flg_file08 = importFile("08",	"UTF-8(BOM)",	",",	"\r\n",		null);
 	var flg_file09 = importFile("09",	"UTF-8(BOM)",	",",	"\r\n",		null);
@@ -181,7 +181,7 @@ function importFile(fileno, encoding, separator, breakcode, opt){
 
 		var csvReader = null;
 
-		if(encoding == "S-JIS" || opt != null){
+		if(encoding == "S-JIS" || opt != null || breakcode != "\r\n"){
 			csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, separator, "\"", "MS932");
 		}else{
 			csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, separator);
@@ -229,9 +229,9 @@ function makeSQLObj(aryField){
 		obj["col"+i] = aryField[i]
 	}
 	
-	obj["col" + (aryField.length+1)] = SHOP_ID;
+	obj["col" + (aryField.length)] = SHOP_ID;
+	obj["col" + (aryField.length+1)] = registrationDate;
 	obj["col" + (aryField.length+2)] = registrationDate;
-	obj["col" + (aryField.length+3)] = registrationDate;
 
 	return obj;
 
