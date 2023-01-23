@@ -6,4 +6,5 @@ create table public."TRN_データ導入履歴" (
   , "導入ファイル名" character varying(200)
   , "導入日時" timestamp(6) without time zone
   , "導入件数" integer
+  , "ステータス" character varying(20)
 );

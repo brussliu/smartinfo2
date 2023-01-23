@@ -4,7 +4,7 @@ create table public."IPT_全出品情報" (
   "出品者SKU" character varying(50)
   , "ASIN 1" character varying(50)
   , "商品名" character varying(500)
-  , "商品の説明" character varying(1000)
+  , "商品の説明" character varying(2000)
   , "出品ID" character varying(50)
   , "価格" character varying(50)
   , "数量" character varying(50)

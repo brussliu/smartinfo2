@@ -48,7 +48,7 @@ import_importfile.fire = function (params) {   //
 
 	bakupUploadFile(today);
 
-	var flg_file01 = importFile("01",	"UTF-8(BOM)",	"\t",	"\r\n",		null);
+	var flg_file01 = importFile("01",	"UTF-8(BOM)",	"\t",	"\n",		null);
 	var flg_file02 = importFile("02",	"S-JIS",		"\t",	"\r\n",		null);
 	var flg_file03 = importFile("03",	"UTF-8",		"\t",	"\r\n",		null);
 	var flg_file04 = importFile("04",	"S-JIS",		",",	"\r\n",		null);
@@ -90,9 +90,9 @@ import_importfile.fire = function (params) {   //
 	moveFile("17");
 	moveFile("18");
 
-	// excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
-	// 	flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-	// 	flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
+	excute(	flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
+			flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
+			flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
 
 	return ret.navigate("import.jsp");
 };
@@ -154,7 +154,7 @@ function importFile(fileno, encoding, separator, breakcode, opt){
 
 		///////////////////////////////////////////////////////////////////////////////////
 
-		if(opt != null){
+		if(opt != null || breakcode != "\r\n"){
 			
 			var txt = null;
 
@@ -164,7 +164,12 @@ function importFile(fileno, encoding, separator, breakcode, opt){
 				txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
 			}
 			
-			txt = txt.substring(opt);
+			if(opt != null){
+				txt = txt.substring(opt);
+			}
+			if(breakcode != "\r\n"){
+				txt = txt.replaceAll(breakcode,"\r\n");
+			}
 
 			// if(encoding == "S-JIS"){
 				file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, txt, "MS932");

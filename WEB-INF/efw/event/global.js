@@ -17,31 +17,78 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 				flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18) {
 					
 					// --------------------------------↓↓↓確認済↓↓↓--------------------------------
-					excute_02_r1();
-					excute_11_r1();
-					excute_12_r1();
+					var flg_h1 = false;
+					var flg_h2 = false;
+					var flg_h3 = false;
+					var flg_h4 = false;
 
-					excute_04_r2();
-					excute_04_r3();
-					excute_14_r4();
-					excute_15_r5();
+					var flg_r1 = false;
+					var flg_r2 = false;
+					var flg_r3 = false;
+					var flg_r4 = false;
+					var flg_r5 = false;
 
-					excute_02_h1();
-					excute_04_h2();
-					excute_14_h3();
-					excute_15_h4();
+					var flg_m1 = false;
+					var flg_m2 = false;
+					var flg_m3 = false;
 
-					excute_01_m1();
+					var flg_t1 = false;
 
-					excute_m1_m2();
-					excute_02_m2();
-					excute_03_m2();
+					if(flg_file02){
+						excute_02_h1();	flg_h1 = true;
+					}
+					if(flg_file04){
+						excute_04_h2();	flg_h2 = true;
+					}
+					if(flg_file14){
+						excute_14_h3();	flg_h3 = true;
+					}
+					if(flg_file15){
+						excute_15_h4();	flg_h4 = true;
+					}
+					
+					if(flg_file02){
+						excute_02_r1();	flg_r1 = true;
+					}
+					if(flg_file11){
+						excute_11_r1();	flg_r1 = true;
+					}
+					if(flg_file12){
+						excute_12_r1();	flg_r1 = true;
+					}
+					
+					if(flg_file04){
+						excute_04_r2();	flg_r2 = true;
+					}
 
-					excute_m1_m3();
-					excute_r1_m3();
-
-
-
+					if(flg_file04){
+						excute_04_r3();	flg_r3 = true;
+					}
+					if(flg_file14){
+						excute_14_r4();	flg_r4 = true;
+					}
+					if(flg_file15){
+						excute_15_r5();	flg_r5 = true;
+					}
+					
+					if(flg_file01){
+						excute_01_m1();	flg_m1 = true;
+					}
+					if(flg_m1){
+						excute_m1_m2();	flg_m2 = true;
+					}
+					if(flg_file02){
+						excute_02_m2();	flg_m2 = true;
+					}
+					if(flg_file03){
+						excute_03_m2();	flg_m2 = true;
+					}
+					if(flg_m1){
+						excute_m1_m3();	flg_m3 = true;
+					}
+					if(flg_r1){
+						excute_r1_m3();	flg_m3 = true;
+					}
 
 					// --------------------------------↑↑↑確認済↑↑↑--------------------------------
 
