@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 700,
-                    width: 1160,
+                    width: 1137,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -22,7 +22,7 @@
         <style>
         </style>
 
-        <div style="width: 96%;height: 96%;margin: 10px;">
+        <div style="margin: 10px;">
             <table style="height: 40px; ">
                 <tbody>
                     <tr>
@@ -38,7 +38,7 @@
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1075px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="width: 1085px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -57,8 +57,8 @@
                 </table>
 
             </div>
-            <div style="overflow-x: hidden;width: 1085px;height: 500px; overflow-y: auto;">
-                <table class=" table_detail_content" style="width: 1058px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
+                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
 

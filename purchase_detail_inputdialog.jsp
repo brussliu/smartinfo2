@@ -23,16 +23,15 @@
 
         </style>
 
-        <div style="width: 96%;height: 96%;margin: 10px;">
+        <div style="margin: 10px;">
 
-            <table class="table_inputdialog" width="100%" border="0">
+            <table class="table_inputdialog" width="100%">
                 <tbody>
                     <tr>
                         <td style="width: 150px;">仕入NO： </td>
                         <td style="width: 250px;">YYYYMMDD-HHMMSS </td>
-                        <td style="width: 210px;"></td>
-                        <td style="width: 300px;"></td>
-                        <td></td>
+                        <td style="width: 180px;"></td>
+                        <td style="width: 220px;"></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -112,10 +111,7 @@
                     </tr>
                     <tr>
                         <td style="width: 100px;">仕入内容： </td>
-                        <td><input type="file" style="width: 230px;"></input></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="4"><input type="file" style="width: 500px;"></input></td>
                     </tr>
                 </tbody>
             </table>

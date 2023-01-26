@@ -23,7 +23,7 @@
 
         </style>
 
-        <div style="width: 96%;height: 96%;margin: 10px;">
+        <div style="margin: 10px;">
             <table class="table_btn" style="   height: 40px; ">
                 <tbody>
                     <tr>

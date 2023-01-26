@@ -23,7 +23,7 @@
 
     </style>
 
-    <div style="width: 96%;height: 96%;margin: 10px;">
+    <div style="margin: 10px;">
         <table style="border-bottom: 1px solid black;height: 40px;margin-bottom: 10px;">
             <tbody>
                 <tr>

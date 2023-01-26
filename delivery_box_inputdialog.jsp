@@ -23,8 +23,8 @@
 
         </style>
 
-        <div style="width: 96%;height: 96%;margin: 10px;">
-            <table class="table_btn" style="   height: 40px; ">
+        <div style="margin: 10px;">
+            <table class="table_btn" style="height: 40px; ">
                 <tbody>
                     <tr>
                         <td style="width: 100px;text-align: left;">スキャン欄</td>
