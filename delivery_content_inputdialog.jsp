@@ -20,9 +20,7 @@
             });
         </script>
         <style>
-            .table_btn td{
-                width: 18%;
-            }
+
         </style>
 
         <div style="width: 96%;height: 96%;margin: 10px;">

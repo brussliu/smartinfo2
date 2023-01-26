@@ -47,8 +47,8 @@
                 <div class="topnav">
                     <p><a href="menu.jsp">メニュー</a> > 在庫情報管理</p>
                 </div>
-                <div class="c_query">
-                    <div style="width: 95%;margin: auto; ">
+                <div class="content">
+                    <div class="c_btn">
                         <table class="table_btn">
                             <tbody>
                                 <tr>
@@ -66,9 +66,7 @@
                             </tbody>
                         </table>
                     </div>
-                 
                     <div class="c_condition"style="height: 70px;">
-
                         <table>
                             <tbody>
                                 <tr>
@@ -121,8 +119,6 @@
                             </tbody>
                         </table>
                     </div>
-
-
                     <div class="c_detail_header" style="overflow: hidden;">
                         <table class="table_detail_header" style="width: 2573px;table-layout: fixed;">
                             <thead>
@@ -159,7 +155,6 @@
                             </thead>
                         </table>
                     </div>
-
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="width: 2556px;table-layout: fixed;">
                             <tbody>

@@ -149,6 +149,10 @@
 .table_detail_header th{
     border: 1px solid black;
 }
+
+.table_detail_header .l5{
+    margin-left: 5px;
+}
 /* -----------------------------------detail(スクロールテーブルContent)----------------------------------- */
 .c_detail_content{
     width: 95%;

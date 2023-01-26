@@ -159,15 +159,15 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn">納品管理</button>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'delivery.jsp'})">納品情報管理</button>
                                     </td>
-                                    <td> <button class="btn">仕入管理</button></td>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'purchase.jsp'})">仕入情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td> <button class="btn">代行発送商品管理</button></td>
-                                    <td></td>
+                                    <td> <button class="btn">代行発送情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -175,7 +175,7 @@
                                     <td><button class="btn">発送情報管理</button>
                                     </td>
                                     <td></td>
-                                    <td> <button class="btn">売上管理</button></td>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
