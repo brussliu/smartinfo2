@@ -243,3 +243,9 @@
     box-shadow: 2px 2px 2px #888888;
     cursor:pointer;
 }
+/* -----------------------------------common----------------------------------- */
+
+.a{
+    color: blue;
+    text-decoration: underline;
+}

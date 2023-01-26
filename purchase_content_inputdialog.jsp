@@ -1,0 +1,557 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <div class="dialog" id="purchase_content_inputdialog" style="display:block;background-color: rgb(255,255,240);">
+        <script>
+            var purchase_content_inputdialog = null;
+            $(function () {
+                purchase_content_inputdialog = $("#purchase_content_inputdialog").dialog({
+                    title: "仕入内容",
+                    autoOpen: false,
+                    resizable: true,
+                    height: 700,
+                    width: 1500,
+                    modal: true,
+                    open: function () {
+                        setTimeout(function () { });
+                    },
+                    close: function () {
+                        setTimeout(function () { });
+                    },
+                });
+            });
+        </script>
+        <style>
+            .table_btn td{
+                width: 18%;
+            }
+        </style>
+
+        <div style="width: 96%;height: 96%;margin: 10px;">
+            <table class="table_btn" style="   height: 40px; ">
+                <tbody>
+                    <tr>
+                        <td style="width: 85px;text-align: left;">仕入NO：</td>
+                        <td style="width: 260px;">YYYYMMDD-HHMMSS</td>
+                        <td style="width: 90px;text-align: left;">仕入名称：</td>
+                        <td style="width: 180px;">XXXXXXXX</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    
+                    </tr>
+                </tbody>
+            </table>
+            <div class=" " style="overflow: hidden;">
+                <table class="table_detail_header " style=" width: 1409px;table-layout: fixed;text-align: center;">
+                    <thead>
+                        <tr class="header">
+                            <th style="width: 150px;">商品管理番号</th>
+                            <th style="width: 150px;">分類①</th>
+                            <th style="width: 150px;">分類②</th>
+
+                            <th style="width: 150px;">ASIN番号</th>
+                            <th style="width: 150px;">SKU番号</th>
+                            <th style="width: 150px;">LABEL番号</th>
+
+                            <th style="width: 150px;">FBA数量</th>
+                            <th style="width: 150px;">LOCAL数量</th>
+                            <th style="width: 150px;">仕入数量</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+            <div   style="overflow: auto;width: 1409px;height: 500px; " onscroll="scrollHead(this);">
+                <table class=" table_detail_content" style="width: 1409px;table-layout: fixed;text-align: center;">
+                    <tbody>
+                        <tr>
+
+                            <td style="width: 150px;">P002</td>
+                            <td style="width: 150px;">YYYYMMDD-HHMMSS</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                        <tr>
+                            <td>P002</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                            <td>XXXXXXX</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
