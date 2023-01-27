@@ -7,8 +7,8 @@
                     title: "納品内容",
                     autoOpen: false,
                     resizable: true,
-                    height: 560,
-                    width: 1500,
+                    height: 700,
+                    width: 1156,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -20,11 +20,10 @@
             });
         </script>
         <style>
-
         </style>
 
         <div style="margin: 10px;">
-            <table class="table_btn" style="   height: 40px; ">
+            <table style="height: 40px; ">
                 <tbody>
                     <tr>
                         <td style="width: 85px;text-align: left;">納品NO：</td>
@@ -38,40 +37,39 @@
                     </tr>
                 </tbody>
             </table>
-            <div class=" " style="overflow: hidden;">
-                <table class="table_detail_header " style=" width: 1409px;table-layout: fixed;text-align: center;">
+            <div style="overflow: hidden;">
+                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
-                            <th style="width: 150px;">商品管理番号</th>
-                            <th style="width: 150px;">分類①</th>
-                            <th style="width: 150px;">分類②</th>
+                            <th style="width: 90px;">商品管理番号</th>
+                            <th style="width: 160px;">分類①</th>
+                            <th style="width: 160px;">分類②</th>
 
-                            <th style="width: 150px;">ASIN番号</th>
+                            <th style="width: 120px;">ASIN番号</th>
                             <th style="width: 150px;">SKU番号</th>
-                            <th style="width: 150px;">LABEL番号</th>
+                            <th style="width: 120px;">LABEL番号</th>
 
-                            <th style="width: 150px;">FBA数量</th>
-                            <th style="width: 150px;">LOCAL数量</th>
-                            <th style="width: 150px;">納品数量</th>
+                            <th style="width: 80px;">FBA数量</th>
+                            <th style="width: 80px;">LOCAL数量</th>
+                            <th style="width: 80px;">納品数量</th>
                         </tr>
                     </thead>
                 </table>
 
             </div>
-            <div   style="overflow: auto;width: 1409px;height: 500px; " onscroll="scrollHead(this);">
-                <table class=" table_detail_content" style="width: 1409px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
+                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
-
-                            <td>P002</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
-                            <td>XXXXXXX</td>
+                            <td style="width: 90px;">P002</td>
+                            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
                         </tr>
                         <tr>
                             <td>P002</td>

@@ -7,8 +7,8 @@
                     title: "箱詰め",
                     autoOpen: false,
                     resizable: true,
-                    height: 560,
-                    width: 1400,
+                    height: 730,
+                    width: 1156,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -20,11 +20,11 @@
             });
         </script>
         <style>
-
         </style>
 
         <div style="margin: 10px;">
-            <table class="table_btn" style="height: 40px; ">
+          
+            <table class="table_btn" style="height: 40px;width: 1068px; ">
                 <tbody>
                     <tr>
                         <td style="width: 100px;text-align: left;">スキャン欄</td>
@@ -38,40 +38,39 @@
                     </tr>
                 </tbody>
             </table>
-            <div class=" " style="overflow: hidden;">
-                <table class="table_detail_header " style=" width: 1313px;table-layout: fixed;text-align: center;">
+            <div style="overflow: hidden;">
+                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
-                            <th style="width: 140px;">商品管理番号</th>
-                            <th style="width: 140px;">分類①</th>
-                            <th style="width: 140px;">分類②</th>
+                            <th style="width: 90px;">商品管理番号</th>
+                            <th style="width: 160px;">分類①</th>
+                            <th style="width: 160px;">分類②</th>
 
-                            <th style="width: 140px;">ASIN番号</th>
-                            <th style="width: 140px;">SKU番号</th>
-                            <th style="width: 140px;">LABEL番号</th>
+                            <th style="width: 120px;">ASIN番号</th>
+                            <th style="width: 150px;">SKU番号</th>
+                            <th style="width: 120px;">LABEL番号</th>
 
-                            <th style="width: 140px;">予定数量</th>
-                            <th style="width: 140px;">実際数量</th>
-                            <th style="width: 150px;">◎箱（No.1）</th>
+                            <th style="width: 80px;">予定数量</th>
+                            <th style="width: 80px;">実際数量</th>
+                            <th style="width: 80px;">◎箱（No.1）</th>
                         </tr>
                     </thead>
                 </table>
 
             </div>
-            <div   style="overflow: auto;width: 1313px;height: 300px; " onscroll="scrollHead(this);">
-                <table class=" table_detail_content" style="width: 1313px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 450px; overflow-y: auto;">
+                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
-
-                            <td style="width: 140px;">P002</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
-                            <td style="width: 140px;">XXXXXXX</td>
+                            <td style="width: 90px;">P002</td>
+                            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 120px;">XXXXXXX</td>
                             <td style="width: 150px;">XXXXXXX</td>
+                            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
+                            <td style="width: 80px;">XXXXXXX</td>
                         </tr>
                         <tr>
                             <td>P002</td>
@@ -548,9 +547,9 @@
                         </tr>
                     </tbody>
                 </table>
-         
+           
             </div>
-            <table class="table_inputdialog_btn" border="0">
+            <table class="table_inputdialog_btn" border="0" style="width: 1068px;">
                 <tbody>
                     <tr>
                         <td></td>

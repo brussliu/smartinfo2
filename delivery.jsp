@@ -132,7 +132,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -151,7 +151,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -170,7 +170,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -189,7 +189,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -208,7 +208,7 @@
                                 </tr>                                                                
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -227,7 +227,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -246,7 +246,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -265,7 +265,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -284,7 +284,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -303,7 +303,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -322,7 +322,7 @@
                                 </tr>                                                                
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -341,7 +341,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -360,7 +360,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -379,7 +379,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -398,7 +398,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -417,7 +417,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -436,7 +436,7 @@
                                 </tr>                                                                
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
@@ -455,7 +455,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
                                     <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
