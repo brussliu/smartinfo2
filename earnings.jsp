@@ -9,77 +9,6 @@
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             
             <style>
-                /* c_query */
-                .c_query {
-                    width: var(--width);
-                    /* height: 216px; */
-                }
-
-                .c_q_nav {
-                    width: 100%;
-                    line-height: 55px;
-                    border-collapse: collapse;
-                }
-
-                .one {
-                    margin-top: 10px;
-                }
-
-                .one td {
-                    width: 13%;
-                }
-
-                .one td button {
-                    float: right;
-                }
-
-
-                .three table {
-                    border-collapse: collapse;
-                    text-align: center;
-                    width: 1824px;
-                    word-break: break-all;
-                }
-
-                .three td {
-                    height: 65px;
-                }
-
-                /* info */
-                .info {
-                    width: 95%;
-                    margin: auto;
-                    height: 750px;
-                    overflow: auto;
-                }
-
-                .table_btn td {
-                    width: 6%;
-                }
-
-                .info th {
-                    height: 45px;
-                    border: 1px solid black;
-                    background-color: #f6f6f6;
-                }
-
-
-
-                .info div {
-                    width: 100px;
-                    height: 30px;
-                    border: 1px solid whitesmoke;
-                    border-radius: 20px;
-                    box-shadow: 2px 2px 1px #888888;
-                }
-
-                .send input:not(:first-child) {
-                    margin-left: 20px;
-                }
-
-                .table_btn td button{
-                    width: 100px;
-                }  
                 
             </style>
      
@@ -115,24 +44,11 @@
                 <div class="topnav">
                     <p><a href="menu.jsp">メニュー</a> > 壳上情報管理</p>
                 </div>
-                <div class="c_query">
+                <div class="content">
                     <div style="width: 95%;margin: auto; ">
                         <table class="table_btn">
                             <tbody>
                                 <tr>
-                                    <td style="font-weight: bold;color: maroon">【検索条件】</td>
-                                 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
 
                                     <td> </td>
                                     <td> </td>
@@ -140,14 +56,11 @@
 
                                     <td> </td>
                                     <td> </td>
-                                    <td><button  onclick="earnings_stock_inputdialog.dialog('open');">在庫計算</button></td>
+                                    <td style="width: 200px;"><button  onclick="earnings_stock_inputdialog.dialog('open');">在庫計算</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                 
-                 
-
  
                     <div class="c_detail_header" style="overflow: hidden;">
                         <table class="table_detail_header" style="width: 1824px;table-layout: fixed;">

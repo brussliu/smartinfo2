@@ -7,8 +7,8 @@
                     title: "在庫計算",
                     autoOpen: false,
                     resizable: true,
-                    height: 560,
-                    width: 1000,
+                    height: 480,
+                    width: 860,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -31,160 +31,123 @@
 
         </style>
 
-        <div style="width: 96%;height: 96%;margin: 10px;">
-
-            <div class=" " style="overflow-x: hidden; width: 929px;">
-                <table class="table_detail_header " style=" width: 929px; table-layout: fixed;text-align: center;">
+        <div style="margin: 10px;">
+            <p style="text-align: left;"><span>合計金額：</span><span>99999999円</span></p>
+            <div style="overflow: hidden;">
+                <table class="table_detail_header " style=" width: 783px; table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
-                            <th style="width: 230px;">商品種別</th>
-                            <th style="width: 230px;">数量</th>
-                            <th style="width: 230px;">純利益</th>
-                            <th style="width: 228px;">合計</th>
+                            <th style="width: 250px;">商品種別</th>
+                            <th style="width: 120px;">数量</th>
+                            <th style="width: 200px;">純利益</th>
+                            <th style="width: 200px;">合計</th>
 
                         </tr>
                     </thead>
                 </table>
 
             </div>
-            <div style="overflow-y: auto;width: 912px;height: 380px; " onscroll="scrollHead(this);">
-                <table class=" table_detail_content" style="width: 912px; table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 300px; overflow-y: auto;">
+                <table class=" table_detail_content" style="width: 783px; table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
-                        </tr> <tr>
-                            <td style="width: 230px;">P002</td>
-                            <td style="width: 230px;">99999999</td>
-                            <td style="width: 230px;">999999.99</td>
-                            <td style="width: 211px;">999999.99</td>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
                         </tr>
-                        
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 250px;">01:レインコート</td>
+                            <td style="width: 120px;">99999999</td>
+                            <td style="width: 200px;">999999.99</td>
+                            <td style="width: 200px;">999999.99</td>
+                        </tr>                                                                        
                     </tbody>    
                 </table>
             </div>
-            <p style="text-align: right;margin-top: 10px;"><span>合計金額：</span><span>XXXXXX円</span></p>
         </div>
     </div>

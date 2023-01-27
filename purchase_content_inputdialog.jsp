@@ -38,7 +38,7 @@
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1085px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -51,7 +51,7 @@
 
                             <th style="width: 80px;">FBA数量</th>
                             <th style="width: 80px;">LOCAL数量</th>
-                            <th style="width: 97px;">仕入数量</th>
+                            <th style="width: 80px;">仕入数量</th>
                         </tr>
                     </thead>
                 </table>
@@ -61,7 +61,6 @@
                 <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
-
                             <td style="width: 90px;">P002</td>
                             <td style="width: 160px;">XXXXXXX</td>
                             <td style="width: 160px;">XXXXXXX</td>
