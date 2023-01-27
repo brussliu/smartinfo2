@@ -120,7 +120,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 2573px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2597px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
@@ -156,7 +156,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2556px;table-layout: fixed;">
+                        <table class="table_detail_content" style="width: 2580px;table-layout: fixed;">
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>

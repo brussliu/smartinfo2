@@ -110,7 +110,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 2163px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2164px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 70px;">操作</th>
@@ -130,7 +130,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2146px;table-layout: fixed;">
+                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;">
                             <tbody>
                                 <tr>
                                     <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>

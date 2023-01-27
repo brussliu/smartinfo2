@@ -39,7 +39,7 @@
         <table class="table_inputdialog" width="100%" border="0">
             <tbody>
                 <tr>
-                    <td style="width: 14%;">商品種別 </td>
+                    <td style="width: 14%;">商品種別：</td>
                     <td style="width: 18%;">
                         <select style="width: 200px;">
                             <option value="">01:レインコート</option>
@@ -49,7 +49,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>商品管理番号</td>
+                    <td>商品管理番号：</td>
                     <td>
                         <select style="width: 200px;">
                             <option value="">W001</option>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td>
-                        親子区分
+                        親子区分：
                     </td>
                     <td>子商品</td>
                     <td></td>
@@ -68,27 +68,27 @@
                 </tr>
                 <tr>
                     <td>
-                        分類①
+                        分類①：
                     </td>
                     <td colspan="2"><input type="text" style="width: 460px;"></input></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>
-                        分類②
+                        分類②：
                     </td>
                     <td colspan="2"><input type="text" style="width: 460px;"></input></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>仕入価格</td>
+                    <td>仕入価格：</td>
                     <td> <input type="text" style="width: 200px;"></input></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr style="height: 70px;">
                     <td>
-                        商品名称
+                        商品名称：
                     </td>
                     <td colspan="3"> <textarea style="width: 800px;height: 65px;"></textarea></td>
                 </tr>
