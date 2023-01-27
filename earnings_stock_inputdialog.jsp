@@ -18,13 +18,6 @@
                     },
                 });
             });
-
-            function scrollHead(obj) {
-
-                var p = $(obj).get(0).scrollLeft;
-                $(".c_detail_header").get(0).scrollLeft = p;
-
-            }
         </script>
 
         <style>
