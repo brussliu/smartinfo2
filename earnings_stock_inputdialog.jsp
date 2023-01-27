@@ -25,7 +25,7 @@
         </style>
 
         <div style="margin: 10px;">
-            <p style="text-align: left;"><span>合計金額：</span><span>99999999円</span></p>
+            <p style="text-align: left;color:red;"><span>合計金額：</span><span>99999999円</span></p>
             <div style="overflow: hidden;">
                 <table class="table_detail_header " style=" width: 783px; table-layout: fixed;text-align: center;">
                     <thead>
