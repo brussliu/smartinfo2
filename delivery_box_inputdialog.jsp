@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 730,
-                    width: 1156,
+                    width: 1137,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -52,7 +52,7 @@
 
                             <th style="width: 80px;">予定数量</th>
                             <th style="width: 80px;">実際数量</th>
-                            <th style="width: 80px;">◎箱（No.1）</th>
+                            <th style="width: 80px;"><input type="radio"></input><br>箱（No.1）</th>
                         </tr>
                     </thead>
                 </table>

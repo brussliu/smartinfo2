@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 700,
-                    width: 1156,
+                    width: 1137,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -64,9 +64,11 @@
                             <td style="width: 90px;">P002</td>
                             <td style="width: 160px;">XXXXXXX</td>
                             <td style="width: 160px;">XXXXXXX</td>
+
                             <td style="width: 120px;">XXXXXXX</td>
                             <td style="width: 150px;">XXXXXXX</td>
                             <td style="width: 120px;">XXXXXXX</td>
+
                             <td style="width: 80px;">XXXXXXX</td>
                             <td style="width: 80px;">XXXXXXX</td>
                             <td style="width: 80px;">XXXXXXX</td>

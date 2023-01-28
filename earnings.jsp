@@ -45,15 +45,13 @@
                     <p><a href="menu.jsp">メニュー</a> > 壳上情報管理</p>
                 </div>
                 <div class="content">
-                    <div style="width: 95%;margin: auto; ">
-                        <table class="table_btn">
+                    <div class="c_btn" style="border-bottom: 1px solid black;">
+                        <table class="table_btn" style="margin-bottom: 5px;">
                             <tbody>
                                 <tr>
-
                                     <td> </td>
                                     <td> </td>
                                     <td> </td>
-
                                     <td> </td>
                                     <td> </td>
                                     <td style="width: 200px;"><button  onclick="earnings_stock_inputdialog.dialog('open');">在庫計算</button></td>
@@ -63,570 +61,595 @@
                     </div>
  
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 1824px;table-layout: fixed;">
+                        <table class="table_detail_header" style="table-layout: fixed;">
                             <thead>
                                 <tr class="header">
-                                    <th style="width: 150px;">年月</th>
-                                    <th style="width: 122px">注文数量</th>
-                                    <th style="width: 150px;">注文粗利益</th>
+                                    <th style="width: 120px;">年月</th>
+                                    <th style="width: 120px">注文数量</th>
+                                    <th style="width: 138px;">注文粗利益</th>
 
-                                    <th style="width: 150px;">月額登録料</th>
-                                    <th style="width: 150px;">広告費用</th>
-                                    <th style="width: 150px;">返品損失金額</th>
+                                    <th style="width: 138px;">月額登録料</th>
+                                    <th style="width: 138px;">広告費用</th>
 
-                                    <th style="width: 150px;">FBA入庫料金</th>
-                                    <th style="width: 150px;">FBA保管料金</th>
-                                    <th style="width: 150px">振込金額</th>
+                                    <th style="width: 138px;">FBA入庫料金</th>
+                                    <th style="width: 138px;">FBA保管料金</th>
+                                    <th style="width: 138px;">FBA作業料金</th>
 
-                                    <th style="width: 150px;">仕入金額</th>
-                                    <th style="width: 140px;">その他コスト</th>
-                                    <th style="width: 170px">純利益</th>
+                                    <th style="width: 138px;">返品損失金額</th>
 
-                                    
-                      
+                                    <th style="width: 138px">振込金額</th>
+                                    <th style="width: 138px;">仕入金額</th>
+                                    <th style="width: 138px;">その他コスト</th>
+
+                                    <th style="width: 147px">純利益</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
  
-                    <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 1789px;table-layout: fixed;">
+                    <div class="c_detail_content" style="overflow: auto;height: 673px;">
+                        <table class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
                                 <tr>
-                                    <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 121px" class="r">748個</td>
-                                    <td style="width: 149px;" class="r">614531.99円</td>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
                                    
-                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                    <td style="width: 149px;" class="r">614531.99円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
 
-                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                    <td style="width: 149px;" class="r">614531.99円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
                                     
-                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                    <td style="width: 138px;" class="r">614531.99円</td>
-                                    <td style="width: 135px;" class="r">614531.99円</td>
-                                 
-                              
-                                 <!-- 最后一个如果没对齐，将138改139,135改134 -->
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                            <td style="width: 121px" class="r">748個</td>
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                           
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-        
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            
-                                            <td style="width: 149px;" class="r">614531.99円</td>
-                                            <td style="width: 138px;" class="r">614531.99円</td>
-                                            <td style="width: 135px;" class="r">614531.99円</td>
-                                         
-                                            </tr>     <tr>
-                                                <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                                <td style="width: 121px" class="r">748個</td>
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                               
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-            
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                
-                                                <td style="width: 149px;" class="r">614531.99円</td>
-                                                <td style="width: 138px;" class="r">614531.99円</td>
-                                                <td style="width: 135px;" class="r">614531.99円</td>
-                                             
-                                                </tr>     <tr>
-                                                    <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                                    <td style="width: 121px" class="r">748個</td>
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                   
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    
-                                                    <td style="width: 149px;" class="r">614531.99円</td>
-                                                    <td style="width: 138px;" class="r">614531.99円</td>
-                                                    <td style="width: 135px;" class="r">614531.99円</td>
-                                                 
-                                                    </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>     <tr>
-                                        <td style="width: 149px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                        <td style="width: 121px" class="r">748個</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                       
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-    
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        
-                                        <td style="width: 149px;" class="r">614531.99円</td>
-                                        <td style="width: 138px;" class="r">614531.99円</td>
-                                        <td style="width: 135px;" class="r">614531.99円</td>
-                                     
-                                        </tr>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
                                     
-                                        
-                                                                            
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>                                                                                                                                                                                                
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
+                                    <td style="width: 120px" class="r">999999個</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                   
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+                                    <td style="width: 138px;" class="r">99999999円</td>
+
+                                    <td style="width: 147px;font-weight: bold;" class="r">99999999円</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

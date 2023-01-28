@@ -64,8 +64,8 @@
                     <p><a href="menu.jsp">メニュー</a> > 仕入情報管理</p>
                 </div>
                 <div class="content">
-                    <div class="c_btn">
-                        <table class="table_btn">
+                    <div class="c_btn" style="border-bottom: 1px solid black;">
+                        <table class="table_btn" style="margin-bottom: 5px;">
                             <tbody>
                                 <tr>
                                     <td></td>

@@ -102,14 +102,14 @@
 
  
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 1824px;table-layout: fixed;">
+                        <table class="table_detail_header" style="table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
                                     <th style="width: 155px">納品NO</th>
                                     <th style="width: 200px;">納品名称</th>
 
-                                    <th style="width: 370px;">納品内容</th>
+                                    <th style="width: 352px;">納品内容</th>
                                     <th style="width: 50px;">数量</th>
                                     <th style="width: 120px;">ステータス</th>
 
@@ -121,21 +121,21 @@
 
                                     <th style="width: 140px">AMZ納品番号</th>
 
-                                    <th style="width: 199px;">AMZ納品名</th>
+                                    <th style="width: 200px;">AMZ納品名</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
 
-                    <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 1807px;table-layout: fixed;">
+                    <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 627px;" onscroll="scrollHead(this);">
+                        <table class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -147,14 +147,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -166,14 +166,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -185,14 +185,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -204,33 +204,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                </tr>                                                                
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
-                                    
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
-                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
-                                   
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-
-                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
-                              
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -242,14 +223,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -261,14 +242,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -280,14 +261,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -299,14 +280,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -318,33 +299,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                </tr>                                                                
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
-                                    
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
-                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
-                                   
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-
-                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
-                              
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -356,14 +318,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -375,14 +337,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -394,14 +356,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -413,14 +375,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -432,33 +394,14 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                </tr>                                                                
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
-                                    
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
-                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
-                                   
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-                                    <td style="width: 100px;" class="c">2023/01/18</td>
-
-                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
-                              
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                     <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
                                     
-                                    <td style="width: 370px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
                                     <td style="width: 50px;" class="r"><span class="r5">70</span></td>
                                     <td style="width: 120px;" class="c">2:钠品凳送</td>
                                    
@@ -470,8 +413,255 @@
 
                                     <td style="width: 140px;" class="c">FBA15D9WH51X</td>
                               
-                                    <td style="width: 182px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                </tr>                                                                
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
+                                    <td style="width: 155px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
+                                    
+                                    <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
+                                    <td style="width: 50px;" class="r"><span class="r5">70</span></td>
+                                    <td style="width: 120px;" class="c">2:钠品凳送</td>
+                                   
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+                                    <td style="width: 100px;" class="c">2023/01/18</td>
+
+                                    <td style="width: 140px;" class="c">FBA15D9WH51X</td>
+                              
+                                    <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
