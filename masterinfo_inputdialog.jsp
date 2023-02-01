@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div class="dialog" id="masterinfo_inputdialog" style="display:block;background-color: rgb(255,255,240);"> 
+<div class="dialog" id="masterinfo_inputdialog" style="display:block;background-color: rgb(255, 255, 240);"> 
     <script>
         var masterinfo_inputdialog = null;
         $(function() {
@@ -36,7 +36,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table_inputdialog" width="100%" border="0">
+        <table class="table_inputdialog" border="0">
             <tbody>
                 <tr>
                     <td style="width: 14%;">商品種別：</td>

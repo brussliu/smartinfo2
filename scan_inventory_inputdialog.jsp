@@ -7,8 +7,8 @@
                     title: "棚卸",
                     autoOpen: false,
                     resizable: true,
-                    height: 790,
-                    width: 1154,
+                    height: 800,
+                    width: 972,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -20,32 +20,25 @@
             });
         </script>
         <style>
-            select{
-                width: 150px;
-                height: 30px;
-            }
-            .c{
-                text-align: center;
-            }
         </style>
 
         <div style="margin: 10px;">
 
-            <table class="table_btn" style="height: 40px;width: 1068px; ">
+            <table class="table_inputdialog" style="height: 40px; " border="0">
                 <tbody>
                     <tr>
-                        <td style="width: 130px;">【棚卸対象】</td>
-                        <td style="width: 200px;"></td>
+                        <td style="width: 140px;">【棚卸対象】</td>
+                        <td style="width: 120px;"></td>
                         <td style="width: 80px; "></td>
                         <td style="width: 220px;"></td>
                         <td style="width: 80px; "></td>
-                        <td style="width: 100px;"></td>
+                        <td style="width: 220px;"></td>
                         <td ></td>
                     </tr>
                     <tr>
                         <td>商品管理番号：</td>
                         <td>
-                            <select>
+                            <select style="width: 100px;">
                                 <option value=""></option>
                             </select>
                         </td>
@@ -62,13 +55,12 @@
                             </select>
                         </td>
                         <td>
-                            <button style="width: 100px;">確定</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -86,8 +78,8 @@
                 </table>
 
             </div>
-            <div style="overflow-x: hidden;height: 150px; overflow-y: auto; ">
-                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
+                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
                             <td style="width: 90px;">P002</td>
@@ -166,23 +158,23 @@
 
             </div>
            
-            <hr style="border: 1px dashed black;margin-top: 30px;margin-bottom: 30px;"></hr>
-            <table class="table_btn" style="height: 40px;width: 1068px; ">
+            <hr style="border: 1px dashed black;margin-top: 20px;margin-bottom: 10px;"></hr>
+            <table class="table_inputdialog" style="height: 40px;" border="0">
                 <tbody>
                     <tr>
-                        <td style="width: 130px;">【棚卸結果】</td>
-                        <td style="width: 250px;"></td>
-                        <td style="width: 110px; "></td>
-                        <td style="width: 200px;"></td>
-                        <td style="width: 110px; "></td>
+                        <td style="width: 120px;">【棚卸結果】</td>
+                        <td style="width: 220px;"></td>
+                        <td style="width: 120px; "></td>
+                        <td style="width: 220px;"></td>
+                        <td style="width: 120px; "></td>
                         <td style="width: 100px;"></td>
                         <td ></td>
                     </tr>
                     <tr>
                         <td>リストNO：</td>
                         <td>
-                            <select style="width:220px;">
-                                <option value="">20221/11/11/11/11/11</option>
+                            <select style="width:200px;">
+                                <option value="">20220101-121212</option>
                             </select>
                         </td>
                         <td>リスト名称：</td>
@@ -194,7 +186,7 @@
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -212,8 +204,8 @@
                 </table>
 
             </div>
-            <div style="overflow-x: hidden;height: 150px; overflow-y: auto; ">
-                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
+                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
                             <td style="width: 90px;">P002</td>
@@ -291,7 +283,7 @@
                 </table>
 
             </div>
-            <table class="table_inputdialog_btn" border="0" style="width: 1068px;">
+            <table class="table_inputdialog_btn" border="0">
                 <tbody>
                     <tr>
                         <td></td>

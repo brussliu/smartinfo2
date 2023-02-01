@@ -48,7 +48,7 @@
 
         <div style="margin: 10px;">
 
-            <table class="table_inputdialog" width="100%">
+            <table class="table_inputdialog">
                 <tbody>
                     <tr>
                         <td style="width: 150px;">区分： </td>

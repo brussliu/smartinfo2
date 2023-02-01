@@ -166,20 +166,20 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn">代行発送商品管理</button></td>
-                                    <td> <button class="btn">代行発送情報管理</button></td>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'shipactingmaster.jsp'})">代行発送商品管理</button></td>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'shipacting.jsp'})">代行発送情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn">発送情報管理</button>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'sending.jsp'})">発送情報管理</button>
                                     </td>
                                     <td></td>
                                     <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn">商品スキャン</button>
+                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'scan.jsp'})">商品スキャン</button>
                                     </td>
                                     <td></td>
                                     <td></td>

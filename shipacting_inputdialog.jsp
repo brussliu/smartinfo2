@@ -7,8 +7,8 @@
                     title: "代行発送詳細情報",
                     autoOpen: false,
                     resizable: true,
-                    height: 610,
-                    width: 1350,
+                    height: 640,
+                    width: 1050,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -20,49 +20,37 @@
             });
         </script>
         <style>
-            .l{
-                text-align: left;
-             
-            }
-            .r{
-                text-align: right;
-            }
-            .c{
-                text-align: center;
-            }
-            .t{
-                vertical-align:top;
-            }
-            input[tyle="text"]{
-                width: 200px;
-            }
+
             .borbom{
                 border-bottom: 1px dashed black;
+                height: 55px;
             }
         </style>
 
         <div style="margin: 10px;">
 
-            <table class="table_inputdialog" width="100%">
+            <table class="table_inputdialog" border="0">
                 <tbody>
                     <tr>
-                        <td style="width: 150px;">管理番号： </td>
-                        <td style="width: 250px;">YYYYMMDD-HHMMSS</td>
-                        <td style="width: 120px;"></td>
-                        <td style="width: 230px;"></td>
-                        <td colspan="2" rowspan="7">
-                            <div  style="width:280px;height: 280px;margin: auto;" >
-                            <img src="#" style="width:280px;height: 280px;"></img></div></td>  
+                        <td style="width: 100px;">管理番号： </td>
+                        <td style="width: 220px;">YYYYMMDD-HHMMSS</td>
+                        <td style="width: 100px;"></td>
+                        <td style="width: 200px;"></td>
+                        <td rowspan="8" class="borbom" style="text-align: center;line-height:10px;">
+                            <img src="#" style="width:280px;height: 280px;"></img>
+                            <br><br>
+                            <button style="width: 100px;float: none;">詳細情報</button>
+                        </td>  
                     </tr>
                     <tr>
                         <td>発送商品：</td>
                         <td colspan="2">
-                            <select style="width: 400px;">
+                            <select style="width: 350px;">
                                 <option value="">鹰标（一对）银</option>
                             </select>
                         </td>
                  
-                        <td class="r">数量：<input type="text" style="width: 120px;"></input></td>
+                        <td style="text-align: right;">数量：<input type="text" style="width: 120px;"></input></td>
                      
                        
                     </tr>
@@ -76,20 +64,20 @@
                     </tr>
                     <tr>
                         <td>住所①： </td>
-                        <td colspan="3"><input type="text" style="width: 650px;"></input></td>
+                        <td colspan="3"><input type="text" style="width: 550px;"></input></td>
                     
                      
                          
                     </tr>
                     <tr>
                         <td >住所②： </td>
-                        <td colspan="3"><input type="text" style="width: 650px;"></input></td>
+                        <td colspan="3"><input type="text" style="width: 550px;"></input></td>
                         
                        
                     </tr>
                     <tr>
                         <td >住所③： </td>
-                        <td colspan="3"><input type="text" style="width: 650px;"></input></td>
+                        <td colspan="3"><input type="text" style="width: 550px;"></input></td>
                         
                        
                     </tr>
@@ -97,15 +85,14 @@
                         <td >名前： </td>
                         <td><input type="text"></input></td>
                         <td >電話番号：</td>
-                        <td class="r"><input type="text"></input></td>
+                        <td style="text-align: right;"><input type="text" style="width:160px;"></input></td>
 
                     </tr>
             
                     <tr >
                         <td  class="borbom">備考： </td>
-                        <td colspan="3" class="borbom"><input type="text" style="width: 650px;"></input></td>
-                      
-                        <td colspan="2" class="c borbom"><button>詳細情報</button></td>
+                        <td colspan="3" class="borbom"><input type="text" style="width: 550px;"></input></td>
+                    
                     </tr>
                 
                     <tr>
@@ -114,16 +101,14 @@
                             <option value=""></option>
                         </select> </td>
                         <td >発送費用：</td>
-                        <td class="r"><input type="text"></input> 円</td>
-                        <td class="c">発送費用：</td>   
-                        <td><input type="text"></input> 元</td>
+                        <td style="text-align: right;"><input type="text" style="width:160px;"></input> </td> 
+                        <td>円&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="width:160px;"></input> 元</td>
                     </tr>
                     <tr >
                         <td class="borbom">追跡番号： </td>
                         <td class="borbom"><input type="text"></input></td>
                         <td class="borbom"></td>
                         <td class="borbom"></td> 
-                        <td class="borbom"></td>
                         <td class="borbom"></td>
                     </tr>
                 </tbody>

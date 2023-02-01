@@ -64,183 +64,243 @@
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
-                                    <th style="width: 180px;">リストNO</th>
-                                    <th style="width: 170px">リスト名称</th>
-                                    <th style="width: 300px;">リスト内容</th>
-                                    <th style="width: 200px;">数量合計</th>
+                                    <th style="width: 160px;">リストNO</th>
+                                    <th style="width: 250px;">リスト名称</th>
+                                    <th style="width: 400px;">リスト内容</th>
+                                    <th style="width: 150px;">数量合計</th>
                                 
                                 </tr>
                             </thead>
                         </table>
                     </div>
  
-                    <div class="c_detail_content" style="overflow: auto;height: 673px;width:951px; margin-left:48px;">
+                    <div class="c_detail_content" style="overflow: auto;height: 673px;width:1043px; margin-left:48px;">
                         <table class="table_detail_content" style="table-layout: fixed;" >
                             <tbody>
                                 <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>      <tr>
-                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 180px;"  class="c a"  onclick="scan_inputdialog.dialog('open');">20221/11/11/11/11/11</td>
-                                    <td style="width: 170px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="r"><span class="l5">999999.99</span></td>
-                                   </tr>     
-                                    
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"  class="c"><input type="radio"></input></td>
+                                    <td style="width: 160px;" class="c">20230101-121212</td>
+                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

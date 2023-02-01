@@ -9,14 +9,7 @@
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <style>
                 .table_btn td button{
-                    float: right;
                     width: 100px;
-                    height: 40px;
-                    background: rgb(240, 240, 240);
-                    font-size: 16px;
-                    border: 1px solid rgb(206, 205, 205);
-                    box-shadow: 2px 2px 2px #888888;
-                    cursor:pointer;
                 }
 
             </style>

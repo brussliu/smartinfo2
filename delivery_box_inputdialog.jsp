@@ -24,13 +24,13 @@
 
         <div style="margin: 10px;">
           
-            <table class="table_btn" style="height: 40px;width: 1068px; ">
+            <table class="table_inputdialog" style="height: 40px;">
                 <tbody>
                     <tr>
                         <td style="width: 100px;text-align: left;">スキャン欄</td>
-                        <td style="width: 200px;"><input type="text" style="width: 160px;height: 30px;"></input></td>
-                        <td style="width: 150px; "><input type="radio"> 増加操作（+）</input></td>
-                        <td style="width: 150px;"><input type="radio"> 増加操作（-）</input></td>
+                        <td style="width: 200px;"><input type="text" style="width: 160px;"></input></td>
+                        <td style="width: 150px;"><input type="radio" style="vertical-align:middle; margin-top:-4px; "> 増加操作（+）</input></td>
+                        <td style="width: 150px;"><input type="radio" style="vertical-align:middle; margin-top:-4px; "> 増加操作（-）</input></td>
                         <td></td>
                         <td></td>
                         <td><button>箱增加</button></td>
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -59,7 +59,7 @@
 
             </div>
             <div style="overflow-x: hidden;height: 450px; overflow-y: auto;">
-                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
                             <td style="width: 90px;">P002</td>
@@ -549,7 +549,7 @@
                 </table>
            
             </div>
-            <table class="table_inputdialog_btn" border="0" style="width: 1068px;">
+            <table class="table_inputdialog_btn" border="0">
                 <tbody>
                     <tr>
                         <td></td>

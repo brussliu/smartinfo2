@@ -7,7 +7,7 @@
                     title: "代行発送商品詳細情報",
                     autoOpen: false,
                     resizable: true,
-                    height: 750,
+                    height: 680,
                     width: 1250,
                     modal: true,
                     open: function () {
@@ -20,23 +20,12 @@
             });
         </script>
         <style>
-            .l{
-                text-align: left;
-            }
-            .r{
-                text-align: right;
-            }
-            .c{
-                text-align: center;
-            }
-            .t{
-                vertical-align:top;
-            }
+
         </style>
 
         <div style="margin: 10px;">
 
-            <table class="table_inputdialog" width="100%">
+            <table class="table_inputdialog" border="0">
                 <tbody>
                     <tr>
                         <td style="width: 180px;">管理番号： </td>
@@ -59,17 +48,17 @@
                     </tr>
                     <tr>
                         <td >商品名称（中国語）： </td>
-                        <td colspan="3"><input type="text" style="width: 600px;"></input></td>
+                        <td colspan="3"></td>
                         <td></td>
                         <td></td>
                         
                     </tr>
                     <tr>
-                        <td class="r">商品名： </td>
+                        <td style="text-align: right">商品名： </td>
                         <td><input type="text" style="width: 280px;"></input></td>
-                        <td class="c">分類①：</td>
+                        <td style="text-align: right">分類①：</td>
                         <td><input type="text" style="width: 200px;"></input></td>
-                        <td>分類②：</td>
+                        <td style="text-align: right">分類②：</td>
                         <td><input type="text" style="width: 200px;"></input></td>
                     </tr>
                     <tr>
@@ -92,7 +81,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="t">商品写真： </td>
+                        <td style="vertical-align:top;">商品写真： </td>
                         <td><img style="width: 200px;height: 200px;" src="img/uploadpic.png" ></td>
                         <td><button class="btn">表示</button> </td>
                         <td></td>

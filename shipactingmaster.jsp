@@ -66,175 +66,212 @@
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
                                     <th style="width: 120px;">管理番号</th>
-                                    <th style="width: 120px">商品分類</th>
-                                    <th style="width: 300px;">名称/色/サイズ（中国語）</th>
+                                    <th style="width: 150px">商品分類</th>
+                                    <th style="width: 400px;">名称/色/サイズ（中国語）</th>
 
                                     <th style="width: 200px;">名称（日本語）</th>
-                                    <th style="width: 180px;">備考</th>
+                                    <th style="width: 150px;">数量</th>
                                 
                                 </tr>
                             </thead>
                         </table>
                     </div>
  
-                    <div class="c_detail_content" style="overflow: auto;height: 673px;width: 1025px; margin-left:48px;">
+                    <div class="c_detail_content" style="overflow: auto;height: 673px;margin-left:48px;width: 1106px;">
                         <table class="table_detail_content" style="table-layout: fixed;" >
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>      <tr>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;"class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="c">A：販売商品</td>
-                                    <td style="width: 300px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
                                     <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 180px;" class="r">999</td>
-                                   </tr>   
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50px;"class="c"><input type="radio"></input></td>
+                                    <td style="width: 120px;" class="c" >0001</td>
+                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
+                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
+                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

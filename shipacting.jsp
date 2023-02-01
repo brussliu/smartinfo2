@@ -18,24 +18,6 @@
 
             </script>
             <style>
-          
-
-                .btn {
-                    float: right;
-                    width: 170px;
-                    height: 40px;
-                    background: rgb(240, 240, 240);
-                    font-size: 16px;
-                    border: 1px solid rgb(206, 205, 205);
-                    box-shadow: 2px 2px 2px #888888;
-                    cursor: pointer;
-                }
-                .l span{
-                    margin-left: 5px;
-                }
-                .r span{
-                    margin-right: 5px;
-                }
             </style>
         </head>
 
@@ -85,12 +67,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="c_detail_header" style="overflow: hidden;" onscroll="scrollHead(this);">
-                        <table class="table_detail_header" style="width: 2037px;table-layout: fixed;">
+                    <div class="c_detail_header" style="overflow: hidden;">
+                        <table class="table_detail_header" style="width: 1969px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
-                                    <th style="width: 135px">管理番号</th>
+                                    <th style="width: 155px">管理番号</th>
                                     <th style="width: 85px;">ステータス</th>
 
                                     <th style="width: 100px;">発送費用（円）</th>
@@ -106,7 +88,7 @@
                                     <th style="width: 180px;">発送方式</th>
 
                                     <th style="width: 180px">備考</th>
-                                    <th style="width: 120px;">追跡番号</th>
+                                    <th style="width: 137px;">追跡番号</th>
 
 
                                 </tr>
@@ -115,459 +97,408 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2037px;table-layout: fixed;">
+                        <table class="table_detail_content" style="width: 1952px;table-layout: fixed;">
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
+                                    <td style="width: 155px" class="c">20230110-190400</td>
+                                    <td style="width: 85px;" class="c">已发送</td>
 
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
-
-                                    <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
-                                    </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
-
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
-                           
-
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
-
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="c">111-1111</td>
 
                                     <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
+                                        <span class="l5">神奈川県</span><br>
+                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
                                     </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
+                                    <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
+                                    <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
 
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
+                                    <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
+                                    <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
                            
 
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>  <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 135px" class="l"><span class="l5">20230110-190400</span></td>
-                                    <td style="width: 85px;" class="c"><span>已发送</span></td>
-
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span>111-1111</span></td>
-
-                                    <td style="width: 350px;" class="l">
-                                        <span>神奈川県</span><br>
-                                        <span>横浜市泉区緑園4-1-2</span><br>
-                                        <span>緑園都市耳鼻咽喉科 酒井医院</span>
-                                    </td>
-                                    <td style="width: 100px;" class="l"><span>阿部きよ子</span></td>
-                                    <td style="width: 130px;" class="l"><span>09026331119204</span></td>
-
-                                    <td style="width: 200px;" class="l"><span>鹰标（一对）银</span></td>
-                                    <td style="width: 60px;" class="r"><span>9999</span></td>
-                           
-
-                                    <td style="width: 180px;" class="l"><span >クリックポスト</span></td>
-                                    <td style="width: 180px;" class="r"><span>5.12</span></td>
-                                    <td style="width: 120px;" class="r"><span >628716566505</span></td>
-
-                                </tr>   
+                                    <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
+                                    <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
+                                    <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
+                                </tr> 
                             </tbody>
                         </table>
                     </div>

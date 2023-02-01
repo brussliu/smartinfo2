@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 790,
-                    width: 1154,
+                    width: 972,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -24,37 +24,36 @@
 
         <div style="margin: 10px;">
           
-            <table class="table_btn" style="height: 40px;width: 768px; ">
+            <table class="table_inputdialog" style="height: 40px;" border="0">
                 <tbody>
                     <tr>
-                        <td style="width: 100px;">リストNO：</td>
-                        <td style="width: 150px;">YYYYMMDD-HHMMSS</td>
-                        <td style="width: 50px; ">名称：</td>
-                        <td style="width: 150px;"><input type="text"></input></td>
-                       
-                      
-                    </tr>   <tr>
+                        <td style="width: 120px;">リストNO：</td>
+                        <td style="width: 240px;">YYYYMMDD-HHMMSS</td>
+                        <td style="width: 80px; ">名称：</td>
+                        <td style="width: 240px;"><input type="text"></input></td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td >スキャン：</td>
                         <td ><input type="text" ></input></td>
                         <td colspan="2">
-                            <input type="radio" name="add"> 増加操作（+）</input>
-                            <input type="radio" name="add"> 増加操作（-）</input>
+                            <input type="radio" name="add" style="vertical-align:middle; margin-top:-4px; "> 増加操作（+）</input>
+                            <input type="radio" name="add" style="vertical-align:middle; margin-top:-4px; "> 増加操作（-）</input>
                         </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="table-layout: fixed;text-align: center;" border="1">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
                             <th style="width: 160px;">分類①</th>
                             <th style="width: 160px;">分類②</th>
-
                             <th style="width: 120px;">ASIN番号</th>
                             <th style="width: 150px;">SKU番号</th>
                             <th style="width: 120px;">LABEL番号</th>
-
                             <th style="width: 80px;">数量</th>
                            
                         </tr>
@@ -62,8 +61,8 @@
                 </table>
 
             </div>
-            <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
-                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 480px; overflow-y: auto;width: 919px;">
+                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
                             <td style="width: 90px;">P002</td>
@@ -258,7 +257,7 @@
                 </table>
 
             </div>
-            <table class="table_inputdialog_btn" border="0" style="width: 1068px;">
+            <table class="table_inputdialog_btn" border="0">
                 <tbody>
                     <tr>
                         <td></td>
