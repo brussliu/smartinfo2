@@ -21,12 +21,12 @@
 
                 .content_l {
                     width: 68%;
-                    height: 86vh;
+                    height: 68vh;
                 }
 
                 .content_r {
                     width: 31.5%;
-                    height: 86vh;
+                    height: 68vh;
                     vertical-align: top;
                     overflow-y: auto;
                 }
@@ -109,6 +109,25 @@
                     border-radius: 0;
                     background: rgba(0, 0, 0, 0.1);
 
+                }
+                .content_b{
+                    width: 100%;
+                    height: 22vh;
+                     
+                }
+                .content_b>table td p:first-child{
+                    margin-bottom: 50px;
+                }
+                .content_b>table div{
+                   width: 400px;
+                   height: 250px;
+                }
+                .c{
+                    text-align: center;
+                }
+                .c span:first-child{
+                    font-size: 2em;
+                    font-weight: bolder;
                 }
             </style>
         </head>
@@ -442,6 +461,22 @@
                                 XXXXXXXXXXXXXXXXXXXXXXXXXXXX
                             </p>
                         </div>
+                    </div>
+
+                    <div class="content_b">
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
