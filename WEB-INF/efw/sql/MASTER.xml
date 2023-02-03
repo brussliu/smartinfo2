@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+<!-- sl：检索商品分类 -->
+	<sql id="searchproducttype">
+SELECT DISTINCT
+	"商品種別" as value,
+	substr("商品種別",4) as text
+FROM
+	"MST_出品マスタ情報" 
+WHERE
+	"length" ( 商品種別 ) > 0 
+	AND "店舗ID" = :shopId 
+ORDER BY
+	"商品種別"
+	</sql>
+<!-- sl：检索商品番号 -->
+<sql id="searchproducno">
+SELECT DISTINCT
+	"商品管理番号" AS value,
+	"商品管理番号" AS text 
+FROM
+	"MST_出品マスタ情報" 
+WHERE
+	"length" ( 商品管理番号 ) > 0 
+	AND "店舗ID" = :shopId  
+ORDER BY
+	"商品管理番号"
+</sql>
+<!-- sl：检索商品总结 -->
+<sql id="selectmasterinfo"  paramPrefix="!">
+	SELECT DISTINCT
+		  "商品種別" as type
+		, "商品管理番号" as no
+		, "親子区分" as preproduct
+
+		, "分類１" as sub1
+		, "分類２" as sub2
+		, "ASIN番号" as asin
+		
+		, "SKU番号" as sku
+		, "LABEL番号" as label
+		, "仕入価格" as price
+		
+		, "FBA発送方式" as fba
+		, "商品名称" as name
+
+	FROM
+		"MST_出品マスタ情報" 
+	WHERE
+	1=1
+ 	<if exists="productno"> AND (
+				<if istrue="productno == 'マスタ未登録'"> "商品管理番号" is NULL </if>
+				<if istrue="productno != 'マスタ未登録'"> "商品管理番号" = !productno </if>
+			    )
+	</if>
+
+	<if exists="keyword"> AND (
+		UPPER("商品種別") LIKE concat('%', !keyword ,'%') OR
+		UPPER("商品管理番号") LIKE concat('%', !keyword ,'%') OR
+		UPPER("親子区分") LIKE concat('%', !keyword ,'%') OR
+
+		UPPER("分類１") LIKE concat('%', !keyword ,'%') OR
+		UPPER("分類２") LIKE concat('%', !keyword ,'%') OR
+		UPPER("SKU番号") LIKE concat('%', !keyword ,'%') OR
+
+		UPPER("ASIN番号") LIKE concat('%', !keyword ,'%') OR
+		UPPER("LABEL番号") LIKE concat('%', !keyword ,'%')OR
+		UPPER("FBA発送方式") LIKE concat('%', !keyword ,'%') OR
+		UPPER("商品名称") LIKE concat('%', !keyword ,'%')
+			    )
+		</if>
+
+	 <if exists="ptype"> AND (	
+		AND  "商品種別" IN concat('(', !ptype ,')')
+		)
+	 </if>
+		AND "店舗ID" = !shopid  
+	ORDER BY
+		"商品管理番号"
+</sql>
+</sqls>
+

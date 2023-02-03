@@ -6,22 +6,46 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>SmartInfo 2.0</title>
             <efw:Client />
-            <link rel="stylesheet" href="css/common.css" type="text/css"/>
+            <link rel="stylesheet" href="css/common.css" type="text/css" />
             <script>
-                function scrollHead(obj){
+                function scrollHead(obj) {
 
                     var p = $(obj).get(0).scrollLeft;
                     $(".c_detail_header").get(0).scrollLeft = p;
 
                 }
+                function init() {
+                    Efw('masterinfo_init');
+                }
+
+                function searchmasterinfo() {
+
+                    var productdivArr = new Array();
+
+                    $('#producttype input:checkbox:checked').each(function (index, item) {
+                        productdivArr.push($(this).val());
+                    });
+
+                    var displayflg2 = "0";
+                    $('#displayitem input:checkbox:checked').each(function (index, item) {
+
+                        if ($(this).val() == 'ASIN、SKU、LABEL') {
+                            displayflg2 = "1";
+                        }
+
+                    });
+
+                  
+                    Efw('masterinfo_search', { 'producttype': productdivArr, 'displayflg2': displayflg2 });
+                }
             </script>
 
             <style>
-      
+
             </style>
         </head>
 
-        <body>
+        <body onload="init();">
             <efw:Part path="masterinfo_inputdialog.jsp" />
             <div>
                 <div class="head">
@@ -32,8 +56,10 @@
                         <table style="float: right;width: 100%;color: aliceblue;">
                             <tr>
                                 <td>
-                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                    <button class="hright_r"
+                                        onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r"
+                                        onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
                                 </td>
                             </tr>
                             <tr>
@@ -59,8 +85,8 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td style="width: 200px;"><button id="searchbtn" onclick="" >検索</button></td>
+                                    <td style="width: 200px;"><button id="insert">新规</button></td>
+                                    <td style="width: 200px;"><button id="searchbtn"onclick="searchmasterinfo()">検索</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,19 +96,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品分類：</td>
-                                    <td >
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
-                                        &nbsp;<input type="checkbox" name="rain" value="レインコート" checked> レインコート
-                                        &nbsp;<input type="checkbox" name="type" value="靴下" checked> 靴下
+                                    <td id="producttype">
                                     </td>
                                 </tr>
                             </tbody>
@@ -92,19 +106,20 @@
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品番号：</td>
                                     <td style="width: 140px;">
-                                        <select style="width: 100px;height:30px;border-style: solid;" >
-                                            <option>W001</option>
+                                        <select style="width: 100px;height:30px;border-style: solid;" id="productno">
+                                            <option value=""></option>
+                                            <option value="マスタ未登録">マスタ未登録</option>
                                         </select>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">キーワード：</td>
                                     <td style="width: 190px;">
-                                        <input type="text" style="width: 150px;height: 30px;"></input>
+                                        <input type="text" style="width: 150px;height: 30px;" id="keyword"></input>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">表示項目：</td>
                                     <td style="width: 250px;">
-                                        <input type="checkbox" value="ASIN、SKU、LABEL"> ASIN、SKU、LABEL
+                                        <input type="checkbox" value="ASIN、SKU、LABEL" checked> ASIN、SKU、LABEL
                                     </td>
-                                     
+
                                 </tr>
                             </tbody>
                         </table>
@@ -130,10 +145,11 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;">
-                            <tbody>
+                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;"  id="stocktable">
+                          
                                 <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
+                                    <td style="width: 70px;" class="c"><button class="btn" id="update"
+                                            onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
                                     <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
                                     <td style="width: 80px;" class="c">W001</td>
                                     <td style="width: 70px;" class="c">親商品</td>
@@ -144,341 +160,15 @@
                                     <td style="width: 120px;" class="c">X000UXRHRV</td>
                                     <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
                                     <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
+                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update" onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシャツ ズボン 男の子 女の子 パジャマ 前開きキッズ 部屋着 寝間着ルームウェア ホームサービス ベビー 長袖 ボタン トップス ショートパンツ 上下セット服 子供 春 秋 冬 七五三 誕生日 新年 (110cm, 肌色恐竜柄)</span></td>
-                                </tr>
-                            </tbody>
+
+                
                         </table>
                     </div>
 
                 </div>
             </div>
         </body>
-        <script>
-            // var a = $(".c_detail_header").width();
 
-            // $(".c_detail_header").width(a + 17);
-            //alert(a);
-        </script>
         </html>
