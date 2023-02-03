@@ -7,8 +7,8 @@
                     title: "発送商品集計",
                     autoOpen: false,
                     resizable: true,
-                    height: 700,
-                    width: 1137,
+                    height: 660,
+                    width: 972,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -23,10 +23,10 @@
   
         </style>
 
-        <div style="margin: 10px;" class="div_tab">
+        <div style="margin: 10px;">
          
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header">
                             <th style="width: 90px;">商品管理番号</th>
@@ -44,295 +44,292 @@
                 </table>
 
             </div>
-            <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
-                <table class=" table_detail_content" style="width: 1068px;table-layout: fixed;text-align: center;">
+            <div style="overflow-x: hidden;height: 512px; overflow-y: auto;">
+                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
                         <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                            <td style="width: 80px;">XXXXXXX</td>
-                         
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
                         </tr>
-                       <tr>
-                           <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                           <td>XXXXXXX</td>
-                       </tr> <tr>
-                        <td style="width: 90px;">P002</td>
-                        <td style="width: 160px;">XXXXXXX</td>
-                        <td style="width: 160px;">XXXXXXX</td>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                        <td style="width: 120px;">XXXXXXX</td>
-                        <td style="width: 150px;">XXXXXXX</td>
-                        <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                        <td style="width: 80px;">XXXXXXX</td>
-                     
-                    </tr>
-                   <tr>
-                       <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                       <td>XXXXXXX</td>
-                   </tr> <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-                         
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
                         </tr>
-                       <tr>
-                           <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                           <td>XXXXXXX</td>
-                       </tr> <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                            <td style="width: 80px;">XXXXXXX</td>
-                         
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
                         </tr>
-                       <tr>
-                           <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                           <td>XXXXXXX</td>
-                       </tr> <tr>
-                        <td style="width: 90px;">P002</td>
-                        <td style="width: 160px;">XXXXXXX</td>
-                        <td style="width: 160px;">XXXXXXX</td>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                        <td style="width: 120px;">XXXXXXX</td>
-                        <td style="width: 150px;">XXXXXXX</td>
-                        <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                        <td style="width: 80px;">XXXXXXX</td>
-                     
-                    </tr>
-                   <tr>
-                       <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                       <td>XXXXXXX</td>
-                   </tr> <tr>
-                    <td style="width: 90px;">P002</td>
-                    <td style="width: 160px;">XXXXXXX</td>
-                    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                    <td style="width: 120px;">XXXXXXX</td>
-                    <td style="width: 150px;">XXXXXXX</td>
-                    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                    <td style="width: 80px;">XXXXXXX</td>
-                 
-                </tr>
-               <tr>
-                   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                   <td>XXXXXXX</td>
-               </tr> <tr>
-                <td style="width: 90px;">P002</td>
-                <td style="width: 160px;">XXXXXXX</td>
-                <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-                <td style="width: 120px;">XXXXXXX</td>
-                <td style="width: 150px;">XXXXXXX</td>
-                <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-                <td style="width: 80px;">XXXXXXX</td>
-             
-            </tr>
-           <tr>
-               <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-               <td>XXXXXXX</td>
-           </tr> <tr>
-            <td style="width: 90px;">P002</td>
-            <td style="width: 160px;">XXXXXXX</td>
-            <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-            <td style="width: 120px;">XXXXXXX</td>
-            <td style="width: 150px;">XXXXXXX</td>
-            <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-            <td style="width: 80px;">XXXXXXX</td>
-         
-        </tr>
-       <tr>
-           <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-           <td>XXXXXXX</td>
-       </tr> <tr>
-        <td style="width: 90px;">P002</td>
-        <td style="width: 160px;">XXXXXXX</td>
-        <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-        <td style="width: 120px;">XXXXXXX</td>
-        <td style="width: 150px;">XXXXXXX</td>
-        <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-        <td style="width: 80px;">XXXXXXX</td>
-     
-    </tr>
-   <tr>
-       <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-       <td>XXXXXXX</td>
-   </tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr> <tr>
-    <td style="width: 90px;">P002</td>
-    <td style="width: 160px;">XXXXXXX</td>
-    <td style="width: 160px;">XXXXXXX</td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
 
-    <td style="width: 120px;">XXXXXXX</td>
-    <td style="width: 150px;">XXXXXXX</td>
-    <td style="width: 120px;">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
 
-    <td style="width: 80px;">XXXXXXX</td>
- 
-</tr>
-<tr>
-   <td colspan="6">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-   <td>XXXXXXX</td>
-</tr>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 90px;" class="c">P002</td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            <td style="width: 160px;" class="l"><span class="l5">XXXXXXX</span></td>
+
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+                            <td style="width: 150px;" class="c">XXXXXXX</td>
+                            <td style="width: 120px;" class="c">XXXXXXX</td>
+
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" style="width: 815px;" class="l"><span class="l5">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></td>
+                            <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                        </tr>
+                        <tr>
+                           <td colspan="6" style="width: 815px;" class="l"><span class="l5">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></td>
+                           <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
+                       </tr>
                     </tbody>
                 </table>
 

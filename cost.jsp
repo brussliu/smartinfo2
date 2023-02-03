@@ -60,7 +60,7 @@
                     </div>
  
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="table-layout: fixed;width: 1590px;">
+                        <table class="table_detail_header" style="table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
@@ -68,374 +68,383 @@
                                     <th style="width: 200px;">発生日</th>
 
                                     <th style="width: 120px;">ステータス</th>
-                                    <th style="width: 150px;">分類</th>
+                                    <th style="width: 200px;">分類</th>
                                     <th style="width: 350px;">タイトル</th>
 
                                     <th style="width: 120px;">金額（元）</th>
                                     <th style="width: 120px;">金額（円）</th>
                                     <th style="width: 100px;">為替レート</th>
 
-                                    <th style="width: 200px;">備考</th>
+                                    <th style="width: 316px;">備考</th>
                                  
                                 </tr>
                             </thead>
                         </table>
                     </div>
 
-                    <div class="c_detail_content" style="width: 1677px;overflow-y: auto;overflow-x: hidden;height: 627px;margin-left:48px;" onscroll="scrollHead(this);">
+                    <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 627px;margin-left:48px;">
                         <table class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>    <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
+                                <tr>
                                     <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
+                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
                                     
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
+                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
+                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
                                    
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
+                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
 
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px" class="l a"><span class="l5"   onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">20230118-151418</span></td>
-                                    
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="c">2:钠品凳送</td>
-                                   
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 120px;" class="r">999999.99</td>
-                                    <td style="width: 100px;" class="r">0.23</td>
-
-                                    <td style="width: 200px;" class="l">XXXXXXXXXXX</td>
-                                </tr>   
+                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

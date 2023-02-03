@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 440,
-                    width: 1154,
+                    width: 1000,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -20,86 +20,63 @@
             });
         </script>
         <style>
-            select{
-                width: 150px;
-                height: 30px;
-            }
-            .table_btn td{
-                height: 40px;
-            }
-            input[type="text"]{
-                height: 30px;
-            }
-            .r{
-                text-align: right;
-            }
+
         </style>
 
         <div style="margin: 10px;">
 
-            <table class="table_btn" style=" width: 1068px; ">
+            <table class="table_inputdialog" border="0">
                 <tbody>
                
                     <tr>
-                        <td style="width: 140px;">登録日：</td>
-                        <td style="width: 150px;">YYYY/MM/DD</td>
-                        <td style="width: 100px;">発生日：</td>
-                        <td style="width: 250px;"><input type="text"></input></td>
+                        <td style="width: 120px;">登録日時：</td>
+                        <td style="width: 220px;">2022/12/12 12:12:12</td>
                         <td style="width: 120px;">ステータス：</td>
-                        <td style="width: 180px;" class="r">
-                            <select>
+                        <td style="width: 220px;">
+                            <select style="width:200px;">
                                 <option value=""></option>
                             </select>
                         </td>
                     </tr> 
                     <tr>
+                        <td>発生日：</td>
+                        <td><input type="text"></input></td>
                         <td>分類：</td>
-                        <td>    
-                            <select>
-                            <option value=""></option>
-                        </select>
-                    </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <select style="width:200px;">
+                                <option value=""></option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>タイトル：</td>
                         <td colspan="3">    
-                             <input type="text" style="width: 600px;"></input>
-                    </td>
-                        <td></td>
-                        <td></td>
-                       
+                             <input type="text" style="width: 680px;"></input>
+                        </td>                 
                     </tr>
                     <tr>
                         <td>金額：</td>
                         <td>    
                             <input type="text"></input>
-                    </td>
-                        <td> 
-                             <select style="width: 70px;">
-                            <option value=""></option>
-                        </select></td>
-                        <td></td>
-                        <td></td>
+                            <select style="width: 50px;">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                        <td>999999 円</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>為替レート：</td>
                         <td>    
                             <input type="text"></input>
-                    </td>
-                        <td></td>
-                        <td></td>
+                        </td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>備考：</td>
-                        <td colspan="5">    
-                            <input type="text" style="width: 920px;"></input>
+                        <td colspan="3">    
+                            <input type="text" style="width: 680px;"></input>
                     </td>
                      
                     </tr>
@@ -110,7 +87,7 @@
  
            
          
-            <table class="table_inputdialog_btn" border="0" style="width: 1068px;">
+            <table class="table_inputdialog_btn" border="0">
                 <tbody>
                     <tr>
                         <td></td>
