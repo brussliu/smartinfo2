@@ -720,6 +720,7 @@
 			, "仕入価格"
 			, "FBA発送方式"
 			, "商品名称"
+			, "暫定フラグ"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"
@@ -735,6 +736,7 @@
 			null as "仕入価格",
 			null as "FBA発送方式",
 			"商品名" as "商品名称",
+			'0' as "暫定フラグ",
 			"店舗ID" as "店舗ID",
 			:nowTime,
 			:nowTime
@@ -755,6 +757,8 @@
 			"仕入価格" = case when BK."仕入価格" is not null then BK."仕入価格" else "MST_出品マスタ情報"."仕入価格" end,
 			"FBA発送方式" = case when BK."FBA発送方式" is not null then BK."FBA発送方式" else "MST_出品マスタ情報"."FBA発送方式" end,
 			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end,
+			"仕入申報価格（元）" = case when BK."仕入申報価格（元）" is not null then BK."仕入申報価格（元）" else "MST_出品マスタ情報"."仕入申報価格（元）" end,
+			"仕入申報価格（ドル）" = case when BK."仕入申報価格（ドル）" is not null then BK."仕入申報価格（ドル）" else "MST_出品マスタ情報"."仕入申報価格（ドル）" end,
 			"更新日時" = :nowTime
 		from "MST_出品マスタ情報_BACKUP" BK
 		where
@@ -763,6 +767,8 @@
 			"MST_出品マスタ情報"."ASIN番号" = BK."ASIN番号"
 			and
 			"MST_出品マスタ情報"."店舗ID" = BK."店舗ID"
+			and
+			"MST_出品マスタ情報"."暫定フラグ" = '1'
 			and
 			BK."店舗ID" = :shopId
 			and
@@ -785,6 +791,48 @@
 			IPT."店舗ID" = :shopId
 	</sql>
 
+	<sql id="excute_01_m1_06">
+		insert into "MST_出品マスタ情報" (
+			, "商品管理番号"
+			, "親子区分"
+			, "商品種別"
+			, "分類１"
+			, "分類２"
+			, "仕入価格"
+			, "FBA発送方式"
+			, "商品名称",
+			, "仕入申報価格（元）"
+			, "仕入申報価格（ドル）"
+			, "暫定フラグ"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			, "商品管理番号"
+			, "親子区分"
+			, "商品種別"
+			, "分類１"
+			, "分類２"
+			, "仕入価格"
+			, "FBA発送方式"
+			, "商品名称",
+			, "仕入申報価格（元）"
+			, "仕入申報価格（ドル）"
+			, "暫定フラグ"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		from  
+			"MST_出品マスタ情報_BACKUP" BK
+		where
+			BK."暫定フラグ" = '1'
+			and
+			BK."店舗ID" = :shopId
+			and
+			BK."BACKUP日時" = (select max("BACKUP日時") as BACKUPDATETIME from "MST_出品マスタ情報_BACKUP" where "店舗ID" = :shopId)
+
+	</sql>
 
 	<sql id="update_15_r3" paramPrefix="!">
 		update "RES_長期在庫保管手数料請求額情報" RES 
