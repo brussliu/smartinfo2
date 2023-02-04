@@ -11,10 +11,15 @@
            
 
             </style>
+            <script>
+                function init(){
+        	        Efw('cost_init');
+                }
+            </script>
             
         </head>
 
-        <body>
+        <body onload="init();">
             <efw:Part path="cost_inputdialog.jsp" />
             
             <div>
@@ -31,10 +36,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;padding-right: 20px;">
-                                    店舗ID：<span id="shopid">未选择</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    UserID：<span id="userid">XXXX</span>
+                                <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                                    店舗ID：<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
                                 </td>
                             </tr>
                         </table>
@@ -85,366 +90,8 @@
                     <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 627px;margin-left:48px;">
                         <table class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    <td style="width: 200px;" class="c">2023/01/18 15:14:18</td>
-                                    
-                                    <td style="width: 120px;" class="c">XXXXXXXXX</td>
-                                    <td style="width: 200px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                    <td style="width: 350px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                   
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9.99</span></td>
-
-                                    <td style="width: 316px;" class="l"><span class="l5">xxxxxxxxx</span></td>
-                                </tr>
+                                
+                               
                             </tbody>
                         </table>
                     </div>
@@ -452,5 +99,6 @@
             </div>
 
         </body>
+        
 
         </html>

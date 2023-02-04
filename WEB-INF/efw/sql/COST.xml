@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	
+	<sql id="searchCostInfo" paramPrefix="!">
+		select 
+			  "登録日" as registrationDate
+			, "発生日" as accrualDate
+			, "ステータス" as status
+			, "分類" as classification
+			, "タイトル" as title
+			, cast("金額（元）" as varchar) as amountCNY
+			, cast("金額（円）" as varchar) as amountJPY
+			, cast("為替レート" as varchar) as exchangeRate
+			, "備考" as remarks
+		from
+			"HIS_コスト情報"
+		where 
+			"店舗ID" = !shopid
+		order by
+			"登録日" desc
+	</sql>
+	
+
+
+
+</sqls>
+
