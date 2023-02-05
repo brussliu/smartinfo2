@@ -27,7 +27,7 @@ cost_init.fire = function (params) {
 		}
 	)).map(
 		{
-			"registrationdate" : ["registrationdate",'yyyy/MM/dd hh:mm:ss'],
+			"registrationdate" : ["registrationdate",'yyyy/MM/dd HH:mm:ss'],
 			"accrualdate" : ["accrualdate",'yyyy/MM/dd'],
 			"status" : "status",
 			"classification" : "classification",
@@ -42,7 +42,7 @@ cost_init.fire = function (params) {
 
 	var resultHTML =
 	"<tr>" +
-		"<td style='width: 50px;' class='c'><input type='radio' name='choice'></input></td>" +
+		"<td style='width: 50px;' class='c'><input type='radio' name='choice' value='{registrationdate}' onclick='chooseItem();'></input></td>" +
 		"<td style='width: 200px;' class='c'>{registrationdate}</td>" +
 		"<td style='width: 200px;' class='c'>{accrualdate}</td>" +		
 		"<td style='width: 120px;' class='c'>{status}</td>" +

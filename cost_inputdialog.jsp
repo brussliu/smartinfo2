@@ -18,6 +18,12 @@
                     },
                 });
             });
+
+            //保存押下
+            function save() {
+                
+                Efw('cost_save');
+            }
         </script>
         <style>
 
@@ -30,45 +36,50 @@
                
                     <tr>
                         <td style="width: 120px;">登録日時：</td>
-                        <td style="width: 220px;">2022/12/12 12:12:12</td>
+                        <td style="width: 220px;" id="td_registrationdate">2022/12/12 12:12:12</td>
                         <td style="width: 120px;">ステータス：</td>
                         <td style="width: 220px;">
-                            <select style="width:200px;">
-                                <option value=""></option>
+                            <select style="width:200px;" id="opt_status">
+                                <option value="未支払" selected>未支払</option>
+                                <option value="支払済">支払済</option>
                             </select>
                         </td>
                     </tr> 
                     <tr>
                         <td>発生日：</td>
-                        <td><input type="text"></input></td>
+                        <td><input type="text" id="txt_accrualdate"></input></td>
                         <td>分類：</td>
                         <td>
-                            <select style="width:200px;">
-                                <option value=""></option>
+                            <select style="width:200px;" id="txt_classification">
+                                <option value="" selected></option>
+                                <option value="操作">操作</option>
+                                <option value="資材">資材</option>
+                                <option value="美工">美工</option>美工
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>タイトル：</td>
                         <td colspan="3">    
-                             <input type="text" style="width: 680px;"></input>
+                             <input type="text" style="width: 680px;" id="txt_title"></input>
                         </td>                 
                     </tr>
                     <tr>
                         <td>金額：</td>
                         <td>    
-                            <input type="text"></input>
-                            <select style="width: 50px;">
-                                <option value=""></option>
+                            <input type="text" id="txt_account"></input>
+                            <select style="width: 50px;" id="opt_currency">
+                                <option value="JPY" >円</option>
+                                <option value="CNY" selected>元</option>
                             </select>
                         </td>
-                        <td>999999 円</td>
+                        <td id="td_num">999999 円</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>為替レート：</td>
                         <td>    
-                            <input type="text"></input>
+                            <input type="text" id="txt_exchangerate"></input>
                         </td>
                         <td></td>
                         <td></td>
@@ -76,7 +87,7 @@
                     <tr>
                         <td>備考：</td>
                         <td colspan="3">    
-                            <input type="text" style="width: 680px;"></input>
+                            <input type="text" style="width: 680px;" id="txt_remarks"></input>
                     </td>
                      
                     </tr>
@@ -92,7 +103,7 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td style="width: 200px;"><button class="btn">保存</button></td>
+                        <td style="width: 200px;"><button class="btn" onclick="save()">保存</button><input type="hidden" id="opt"/></td>
                         <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
                     </tr>
                 </tbody>
