@@ -69,7 +69,7 @@
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
-                                    <th style="width: 200px">登録日</th>
+                                    <th style="width: 200px">登録日時</th>
                                     <th style="width: 200px;">発生日</th>
 
                                     <th style="width: 120px;">ステータス</th>

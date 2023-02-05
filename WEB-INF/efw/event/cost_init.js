@@ -8,6 +8,8 @@ cost_init.fire = function (params) {
 
 	var ret = new Result();
 
+
+
 	// セッションチェック
 	sessionCheck(ret);
 
@@ -15,34 +17,40 @@ cost_init.fire = function (params) {
 	setTitleInfo(ret);
     
 	
-	var selectResult = db.select(
+	var selectResult = (db.select(
 		"COST",
 		"searchCostInfo",
 		{
 			shopid : getShopId(),
+			// registrationDate : registrationDate.toLowerCase,
 			
 		}
+	)).map(
+		{
+			"registrationdate" : ["registrationdate",'yyyy/MM/dd hh:mm:ss'],
+			"accrualdate" : ["accrualdate",'yyyy/MM/dd'],
+			"status" : "status",
+			"classification" : "classification",
+			"title" : "title",
+			"amountcny" : "amountcny",
+			"amountjpy" : "amountjpy",
+			"exchangerate" : "exchangerate",
+			"remarks" : "remarks",
+		}
 	).getArray();
-	// .map(
-	// 	{
-	// 		"registrationDate" : "registrationDate",
-
-
-	// 	}
-	// ).getArray();
 	selectResult.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 	var resultHTML =
 	"<tr>" +
 		"<td style='width: 50px;' class='c'><input type='radio' name='choice'></input></td>" +
-		"<td style='width: 200px;' class='c'>{registrationDate}</td>" +
-		"<td style='width: 200px;' class='c'>{accrualDate}</td>" +		
+		"<td style='width: 200px;' class='c'>{registrationdate}</td>" +
+		"<td style='width: 200px;' class='c'>{accrualdate}</td>" +		
 		"<td style='width: 120px;' class='c'>{status}</td>" +
 		"<td style='width: 200px;' class='l'><span class='l5'>{classification}</span></td>" +
 		"<td style='width: 350px;' class='l'><span class='l5'>{title}</span></td>" +		
-		"<td style='width: 120px;' class='r'><span class='r5'>{amountCNY}</span></td>" +
-		"<td style='width: 120px;' class='r'><span class='r5'>{amountJPY}</span></td>" +
-		"<td style='width: 100px;' class='r'><span class='r5'>{exchangeRate}</span></td>" +
+		"<td style='width: 120px;' class='r'><span class='r5'>{amountcny}</span></td>" +
+		"<td style='width: 120px;' class='r'><span class='r5'>{amountjpy}</span></td>" +
+		"<td style='width: 100px;' class='r'><span class='r5'>{exchangerate}</span></td>" +
 		"<td style='width: 316px;' class='l'><span class='l5'>{remarks}</span></td>" +
 	"</tr>"
 
