@@ -20,7 +20,15 @@ common_login.fire=function(params){   //
 
 	session.set("ROLE", "admin");
 
-	
+		// sl:登录时间
+	SHOP_ID = session.get("SHOP_ID");
+	var selectResult = db.change(
+		"MASTER",
+		"logintime",
+		{
+			shopid : SHOP_ID
+		}
+	);
 	return ret.navigate("shoplist.jsp");
 
 };
