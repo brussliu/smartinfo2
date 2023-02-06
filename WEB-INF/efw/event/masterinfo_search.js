@@ -30,9 +30,9 @@ masterinfo_search.fire=function(params){
 		}
 	}
 	 
-	type.debug("2222")
-		
-		type.debug("1aaaaa")
+ 
+	var subhtml = displayflg2 == "1" ? "" : "style='display: none;'";
+ 
 	var selectResult = db.select(
 		"MASTER",
 		"selectmasterinfo",
@@ -51,15 +51,15 @@ masterinfo_search.fire=function(params){
 
 	var resultHTML =
 		"<tr>" +
-		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick='masterinfo_inputdialog.dialog('open');'>更新</button></td>" +
+		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick=\"masterinfo_inputdialog.dialog('open');\">更新</button></td>" +
 		"<td style='width: 140px;' class='l'><span class='l5'>{type}</span></td>" +
 		"<td style='width: 80px;' class='c'>{no}</td>" +
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{sub1}</span></td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{sub2}</span></td>" +
-		"<td style='width: 150px;' class='c'>{asin}</td>" +
-		"<td style='width: 120px;' class='c'>{sku}</td>" +
-		"<td style='width: 120px;' class='c'>{label}</td>" +
+		"<td  " + subhtml +      "style='width: 150px;' class='c display2'>{asin}</td>" +
+		"<td  " + subhtml +      " style='width: 150px;' class='c display2'>{sku}</td>" +
+		"<td  " + subhtml +      "style='width: 150px;' class='c display2'>{label}</td>" +
 		"<td style='width: 80px;' class='r'><span class='r5'>{price}</span></td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{fba}</span></td>" +
 		"<td style='width: 800px;' class='l'><span>{name}</span></td>" +

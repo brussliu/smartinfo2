@@ -28,7 +28,7 @@ ORDER BY
 	"商品管理番号"
 </sql>
 <!-- sl：检索商品总结 -->
-<sql id="selectmasterinfo"  paramPrefix="!">
+<sql id="selectmasterinfo" >
 	SELECT DISTINCT
 		  "商品種別" as type
 		, "商品管理番号" as no
@@ -51,33 +51,87 @@ ORDER BY
 	1=1
  	<if exists="productno"> AND (
 				<if istrue="productno == 'マスタ未登録'"> "商品管理番号" is NULL </if>
-				<if istrue="productno != 'マスタ未登録'"> "商品管理番号" = !productno </if>
+				<if istrue="productno != 'マスタ未登録'"> "商品管理番号" = :productno </if>
 			    )
 	</if>
 
 	<if exists="keyword"> AND (
-		UPPER("商品種別") LIKE concat('%', !keyword ,'%') OR
-		UPPER("商品管理番号") LIKE concat('%', !keyword ,'%') OR
-		UPPER("親子区分") LIKE concat('%', !keyword ,'%') OR
+		UPPER("商品種別") LIKE concat('%', :keyword ,'%') OR
+		UPPER("商品管理番号") LIKE concat('%', :keyword ,'%') OR
+		UPPER("親子区分") LIKE concat('%', :keyword ,'%') OR
 
-		UPPER("分類１") LIKE concat('%', !keyword ,'%') OR
-		UPPER("分類２") LIKE concat('%', !keyword ,'%') OR
-		UPPER("SKU番号") LIKE concat('%', !keyword ,'%') OR
+		UPPER("分類１") LIKE concat('%', :keyword ,'%') OR
+		UPPER("分類２") LIKE concat('%', :keyword ,'%') OR
+		UPPER("SKU番号") LIKE concat('%', :keyword ,'%') OR
 
-		UPPER("ASIN番号") LIKE concat('%', !keyword ,'%') OR
-		UPPER("LABEL番号") LIKE concat('%', !keyword ,'%')OR
-		UPPER("FBA発送方式") LIKE concat('%', !keyword ,'%') OR
-		UPPER("商品名称") LIKE concat('%', !keyword ,'%')
+		UPPER("ASIN番号") LIKE concat('%', :keyword ,'%') OR
+		UPPER("LABEL番号") LIKE concat('%', :keyword ,'%')OR
+		UPPER("FBA発送方式") LIKE concat('%', :keyword ,'%') OR
+		UPPER("商品名称") LIKE concat('%', :keyword ,'%')
 			    )
 		</if>
 
 	 <if exists="ptype"> AND (	
-		AND  "商品種別" IN concat('(', !ptype ,')')
+		  "商品種別" IN (@ptype  )
 		)
 	 </if>
-		AND "店舗ID" = !shopid  
-	ORDER BY
-		"商品管理番号"
+		AND "店舗ID" = :shopid  
+	ORDER BY "商品管理番号","親子区分","分類１","分類２"
+</sql>
+
+<!-- sl：设置登录时间 -->
+<sql id="logintime" paramPrefix="!">
+		UPDATE "MST_出品マスタ情報" 
+		SET
+		   "登録日時"=now()
+		WHERE 
+		  "店舗ID" =!shopid
+</sql>
+
+<!-- sl：新规 -->
+<sql id="savemasterinfo">
+	INSERT INTO "MST_出品マスタ情報"
+	(
+	"SKU番号",
+	"ASIN番号",
+	"LABEL番号",
+	"商品管理番号",
+	"親子区分",
+	"商品種別",
+	"分類１",
+	"分類２",
+	"仕入価格",
+	"FBA発送方式",
+	"商品名称",
+	"仕入申報価格（元）",
+	"仕入申報価格（ドル）",
+	"暫定フラグ",
+	"店舗ID",
+	"更新日時"
+	)
+	VALUES (
+			:sku,--SKU番号
+			:asin,--ASIN番号
+			:label,--LABEL番号
+
+			:no,--商品管理番号
+			:preproduct,--親子区分
+			:type,--商品種別
+
+			:sub1,--分類１
+			:sub2,--分類２
+			cast (:price1 as numeric(10,2)), --仕入価格
+
+			:fba,--FBA発送方式
+			:productname,--商品名称
+			cast (:price2 as numeric(10,2)),--仕入申報価格（元）
+
+			cast (:price3 as numeric(10,2)), --仕入申報価格（ドル）
+			:flg,--暫定フラグ
+			:shopid,--店舗ID
+
+			now() --更新日時
+		)
 </sql>
 </sqls>
 

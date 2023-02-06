@@ -167,7 +167,7 @@
                                     <td><button class="btn" onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'cost.jsp'})">コスト情報管理</button></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td><button class="btn" onclick="Efw('common_menu_goto',{page:'masterinfo.jsp'})">マスタ情報管理</button>

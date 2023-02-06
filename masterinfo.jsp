@@ -9,19 +9,15 @@
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <script>
                 function scrollHead(obj) {
-
                     var p = $(obj).get(0).scrollLeft;
                     $(".c_detail_header").get(0).scrollLeft = p;
-
                 }
                 function init() {
                     Efw('masterinfo_init');
                 }
 
                 function searchmasterinfo() {
-
                     var productdivArr = new Array();
-
                     $('#producttype input:checkbox:checked').each(function (index, item) {
                         productdivArr.push($(this).val());
                     });
@@ -32,11 +28,117 @@
                         if ($(this).val() == 'ASIN、SKU、LABEL') {
                             displayflg2 = "1";
                         }
+                    });
+                    Efw('masterinfo_search', { 'producttype': productdivArr, 'displayflg2': displayflg2 });
+                }
 
+
+                function showitem(obj) {
+                    var flg2 = false;
+                    $('#displayitem input:checkbox:checked').each(function (index, item) {
+
+                        if ($(this).val() == 'ASIN、SKU、LABEL') {
+                            $(".display2").show();
+                            flg2 = true;
+                            $("#stocktablehead").width($("#stocktablehead").width());
+                            $("#stocktable").width($("#stocktable").width());
+                        }
                     });
 
-                  
-                    Efw('masterinfo_search', { 'producttype': productdivArr, 'displayflg2': displayflg2 });
+                    if (flg2 == false) {
+                        $(".display2").hide();
+                    }
+
+                }
+
+                function dialog(choice) {
+                    $("#opt").val(choice);
+                    var opt=$("#opt").val();
+                    if (opt == 'new') {
+
+                        $('#asin').html("-");
+                        $('#sku').html("-");
+                        $('#label').html("-");
+                        $('#newproducttype2').val("");
+                        $('#sub1').val("");
+                        $('#sub2').val("");
+                        $('#price1').val("");
+                        $('#price2').val("");
+                        $('#price3').val("");
+                        $('#productname').val("");
+                        $("#sub1").on("change", function () {
+                            $('#sub2').val("");
+                        });
+                        $("#sub2").on("change", function () {
+                            $('#sub1').val("");
+                        });
+                        $("#preproduct").on("change", function () {
+                            if ($("#preproduct").val() == '亲商品') {
+                               $('#sub1').val("");
+                               $('#sub2').val("");
+                               $('#price1').val("");
+                               $('#price2').val("");
+                               $('#price3').val("");
+                               $('#productname').val("");
+                               $("#sub1").attr("readOnly", "readonly");
+                               $("#sub2").attr("readOnly", "readonly");
+                               $("#price1").attr("readOnly", "readonly");
+                               $("#price2").attr("readOnly", "readonly");
+                               $("#price3").attr("readOnly", "readonly");
+                               $("#productname").attr("readOnly", "readonly");
+                           } else if ($("#preproduct").val() == '子商品') {
+                                console.log("update")
+                               $("#sub1").removeAttr("readOnly");
+                               $("#sub2").removeAttr("readOnly");
+                               $("#price1").removeAttr("readOnly");
+                               $("#price2").removeAttr("readOnly");
+                               $("#price3").removeAttr("readOnly");
+                               $("#productname").removeAttr("readOnly");
+                           }
+                        });
+                        
+                    } else if (opt == 'update') {
+                    }
+                    masterinfo_inputdialog.dialog('open');
+                }
+                // $("#preproduct").on("change", function () {
+                //     console.log("preproduct ")
+                //     $("#opt").val(choice);
+                //     var opt=$("#opt").val();
+                //     if (opt == 'new') {
+                //            if ($("#preproduct").val() == '亲商品') {
+                //                $('#sub1').val("");
+                //                $('#sub2').val("");
+                //                $('#price1').val("");
+                //                $('#price2').val("");
+                //                $('#price3').val("");
+                //                $('#productname').val("");
+                //                $("#sub1").attr("readOnly", "readonly");
+                //                $("#sub2").attr("readOnly", "readonly");
+                //                $("#price1").attr("readOnly", "readonly");
+                //                $("#price2").attr("readOnly", "readonly");
+                //                $("#price3").attr("readOnly", "readonly");
+                //                $("#productname").attr("readOnly", "readonly");
+                //            } else if ($("#preproduct").val() == '子商品') {
+                //                 console.log("update")
+                //                $("#sub1").removeAttr("readOnly");
+                //                $("#sub2").removeAttr("readOnly");
+                //                $("#price1").removeAttr("readOnly");
+                //                $("#price2").removeAttr("readOnly");
+                //                $("#price3").removeAttr("readOnly");
+                //                $("#productname").removeAttr("readOnly");
+                //            }
+                //         }
+                //        });
+                function save(){
+                    var opt =$("#opt").val();
+                    if(opt=='new'){
+                        Efw('masterinfo_save', { 'flg': "1" });
+                    }else if(opt=='update'){
+                        
+                    }
+
+                   
                 }
             </script>
 
@@ -85,8 +187,10 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 200px;"><button id="insert">新规</button></td>
-                                    <td style="width: 200px;"><button id="searchbtn"onclick="searchmasterinfo()">検索</button></td>
+                                    <td style="width: 200px;"><button id="insert" onclick="dialog('new')">新规</button>
+                                    </td>
+                                    <td style="width: 200px;"><button id="searchbtn"
+                                            onclick="searchmasterinfo()">検索</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -116,8 +220,9 @@
                                         <input type="text" style="width: 150px;height: 30px;" id="keyword"></input>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">表示項目：</td>
-                                    <td style="width: 250px;">
-                                        <input type="checkbox" value="ASIN、SKU、LABEL" checked> ASIN、SKU、LABEL
+                                    <td style="width: 250px;" id="displayitem">
+                                        <input type="checkbox" onclick="showitem(this);" value="ASIN、SKU、LABEL" checked>
+                                        ASIN、SKU、LABEL
                                     </td>
 
                                 </tr>
@@ -125,7 +230,8 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 2164px;table-layout: fixed;">
+                        <table class="table_detail_header" id="stocktablehead"
+                            style="width: 2164px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 70px;">操作</th>
@@ -134,9 +240,9 @@
                                     <th style="width: 70px;">親子区分</th>
                                     <th style="width: 160px;">分類①</th>
                                     <th style="width: 160px;">分類②</th>
-                                    <th style="width: 120px;">ASIN番号</th>
-                                    <th style="width: 150px;">SKU番号</th>
-                                    <th style="width: 120px;">LABEL番号</th>
+                                    <th style="width: 150px;" class="display2">ASIN番号</th>
+                                    <th style="width: 150px;" class="display2">SKU番号</th>
+                                    <th style="width: 150px;" class="display2">LABEL番号</th>
                                     <th style="width: 80px;">仕入価格</th>
                                     <th style="width: 160px;">FBA発送方式</th>
                                     <th style="width: 817px;">商品名称</th>
@@ -145,25 +251,25 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;"  id="stocktable">
-                          
-                                <tr>
-                                    <td style="width: 70px;" class="c"><button class="btn" id="update"
-                                            onclick="masterinfo_inputdialog.dialog('open');">更新</button></td>
-                                    <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                    <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
-                                </tr>
+                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;" id="stocktable">
 
-                
+                            <tr>
+                                <td style="width: 70px;" class="c"><button class="btn" id="update"
+                                        onclick="masterinfo_inputdialog.dialog('open');" value="">更新</button></td>
+                                <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
+                                <td style="width: 80px;" class="c">W001</td>
+                                <td style="width: 70px;" class="c">親商品</td>
+                                <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
+                                <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
+                                <td style="width: 150px;" class="c">B089WGVH9V</td>
+                                <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
+                                <td style="width: 150px;" class="c">X000UXRHRV</td>
+                                <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
+                                <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
+                                <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
+                            </tr>
+
+
                         </table>
                     </div>
 
