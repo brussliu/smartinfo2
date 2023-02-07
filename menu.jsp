@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="efw" uri="efw" %>
         <html>
+
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>SmartInfo 2.0</title>
             <efw:Client />
-            <link rel="stylesheet" href="css/common.css" type="text/css"/>
+            <link rel="stylesheet" href="css/common.css" type="text/css" />
             <style>
                 /* content */
                 .content {
@@ -73,7 +74,7 @@
                     font-size: 20px;
                     border: 1px solid rgb(206, 205, 205);
                     box-shadow: 5px 5px 2px #888888;
-                    cursor:pointer;
+                    cursor: pointer;
                 }
 
                 /* content_l_con */
@@ -110,24 +111,41 @@
                     background: rgba(0, 0, 0, 0.1);
 
                 }
-                .content_b{
-                    width: 100%;
-                    height: 22vh;
-                     
+
+                .content_b {
+                    width: 1824px;
+                    height: 13vh;
+                    margin: auto;
+                    margin-top: 20px;
+                    overflow-x: auto;
+                  white-space: nowrap;
                 }
-                .content_b>table td p:first-child{
-                    margin-bottom: 50px;
+                .content_b>div {
+                    display: inline-block;
+
+                    min-width: 250px;
+                    max-width: 330px;
+                    height: 110px;
+                    margin: auto;
+                    background-color: #ffffff;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
                 }
-                .content_b>table div{
-                   width: 400px;
-                   height: 250px;
+                .content_b>div p:first-child {
+                    height: 37px;
+                    margin-left: 10px;
+                    font-size: 20px;
+                    line-height: 37px;
                 }
-                .c{
-                    text-align: center;
-                }
-                .c span:first-child{
-                    font-size: 2em;
+
+                .content_b>div p:last-child {
+                    width: 90%;
+                    margin: auto;
+                    font-size: 4em;
                     font-weight: bolder;
+                    height: 76px;
+                    margin-left: 10px;
+                    border: 0;
+                    text-align: right;
                 }
             </style>
         </head>
@@ -142,8 +160,10 @@
                         <table style="float: right;width: 100%;color: aliceblue;">
                             <tr>
                                 <td>
-                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
-                                    <button class="hright_r" onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
+                                    <button class="hright_r"
+                                        onclick="Efw('common_menu_goto',{page:'login.jsp'})">ログオフ</button>
+                                    <button class="hright_r"
+                                        onclick="Efw('common_menu_goto',{page:'shoplist.jsp'})">切替</button>
                                 </td>
                             </tr>
                             <tr>
@@ -164,41 +184,53 @@
                         <table class="content_l_btn">
                             <tbody>
                                 <tr>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
+                                    <td><button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'masterinfo.jsp'})">マスタ情報管理</button>
+                                    <td><button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'masterinfo.jsp'})">マスタ情報管理</button>
                                     </td>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'stockinfo.jsp'})">在庫情報管理</button>
+                                    <td><button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'stockinfo.jsp'})">在庫情報管理</button>
                                     </td>
                                     <td> <button class="btn" disabled>販売情報管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'delivery.jsp'})">納品情報管理</button>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'delivery.jsp'})">納品情報管理</button>
                                     </td>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'purchase.jsp'})">仕入情報管理</button></td>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'purchase.jsp'})">仕入情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'shipactingmaster.jsp'})">代行発送商品管理</button></td>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'shipacting.jsp'})">代行発送情報管理</button></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'sending.jsp'})">発送情報管理</button>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'shipactingmaster.jsp'})">代行発送商品管理</button>
+                                    </td>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'shipacting.jsp'})">代行発送情報管理</button>
                                     </td>
                                     <td></td>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn" onclick="Efw('common_menu_goto',{page:'scan.jsp'})">商品スキャン</button>
+                                    <td><button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'sending.jsp'})">発送情報管理</button>
+                                    </td>
+                                    <td></td>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td> <button class="btn"
+                                            onclick="Efw('common_menu_goto',{page:'scan.jsp'})">商品スキャン</button>
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -207,7 +239,7 @@
                             </tbody>
                         </table>
                     </div>
-                 
+
                     <div class="content_r">
                         <div class="content_l_con">
                             <p>
@@ -464,19 +496,53 @@
                     </div>
 
                     <div class="content_b">
-                        <table width="100%">
-                            <tbody>
-                                <tr>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-                                    <td><div><p>XXXXXXXXXXXXXXXX</p><p class="c"><span>999</span><span>個</span></p></div></td>
-
-                                </tr>
-                            </tbody>
-                        </table>
+                        
+                                        <div>
+                                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                            </p>
+                                            <P>999</P>
+                                        </div>
+                                     
+                                        <div>
+                                            <p>販売情報管理</p>
+                                            <P>999</P>
+                                        </div>
+                                    
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                    
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                    
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                     
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                     
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                  
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                                    
+                                        <div>
+                                            <p>XXXXXXXXXX</p>
+                                            <P>999</P>
+                                        </div>
+                               
                     </div>
                 </div>
             </div>
