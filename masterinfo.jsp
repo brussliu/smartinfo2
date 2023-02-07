@@ -16,6 +16,51 @@
                     Efw('masterinfo_init');
                 }
 
+                // 颜色
+                // function changeColor() {
+
+                //     var oyflg = false;
+                //     var oldproductno = "";
+
+                //     $("#stocktable").find("tr").each(function () {
+
+                //         var tdArr = $(this).children();
+
+                //         // 商品管理番号
+                //         var newproductno = tdArr.eq(2).html();
+                //         // 商品種別
+                //         var productkinds = tdArr.eq(3).html();
+
+                //         var flg = false;
+                //         if (newproductno != oldproductno) {
+                //             flg = true;
+                //         }
+                //         // 商品管理番号変わる
+                //         if (flg) {
+                //             oyflg = false;
+                //         }
+
+                //         if (productkinds == "親商品") {
+                //             // 行の色を変更
+                //             $(this).css({ "background": "rgb(153,217,234)" });
+                //             oyflg = true;
+                //         }
+
+                //         if (productkinds == "子商品") {
+                //             // チェックボックス列の色を変更
+                //             if (oyflg) {
+                //                 tdArr.eq(0).css({ "background": "rgb(153,217,234)" });
+                //             } else {
+                //                 // 行の色を変更
+                //                 $(this).css({ "background": "rgb(159,252,253)" });
+                //             }
+                //         }
+                //         oldproductno = newproductno;
+                //     });
+                // }
+
+
+                // 检索
                 function searchmasterinfo() {
                     var productdivArr = new Array();
                     $('#producttype input:checkbox:checked').each(function (index, item) {
@@ -44,101 +89,171 @@
                             $("#stocktable").width($("#stocktable").width());
                         }
                     });
-
                     if (flg2 == false) {
                         $(".display2").hide();
                     }
 
                 }
+                // 新规
+                function newdialog() {
+                    $("#opt").val("new");
+                    var opt = $("#opt").val();
 
-                function dialog(choice) {
-                    $("#opt").val(choice);
-                    var opt=$("#opt").val();
                     if (opt == 'new') {
+                        $("#asin span").css("display", "block");
+                        $("#asinselect").css("display", "none");
+                        $("#sku span").css("display", "block");
+                        $("#skuselect").css("display", "none");
+                        $("#label span:last-child").css("display", "none");
+                        $("#label span:first-child").css("display", "block");
+                        $('#asin span').html("-");
+                        $('#sku span').html("-");
+                        $("#label span:first-child").html("-");
 
-                        $('#asin').html("-");
-                        $('#sku').html("-");
-                        $('#label').html("-");
+                        $('#pre').html('<select style="width: 100px;height: 30px;" id="preproduct"><option value="亲商品">亲商品</option><option value="子商品">子商品</option></select>');
                         $('#newproducttype2').val("");
+                        $('#newproductno2').val("");
                         $('#sub1').val("");
                         $('#sub2').val("");
                         $('#price1').val("");
                         $('#price2').val("");
                         $('#price3').val("");
                         $('#productname').val("");
-                        $("#sub1").on("change", function () {
-                            $('#sub2').val("");
-                        });
-                        $("#sub2").on("change", function () {
-                            $('#sub1').val("");
-                        });
+
                         $("#preproduct").on("change", function () {
                             if ($("#preproduct").val() == '亲商品') {
-                               $('#sub1').val("");
-                               $('#sub2').val("");
-                               $('#price1').val("");
-                               $('#price2').val("");
-                               $('#price3').val("");
-                               $('#productname').val("");
-                               $("#sub1").attr("readOnly", "readonly");
-                               $("#sub2").attr("readOnly", "readonly");
-                               $("#price1").attr("readOnly", "readonly");
-                               $("#price2").attr("readOnly", "readonly");
-                               $("#price3").attr("readOnly", "readonly");
-                               $("#productname").attr("readOnly", "readonly");
-                           } else if ($("#preproduct").val() == '子商品') {
+                                $('#sub1').val("");
+                                $('#sub2').val("");
+                                $('#price1').val("");
+                                $('#price2').val("");
+                                $('#price3').val("");
+                                $('#productname').val("");
+                                $("#sub1").attr("disabled", "disabled")
+                                $("#sub1").css("background", "rgb(194, 189, 189)");
+                                $("#sub2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                                $("#price1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                                $("#price2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                                $("#price3").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+
+                            } else if ($("#preproduct").val() == '子商品') {
                                 console.log("update")
-                               $("#sub1").removeAttr("readOnly");
-                               $("#sub2").removeAttr("readOnly");
-                               $("#price1").removeAttr("readOnly");
-                               $("#price2").removeAttr("readOnly");
-                               $("#price3").removeAttr("readOnly");
-                               $("#productname").removeAttr("readOnly");
-                           }
+                                $("#sub1").removeAttr("disabled").css("background", "#e0ffff");
+                                $("#sub2").removeAttr("disabled").css("background", "#e0ffff");
+                                $("#price1").removeAttr("disabled").css("background", "#e0ffff");
+                                $("#price2").removeAttr("disabled").css("background", "#e0ffff");
+                                $("#price3").removeAttr("disabled").css("background", "#e0ffff");
+
+                            }
                         });
-                        
-                    } else if (opt == 'update') {
+
                     }
                     masterinfo_inputdialog.dialog('open');
                 }
-                // $("#preproduct").on("change", function () {
-                //     console.log("preproduct ")
-                //     $("#opt").val(choice);
-                //     var opt=$("#opt").val();
-                //     if (opt == 'new') {
-                //            if ($("#preproduct").val() == '亲商品') {
-                //                $('#sub1').val("");
-                //                $('#sub2').val("");
-                //                $('#price1').val("");
-                //                $('#price2').val("");
-                //                $('#price3').val("");
-                //                $('#productname').val("");
-                //                $("#sub1").attr("readOnly", "readonly");
-                //                $("#sub2").attr("readOnly", "readonly");
-                //                $("#price1").attr("readOnly", "readonly");
-                //                $("#price2").attr("readOnly", "readonly");
-                //                $("#price3").attr("readOnly", "readonly");
-                //                $("#productname").attr("readOnly", "readonly");
-                //            } else if ($("#preproduct").val() == '子商品') {
-                //                 console.log("update")
-                //                $("#sub1").removeAttr("readOnly");
-                //                $("#sub2").removeAttr("readOnly");
-                //                $("#price1").removeAttr("readOnly");
-                //                $("#price2").removeAttr("readOnly");
-                //                $("#price3").removeAttr("readOnly");
-                //                $("#productname").removeAttr("readOnly");
-                //            }
-                //         }
-                //        });
-                function save(){
-                    var opt =$("#opt").val();
-                    if(opt=='new'){
-                        Efw('masterinfo_save', { 'flg': "1" });
-                    }else if(opt=='update'){
-                        
+                // 更新
+                function updatedialog(flg, asin, sku, label, type, no, fba, preproduct, sub1, sub2, price1, price2, price3, name) {
+
+
+                    $("#pre").data("old", preproduct);
+                    $("#sub1").data("old", sub1);
+                    $("#sub2").data("old", sub2);
+                    $("#newproductno2").data("old", no);
+
+                    if (flg == '1') {//更新时，当暂定为1时
+                        $("#opt").val("update1");
+                        var opt = $("#opt").val();
+                        $("#asin span").css("display", "none");
+                        $("#asinselect").css("display", "block");
+                        $("#sku span").css("display", "none");
+                        $("#skuselect").css("display", "block");
+                        $("#label span:last-child").css("display", "block");
+                        $("#label span:first-child").css("display", "none");
+                        //    $("#asin").html('<select style="width: 150px;height:30px;background-color: #e0ffff;"id="asinselect"><option value=""></option></select>');
+                        //     $("#sku").html('<select style="width: 150px;height:30px;background-color: #e0ffff;"id="skuselect"><option value=""></option></select>');
+                        $('#label span:first-child').html(label);
+                        // Efw('masterinfo_ASL');
+                    }
+                    else if (flg == '0') {//更新时，当暂定为0时
+                        console.log(0)
+                        $("#asin span").css("display", "block");
+                        $("#asinselect").css("display", "none");
+                        $("#sku span").css("display", "block");
+                        $("#skuselect").css("display", "none");
+                        $("#label span:last-child").css("display", "block");
+                        $("#label span:first-child").css("display", "none");
+                        $("#opt").val("update0");
+                        var opt = $("#opt").val();
+                        $('#asin span').html(asin);
+                        $('#sku span').html(sku);
+
+                        $('#label span:last-child').html(label);
+
+                    }
+                    $("#newproducttype").find("option:contains('" + type.substring(3) + "')").attr("selected", true);
+                    $('#newproducttype2').val("");
+                    $("#newproductno").find("option:contains('" + no + "')").attr("selected", true);
+                    $('#newproductno2').val("");
+                    $("#fba").find("option:contains('" + fba + "')").attr("selected", true);
+                    $("#pre").html(preproduct);
+
+                    if (preproduct == '亲商品') {
+                        console.log('亲商品');
+                        $("#sub1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#sub2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#price1").removeAttr("disabled").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#productname").removeAttr("disabled").css("background", "#e0ffff");
+                    } else if (preproduct == '子商品') {
+                        console.log('子商品');
+                        $("#sub1").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#sub2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price1").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#productname").removeAttr("disabled").css("background", "#e0ffff");
                     }
 
-                   
+
+                    $('#sub1').val(sub1);
+                    $('#sub2').val(sub2);
+                    $('#price1').val(price1);
+                    $('#price2').val(price2);
+                    $('#price3').val(price3);
+                    $('#productname').val(name);
+
+                    masterinfo_inputdialog.dialog('open');
+                }
+
+
+                function save() {
+                    var opt = $("#opt").val();
+                    if (opt == 'new') {
+
+                        Efw('masterinfo_save', { 'flg': "1" });
+                    } else if (opt == 'update1') {
+                        var s = $('#asin select').val();
+                        var ss = $('#sku select').val();
+                        var oldproductno = $("#newproductno2").data("old").toString();
+                        console.log(oldproductno);
+                        var oldpre = $("#pre").data("old").toString();
+
+                        console.log("update1");
+
+                        var oldsub1 = $("#sub1").data("old").toString();
+                        var oldsub2 = $("#sub2").data("old").toString();
+
+                        Efw('masterinfo_update', {
+                            'flg': "1", 'asin': s, "sku": ss,
+                            'oldpre': oldpre,
+                            'oldsub1': oldsub1,
+                            'oldsub2': oldsub2,
+                            'oldproductno': oldproductno
+                        });
+                    } else if (opt == 'update0') {
+                        Efw('masterinfo_update', { 'flg': "0", 'asin': "", 'sku': "", 'oldpre': "", 'oldsub1': "", 'oldsub2': "", 'oldproductno': "" });
+                    }
+
+
                 }
             </script>
 
@@ -187,7 +302,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 200px;"><button id="insert" onclick="dialog('new')">新规</button>
+                                    <td style="width: 200px;"><button id="insert" onclick="newdialog()">新规</button>
                                     </td>
                                     <td style="width: 200px;"><button id="searchbtn"
                                             onclick="searchmasterinfo()">検索</button></td>

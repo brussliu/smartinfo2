@@ -55,7 +55,7 @@ masterinfo_save.fire=function(params){
 	var newproductno = params["#newproductno"];
 	var newproductno2 = params["#newproductno2"];
 	var no="";
-	if(newproducttype2==""){
+	if(newproductno2==""){
 		no=newproductno;
 	}else{
 		no=newproductno2;

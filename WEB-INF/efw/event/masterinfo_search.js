@@ -47,11 +47,9 @@ masterinfo_search.fire=function(params){
 	).getArray();
 
  
-	selectResult.debug("zzzzzzzzzzzzzzzz");
-
 	var resultHTML =
 		"<tr>" +
-		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick=\"masterinfo_inputdialog.dialog('open');\">更新</button></td>" +
+		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick=\"updatedialog({flg},'{asin}','{sku}','{label}','{type}','{no}','{fba}','{preproduct}','{sub1}','{sub2}','{price}','{price2}','{price3}','{name}')\">更新</button></td>" +
 		"<td style='width: 140px;' class='l'><span class='l5'>{type}</span></td>" +
 		"<td style='width: 80px;' class='c'>{no}</td>" +
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +
