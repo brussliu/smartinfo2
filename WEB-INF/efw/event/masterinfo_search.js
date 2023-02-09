@@ -49,7 +49,7 @@ masterinfo_search.fire=function(params){
  
 	var resultHTML =
 		"<tr>" +
-		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick=\"updatedialog({flg},'{asin}','{sku}','{label}','{type}','{no}','{fba}','{preproduct}','{sub1}','{sub2}','{price}','{price2}','{price3}','{name}')\">更新</button></td>" +
+		"<td style='width: 70px;' class='c'><button class='btn' id='update'onclick=\"updatedialog(this)\">更新</button><input type='hidden' id='flg' value='{flg}'></input></td>" +
 		"<td style='width: 140px;' class='l'><span class='l5'>{type}</span></td>" +
 		"<td style='width: 80px;' class='c'>{no}</td>" +
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +
@@ -64,7 +64,7 @@ masterinfo_search.fire=function(params){
 		"</tr>";
 
 	ret.runat("#stocktable").remove("tr").append(resultHTML).withdata(selectResult);
-
+		ret.debug("11111111111111111111111");
 	var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
 	ret.eval(script);
 
