@@ -64,7 +64,7 @@ masterinfo_search.fire=function(params){
 		"</tr>";
 
 	ret.runat("#stocktable").remove("tr").append(resultHTML).withdata(selectResult);
-		ret.debug("11111111111111111111111");
+	 
 	var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
 	ret.eval(script);
 

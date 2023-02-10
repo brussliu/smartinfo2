@@ -77,7 +77,7 @@
                     Efw('masterinfo_search', { 'producttype': productdivArr, 'displayflg2': displayflg2 });
                 }
 
-
+                // ASL显示
                 function showitem(obj) {
                     var flg2 = false;
                     $('#displayitem input:checkbox:checked').each(function (index, item) {
@@ -94,19 +94,8 @@
                     }
 
                 }
-                // 新规
-                function newdialog() {
-                    $("#opt").val("new");
-                    var opt = $("#opt").val();
-                    $('#asin').html("-");
-                    $('#sku').html("-");
-                    $('#label').html("-");
-
-                    // $('#newproducttype2').attr("data-name","nicai");
-                    // console.log($('#newproducttype2').attr("data-name"));
-                    $('#newproducttype2').data('aaa','111');
-                    console.log($('#newproducttype2').data('aaa'));
-
+                // dialog初始化
+                function dialoginit() {
                     $("#newproducttype option:first").prop("selected", 'selected');
                     $('#newproducttype2').val("");
 
@@ -121,63 +110,125 @@
                     $('#price2').val("");
                     $('#price3').val("");
                     $('#productname').val("");
-                
 
 
+                }
+
+                // 亲子区分分类
+                function preselect(val) {
+                    console.log('preselect(val');
+                    console.log(val);
+                    if (val == '親商品') {
+                        console.log('up親商品');
+                        $("#preproduct").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#fba").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#sub1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#sub2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#price1").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
+
+                    } else if (val == '子商品') {
+                        console.log('up子商品');
+                        $("#preproduct").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                        $("#fba").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#sub1").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#sub2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price1").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
+                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
+
+                    }
+                }
+                // 新规
+                function newdialog() {
+                    $("#opt").val("new");
+                    var opt = $("#opt").val();
+                    $('#asin').html("-");
+                    $('#sku').html("-");
+                    $('#label').html("-");
+                    dialoginit();
+                    $("#preproduct").removeAttr("disabled").css("background", "#e0ffff");
+                    // $("#fba").removeAttr("disabled").css("background", "#e0ffff");
+                    $("#fba").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#sub1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#sub2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#price1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#price2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#price3").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
+                    $("#preproduct").removeAttr("disabled").css("background", "#e0ffff");
+
+                    $('#price1').data('flg',"2");
+                    $("#asin").data("oldadins", "");
+                    $("#sku").data("oldskus", "");
+                    $("#newproducttype2").data("oldtype", "");
+                    $("#newproductno2").data("oldno", "");
+                    $("#preproduct").data("oldpreproduct", "");
+                    $("#sub1").data("oldsub1", "");
+                    $("#sub2").data("oldsub2", "");
                     masterinfo_inputdialog.dialog('open');
+
                 }
                 // 更新
                 function updatedialog(btn) {
-                    var flg=$(btn).next().val();
-                    console.log(flg);
+                    var flg = $(btn).next().val();
+                    $('#asin').html();
+                    $('#sku').html();
+                    $('#label').html();
+                    dialoginit();
                     $("#opt").val("update");
                     if (flg == '1') {//更新时，当暂定为1时
                         console.log(1);
-                      
-                        
-                       var type= $(btn).parent().next().children().html();
-                        console.log(type);
-                        var no=$(btn).parent().next().next().html();
-                        console.log(no);
-                        var preproduct=$(btn).parent().next().next().next().html();
-                        console.log(preproduct);
-                        var sub1=$(btn).parent().next().next().next().next().children().html();
-                        console.log(sub1);
-                        var sub2=$(btn).parent().next().next().next().next().next().children().html();
-                        console.log(sub2);
-                        
-                        Efw('masterinfo_update', {'flg':'1', 'oldasin':"",'oldsku': "",'type': type,'no': no,'preproduct': preproduct,'sub1': sub1,'sub2': sub2});
-                    }else if (flg == '0') {//更新时，当暂定为0时
-                        console.log(0)
+
+
+                        var type = $(btn).parent().next().children().html();
+                        var no = $(btn).parent().next().next().html();                       
+                        var preproduct = $(btn).parent().next().next().next().html();                    
+                        var sub1 = $(btn).parent().next().next().next().next().children().html();                    
+                        var sub2 = $(btn).parent().next().next().next().next().next().children().html();
                        
+                        $("#asin").data("oldadins", "");
+                        $("#sku").data("oldskus", "");
+                        $("#price1").data("flg", "1");
+                        $('#asin').html("<select style='width: 150px;height: 30px;' id='asinselect'><option value=''></option></select>")
+                        $('#sku').html('<select style="width: 150px;height: 30px;" id="skuselect"> <option value=""></option></select>')
 
-                        // $('#label span:last-child').html(label);
-                        var oldasin=$(btn).parent().next().next().next().next().next().next().html().toString();
+                        Efw('masterinfo_update', { 'flg': '1', 'oldasin': "", 'oldsku': "", 'type': type, 'no': no, 'preproduct': preproduct, 'sub1': sub1, 'sub2': sub2 });
+                        var val = $("#preproduct").val();
+
+                        preselect(preproduct);
+                    } else if (flg == '0') {//更新时，当暂定为0时
+                        console.log(0)
+                        var preproduct = $(btn).parent().next().next().next().html();
+                        var oldasin = $(btn).parent().next().next().next().next().next().next().html().toString();
                         console.log(oldasin);
-                        var oldsku=$(btn).parent().next().next().next().next().next().next().next().html().toString();
+                        var oldsku = $(btn).parent().next().next().next().next().next().next().next().html().toString();
                         console.log(oldsku);
-                        Efw('masterinfo_update', {'flg':'0', 'oldasin': oldasin,'oldsku': oldsku,'type': "",'no':"",'preproduct': "",'sub1': "",'sub2': ""});
 
+                        $("#asin").data("oldadins", oldasin);
+                        $("#sku").data("oldskus", oldsku);
+                        $("#price1").data("flg", "0");
+                      
+                        Efw('masterinfo_update', { 'flg': '0', 'oldasin': oldasin, 'oldsku': oldsku, 'type': "", 'no': "", 'preproduct': "", 'sub1': "", 'sub2': "" });
+                        var vall = $("#preproduct").val();
+                        preselect(preproduct);
                     }
-      
-
                     masterinfo_inputdialog.dialog('open');
                 }
 
 
                 function save() {
-                    var oldasins=('#asin').data('oldadins');
-                    var oldskus=('#sku').data('oldskus');
-                    var oldtype=('#newproducttype2').data('oldtype');
-                    var oldno=('#newproductno2').data('oldno');
-                    var oldpreproduct=('#preproduct').data('oldpreproduct');
-                    var oldsub1=('#sub1').data('oldsub1');
-                    var oldsub2=('#sub2').data('oldsub2');
-                  
-                        Efw('masterinfo_save',{'oldasins':oldasins, 'oldskus': oldskus,'oldtype': oldtype,'oldno':oldno,'oldpreproduct': oldpreproduct,'oldsub1': oldsub1,'oldsub2': oldsub2});
-               
-
-
+                    var oldflg = $('#price1').data('flg');
+                    var oldasin = $('#asin').data('oldadins');
+                    var oldskus = $('#sku').data('oldskus');
+                    var oldtype = $('#newproducttype2').data('oldtype');
+                    var oldno = $('#newproductno2').data('oldno');
+                    var oldpreproduct = $('#preproduct').data('oldpreproduct');
+                    var oldsub1 = $('#sub1').data('oldsub1');
+                    var oldsub2 = $('#sub2').data('oldsub2');
+                    
+                    Efw('masterinfo_save', { 'flg': oldflg, 'oldasins': oldasin, 'oldskus': oldskus, 'oldtype': oldtype, 'oldno': oldno, 'oldpreproduct': oldpreproduct, 'oldsub1': oldsub1, 'oldsub2': oldsub2 });
+                    masterinfo_inputdialog.dialog('close');
                 }
 
             </script>
@@ -295,7 +346,8 @@
 
                             <tr>
                                 <td style="width: 70px;" class="c"><button class="btn" id="update"
-                                        onclick="masterinfo_inputdialog.dialog('open');" value="">更新</button><input type="hidden" id="flg" value=""></input></td>
+                                        onclick="masterinfo_inputdialog.dialog('open');" value="">更新</button><input
+                                        type="hidden" id="flg" value=""></input></td>
                                 <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
                                 <td style="width: 80px;" class="c">W001</td>
                                 <td style="width: 70px;" class="c">親商品</td>

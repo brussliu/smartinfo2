@@ -23,8 +23,8 @@
             function preproductchange(val) {
                 var opt = $("#opt").val();
                 if (opt == 'new') {
-                    if (val == '亲商品') {
-                        console.log('new亲商品');
+                    if (val == '親商品') {
+                        console.log('new親商品');
                        
                         $("#fba option:first").prop("selected", 'selected');
                         $('#sub1').val("");
@@ -52,29 +52,8 @@
                         $("#price3").removeAttr("disabled").css("background", "#e0ffff");
                         $("#preproduct").removeAttr("disabled").css("background", "#e0ffff");
                     }
-                } else {
-                    if (val == '亲商品') {
-                        console.log('up亲商品');
-                         $("#preproduct").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
-                        $("#fba").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#sub1").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
-                        $("#sub2").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
-                        $("#price1").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
-
-                    } else if (val == '子商品') {
-                        console.log('up子商品');
-                        $("#preproduct").attr("disabled", "disabled").css("background", "rgb(194, 189, 189)");
-                        $("#fba").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#sub1").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#sub2").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#price1").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#price2").removeAttr("disabled").css("background", "#e0ffff");
-                        $("#price3").removeAttr("disabled").css("background", "#e0ffff");
-
-                    }
-                }
+                 }
+               
             }
         </script>
         <style>
@@ -86,21 +65,12 @@
                     <tr>
                         <td style="width: 130px;text-align: left;">【ASIN番号】</input></td>
                         <td style="width: 170px;" id="asin"></td>
-                            <!-- <span style="display: none;" id="asinspan"></span>
-                            <select style="width: 150px;height: 30px;" id="asinselect">
-                                <option value=""></option>
-                            </select> -->
                         
-                        <td style="width: 120px;text-align: left;">【SKU番号】<</input></td>
+                        <td style="width: 120px;text-align: left;">【SKU番号】</input></td>
                         <td style="width: 180px;" id="sku"></td>
-                            <!-- <span style="display: none;" id="skuspan"></span>
-                            <select style="width: 150px;height: 30px;" id="skuselect">
-                                <option value=""></option>
-                            </select> -->
                         
                         <td style="width: 150px;text-align: left;">【LABEL番号】</td>
                         <td style="width: 170px;" id="label"></td>
-                            <!-- <span>-</span> -->
                         
                     </tr>
                 </tbody>
@@ -130,7 +100,7 @@
                             親子区分：
                         </td>
                         <td id="pre"><select style="width: 100px;height: 30px;" id="preproduct"
-                                onchange="preproductchange(this.value);"><option value="亲商品">亲商品</option><option value="子商品">子商品</option></select></td>
+                                onchange="preproductchange(this.value);"><option value="親商品">親商品</option><option value="子商品">子商品</option></select></td>
                         <td></td>
                         <td></td>
                     </tr>

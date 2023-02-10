@@ -14,39 +14,34 @@ masterinfo_init.fire = function (params) {
 	// }
 
 
-// sl:商品管理番号初始化
-var selectResult1 = db.select(
-	"MASTER",
-	"searchproducno",
-	{
-		"shopId":SHOP_ID
-	}
-).getArray();
+	// sl:商品管理番号初始化
+	var selectResult1 = db.select(
+		"MASTER",
+		"searchproducno",
+		{
+			"shopId": SHOP_ID
+		}
+	).getArray();
 
-var resultHTML = "<option value='{value}'class='option' >{text}</option>";
+	var resultHTML = "<option value='{value}'class='option' >{text}</option>";
 
-ret.runat("#productno").remove("option .option").append(resultHTML).withdata(selectResult1);
-ret.runat("#newproductno").remove("option .option").append(resultHTML).withdata(selectResult1);
-selectResult1.debug("=============searchproducno");
-// sl:商品分类初始化
-var selectResult = db.select(
-	"MASTER",
-	"searchproducttype",
-	{
-		"shopId":SHOP_ID
-	}
-).getArray();
-selectResult.debug(selectResult[0].value);
-var resultHTML = "<input type='checkbox' checked value='{value}'>&nbsp;{text}&nbsp;&nbsp;";
+	ret.runat("#productno").remove("option .option").append(resultHTML).withdata(selectResult1);
+	ret.runat("#newproductno").remove("option .option").append(resultHTML).withdata(selectResult1);
 
-ret.runat("#producttype").remove("*").append(resultHTML).withdata(selectResult);
-var resultHTML1 = "<option value='{value}'class='option' >{value}</option>";
-ret.runat("#newproducttype").remove("option .option").append(resultHTML1).withdata(selectResult);
- 
+	// sl:商品分类初始化
+	var selectResult = db.select(
+		"MASTER",
+		"searchproducttype",
+		{
+			"shopId": SHOP_ID
+		}
+	).getArray();
+	selectResult.debug(selectResult[0].value);
+	var resultHTML = "<input type='checkbox' checked value='{value}'>&nbsp;{text}&nbsp;&nbsp;";
 
+	ret.runat("#producttype").remove("*").append(resultHTML).withdata(selectResult);
+	var resultHTML1 = "<option value='{value}'class='option' >{value}</option>";
+	ret.runat("#newproducttype").remove("option .option").append(resultHTML1).withdata(selectResult);
 
-
- 
 	return ret;
-
 };

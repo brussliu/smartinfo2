@@ -23,15 +23,16 @@ masterinfo_save.paramsFormat = {
 	"#productname": null,
 	"#opt": null,
 
-	"#oldasins": null,
-	"#oldskus": null,
+	"oldasins": null,
+	"oldskus": null,
 
-	"#oldtype": null,
-	"#oldno": null,
-	"#oldpreproduct": null,
+	"oldtype": null,
+	"oldno": null,
+	"oldpreproduct": null,
 
-	"#oldsub1": null,
-	"#oldsub2": null,
+	"oldsub1": null,
+	"oldsub2": null,
+	"flg" : null,
 
 };
 var SHOP_ID = session.get("SHOP_ID");
@@ -93,9 +94,9 @@ masterinfo_save.fire = function (params) {
 	// 判断新规or更新
 	if (opt == "new") {
 
-		// 亲子区分为亲商品时新规
-		if (preproduct == '亲商品') {
-			// sl:新规-亲商品
+		// 亲子区分为親商品时新规
+		if (preproduct == '親商品') {
+			// sl:新规-親商品
 			var selectResult = db.change(
 				"MASTER",
 				"savemasterinfopre",
@@ -108,6 +109,7 @@ masterinfo_save.fire = function (params) {
 					shopid: SHOP_ID
 				}
 			);
+			selectResult.debug("-----------------savemasterinfopre");
 		} else if (preproduct == '子商品') {	// 亲子区分为子商品时新规
 			// sl:新规-子商品
 			var selectResult = db.change(
@@ -130,13 +132,14 @@ masterinfo_save.fire = function (params) {
 					shopid: SHOP_ID
 				}
 			);
+			selectResult.debug("-----------------savemasterinfosub");
 		}
 	} else if (opt == "update") {
 		// 当暂定为1时，更新
 		if (flg == '1') {
 
-			if (preproduct == '亲商品') {
-				// 当暂定为1,亲子区分为亲商品时，更新
+			if (preproduct == '親商品') {
+				// 当暂定为1,亲子区分为親商品时，更新
 				var selectResult = db.change(
 					"MASTER",
 					"udatemasterinfoflg1pre",
@@ -150,20 +153,18 @@ masterinfo_save.fire = function (params) {
 						fba: fba,
 
 						preproduct: preproduct,
-						sub1: sub1,
-						sub2: sub2,
-
 						productname: productname,
 						shopid: SHOP_ID,
 
 						oldno: oldno,
 						oldtype: oldtype,
 						oldpreproduct: oldpreproduct,
-						oldsub1: oldsub1,
-						oldsub2: oldsub2
+						// oldsub1: oldsub1,
+						// oldsub2: oldsub2
 					}
 				);
-				// 亲商品时，更新子商品价格
+				selectResult.debug("-----------------udatemasterinfoflg1pre");
+				// 親商品时，更新子商品价格
 				var selectResult3 = db.change(
 					"MASTER",
 					"udatemasterinfosubprice",
@@ -175,7 +176,7 @@ masterinfo_save.fire = function (params) {
 						shopid: SHOP_ID
 					}
 				);
-
+				selectResult3.debug("-----------------udatemasterinfosubprice");
 			} else if (preproduct == '子商品') {
 				// 当暂定为1,亲子区分为子商品时，更新
 				var selectResult = db.change(
@@ -208,30 +209,24 @@ masterinfo_save.fire = function (params) {
 						oldsub2: oldsub2
 					}
 				);
+
+				selectResult.debug("-----------------udatemasterinfoflg1sub");
 			}
 
 
 
 		} else if (flg == "0") {
 
-			if (preproduct == '亲商品') {
-				// 当暂定为0，亲子区分为亲商品时,更新
+			if (preproduct == '親商品') {
+				// 当暂定为0，亲子区分为親商品时,更新
 				var selectResult = db.change(
 					"MASTER",
 					"udatemasterinfoflg0pre",
 					{
-						asin: asin,
-						sku: sku,
-						label: label,
-
 						type: type,
 						no: no,
 						fba: fba,
-
 						preproduct: preproduct,
-						sub1: sub1,
-						sub2: sub2,
-
 						productname: productname,
 						shopid: SHOP_ID,
 						oldasin: oldasins,
@@ -239,7 +234,8 @@ masterinfo_save.fire = function (params) {
 					}
 				);
 
-				// 亲商品时，更新子商品价格
+				selectResult.debug("-----------------udatemasterinfoflg0pre");
+				// 親商品时，更新子商品价格
 				var selectResult3 = db.change(
 					"MASTER",
 					"udatemasterinfosubprice",
@@ -252,6 +248,8 @@ masterinfo_save.fire = function (params) {
 					}
 				);
 
+				selectResult3.debug("-----------------udatemasterinfosubprice");
+
 			} else if (preproduct == '子商品') {
 
 				// 当暂定为0，亲子区分为子商品时,更新
@@ -259,10 +257,6 @@ masterinfo_save.fire = function (params) {
 					"MASTER",
 					"udatemasterinfoflg0sub",
 					{
-						asin: asin,
-						sku: sku,
-						label: label,
-
 						type: type,
 						no: no,
 						fba: fba,
@@ -281,6 +275,7 @@ masterinfo_save.fire = function (params) {
 						oldsku: oldskus
 					}
 				);
+				selectResult.debug("-----------------udatemasterinfoflg0sub");
 			}
 		}
 	}
@@ -289,7 +284,9 @@ masterinfo_save.fire = function (params) {
 
 
 
-	var script = "location.reload ();";
+var script = "searchmasterinfo();";
+// var script = "location.reload ();";
+// var script1 = "searchmasterinfo();";
 	// 画面へ結果を返す
 	return ret.eval(script);
 

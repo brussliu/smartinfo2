@@ -205,23 +205,15 @@
 		  "店舗ID" =!shopid
 </sql>
 
-<!-- sl：新规-亲商品 -->
+<!-- sl：新规-親商品 -->
 <sql id="savemasterinfopre">
 	INSERT INTO "MST_出品マスタ情報"
 	(
-	<!-- "SKU番号",
-	"ASIN番号",
-	"LABEL番号", -->
+
 	"商品管理番号",
 	"親子区分",
 	"商品種別",
-	<!-- "分類１",
-	"分類２",
-	"仕入価格",
-	"FBA発送方式", -->
 	"商品名称",
-	<!-- "仕入申報価格（元）",
-	"仕入申報価格（ドル）", -->
 	"暫定フラグ",
 	"店舗ID",
 	"更新日時"
@@ -284,19 +276,18 @@
 			now() --更新日時
 		)
 </sql>
-<!-- sl：更新-暂定1-亲商品 -->
+<!-- sl：更新-暂定1-親商品 -->
 <sql id="udatemasterinfoflg1pre" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
 		SET
 			"SKU番号" = !sku,
 			"ASIN番号" = !asin,
 			"LABEL番号" = !label,
+
 			"商品管理番号" = !no,
 			"親子区分" = !preproduct,
 			"商品種別" = !type,
-			"分類１" = !sub1,
 
-			"分類２" = !sub2,
 			"FBA発送方式" = !fba,
 			"商品名称" = !productname,
 
@@ -304,11 +295,11 @@
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
-	 	<if exists="oldproductno"> AND (	
-		  "商品管理番号" = !oldproductno
+	 	<if exists="oldno"> AND (	
+		  "商品管理番号" = !oldno
 		)
 	    </if>
-	   <if notexists="oldproductno"> AND (	
+	   <if notexists="oldno"> AND (	
 		  "商品管理番号" is NULL
 		)
 	   </if> 
@@ -328,7 +319,7 @@
 		  "商品種別" is NULL
 		)
 	   </if>
-	 	<if exists="oldsub1"> AND (	
+	 	<!-- <if exists="oldsub1"> AND (	
 		  "分類１" = !oldsub1
 		)
 	    </if>
@@ -342,8 +333,8 @@
 	    </if>
 	    <if notexists="oldsub2"> AND (	
 		  "分類２" is NULL
-		)
-	     </if>
+		)  
+		</if> -->
 		   
 </sql>
 
@@ -362,9 +353,9 @@
 			"分類１" = !sub1,
 			"分類２" = !sub2,
 
-			"仕入価格" = !price1,
-			"仕入申報価格（元）" = ！price2,
-			"仕入申報価格（ドル）" = !price3,
+			"仕入価格" = cast(!price1 as numeric(10,2)),
+			"仕入申報価格（元）" = cast(!price2 as numeric(10,2)),
+			"仕入申報価格（ドル）" = cast(!price3 as numeric(10,2)),
 
 			"FBA発送方式" = !fba,
 			"商品名称" = !productname,
@@ -372,11 +363,11 @@
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
-	 <if exists="oldproductno"> AND (	
-		  "商品管理番号" = !oldproductno
+	 <if exists="oldno"> AND (	
+		  "商品管理番号" = !oldno
 		)
 	    </if>
-	   <if notexists="oldproductno"> AND (	
+	   <if notexists="oldno"> AND (	
 		  "商品管理番号" is NULL
 		)
 	   </if> 
@@ -413,24 +404,15 @@
 		)
 	     </if>
 </sql>
-<!-- sl：更新-暂定0-亲商品 -->
+<!-- sl：更新-暂定0-親商品 -->
 <sql id="udatemasterinfoflg0pre" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
 		SET
-			"親子区分" = !preproduct,
+
 			"商品種別" = !type,
-			UPDATE "MST_出品マスタ情報" 
-		SET
-			"SKU番号" = !sku,
-			"ASIN番号" = !asin,
-			"LABEL番号" = !label,
+			"FBA発送方式" = !fba,
 			"商品管理番号" = !no,
 			"親子区分" = !preproduct,
-			"商品種別" = !type,
-			"分類１" = !sub1,
-
-			"分類２" = !sub2,
-			"FBA発送方式" = !fba,
 			"商品名称" = !productname,
 		    "更新日時"=now()
 		WHERE 
@@ -456,9 +438,6 @@
 <sql id="udatemasterinfoflg0sub" paramPrefix="!">
 	UPDATE "MST_出品マスタ情報" 
 		SET
-			"SKU番号" = !sku,
-			"ASIN番号" = !asin,
-			"LABEL番号" = !label,
 
 			"商品管理番号" = !no,
 			"親子区分" = !preproduct,
@@ -466,9 +445,9 @@
 			"分類１" = !sub1,
 			"分類２" = !sub2,
 
-			"仕入価格" = !price1,
-			"仕入申報価格（元）" = ！price2,
-			"仕入申報価格（ドル）" = !price3,
+			"仕入価格" = cast(!price1 as numeric(10,2)),
+			"仕入申報価格（元）" = cast(!price2 as numeric(10,2)),
+			"仕入申報価格（ドル）" = cast(!price3 as numeric(10,2)),
 
 			"FBA発送方式" = !fba,
 			"商品名称" = !productname,
@@ -505,7 +484,7 @@
 		AND 
 		  "商品管理番号" = :no
 		AND 
-		  "親子区分" != '亲商品'
+		  "親子区分" != '親商品'
 </sql>
 
 <!-- sl：ASIN,SKU,LABEL查询 -->
