@@ -1,6 +1,6 @@
 drop table public."RES_コスト情報";
 
-create table public."HIS_コスト情報" (
+create table public."RES_コスト情報" (
     "登録日" timestamp(6) without time zone
   , "発生日" timestamp(6) without time zone
   , "ステータス" character varying(20)
