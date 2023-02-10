@@ -113,8 +113,8 @@
                 }
 
                 .content_b {
-                    width: 1824px;
-                    height: 13vh;
+                    width: 95%;
+                    height: 15vh;
                     margin: auto;
                     margin-top: 20px;
                     overflow-x: auto;
@@ -123,8 +123,8 @@
                 .content_b>div {
                     display: inline-block;
 
-                    min-width: 250px;
-                    max-width: 330px;
+                    min-width: 200px;
+                    max-width: 300px;
                     height: 110px;
                     margin: auto;
                     background-color: #ffffff;
@@ -140,7 +140,7 @@
                 .content_b>div p:last-child {
                     width: 90%;
                     margin: auto;
-                    font-size: 4em;
+                    font-size: 3.5em;
                     font-weight: bolder;
                     height: 76px;
                     margin-left: 10px;
@@ -189,7 +189,7 @@
                                     <td></td>
                                     <td></td>
                                     <td><button class="btn"
-                                        onclick="Efw('common_menu_goto',{page:'cost.jsp'})">コスト情報</button></td>
+                                        onclick="Efw('common_menu_goto',{page:'cost.jsp'})">コスト情報管理</button></td>
                                 </tr>
                                 <tr>
                                     <td><button class="btn"
@@ -497,53 +497,58 @@
                     </div>
 
                     <div class="content_b">
+                        <div>
+                            <p>XXXX
+                            </p>
+                            <P>999</P>
+                        </div>
                         
-                                        <div>
-                                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                            </p>
-                                            <P>999</P>
-                                        </div>
-                                     
-                                        <div>
-                                            <p>販売情報管理</p>
-                                            <P>999</P>
-                                        </div>
-                                    
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                    
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                    
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                     
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                     
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                  
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                                    
-                                        <div>
-                                            <p>XXXXXXXXXX</p>
-                                            <P>999</P>
-                                        </div>
-                               
+                        <div>
+                            <p>販売情報管理</p>
+                            <P>999</P>
+                        </div>
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
+                    
+                        <div>
+                            <p>XXXXXXXXXX</p>
+                            <P>999</P>
+                        </div>
                     </div>
                 </div>
             </div>
