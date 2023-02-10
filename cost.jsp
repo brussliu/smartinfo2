@@ -21,8 +21,38 @@
         	        Efw('cost_init');
                 }
                 function del() {
+                    //
                     var delKey = $('input:radio[name="choice"]:checked').val();
                     Efw('cost_delete',{"delKey":delKey});
+                }
+                function update(){
+                     // 1.取数据 
+                    var updateKey = $('input:radio[name="choice"]:checked').val();
+                    Efw('cost_update',{"updateKey":updateKey});
+                    // //登録日時
+                    // $("#td_registrationdate").html("");
+                    // //ステータス
+                    // $("#opt_status").val("未支払");
+                    // //発生日
+                    // $("#txt_accrualdate").val("");
+                    // //分類
+                    // $("#txt_classification").val("");
+                    // //タイトル
+                    // $("#txt_title").val("");
+                    // //金額
+                    // $("#txt_account").val("");
+                    // //為替レート
+                    // $("#txt_exchangerate").val("");
+                    // //備考
+                    // $("#txt_remarks").val("");
+                    // //金額(変換後)
+                    // $("#td_num").html("");
+                    
+                    // //操作フラグ
+                    // $("#opt").val("NEW");
+                    //2.画面開く
+                    // cost_inputdialog.dialog('open');
+                    // Efw('cost_renew');
                 }
                 
                 function add(){
@@ -38,7 +68,9 @@
                     //タイトル
                     $("#txt_title").val("");
                     //金額
-                    $("#txt_money").val("");
+                    $("#txt_account").val("");
+                    //通貨
+                    $("#opt_currency").val("CNY");
                     //為替レート
                     $("#txt_exchangerate").val("");
                     //備考
@@ -51,6 +83,30 @@
                     //2.画面開く
                     cost_inputdialog.dialog('open');
                     
+                }
+                function cel(){
+                    cost_inputdialog.dialog('close');
+                }
+                function cal(){
+                    //金額の取得
+                    var account = $("#txt_account").val();
+                    
+                    //為替レート取得
+                    var exchange = $("#txt_exchangerate").val();
+
+                    //通貨の取得
+                    var currency = $("#opt_currency").val();
+
+                    if(currency == "CNY" && exchange != null && exchange != ""){
+                        
+                        $("#td_num").html(account/exchange*100 + " 円");
+                        
+                    }
+                    if(currency == "JPY" && exchange != null && exchange != ""){
+                       
+                        $("#td_num").html(account*exchange/100  + " 元");
+                    }
+
                 }
             </script>
             
@@ -94,7 +150,7 @@
                                     <td> </td> 
                                     <td> </td>         
                                     <td style="width: 200px;"><button onclick="add();">新規</button></td>
-                                    <td style="width: 200px;"><button disabled id="btn_update">更新</button></td>
+                                    <td style="width: 200px;"><button disabled id="btn_update" onclick="update();">更新</button></td>
                                     <td style="width: 200px;"><button disabled id="btn_delete" onclick="del();">削除</button></td>
                                 </tr>
                             </tbody>

@@ -7,7 +7,6 @@ var SHOP_ID = "";
 common_menu_goto.fire = function (params) {
 	SHOP_ID = session.get("SHOP_ID");
 	var ret = new Result();
-	//SHOP_ID.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 	if (SHOP_ID == null || SHOP_ID == "") {
 		
 		return ret.navigate("login.jsp");//跳转到登陆页面

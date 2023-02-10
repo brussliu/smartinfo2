@@ -14,14 +14,15 @@
 			, cast("為替レート" as varchar) as exchangerate
 			, "備考" as remarks
 		from
-			"HIS_コスト情報"
+			"RES_コスト情報"
 		where 
 			"店舗ID" = !shopid
 		order by
 			"発生日" desc
 	</sql>
+	
 	<sql id="insertCostInfo" >
-		INSERT INTO "HIS_コスト情報"
+		INSERT INTO "RES_コスト情報"
 		VALUES (
 			now(),
 			:col2,
@@ -40,9 +41,26 @@
 	<sql id="deleteCostInfo" paramPrefix="!">
 		delete
 		from
-			"HIS_コスト情報"
+			"RES_コスト情報"
 		where
 			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !delKey
+			and
+			"店舗ID"= !shopid	 
+	</sql>
+	<sql id="selectCostInfo" paramPrefix="!">
+		select
+		      "登録日" 
+			, "発生日" 
+			, "ステータス" 
+			, "分類" 
+			, "タイトル"  
+			, "為替レート" 
+			, "備考" 
+			
+		from
+			"RES_コスト情報"
+		where
+			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !updateKey
 			and
 			"店舗ID"= !shopid	 
 	</sql>

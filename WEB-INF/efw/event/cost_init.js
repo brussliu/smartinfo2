@@ -38,7 +38,6 @@ cost_init.fire = function (params) {
 			"remarks" : "remarks",
 		}
 	).getArray();
-	selectResult.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 	var resultHTML =
 	"<tr>" +

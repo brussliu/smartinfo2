@@ -67,8 +67,8 @@
                     <tr>
                         <td>金額：</td>
                         <td>    
-                            <input type="text" id="txt_account"></input>
-                            <select style="width: 50px;" id="opt_currency">
+                            <input type="text" id="txt_account" onchange="cal();"></input>
+                            <select style="width: 50px;" id="opt_currency" onchange="cal();">
                                 <option value="JPY" >円</option>
                                 <option value="CNY" selected>元</option>
                             </select>
@@ -79,7 +79,7 @@
                     <tr>
                         <td>為替レート：</td>
                         <td>    
-                            <input type="text" id="txt_exchangerate"></input>
+                            <input type="text" id="txt_exchangerate" onchange="cal();"></input>
                         </td>
                         <td></td>
                         <td></td>
@@ -98,7 +98,9 @@
  
            
          
-            <table class="table_inputdialog_btn" border="0">
+            <table class="table_inputdialog_btn" b
+            
+            order="0">
                 <tbody>
                     <tr>
                         <td></td>

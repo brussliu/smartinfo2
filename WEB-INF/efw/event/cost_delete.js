@@ -23,7 +23,7 @@ cost_delete.fire = function (params) {
 		{
 			delKey : params["delKey"],
 			shopid : getShopId(),
-		
+			
 		}
 	);
 
