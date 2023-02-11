@@ -342,10 +342,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;padding-right: 20px;">
-                                    店舗ID：<span id="shopid">未选择</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    UserID：<span id="userid">XXXX</span>
+                                <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                                    店舗ID：<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
                                 </td>
                             </tr>
                         </table>
@@ -385,15 +385,15 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品番号：</td>
-                                    <td style="width: 140px;">
-                                        <select style="width: 100px;height:30px;border-style: solid;" id="productno">
+                                    <td style="width: 150px;">
+                                        <select style="width: 130px;height:30px;border-style: solid;" id="productno">
                                             <option value=""></option>
                                             <option value="マスタ未登録">マスタ未登録</option>
                                         </select>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">キーワード：</td>
-                                    <td style="width: 190px;">
-                                        <input type="text" style="width: 150px;height: 30px;" id="keyword"></input>
+                                    <td style="width: 220px;">
+                                        <input type="text" style="width: 200px;height: 30px;" id="keyword"></input>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;"><!--表示項目：--></td>
                                     <td style="width: 250px;" id="displayitem">
