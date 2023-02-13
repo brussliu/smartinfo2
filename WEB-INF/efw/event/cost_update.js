@@ -67,7 +67,12 @@ cost_update.fire = function (params) {
 		{ 
 			"#txt_title":selectResult["タイトル"],
 			"#txt_remarks":selectResult["備考"],
-
+			"#txt_accrualdate":(selectResult["発生日"]).format("yyyy/MM/dd"),
+			"#opt_status":selectResult["ステータス"],
+			"#txt_classification":selectResult["分類"],
+			"#txt_account":selectResult["金額（元）"],
+			"#td_num":selectResult["金額（円）"],
+			"#txt_exchangerate":selectResult["為替レート"],
 		}
 	);
 	// [{"登録日":"2023-02-10T12:36:48.154Z","発生日":"2021-12-31T15:00:00.000Z","ステータス":"未支払","分類":"美工","タイトル":"2222","為替レート":5,"備考":"afa"}]
