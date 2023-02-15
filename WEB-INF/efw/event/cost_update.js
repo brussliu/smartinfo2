@@ -65,6 +65,7 @@ cost_update.fire = function (params) {
 	ret.runat("#cost_inputdialog")
 	.withdata(
 		{ 
+			"#td_registrationdate":selectResult["登録日"].format("yyyy/MM/dd HH:mm:ss"),
 			"#txt_title":selectResult["タイトル"],
 			"#txt_remarks":selectResult["備考"],
 			"#txt_accrualdate":(selectResult["発生日"]).format("yyyy/MM/dd"),

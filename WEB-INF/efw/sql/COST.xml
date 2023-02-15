@@ -20,6 +20,42 @@
 		order by
 			"発生日" desc
 	</sql>
+	<sql id="selectCostInfo" paramPrefix="!">
+		select
+
+		      "登録日"
+			, "発生日" 
+			, "ステータス" 
+			, "分類" 
+			, "タイトル"
+			, "金額（元）"
+			, "金額（円）"  
+			, "為替レート" 
+			, "備考" 
+			
+		from
+			"RES_コスト情報"
+		where
+			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !updateKey
+			and
+			"店舗ID"= !shopid	 
+	</sql>
+
+	<sql id="updateCostInfo" >
+				update "RES_コスト情報" RES 															
+		set 
+			  "登録日" = now(),
+			, "発生日" = :col2,			 			
+			, "ステータス" = :col3,
+			, "分類" = :col4,
+			, "タイトル" = :col5,
+			, "金額（元）" = :col6,
+			, "金額（円）" = :col7,
+			, "為替レート" = :col8,
+			, "備考" = :col10,	
+		where
+			登録日 = RES."登録日" 
+	</sql>
 	
 	<sql id="insertCostInfo" >
 		INSERT INTO "RES_コスト情報"
@@ -47,25 +83,7 @@
 			and
 			"店舗ID"= !shopid	 
 	</sql>
-	<sql id="selectCostInfo" paramPrefix="!">
-		select
-		      
-			  "発生日" 
-			, "ステータス" 
-			, "分類" 
-			, "タイトル"
-			, "金額（元）"
-			, "金額（円）"  
-			, "為替レート" 
-			, "備考" 
-			
-		from
-			"RES_コスト情報"
-		where
-			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !updateKey
-			and
-			"店舗ID"= !shopid	 
-	</sql>
+	
 	
 
 

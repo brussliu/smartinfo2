@@ -39,10 +39,10 @@ cost_save.fire=function(params){
 	// arys.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	var newDate = new Date(params["#txt_accrualdate"]);
 	newDate.debug("1111111111111111111111111111111111111111111111111");
-	
-	var selectResult = db.change(
+
+	var updateResult = db.change(
 		"COST",
-		"insertCostInfo",
+		"updateCostInfo",
 		{
 			col2 : newDate,
 			col3 : params["#opt_status"],
@@ -52,10 +52,26 @@ cost_save.fire=function(params){
 			col7 : jpy,
 			col8 : parseFloat(params["#txt_exchangerate"]),
 			col9 : params["#txt_remarks"],
-			col10 :getShopId(),
 		
 		}
 	);
+	
+	// var selectResult = db.change(
+	// 	"COST",
+	// 	"insertCostInfo",
+	// 	{
+	// 		col2 : newDate,
+	// 		col3 : params["#opt_status"],
+	// 		col4 : params["#txt_classification"],
+	// 		col5 : params["#txt_title"],
+	// 		col6 : cny,
+	// 		col7 : jpy,
+	// 		col8 : parseFloat(params["#txt_exchangerate"]),
+	// 		col9 : params["#txt_remarks"],
+	// 		col10 :getShopId(),
+		
+	// 	}
+	// );
 
  
 	
