@@ -105,7 +105,7 @@
                     </tr>
                     <tr>
                         <td>
-                            FBA発送方式：
+                            FBM発送方式：
                         </td>
                         <td><select style="width: 200px;" id="fba" disabled="disabled">
                                 <option value="" selected></option>

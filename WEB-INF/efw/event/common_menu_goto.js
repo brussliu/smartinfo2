@@ -8,18 +8,11 @@ common_menu_goto.fire = function (params) {
 
 
 	var ret = new Result();
-		// セッションチェック
-		sessionCheck(ret);
 
-		// タイトル情報設定
-		setTitleInfo(ret);
-	if (SHOP_ID == null || SHOP_ID == "") {
-		
-		return ret.navigate("login.jsp");//跳转到登陆页面
-		//return ret.navigate(params["page"]);
-	}
-	//var ret = new Result();
+	// セッションチェック
+	sessionCheck(ret);
 
 	
 	return ret.navigate(params["page"]);
+
 };
