@@ -178,7 +178,20 @@
 <sql id="updatelocalstockflg1" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
 		SET
+		CASE  
+			WHEN  "途中在庫_入庫" is null OR
+					"途中在庫_入庫"  ==0  OR
+					"途中在庫_入庫"  =='' THEN 0
+			ELSE "途中在庫_入庫" = CAST(!put as int4)
+		END,
+		 
 			"LOCAL在庫" = CAST(!local as int4),
+		CASE  
+			WHEN  "途中在庫_仕入" is null OR
+					"途中在庫_仕入"  ==0  OR
+					"途中在庫_仕入"  =='' THEN 0
+			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
+		END,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -229,7 +242,20 @@
 <sql id="updatelocalstockflg0" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
 		SET
+		CASE  
+			WHEN  "途中在庫_入庫" is null OR
+					"途中在庫_入庫"  ==0  OR
+					"途中在庫_入庫"  =='' THEN 0
+			ELSE "途中在庫_入庫" = CAST(!put as int4)
+		END,
+		 
 			"LOCAL在庫" = CAST(!local as int4),
+		CASE  
+			WHEN  "途中在庫_仕入" is null OR
+					"途中在庫_仕入"  ==0  OR
+					"途中在庫_仕入"  =='' THEN 0
+			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
+		END,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid

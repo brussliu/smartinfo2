@@ -33,17 +33,48 @@ function outputProductForSmartBear(selectResult) {
 
 	// テンプレートにより、EXCELオブジェクトを作成する
 	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
-	// sl:克隆分页
-	excel.createSheet("Sheet1Clone", "DELIVERYLIST");
+
 	var tempFilePathName = file.getTempFileName();
-selectResult.length.debug("------selectResult.length------");
+	selectResult.length.debug("------selectResult.length------");
+	var Y_from = 3;//EXCEL数据起始行
+	var type_no = 0;//商品分类数组序号
+	var typearray = new Array();//所有商品类别
+	// sl:检索所有分类
+	typearray.push(returnType(selectResult[0]["type"]));
+	for (var j = 1; j < selectResult.length; j++) {
+		
+		if(selectResult[j]["type"]!=selectResult[j-1]["type"]){
+		typearray.push(returnType(selectResult[j]["type"]))
+	}
+	}
+	// typearray.debug("----typearray---"+typearray[0]+"======");
+
+
 	for (var i = 0; i < selectResult.length; i++) {
-
-		var outputflg = false;
-
+		// if (i == 0) {
+		// 	// sl:克隆分页
+		// 	excel.createSheet(typearray[type_no], "DELIVERYLIST");
+		// 	type_no++;
+		 
+		// 	excel.debug("---------------1111");
+		// } else {
+		// 	// 判断与上一条数据的类别是否相等，相等则创建新分页
+		// 	if ((selectResult[i]["type"] != selectResult[i - 1]["type"])) {
+		// 		excel.setActiveSheet(typearray[type_no-1]).save(tempFilePathName);
+		// 		excel.createSheet(typearray[type_no], "DELIVERYLIST");
+				
+		// 		type_no++;
+		// 		Y_from = 3;
+		// 		excel.debug("--------------2"+i);
+		// 	}
+		// }
+		setInfoToExcel(excel, selectResult[i], 'DELIVERYLIST', Y_from + i);
 		// 情報設定
-		outputflg = setInfoToExcel(excel, selectResult[i], "DELIVERYLIST");
+		// setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from + i);
 
+		// if(i==selectResult.length){
+		// 	excel.setActiveSheet(typearray[type_no]).save(tempFilePathName);
+		// }
 	}
 
 	excel.setActiveSheet("DELIVERYLIST").save(tempFilePathName);
@@ -52,9 +83,8 @@ selectResult.length.debug("------selectResult.length------");
 
 }
 
-function setInfoToExcel(excel, selectRecord, sheetName) {
-	var Y_from = 3;
-	var Y_to = 999;
+function setInfoToExcel(excel, selectRecord, sheetName, from) {
+
 
 	var COL_B = "B";
 	var COL_C = "C";
@@ -80,19 +110,21 @@ function setInfoToExcel(excel, selectRecord, sheetName) {
 	var COL_Y = "Y";
 
 
-	var no = returnQuantity(selectRecord["no"]);
-	var asin = selectRecord["asin"];
-	var sku = selectRecord["sku"];
-	var label = selectRecord["label"];
+	var no = returnNull(selectRecord["no"]);
+	// no.debug("-------"+no+"======"+sheetName+"-------"+COL_B + from)
+	var asin = returnNull(selectRecord["asin"]);
 
-	var sub1 = returnQuantity(selectRecord["sub1"]);
-	var sub2 = returnQuantity(selectRecord["sub2"]);
-	var productname = returnQuantity(selectRecord["productname"]);
+	var sku = returnNull(selectRecord["sku"]);
+	var label = returnNull(selectRecord["label"]);
 
-	var send = returnQuantity(selectRecord["send"]);
-	var price = returnQuantity(selectRecord["price"]);
-	var fba = returnQuantity(selectRecord["fba"]);
-	var fbm = returnQuantity(selectRecord["fbm"]);
+	var sub1 = returnNull(selectRecord["sub1"]);
+	var sub2 = returnNull(selectRecord["sub2"]);
+	var productname = returnNull(selectRecord["productname"]);
+
+	var send = returnNull(selectRecord["send"]);
+	var price = returnNumber(selectRecord["price"]);
+	var fba = returnNull(selectRecord["fba"]);
+	var fbm = returnNull(selectRecord["fbm"]);
 	var put = returnQuantity(selectRecord["put"]);
 	var local = returnQuantity(selectRecord["local"]);
 	var purchase = returnQuantity(selectRecord["purchase"]);
@@ -106,71 +138,79 @@ function setInfoToExcel(excel, selectRecord, sheetName) {
 	var selled360 = returnQuantity(selectRecord["selled360"]);
 	var dayaverage = returnNumber(selectRecord["dayaverage"]);
 
-
+	// asin.debug("-------"+asin+"======"+sheetName+"-------"+COL_C + from)
 	// 在庫情報シート
-	for (var y = Y_from; y <= Y_to; y++) {
+	// for (var y = from; y <= to; y++) {
 
 
 
-		// 管理番号
-		setExcelValue(excel, sheetName, COL_B + y, no);
-		// ASIN番号
-		setExcelValue(excel, sheetName, COL_C + y, asin);
-		// SKU番号
-		setExcelValue(excel, sheetName, COL_D + y, sku);
-		// LABEL番号
-		setExcelValue(excel, sheetName, COL_E + y, label);
-		// 分類①
-		setExcelValue(excel, sheetName, COL_F + y, sub1);
-		// 分類②
-		setExcelValue(excel, sheetName, COL_G + y, sub2);
-		// 商品名
-		setExcelValue(excel, sheetName, COL_H + y, productname);
-		// 発送区分
-		setExcelValue(excel, sheetName, COL_I + y, send);
-		// 価格
-		setExcelValue(excel, sheetName, COL_J + y, price);
-		// 在庫数量(FBA)
-		setExcelValue(excel, sheetName, COL_K + y, fba);
-		// 在庫数量(FBM)
-		setExcelValue(excel, sheetName, COL_L + y, fbm);
-		// 在庫数量(納品途中)
-		setExcelValue(excel, sheetName, COL_M + y, put);
-		// 在庫数量(LOCAL)
-		setExcelValue(excel, sheetName, COL_N + y, local);
-		// 在庫数量(仕入途中)
-		setExcelValue(excel, sheetName, COL_O + y, purchase);
-		// 販売数量(直近3日)
-		setExcelValue(excel, sheetName, COL_R + y, selled3);
-		// 販売数量(直近7日)
-		setExcelValue(excel, sheetName, COL_S + y, selled7);
-		// 販売数量(直近30日)
-		setExcelValue(excel, sheetName, COL_T + y, selled30);
-		// 販売数量(直近60日)
-		setExcelValue(excel, sheetName, COL_U + y, selled60);
-		// 販売数量(直近90日)
-		setExcelValue(excel, sheetName, COL_V + y, selled90);
-		// 販売数量(直近180日)
-		setExcelValue(excel, sheetName, COL_W + y, selled180);
-		// 販売数量(直近360日)
-		setExcelValue(excel, sheetName, COL_X + y, selled360);
-		// 販売数量(参照値)
-		setExcelValue(excel, sheetName, COL_Y + y, dayaverage);
+	// 管理番号
+	setExcelValue(excel, sheetName, COL_B + from, no);
+	// ASIN番号
+	setExcelValue(excel, sheetName, COL_C + from, asin);
+	// SKU番号
+	setExcelValue(excel, sheetName, COL_D + from, sku);
+	// LABEL番号
+	setExcelValue(excel, sheetName, COL_E + from, label);
+	// 分類①
+	setExcelValue(excel, sheetName, COL_F + from, sub1);
+	// 分類②
+	setExcelValue(excel, sheetName, COL_G + from, sub2);
+	// 商品名
+	setExcelValue(excel, sheetName, COL_H + from, productname);
+	// 発送区分
+	setExcelValue(excel, sheetName, COL_I + from, send);
+	// 価格
+	setExcelValue(excel, sheetName, COL_J + from, price);
+	// 在庫数量(FBA)
+	setExcelValue(excel, sheetName, COL_K + from, fba);
+	// 在庫数量(FBM)
+	setExcelValue(excel, sheetName, COL_L + from, fbm);
+	// 在庫数量(納品途中)
+	setExcelValue(excel, sheetName, COL_M + from, put);
+	// 在庫数量(LOCAL)
+	setExcelValue(excel, sheetName, COL_N + from, local);
+	// 在庫数量(仕入途中)
+	setExcelValue(excel, sheetName, COL_O + from, purchase);
+	// 販売数量(直近3日)
+	setExcelValue(excel, sheetName, COL_R + from, selled3);
+	// 販売数量(直近7日)
+	setExcelValue(excel, sheetName, COL_S + from, selled7);
+	// 販売数量(直近30日)
+	setExcelValue(excel, sheetName, COL_T + from, selled30);
+	// 販売数量(直近60日)
+	setExcelValue(excel, sheetName, COL_U + from, selled60);
+	// 販売数量(直近90日)
+	setExcelValue(excel, sheetName, COL_V + from, selled90);
+	// 販売数量(直近180日)
+	setExcelValue(excel, sheetName, COL_W + from, selled180);
+	// 販売数量(直近360日)
+	setExcelValue(excel, sheetName, COL_X + from, selled360);
+	// 販売数量(参照値)
+	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
 
-	}
+	// }
 
-	return true;
+
 
 }
 
 function setExcelValue(excel, sheetName, station, value) {
 
-	if (value != null) {
+	if (value != null && value !='') {
+		// value.debug("--222222----"+sheetName+"===="+station+"---"+value+"-"+excel);
 		excel.setCell(sheetName, station, value);
+
 	}
-
+	// value.debug("------"+sheetName+"===="+station+"----"+excel);
 }
-
+function returnNull(val){
+	
+	if (val == null || val == "" || val == "0" || val == 0) {
+		return '1';
+	}
+	return val;
+}
 
 function returnQuantity(quantity) {
 
@@ -196,4 +236,12 @@ function returnJPPrice(price) {
 		return null;
 	}
 	return parseInt(price);
+}
+
+function returnType(type){
+	
+	if (type == null || type == "" || type == "0" ) {
+		return '空格';
+	}
+	return type;
 }

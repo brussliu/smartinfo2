@@ -34,14 +34,34 @@
 
                 // 选中当前数据，编辑LOCAL在庫
                 function check(val) {
+                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
                     var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+
                     if ($(val).is(':checked')) {
+                        if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
+                            span_put.css("display", "none");
+                            put.append('<input type="text" class="text_put"value="' + span_put.html() + '"style="width:60px;height: 30px;"></input>')
+                            put.data("text", "1");
+                        }
+                        if (span_purchase.html() != "" && span_purchase.html() != null && span_purchase.html() != '0') {
+                            span_purchase.css("display", "none");
+                            purchase.append('<input type="text" class="text_purchase"value="' + span_purchase.html() + '"style="width:60px;height: 30px;"></input>')
+                            purchase.data("text", "1");
+                        }
                         span_local.css("display", "none");
                         local.append('<input type="text" class="text_local"value="' + span_local.html() + '"style="width:60px;height: 30px;"></input>')
+
                     } else {
+                        span_put.css("display", "block");
                         span_local.css("display", "block");
+                        span_purchase.css("display", "block");
+                        $(".text_put").remove();
                         $(".text_local").remove();
+                        $(".text_purchase").remove();
                     }
                 }
 
@@ -61,9 +81,11 @@
                             // SKU番号
                             var sku = tdArr.eq(7).html();
                             console.log(sku)
+
                             // LOCAL在庫
                             var local = tdArr.eq(14).children().next().val();
                             console.log(local)
+
                             // 商品種別
                             var producttype = tdArr.eq(1).children().html();
                             console.log(producttype)
@@ -91,7 +113,25 @@
                             localArr.push(preproduct);
                             localArr.push(productsub1);
                             localArr.push(productsub2);
+                            //途中（入庫）
+                            var put = tdArr.eq(13);
+                            if (put.data("text") != "undefined") {
+                                var putval = tdArr.eq(13).children().next().val();
+                                localArr.push(putval);
+                            }
+                            console.log(put);
+                            console.log(putval);
+                            // 途中（仕入）
+                            var purchase = tdArr.eq(15).children().next().val();
+                            console.log(purchase)
 
+                            var purchase = tdArr.eq(15);
+                            if (purchase.data("text") != "undefined") {
+                                var purchaseval = tdArr.eq(15).children().next().val();
+                                localArr.push(purchaseval);
+                            }
+                            console.log(purchase);
+                            console.log(purchaseval);
                             alllocalArr.push(localArr);
 
                         }
