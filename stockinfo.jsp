@@ -145,9 +145,15 @@
                 }
 
 
-                // 输出EXCEL
-                function outputstock() {
-                    Efw('stockinfo_output');
+                // 输出納品EXCEL
+                function outputdeliver(val) {
+                    console.log("outputdeliver");
+                    Efw('stockinfo_output',{'exl':val});
+                }
+
+                  // 输出仕入EXCEL
+                  function outputreceiving(val) { console.log("outputreceiving");
+                    Efw('stockinfo_output',{'exl':val});
                 }
             </script>
             <style>
@@ -198,8 +204,8 @@
                                     <td></td>
                                     <td style="width: 200px;"><button onclick="searchstockinfo()">検索</button></td>
                                     <td style="width: 200px;"><button onclick="updatestock()">更新</button></td>
-                                    <td style="width: 200px;"><button onclick="outputstock()">納品出力</button></td>
-                                    <td style="width: 200px;"><button onclick="outputstock()">仕入出力</button></td>
+                                    <td style="width: 200px;"><button onclick="outputdeliver('1')">納品出力</button></td>
+                                    <td style="width: 200px;"><button onclick="outputreceiving('2')">仕入出力</button></td>
                                 </tr>
                             </tbody>
                         </table>

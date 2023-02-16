@@ -1,12 +1,12 @@
 var stockinfo_output = {};
 stockinfo_output.name = "在庫補足";
 stockinfo_output.paramsFormat = {
-
+	"exl":null
 };
 
 stockinfo_output.fire = function (params) {
 	var ret = new Result();
-
+	var exl = params["exl"];
 	// セッションチェック
 	sessionCheck(ret);
 	var selectResult = db.select(
@@ -18,69 +18,96 @@ stockinfo_output.fire = function (params) {
 		}
 	).getArray();
 
-	selectResult.debug("------------selectstock---")
-	// var excel = new Excel("../../../../OTHERS/DOC/PRODUCT_LIST.xlsx");
-	// excel.save("my.xlsx");
-	var tempFilePathName = outputProductForSmartBear(selectResult);
+		if(exl=='1'){
+			var tempFilePathName = deliver(selectResult);
+		}else{
+			var tempFilePathName = receiving(selectResult);
+		}
+	
 	ret.attach(tempFilePathName)
-		.saveas("Smart-Bear在庫補足_" + (new Date()).format("yyyyMMdd") + ".xlsx")
+		.saveas(getShopId()+"在庫補足_" + (new Date()).format("yyyyMMdd") + ".xlsx")
 		.deleteAfterDownload();
 	return ret;
 };
 
-
-function outputProductForSmartBear(selectResult) {
-
+// 納品EXCEL
+function deliver(selectResult) {
 	// テンプレートにより、EXCELオブジェクトを作成する
 	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
-
 	var tempFilePathName = file.getTempFileName();
-	selectResult.length.debug("------selectResult.length------");
 	var Y_from = 3;//EXCEL数据起始行
 	var type_no = 0;//商品分类数组序号
 	var typearray = new Array();//所有商品类别
-	// sl:检索所有分类
+
+	// sl:检索所有分类，存放数组中
 	typearray.push(returnType(selectResult[0]["type"]));
 	for (var j = 1; j < selectResult.length; j++) {
-		
-		if(selectResult[j]["type"]!=selectResult[j-1]["type"]){
-		typearray.push(returnType(selectResult[j]["type"]))
+		if (selectResult[j]["type"] != selectResult[j - 1]["type"]) {
+			typearray.push(returnType(selectResult[j]["type"]))
+		}
 	}
-	}
-	// typearray.debug("----typearray---"+typearray[0]+"======");
-
-
+		// 循环插入数据
 	for (var i = 0; i < selectResult.length; i++) {
-		// if (i == 0) {
-		// 	// sl:克隆分页
-		// 	excel.createSheet(typearray[type_no], "DELIVERYLIST");
-		// 	type_no++;
-		 
-		// 	excel.debug("---------------1111");
-		// } else {
-		// 	// 判断与上一条数据的类别是否相等，相等则创建新分页
-		// 	if ((selectResult[i]["type"] != selectResult[i - 1]["type"])) {
-		// 		excel.setActiveSheet(typearray[type_no-1]).save(tempFilePathName);
-		// 		excel.createSheet(typearray[type_no], "DELIVERYLIST");
-				
-		// 		type_no++;
-		// 		Y_from = 3;
-		// 		excel.debug("--------------2"+i);
-		// 	}
-		// }
-		setInfoToExcel(excel, selectResult[i], 'DELIVERYLIST', Y_from + i);
-		// 情報設定
-		// setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from + i);
 
-		// if(i==selectResult.length){
-		// 	excel.setActiveSheet(typearray[type_no]).save(tempFilePathName);
-		// }
+		if (i == 0) {//第一个商品分类
+			// sl:克隆分页
+			excel.createSheet(typearray[type_no], "DELIVERYLIST");
+
+		} else {
+			// 判断与上一条数据的类别是否相等，相等则创建新分页
+			if (selectResult[i - 1]["type"] != selectResult[i]["type"]) {
+				type_no++;//下一个商品分类
+				excel.createSheet(typearray[type_no], "DELIVERYLIST");
+				Y_from = 3;//重新从第三行开始插入数据
+			}
+		}
+		// 设定值
+		setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from);
+		Y_from++;//下一行
 	}
 
-	excel.setActiveSheet("DELIVERYLIST").save(tempFilePathName);
-
+	excel.hideSheet("DELIVERYLIST").hideSheet("PURCHASELIST");
+	excel.setActiveSheet(typearray[0]).save(tempFilePathName);
 	return tempFilePathName;
+}
+// 仕入EXCEL
+function receiving(selectResult) {
+	// テンプレートにより、EXCELオブジェクトを作成する
+	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
+	var tempFilePathName = file.getTempFileName();
+	var Y_from = 3;//EXCEL数据起始行
+	var type_no = 0;//商品分类数组序号
+	var typearray = new Array();//所有商品类别
 
+	// sl:检索所有分类，存放数组中
+	typearray.push(returnType(selectResult[0]["type"]));
+	for (var j = 1; j < selectResult.length; j++) {
+		if (selectResult[j]["type"] != selectResult[j - 1]["type"]) {
+			typearray.push(returnType(selectResult[j]["type"]))
+		}
+	}
+		// 循环插入数据
+	for (var i = 0; i < selectResult.length; i++) {
+
+		if (i == 0) {//第一个商品分类
+			// sl:克隆分页
+			excel.createSheet(typearray[type_no], "PURCHASELIST");
+		} else {
+			// 判断与上一条数据的类别是否相等，相等则创建新分页
+			if (selectResult[i - 1]["type"] != selectResult[i]["type"]) {
+				type_no++;//下一个商品分类
+				excel.createSheet(typearray[type_no], "PURCHASELIST");
+				Y_from = 3;//重新从第三行开始插入数据
+			}
+		}
+		// 设定值
+		setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from);
+		Y_from++;//下一行
+	}
+	
+	excel.hideSheet("DELIVERYLIST").hideSheet("PURCHASELIST");
+	excel.setActiveSheet(typearray[0]).save(tempFilePathName);
+	return tempFilePathName;
 }
 
 function setInfoToExcel(excel, selectRecord, sheetName, from) {
@@ -111,7 +138,6 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 
 
 	var no = returnNull(selectRecord["no"]);
-	// no.debug("-------"+no+"======"+sheetName+"-------"+COL_B + from)
 	var asin = returnNull(selectRecord["asin"]);
 
 	var sku = returnNull(selectRecord["sku"]);
@@ -137,12 +163,6 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	var selled180 = returnQuantity(selectRecord["selled180"]);
 	var selled360 = returnQuantity(selectRecord["selled360"]);
 	var dayaverage = returnNumber(selectRecord["dayaverage"]);
-
-	// asin.debug("-------"+asin+"======"+sheetName+"-------"+COL_C + from)
-	// 在庫情報シート
-	// for (var y = from; y <= to; y++) {
-
-
 
 	// 管理番号
 	setExcelValue(excel, sheetName, COL_B + from, no);
@@ -189,25 +209,20 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	// 販売数量(参照値)
 	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
 
-	// }
-
 
 
 }
 
 function setExcelValue(excel, sheetName, station, value) {
 
-	if (value != null && value !='') {
-		// value.debug("--222222----"+sheetName+"===="+station+"---"+value+"-"+excel);
+	if (value != null && value != '') {
 		excel.setCell(sheetName, station, value);
-
 	}
-	// value.debug("------"+sheetName+"===="+station+"----"+excel);
 }
-function returnNull(val){
-	
+function returnNull(val) {
+
 	if (val == null || val == "" || val == "0" || val == 0) {
-		return '1';
+		return '';
 	}
 	return val;
 }
@@ -238,10 +253,10 @@ function returnJPPrice(price) {
 	return parseInt(price);
 }
 
-function returnType(type){
-	
-	if (type == null || type == "" || type == "0" ) {
+function returnType(type) {
+
+	if (type == null || type == "" || type == "0") {
 		return '空格';
 	}
-	return type;
+	return type.substring(3);
 }
