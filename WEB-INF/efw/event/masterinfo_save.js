@@ -40,8 +40,6 @@ masterinfo_save.paramsFormat = {
 	"oldsub1": null,
 	"oldsub2": null,
 
-
-
 };
 
 masterinfo_save.fire = function (params) {
@@ -420,23 +418,6 @@ masterinfo_save.fire = function (params) {
 
 	}
 
-
-
-	// // 当暂定为1时，更新
-	// if (flg == '1') {
-
-	// 	if (preproduct == '親商品') {
-	
-	// 		selectResult3.debug("-----------------udatemasterinfosubprice");
-
-
-	// 		selectResult.debug("-----------------udatemasterinfoflg1sub");
-	// 	}
-
-
-
-		// }
-
 	// 画面へ結果を返す
 	ret.eval("masterinfo_inputdialog.dialog('close');");
 	ret.eval("searchmasterinfo();");
@@ -451,13 +432,4 @@ function getValueFromTwoItem(value1, value2){
 	}else{
 		return value2;
 	}
-}
-
-
-
-function change(params) {
-	if (params == '-') {
-		params = '';
-	}
-	return params;
 }

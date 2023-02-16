@@ -82,7 +82,10 @@
                     </tr>
                     <tr>
                         <td style="vertical-align:top;">商品写真： </td>
-                        <td><img style="width: 200px;height: 200px;" src="img/uploadpic.png" ></td>
+                        <td>
+                            <!-- <img style="width: 200px;height: 200px;" src="img/uploadpic.png" > -->
+                            <img src="drawServlet?type=qrcode&msg=uploadpic.jsp" style="height:200px">
+                        </td>
                         <td><button class="btn">表示</button> </td>
                         <td></td>
                         <td></td><td></td>

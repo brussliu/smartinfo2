@@ -34,6 +34,7 @@
                     //     }
                     // });
                     Efw('masterinfo_search', { 'producttype': productdivArr});
+                    
                 }
 
                 function cel(){
@@ -68,19 +69,23 @@
                     
                     $("#opt").val("update");
 
-                    if (flg == '1') {//更新时，当暂定为1时
-
-                        var type = $(btn).parent().next().children().html();
-                        var no = $(btn).parent().next().next().html();
-                        var preproduct = $(btn).parent().next().next().next().html();
-                        var sub1 = $(btn).parent().next().next().next().next().children().html();
-                        var sub2 = $(btn).parent().next().next().next().next().next().children().html();
+                    var type = $(btn).parent().next().children().html();
+                    var no = $(btn).parent().next().next().html();
+                    var preproduct = $(btn).parent().next().next().next().html();
+                    var sub1 = $(btn).parent().next().next().next().next().children().html();
+                    var sub2 = $(btn).parent().next().next().next().next().next().children().html();
+                
+                    $("#newproducttype2").data("oldvalue", type);
+                    $("#newproductno2").data("oldvalue", no);
+                    $("#preproduct").data("oldvalue", preproduct);
+                    $("#sub1").data("oldvalue", sub1);
+                    $("#sub2").data("oldvalue", sub2);
                     
-                        $("#newproducttype2").data("oldvalue", type);
-                        $("#newproductno2").data("oldvalue", no);
-                        $("#preproduct").data("oldvalue", preproduct);
-                        $("#sub1").data("oldvalue", sub1);
-                        $("#sub2").data("oldvalue", sub2);
+                    var preproduct = $(btn).parent().next().next().next().html();
+                    var asin = $(btn).parent().next().next().next().next().next().next().html().toString();
+                    var sku = $(btn).parent().next().next().next().next().next().next().next().html().toString();
+
+                    if (flg == '1') {//更新时，当暂定为1时
 
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
 
@@ -88,9 +93,7 @@
 
                     } else if (flg == '0') {//更新时，当暂定为0时
 
-                        var preproduct = $(btn).parent().next().next().next().html();
-                        var asin = $(btn).parent().next().next().next().next().next().next().html().toString();
-                        var sku = $(btn).parent().next().next().next().next().next().next().next().html().toString();
+
 
                         $("#asinselect").attr("disabled", "disabled").css("background", "lightgray");
                         $("#skuselect").attr("disabled", "disabled").css("background", "lightgray");

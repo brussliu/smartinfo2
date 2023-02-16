@@ -26,7 +26,7 @@
 			, "Total Incentive Amount" = to_number(IPT."Total Incentive Amount", '9999999.99')
 			, "breakdown_incentive_fee_amount" = IPT."breakdown_incentive_fee_amount"
 			, "average_quantity_customer_orders" =	to_number(IPT."average_quantity_customer_orders", '9999999.99')		
-			, "更新日時" = !nowTime
+			, "更新日時" = now()
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
@@ -95,8 +95,8 @@
 			, "breakdown_incentive_fee_amount" 
 			, to_number(IPT."average_quantity_customer_orders", '9999999.99')
 			, "店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
@@ -132,7 +132,7 @@
 			, "volume-unit" = IPT."volume-unit"
 			, "国" = IPT."国"
 			, "enrolled-in-small-and-light" = IPT."enrolled-in-small-and-light"
-			, "更新日時" = !nowTime
+			, "更新日時" = now()
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
@@ -183,8 +183,8 @@
 			, IPT."国"
 			, IPT."enrolled-in-small-and-light"
 			, "店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
@@ -701,7 +701,7 @@
 -->
 	<sql id="excute_01_m1_01">
 		insert into "MST_出品マスタ情報_BACKUP"
-		select :nowTime, * from "MST_出品マスタ情報" where "店舗ID" = :shopId
+		select now(), * from "MST_出品マスタ情報" where "店舗ID" = :shopId
 	</sql>
 
 	<sql id="excute_01_m1_02">
@@ -720,6 +720,8 @@
 			, "仕入価格"
 			, "FBA発送方式"
 			, "商品名称"
+			, "仕入申報価格（元）"
+			, "仕入申報価格（ドル）"
 			, "暫定フラグ"
 			, "店舗ID"
 			, "登録日時"
@@ -736,10 +738,12 @@
 			null as "仕入価格",
 			null as "FBA発送方式",
 			"商品名" as "商品名称",
+			null as "仕入申報価格（元）",
+			null as "仕入申報価格（ドル）",
 			'0' as "暫定フラグ",
 			"店舗ID" as "店舗ID",
-			:nowTime,
-			:nowTime
+			now(),
+			now()
 		from  
 			"IPT_全出品情報"
 		where
@@ -759,7 +763,7 @@
 			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end,
 			"仕入申報価格（元）" = case when BK."仕入申報価格（元）" is not null then BK."仕入申報価格（元）" else "MST_出品マスタ情報"."仕入申報価格（元）" end,
 			"仕入申報価格（ドル）" = case when BK."仕入申報価格（ドル）" is not null then BK."仕入申報価格（ドル）" else "MST_出品マスタ情報"."仕入申報価格（ドル）" end,
-			"更新日時" = :nowTime
+			"更新日時" = now()
 		from "MST_出品マスタ情報_BACKUP" BK
 		where
 			"MST_出品マスタ情報"."SKU番号" = BK."SKU番号"
@@ -776,22 +780,6 @@
 	</sql>
 
 	<sql id="excute_01_m1_05">
-		update "MST_出品マスタ情報"
-		set 
-			"LABEL番号" = IPT."fulfillment-channel-sku",
-			"更新日時" = :nowTime
-		from "IPT_FBA在庫情報" IPT
-		where
-			"MST_出品マスタ情報"."SKU番号" = IPT."seller-sku"
-			and
-			"MST_出品マスタ情報"."ASIN番号" = IPT."asin"
-			and
-			"MST_出品マスタ情報"."店舗ID" = IPT."店舗ID"
-			and
-			IPT."店舗ID" = :shopId
-	</sql>
-
-	<sql id="excute_01_m1_06">
 		insert into "MST_出品マスタ情報" (
 			  "商品管理番号"
 			, "親子区分"
@@ -834,6 +822,23 @@
 
 	</sql>
 
+	<sql id="excute_03_m1">
+		update "MST_出品マスタ情報"
+		set 
+			"LABEL番号" = IPT."fulfillment-channel-sku",
+			"更新日時" = now()
+		from "IPT_FBA在庫情報" IPT
+		where
+			"MST_出品マスタ情報"."SKU番号" = IPT."seller-sku"
+			and
+			"MST_出品マスタ情報"."ASIN番号" = IPT."asin"
+			and
+			"MST_出品マスタ情報"."店舗ID" = IPT."店舗ID"
+			and
+			IPT."店舗ID" = :shopId
+	</sql>
+
+
 	<sql id="update_15_r3" paramPrefix="!">
 		update "RES_長期在庫保管手数料請求額情報" RES 
 		set
@@ -857,7 +862,7 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = !nowTime 
+			, "更新日時" = now()
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
@@ -891,7 +896,7 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = !nowTime 
+			, "更新日時" = now()
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
@@ -927,7 +932,7 @@
 			, "ORDER_配送住所-郵便番号" = IPT."ship-postal-code"
 			, "ORDER_配送住所-国" = IPT."ship-country"
 			, "ORDER_プロモーション内容" = IPT."promotion-ids"
-			, "更新日時" = !nowTime 
+			, "更新日時" = now()
 		from
 			"IPT_全注文情報" IPT 
 		where
@@ -967,7 +972,7 @@
 			, "トランザクションに関するその他の手数" = to_number(IPT."トランザクションに関するその他の手数料", '999999999.99')
 			, "その他" = to_number(IPT."その他", '999999999.99')
 			, "合計" = to_number(IPT."合計", '999999999.99')
-			, "更新日時" = !nowTime 
+			, "更新日時" = now()
 		from
 			"IPT_ペイメント情報" IPT 
 		where
@@ -1010,7 +1015,7 @@
 			, "SHIP_FC" = IPT."FC"
 			, "SHIP_出荷経路" = IPT."出荷経路"
 			, "SHIP_販売経路" = IPT."販売経路"
-			, "更新日時" = !nowTime  
+			, "更新日時" = now()  
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
@@ -1024,7 +1029,7 @@
 		update "RES_注文情報" RES 
 		set
 			"SHIP_出荷日" = to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
-			, "更新日時" = current_timestamp 
+			, "更新日時" = now() 
 		from
 			"IPT_出荷情報" IPT 
 		where
@@ -1087,8 +1092,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
@@ -1156,8 +1161,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_在庫保管手数料情報" IPT 
 		where
@@ -1227,8 +1232,8 @@
 			, "ship-country"
 			, "promotion-ids"
 			, "店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_全注文情報" IPT 
 		where
@@ -1309,8 +1314,8 @@
 			, to_number(IPT."その他", '999999999.99')
 			, to_number(IPT."合計", '999999999.99')
 			, IPT."店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_ペイメント情報" IPT 
 		where
@@ -1352,8 +1357,8 @@
 			, IPT."説明"
 			, to_number(IPT."合計", '999999999.99')
 			, IPT."店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_ペイメント情報" IPT 
 		where
@@ -1441,8 +1446,8 @@
 			, IPT."出荷経路"
 			, IPT."販売経路"
 			, IPT."店舗ID"
-			, !nowTime
-			, !nowTime
+			, now()
+			, now()
 		from
 			"IPT_FBA在庫出荷情報" IPT 
 		where
@@ -1474,8 +1479,8 @@
 			, "出品者SKU"
 			, to_timestamp(IPT."出荷日", 'YYYY-MM-DD HH24:MI:SS+09:00')
 			, IPT."店舗ID"
-			, !nowTime
-			, !nowTime 
+			, now()
+			, now() 
 		from
 			"IPT_出荷情報" IPT 
 		where
