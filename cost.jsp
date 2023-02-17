@@ -26,9 +26,12 @@
                     Efw('cost_delete',{"delKey":delKey});
                 }
                 function update(){
+                    
                      // 1.取数据 
                     var updateKey = $('input:radio[name="choice"]:checked').val();
                     Efw('cost_update',{"updateKey":updateKey});
+                     //操作フラグ
+                     $("#opt").val("UPDATE");
                     // //登録日時
                     // $("#td_registrationdate").html("");
                     // //ステータス
@@ -36,7 +39,7 @@
                     // //発生日
                     // $("#txt_accrualdate").val("");
                     // //分類
-                    // $("#txt_classification").val("");
+                    //  $("#txt_classification").val("");
                     // //タイトル
                     // $("#txt_title").val("");
                     // //金額
@@ -44,9 +47,10 @@
                     // //為替レート
                     // $("#txt_exchangerate").val("");
                     // //備考
-                    // $("#txt_remarks").val("");
+                    //  $("#txt_remarks").val("");
+                    $("#opt_currency").val("CNY");
                     // //金額(変換後)
-                    // $("#td_num").html("");
+                    //  $("#td_num").html("");
                     
                     // //操作フラグ
                     // $("#opt").val("NEW");

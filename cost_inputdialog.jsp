@@ -21,8 +21,11 @@
 
             //保存押下
             function save() {
+
+                var updateKey = $('input:radio[name="choice"]:checked').val();
+                    
                 
-                Efw('cost_save');
+                Efw('cost_save',{"updateKey":updateKey});
             }
         </script>
         <style>
@@ -74,7 +77,7 @@
                             </select>
                         </td>
                         <td id="td_num">999999 円</td>
-                        <td></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
                         <td>為替レート：</td>

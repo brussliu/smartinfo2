@@ -11,7 +11,10 @@ cost_save.paramsFormat={
 	"#opt_currency":null,
 	"#txt_exchangerate":null,
 	"#txt_remarks":null,
+	"#opt":null,
+	"updateKey":null,
 };
+
  
 cost_save.fire=function(params){
 	
@@ -19,10 +22,12 @@ cost_save.fire=function(params){
 
 	// セッションチェック
 	sessionCheck(ret);
-	
-	var jpy = null;
-	var cny = null;
-	
+
+	if(params["#opt"] == "NEW"){
+		var jpy = null;
+		var cny = null;
+		params["#opt"].debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		
 	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
 		jpy = parseFloat(params["#txt_account"]);
 		jpy.debug("----------------------------------------------------");
@@ -36,13 +41,13 @@ cost_save.fire=function(params){
 
 	// var arys = new Array();
 	// arys = params["#txt_accrualdate"].split('/');
-	// arys.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	
 	var newDate = new Date(params["#txt_accrualdate"]);
-	newDate.debug("1111111111111111111111111111111111111111111111111");
+	
 
-	var updateResult = db.change(
+	var selectResult = db.change(
 		"COST",
-		"updateCostInfo",
+		"insertCostInfo",
 		{
 			col2 : newDate,
 			col3 : params["#opt_status"],
@@ -52,26 +57,48 @@ cost_save.fire=function(params){
 			col7 : jpy,
 			col8 : parseFloat(params["#txt_exchangerate"]),
 			col9 : params["#txt_remarks"],
-		
+			col10 :getShopId(),	
+			
 		}
 	);
+	}
+	if(params["#opt"] == "UPDATE"){
+		params["#opt"].debug("UPDATE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		var jpy = null;
+		var cny = null;
 	
-	// var selectResult = db.change(
-	// 	"COST",
-	// 	"insertCostInfo",
-	// 	{
-	// 		col2 : newDate,
-	// 		col3 : params["#opt_status"],
-	// 		col4 : params["#txt_classification"],
-	// 		col5 : params["#txt_title"],
-	// 		col6 : cny,
-	// 		col7 : jpy,
-	// 		col8 : parseFloat(params["#txt_exchangerate"]),
-	// 		col9 : params["#txt_remarks"],
-	// 		col10 :getShopId(),
-		
-	// 	}
-	// );
+	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+		jpy = parseFloat(params["#txt_account"]);
+		jpy.debug("----------------------------------------------------");
+		cny = jpy * parseFloat(params["#txt_exchangerate"]) / 100;
+	}
+	if(params["#opt_currency"] == "CNY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+		cny = parseFloat(params["#txt_account"]);
+		cny.debug("-1---1----1-----1------1---------1----------1-----1-----1---");
+		jpy = cny / parseFloat(params["#txt_exchangerate"]) * 100;
+	}
+
+	var newDate = new Date(params["#txt_accrualdate"]);
+
+		var updateResult = db.change(
+			"COST",
+			"updateCostInfo",
+			{
+				col2 : newDate,
+				col3 : params["#opt_status"],
+				col4 : params["#txt_classification"],
+				col5 : params["#txt_title"],
+				col6 : cny,
+				col7 : jpy,
+				col8 : parseFloat(params["#txt_exchangerate"]),
+				col9 : params["#txt_remarks"],
+				updateKey : params["updateKey"],
+				shopid : getShopId(),
+			}
+		);
+	}
+
+	
 
  
 	

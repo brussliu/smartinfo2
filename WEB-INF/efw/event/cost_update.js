@@ -72,7 +72,7 @@ cost_update.fire = function (params) {
 			"#opt_status":selectResult["ステータス"],
 			"#txt_classification":selectResult["分類"],
 			"#txt_account":selectResult["金額（元）"],
-			"#td_num":selectResult["金額（円）"],
+			"#td_num":selectResult["金額（円）"] + "円",
 			"#txt_exchangerate":selectResult["為替レート"],
 		}
 	);
