@@ -28,14 +28,14 @@
                 <tbody>
                     <tr>
                         <input type="hidden" id="zt_flg" value=""></input>
-                        <td style="width: 130px;text-align: left;">【ASIN番号】</td>
+                        <td style="width: 157px;text-align: left;">【ASIN番号】</td>
                         <td style="width: 200px;">
                             <select style='width: 180px;height: 30px;' id='asinselect'>
                                 <option value='-'>-</option>
                             </select>
                         </td>
                         
-                        <td style="width: 120px;text-align: left;">【SKU番号】</input></td>
+                        <td style="width: 130px;text-align: left;">【SKU番号】</input></td>
                         <td style="width: 200px;">
                             <select style="width: 180px;height: 30px;" id="skuselect">
                                 <option value="-">-</option>
@@ -105,7 +105,7 @@
                     </tr>
                     <tr>
                         <td>
-                            FBA発送方式：
+                            FBM発送方式：
                         </td>
                         <td><select style="width: 200px;" id="fba" disabled="disabled">
                                 <option value="" selected></option>

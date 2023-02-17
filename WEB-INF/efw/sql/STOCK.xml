@@ -124,9 +124,14 @@
 	c."推奨仕入数量" as purchasequantity
  from
 	"MST_出品マスタ情報" a
-	left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
-	left join "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
-    left join "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
+	LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" AND a."SKU番号"=b."SKU番号"
+	LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号" AND a."SKU番号"=c."SKU番号"
+    LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号" AND a."SKU番号"=d."SKU番号"
+	LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
+		a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
+	LEFT JOIN "MST_ソート情報" S2 ON 
+		a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
+		a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"
 	WHERE
 			1=1
  	<if exists="opt_productno"> AND (
@@ -146,7 +151,7 @@
 
 		UPPER(A."ASIN番号") LIKE concat('%', :text_keyword ,'%') OR
 		UPPER(A."LABEL番号") LIKE concat('%', :text_keyword ,'%')OR
-		UPPER(A."商品名称") LIKE concat('%', :text_keyword ,'%')
+		<!-- UPPER(A."商品名称") LIKE concat('%', :text_keyword ,'%') -->
 			    )
 		</if>
 
@@ -167,18 +172,30 @@
 	</if>
 		AND A."店舗ID" = :shopid  
 	ORDER BY
-			A."商品種別",
-			A."商品管理番号",
-			A."親子区分",
-			A."分類１",
-			A."分類２"
+		a."商品管理番号",
+		a."親子区分" desc,
+    	COALESCE(cast(S1."ソート" as varchar), a."分類１"),
+    	COALESCE(cast(S2."ソート" as varchar), a."分類２")
 </sql>
  
  <!-- sl:暂定，更新local -->
 <sql id="updatelocalstockflg1" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
 		SET
+		CASE  
+			WHEN  "途中在庫_入庫" is null OR
+					"途中在庫_入庫"  ==0  OR
+					"途中在庫_入庫"  =='' THEN 0
+			ELSE "途中在庫_入庫" = CAST(!put as int4)
+		END,
+		 
 			"LOCAL在庫" = CAST(!local as int4),
+		CASE  
+			WHEN  "途中在庫_仕入" is null OR
+					"途中在庫_仕入"  ==0  OR
+					"途中在庫_仕入"  =='' THEN 0
+			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
+		END,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -229,7 +246,20 @@
 <sql id="updatelocalstockflg0" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
 		SET
+		CASE  
+			WHEN  "途中在庫_入庫" is null OR
+					"途中在庫_入庫"  ==0  OR
+					"途中在庫_入庫"  =='' THEN 0
+			ELSE "途中在庫_入庫" = CAST(!put as int4)
+		END,
+		 
 			"LOCAL在庫" = CAST(!local as int4),
+		CASE  
+			WHEN  "途中在庫_仕入" is null OR
+					"途中在庫_仕入"  ==0  OR
+					"途中在庫_仕入"  =='' THEN 0
+			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
+		END,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -350,18 +380,23 @@
 	c."推奨仕入数量" as purchasequantity
  from
 	"MST_出品マスタ情報" a
-	left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
-	left join "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
-    left join "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
+	LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
+	LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
+    LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
+	LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
+		a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
+	LEFT JOIN "MST_ソート情報" S2 ON 
+		a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
+		a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"	
 	WHERE
 			1=1
 	AND a."親子区分" = '子商品'
 		AND A."店舗ID" = :shopid  
 	ORDER BY
-			A."商品種別",
-			A."商品管理番号",
-			A."分類１",
-			A."分類２"
+		a."商品管理番号",
+		a."親子区分" desc,
+    	COALESCE(cast(S1."ソート" as varchar), a."分類１"),
+    	COALESCE(cast(S2."ソート" as varchar), a."分類２")
 </sql>
   
  

@@ -14,6 +14,7 @@ T."サイズ",
 to_number(T."仕入価格",'999999.99'),
 null,
 null,
+'0',
 'Smart-Bear',
 current_timestamp,
 current_timestamp

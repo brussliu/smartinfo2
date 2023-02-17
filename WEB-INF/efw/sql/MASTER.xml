@@ -29,60 +29,67 @@
 </sql>
 <!-- sl：检索商品总结 -->
 <sql id="selectmasterinfo" >
-	SELECT DISTINCT
-		  "商品種別" as type
-		, "商品管理番号" as no
-		, "親子区分" as preproduct
-
-		, "分類１" as sub1
-		, "分類２" as sub2
-		, "ASIN番号" as asin
-		
-		, "SKU番号" as sku
-		, "LABEL番号" as label
-		, "仕入価格" as price
-		, "仕入申報価格（元）" as price2
-		, "仕入申報価格（ドル）" as price3
-		, "FBA発送方式" as fba
-		, "商品名称" as name
-		,"暫定フラグ" as flg
-
+	SELECT
+		  M."商品種別" as type
+		, M."商品管理番号" as no
+		, M."親子区分" as preproduct
+		, M."分類１" as sub1
+		, M."分類２" as sub2
+		, M."ASIN番号" as asin
+		, M."SKU番号" as sku
+		, M."LABEL番号" as label
+		, M."仕入価格" as price
+		, M."仕入申報価格（元）" as price2
+		, M."仕入申報価格（ドル）" as price3
+		, M."FBM発送方式" as fba
+		, M."商品名称" as name
+		, M."暫定フラグ" as flg
 	FROM
-		"MST_出品マスタ情報" 
+		"MST_出品マスタ情報" M
+	LEFT JOIN "MST_ソート情報" S1 ON 
+		M."商品種別" = S1."商品種別" AND 
+		S1."分類" = '分類１' AND 
+		M."分類１" = S1."内容" AND
+		M."店舗ID" = S1."店舗ID"
+	LEFT JOIN "MST_ソート情報" S2 ON 
+		M."商品種別" = S2."商品種別" AND 
+		S2."分類" = '分類２' AND 
+		M."分類２" = S2."内容" AND
+		M."店舗ID" = S2."店舗ID"
 	WHERE
 	1=1
  	<if exists="productno"> AND (
-		<if istrue="productno == 'マスタ未登録'"> "商品管理番号" is NULL </if>
-		<if istrue="productno != 'マスタ未登録'"> "商品管理番号" = :productno </if>
+		<if istrue="productno == 'マスタ未登録'"> M."商品管理番号" is NULL </if>
+		<if istrue="productno != 'マスタ未登録'"> M."商品管理番号" = :productno </if>
 		)
 	</if>
 
 	<if exists="keyword"> AND (
-		UPPER("商品種別") LIKE concat('%', :keyword ,'%') OR
-		UPPER("商品管理番号") LIKE concat('%', :keyword ,'%') OR
-		UPPER("親子区分") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."商品種別") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."商品管理番号") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."親子区分") LIKE concat('%', :keyword ,'%') OR
 
-		UPPER("分類１") LIKE concat('%', :keyword ,'%') OR
-		UPPER("分類２") LIKE concat('%', :keyword ,'%') OR
-		UPPER("SKU番号") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."分類１") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."分類２") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."SKU番号") LIKE concat('%', :keyword ,'%') OR
 
-		UPPER("ASIN番号") LIKE concat('%', :keyword ,'%') OR
-		UPPER("LABEL番号") LIKE concat('%', :keyword ,'%')OR
-		UPPER("FBA発送方式") LIKE concat('%', :keyword ,'%') OR
-		UPPER("商品名称") LIKE concat('%', :keyword ,'%')
+		UPPER(M."ASIN番号") LIKE concat('%', :keyword ,'%') OR
+		UPPER(M."LABEL番号") LIKE concat('%', :keyword ,'%')OR
+		UPPER(M."FBM発送方式") LIKE concat('%', :keyword ,'%') OR
+		<!-- UPPER(M."商品名称") LIKE concat('%', :keyword ,'%') -->
 		)
 	</if>
 
 	 <if exists="ptype"> AND (	
-		  "商品種別" IN (@ptype  )
+		  M."商品種別" IN ( @ptype )
 		)
 	 </if>
-		AND "店舗ID" = :shopid  
+		AND M."店舗ID" = :shopid  
 	ORDER BY 
-		"商品管理番号",
-		"親子区分" desc,
-		"分類１",
-		"分類２"
+		M."商品管理番号",
+		M."親子区分" desc,
+    	COALESCE(cast(S1."ソート" as varchar), M."分類１"),
+    	COALESCE(cast(S2."ソート" as varchar), M."分類２")
 </sql>
  
 <!-- sl:暂定为1时更新检索 -->
@@ -99,7 +106,7 @@
 		, "仕入価格" as price1
 		, "仕入申報価格（元）" as price2
 		, "仕入申報価格（ドル）" as price3
-		, "FBA発送方式" as fba
+		, "FBM発送方式" as fba
 		, "商品名称" as name
 		, "暫定フラグ" as flg
 
@@ -165,7 +172,7 @@
 		, "仕入価格" as price1
 		, "仕入申報価格（元）" as price2
 		, "仕入申報価格（ドル）" as price3
-		, "FBA発送方式" as fba
+		, "FBM発送方式" as fba
 		, "商品名称" as name
 		, "暫定フラグ" as flg
 	FROM
@@ -234,7 +241,7 @@
 		"分類１",
 		"分類２",
 		"仕入価格",
-		"FBA発送方式",
+		"FBM発送方式",
 		"商品名称",
 		"仕入申報価格（元）",
 		"仕入申報価格（ドル）",
@@ -249,7 +256,7 @@
 		:sub1,--分類１
 		:sub2,--分類２
 		:price1, --仕入価格
-		:fba,--FBA発送方式
+		:fba,--FBM発送方式
 		:productname,--商品名称
 		:price2,--仕入申報価格（元）
 		:price3, --仕入申報価格（ドル）
@@ -297,22 +304,6 @@
 		  "商品種別" is NULL
 		)
 	   </if>
-	 	<!-- <if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)  
-		</if> -->
 		   
 </sql>
 
@@ -331,7 +322,7 @@
 			"仕入申報価格（元）" = !price2,
 			"仕入申報価格（ドル）" = !price3,
 
-			"FBA発送方式" = !fba,
+			"FBM発送方式" = !fba,
 			"商品名称" = !productname,
 		    "更新日時"=now()
 		WHERE 
@@ -461,7 +452,6 @@
 	UPDATE "MST_出品マスタ情報" 
 		SET
 			"商品管理番号" = !productno,
-			"親子区分" = !preproduct,
 			"商品種別" = !producttype,
 			"分類１" = !sub1,
 			"分類２" = !sub2,
@@ -470,7 +460,7 @@
 			"仕入申報価格（元）" = !price2,
 			"仕入申報価格（ドル）" = !price3,
 
-			"FBA発送方式" = !fba,
+			"FBM発送方式" = !fba,
 			"商品名称" = !productname,
 		    "更新日時"=now()
 		WHERE 
@@ -530,7 +520,7 @@
 <sql id="udatemasterinfosubfba"  >
 		UPDATE "MST_出品マスタ情報" 
 		SET
-			"FBA発送方式" = :fba
+			"FBM発送方式" = :fba
 		WHERE 
 		  "店舗ID" =:shopid
 		AND 

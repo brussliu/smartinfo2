@@ -34,14 +34,34 @@
 
                 // 选中当前数据，编辑LOCAL在庫
                 function check(val) {
+                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
                     var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+
                     if ($(val).is(':checked')) {
+                        if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
+                            span_put.css("display", "none");
+                            put.append('<input type="text" class="text_put"value="' + span_put.html() + '"style="width:60px;height: 30px;"></input>')
+                            put.data("text", "1");
+                        }
+                        if (span_purchase.html() != "" && span_purchase.html() != null && span_purchase.html() != '0') {
+                            span_purchase.css("display", "none");
+                            purchase.append('<input type="text" class="text_purchase"value="' + span_purchase.html() + '"style="width:60px;height: 30px;"></input>')
+                            purchase.data("text", "1");
+                        }
                         span_local.css("display", "none");
                         local.append('<input type="text" class="text_local"value="' + span_local.html() + '"style="width:60px;height: 30px;"></input>')
+
                     } else {
+                        span_put.css("display", "block");
                         span_local.css("display", "block");
+                        span_purchase.css("display", "block");
+                        $(".text_put").remove();
                         $(".text_local").remove();
+                        $(".text_purchase").remove();
                     }
                 }
 
@@ -61,9 +81,11 @@
                             // SKU番号
                             var sku = tdArr.eq(7).html();
                             console.log(sku)
+
                             // LOCAL在庫
                             var local = tdArr.eq(14).children().next().val();
                             console.log(local)
+
                             // 商品種別
                             var producttype = tdArr.eq(1).children().html();
                             console.log(producttype)
@@ -91,7 +113,25 @@
                             localArr.push(preproduct);
                             localArr.push(productsub1);
                             localArr.push(productsub2);
+                            //途中（入庫）
+                            var put = tdArr.eq(13);
+                            if (put.data("text") != "undefined") {
+                                var putval = tdArr.eq(13).children().next().val();
+                                localArr.push(putval);
+                            }
+                            console.log(put);
+                            console.log(putval);
+                            // 途中（仕入）
+                            var purchase = tdArr.eq(15).children().next().val();
+                            console.log(purchase)
 
+                            var purchase = tdArr.eq(15);
+                            if (purchase.data("text") != "undefined") {
+                                var purchaseval = tdArr.eq(15).children().next().val();
+                                localArr.push(purchaseval);
+                            }
+                            console.log(purchase);
+                            console.log(purchaseval);
                             alllocalArr.push(localArr);
 
                         }
@@ -105,9 +145,262 @@
                 }
 
 
-                // 输出EXCEL
-                function outputstock() {
-                    Efw('stockinfo_output');
+                // 输出納品EXCEL
+                function outputdeliver(val) {
+                    console.log("outputdeliver");
+                    Efw('stockinfo_output', { 'exl': val });
+                }
+
+                // 输出仕入EXCEL
+                function outputreceiving(val) {
+                    console.log("outputreceiving");
+                    Efw('stockinfo_output', { 'exl': val });
+                }
+                
+                function changeColor() {
+
+                    var oyflg = false;
+                    var oldproductno = "";
+
+                    $("#stocktable").find("tr").each(function () {
+
+                        var tdArr = $(this).children();
+
+
+                        // 商品管理番号
+                        var newproductno = tdArr.eq(2).html();
+                        // 親子区分
+                        var productkinds = tdArr.eq(3).html();
+
+                        var flg = false;
+                        if (newproductno != oldproductno) {
+                            flg = true;
+                        }
+                        // 商品管理番号変わる
+                        if (flg) {
+                            oyflg = false;
+                        }
+
+                        if (productkinds == "親商品") {
+                            // sl：清空操作格
+                            tdArr.eq(0).html('');
+                            // 行の色を変更
+                            $(this).css({ "background": "rgb(153,217,234)" });
+                            oyflg = true;
+                        }
+
+                        if (productkinds == "子商品") {
+
+                            // チェックボックス列の色を変更
+                            if (oyflg) {
+                                $(this).css({ "background": "rgb(210,255,255)" });
+                                tdArr.eq(0).css({ "background": "rgb(153,217,234)" });
+                            } else {
+                                $(this).css({ "background": "rgb(255,255,240)" });
+                            }
+                        }
+                        oldproductno = newproductno;
+
+                        // 入力足りない
+
+                        // １，商品種別が未入力
+                        var inputValue = tdArr.eq(1).children(0).html();
+                        if (inputValue == null || inputValue == "") {
+                            tdArr.eq(1).css({ "background": "rgb(255,150,150)" });
+                        }
+                        // ２，商品管理番号が未入力
+                        var inputValue = tdArr.eq(2).html();
+                        if (inputValue == null || inputValue == "") {
+                            tdArr.eq(2).css({ "background": "rgb(255,150,150)" });
+                        }
+                        // ３，商品分類が未入力
+                        var inputValue1 = tdArr.eq(4).children(0).html();
+                        var inputValue2 = tdArr.eq(5).children(0).html();
+                        if (productkinds == "親商品") {
+                            if (inputValue1 != null && inputValue1 != "") {
+                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
+                            }
+                            if (inputValue2 != null && inputValue2 != "") {
+                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                            }
+                        } else {
+                            if (
+                                (inputValue1 == null || inputValue1 == "") &&
+                                (inputValue2 == null || inputValue2 == "")
+                            ) {
+                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        // ４，暫定商品
+                        var inputValue1 = tdArr.eq(6).html();
+                        var inputValue2 = tdArr.eq(7).html();
+                        if (inputValue1 == null || inputValue1 == "") {
+                            $(this).css({ "background": "rgb(200,200,200)" });
+                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                        }
+                        if (inputValue2 == null || inputValue2 == "") {
+                            $(this).css({ "background": "rgb(200,200,200)" });
+                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                        }
+                        // ５，LABEL番号
+                        var inputValue = tdArr.eq(8).html();
+                        if (productkinds == "親商品") {
+                            if (inputValue != null && inputValue != "") {
+                                tdArr.eq(8).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        // ６，商品名称
+                        var inputValue = tdArr.eq(9).children(0).html();
+                        
+                            if (inputValue == null || inputValue == "") {
+                                tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
+                              }
+                    
+                       
+                        // ７，发送方式
+                        var inputValue = tdArr.eq(10).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != ""){
+                                tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == ""){
+                                tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                        
+                            // 8，途中（入庫）
+                            var inputValue = tdArr.eq(13).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(13).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(13).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+     
+                            // 9，LOCAL在庫
+                            var inputValue = tdArr.eq(14).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(14).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(14).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                            // 10，途中（仕入）
+                            var inputValue = tdArr.eq(15).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(15).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(15).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                        
+                            // 11，在庫合計（販売中）
+                            var inputValue = tdArr.eq(16).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(16).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(16).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+     
+                            // 12，	在庫合計（予備）
+                            var inputValue = tdArr.eq(17).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(17).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(17).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                            // 13，在庫合計（全体）
+                            var inputValue = tdArr.eq(18).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(18).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(18).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                              // 14，販売数量（3日/7日/30日/60日/90日/180日/360日）
+                              var inputValue = tdArr.eq(19).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "000 / 000 / 000 / 000 / 000 / 000 / 000"){
+                                tdArr.eq(19).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "000 / 000 / 000 / 000 / 000 / 000 / 000"){
+                                tdArr.eq(19).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                              // 15，販売数量（日平均値）
+                              var inputValue = tdArr.eq(20).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(20).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(20).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                              // 16，販売可能期間（販売中）
+                              var inputValue = tdArr.eq(21).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(21).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(21).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+
+                                  // 17，販売可能期間（全体）
+                                  var inputValue = tdArr.eq(22).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != "" && inputValue != "0"){
+                                tdArr.eq(22).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == "" || inputValue == "0"){
+                                tdArr.eq(22).css({ "background": "rgb(255,150,150)" });
+                            }
+                        }
+                    });
                 }
             </script>
             <style>
@@ -158,8 +451,8 @@
                                     <td></td>
                                     <td style="width: 200px;"><button onclick="searchstockinfo()">検索</button></td>
                                     <td style="width: 200px;"><button onclick="updatestock()">更新</button></td>
-                                    <td style="width: 200px;"><button onclick="outputstock()">納品出力</button></td>
-                                    <td style="width: 200px;"><button onclick="outputstock()">仕入出力</button></td>
+                                    <td style="width: 200px;"><button onclick="outputdeliver('1')">納品出力</button></td>
+                                    <td style="width: 200px;"><button onclick="outputreceiving('2')">仕入出力</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -189,18 +482,21 @@
                                     <td style="width: 220px;">
                                         <input type="text" style="width: 200px;height: 30px;" id="text_keyword"></input>
                                     </td>
-                                    <td style="width: 110px;font-weight: bold;">表示項目：</td>
-                                    <td style="width: 350px;">
-                                        <input type="checkbox" id="checkbox_ASL" value="ASIN、SKU、LABEL" checked>
-                                        ASIN、SKU、LABEL
-                                        &nbsp;
-                                        <input type="checkbox" id="checkbox_productname" value="商品名称" checked> 商品名称
-                                    </td>
+                              
                                     <td style="width: 110px;font-weight: bold;">発送方式：</td>
                                     <td style="width: 180px;" id="checkbox_send">
                                         <input type="checkbox" value="FBA"> FBA
                                         &ensp; <input type="checkbox" value="FBM"> FBM
 
+                                    </td>
+                                    <td style="width: 110px;font-weight: bold;">
+                                        <!-- 表示項目： -->
+                                    </td>
+                                    <td style="width: 350px;">
+                                        <!-- <input type="checkbox" id="checkbox_ASL" value="ASIN、SKU、LABEL" checked>
+                                        ASIN、SKU、LABEL
+                                        &nbsp;
+                                        <input type="checkbox" id="checkbox_productname" value="商品名称" checked> 商品名称 -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -221,7 +517,7 @@
                                     <th style="width: 120px;">ASIN番号</th>
                                     <th style="width: 150px;">SKU番号</th>
                                     <th style="width: 120px">LABEL番号</th>
-                                    <th style="width: 817px;">商品名称</th>
+                                    <!-- <th style="width: 817px;">商品名称</th> -->
 
                                     <th style="width: 80px;">发送方式</th>
                                     <th style="width: 80px;">FBA在庫</th>

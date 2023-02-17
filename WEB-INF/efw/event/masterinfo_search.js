@@ -8,7 +8,6 @@ masterinfo_search.paramsFormat={
 	//"#displayItem1":null
 
 };
-var SHOP_ID = session.get("SHOP_ID");
  
 masterinfo_search.fire=function(params){
 	
@@ -36,7 +35,7 @@ masterinfo_search.fire=function(params){
 		"selectmasterinfo",
 		{
 		
-			shopid : SHOP_ID,
+			shopid : getShopId(),
 			ptype : type,
 			productno : productno,
 			keyword : keyword

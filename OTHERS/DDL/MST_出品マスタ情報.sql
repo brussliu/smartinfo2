@@ -10,7 +10,7 @@ create table public."MST_出品マスタ情報" (
   , "分類１" character varying(100)
   , "分類２" character varying(100)
   , "仕入価格" numeric(10,2)
-  , "FBA発送方式" character varying(50)
+  , "FBM発送方式" character varying(50)
   , "商品名称" character varying(500)
   , "仕入申報価格（元）" numeric(10,2)
   , "仕入申報価格（ドル）" numeric(10,2)
