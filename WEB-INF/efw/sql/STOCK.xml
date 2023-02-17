@@ -151,7 +151,7 @@
 
 		UPPER(A."ASIN番号") LIKE concat('%', :text_keyword ,'%') OR
 		UPPER(A."LABEL番号") LIKE concat('%', :text_keyword ,'%')OR
-		UPPER(A."商品名称") LIKE concat('%', :text_keyword ,'%')
+		<!-- UPPER(A."商品名称") LIKE concat('%', :text_keyword ,'%') -->
 			    )
 		</if>
 
