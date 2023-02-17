@@ -61,7 +61,7 @@ stockinfo_search.fire=function(params){
 		'<td style="width: 150px;" class="c">{sku}</td>' +
 		'<td style="width: 120px;" class="c">{label}</td>' +
 
-		'<td style="width: 817px;" class="l"><span>{productname}</span></td>' +
+		// '<td style="width: 817px;" class="l"><span>{productname}</span></td>' +
 		'<td style="width: 80px;" class="c">{send}</td>' +
 		'<td style="width: 80px;" class="r"><span class="r5">{fba}</span></td>' +
 		'<td style="width: 80px;" class="r"><span class="r5">{fbm}</span></td>' +

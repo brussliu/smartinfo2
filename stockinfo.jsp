@@ -482,18 +482,21 @@
                                     <td style="width: 220px;">
                                         <input type="text" style="width: 200px;height: 30px;" id="text_keyword"></input>
                                     </td>
-                                    <td style="width: 110px;font-weight: bold;">表示項目：</td>
-                                    <td style="width: 350px;">
-                                        <input type="checkbox" id="checkbox_ASL" value="ASIN、SKU、LABEL" checked>
-                                        ASIN、SKU、LABEL
-                                        &nbsp;
-                                        <input type="checkbox" id="checkbox_productname" value="商品名称" checked> 商品名称
-                                    </td>
+                              
                                     <td style="width: 110px;font-weight: bold;">発送方式：</td>
                                     <td style="width: 180px;" id="checkbox_send">
                                         <input type="checkbox" value="FBA"> FBA
                                         &ensp; <input type="checkbox" value="FBM"> FBM
 
+                                    </td>
+                                    <td style="width: 110px;font-weight: bold;">
+                                        <!-- 表示項目： -->
+                                    </td>
+                                    <td style="width: 350px;">
+                                        <!-- <input type="checkbox" id="checkbox_ASL" value="ASIN、SKU、LABEL" checked>
+                                        ASIN、SKU、LABEL
+                                        &nbsp;
+                                        <input type="checkbox" id="checkbox_productname" value="商品名称" checked> 商品名称 -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -514,7 +517,7 @@
                                     <th style="width: 120px;">ASIN番号</th>
                                     <th style="width: 150px;">SKU番号</th>
                                     <th style="width: 120px">LABEL番号</th>
-                                    <th style="width: 817px;">商品名称</th>
+                                    <!-- <th style="width: 817px;">商品名称</th> -->
 
                                     <th style="width: 80px;">发送方式</th>
                                     <th style="width: 80px;">FBA在庫</th>
