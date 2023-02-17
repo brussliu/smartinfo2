@@ -183,7 +183,7 @@
 
                         if (productkinds == "親商品") {
                             // sl：清空操作格
-                            tdArr.eq(1).html('');
+                            tdArr.eq(0).html('');
                             // 行の色を変更
                             $(this).css({ "background": "rgb(153,217,234)" });
                             oyflg = true;
