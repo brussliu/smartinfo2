@@ -12,6 +12,7 @@ create table public."TRN_d“ü–¾×" (
   , "’P‰¿" numeric(10,2)
   , "”—Ê" integer
   , "‹àŠz" numeric(10,2)
+  , "b’èƒtƒ‰ƒO" character varying(1)
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone
