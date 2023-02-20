@@ -5,10 +5,14 @@ stockinfo_output.paramsFormat = {
 };
 
 stockinfo_output.fire = function (params) {
+
 	var ret = new Result();
-	var exl = params["exl"];
+	
 	// セッションチェック
 	sessionCheck(ret);
+
+	var exl = params["exl"];
+
 	var selectResult = db.select(
 		"STOCK",
 		"selectstock",
@@ -18,15 +22,23 @@ stockinfo_output.fire = function (params) {
 		}
 	).getArray();
 
-		if(exl=='1'){
-			var tempFilePathName = deliver(selectResult);
-		}else{
-			var tempFilePathName = receiving(selectResult);
-		}
-	
-	ret.attach(tempFilePathName)
-		.saveas(getShopId()+"在庫補足_" + (new Date()).format("yyyyMMdd") + ".xlsx")
+	if(exl=='1'){
+
+		var tempFilePathName = deliver(selectResult);
+
+		ret.attach(tempFilePathName)
+		.saveas(getShopId()+"納品情報_" + (new Date()).format("yyyyMMdd") + ".xlsx")
 		.deleteAfterDownload();
+
+	}else{
+
+		var tempFilePathName = receiving(selectResult);
+
+		ret.attach(tempFilePathName)
+		.saveas(getShopId()+"仕入上納_" + (new Date()).format("yyyyMMdd") + ".xlsx")
+		.deleteAfterDownload();
+	}
+
 	return ret;
 };
 

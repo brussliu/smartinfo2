@@ -137,12 +137,13 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					if(flg_m1){
 						excute_m1_m2();	flg_m2 = true;
 					}
-					if(flg_file02){
-						excute_02_m2();	flg_m2 = true;
+					if(flg_file01){
+						excute_01_m2();	flg_m2 = true;
 					}
 					if(flg_file03){
 						excute_03_m2();	flg_m2 = true;
 					}
+					
 					if(flg_m1){
 						excute_m1_m3();	flg_m3 = true;
 					}
@@ -205,13 +206,15 @@ function excute_r1_m3() {
 
 function excute_m1_m2() {
 
-	var updateResult = db.change("IMPORT", "excute_m1_m2", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m2_01", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m2_02", {"shopId": getShopId()});
+	//var updateResult = db.change("IMPORT", "excute_m1_m2_03", {"shopId": getShopId()});
 
 }
 
-function excute_02_m2() {
+function excute_01_m2() {
 
-	var updateResult = db.change("IMPORT", "excute_02_m2", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_01_m2", {"shopId": getShopId()});
 
 }
 

@@ -1,404 +1,596 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqls>
 <sqls>
-<!-- sl：检索商品分类 -->
-<sql id="searchproducttype">
- SELECT DISTINCT
-	"商品種別" as value,
-	substr("商品種別",4) as text
- FROM
-	"MST_出品マスタ情報" 
- WHERE
-	"length" ( 商品種別 ) > 0 
-	AND "店舗ID" = :shopId 
- ORDER BY
-	"商品種別"
+
+	<sql id="searchproducttype">
+		SELECT DISTINCT
+			"商品種別" as value,
+			substr("商品種別",4) as text
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品種別 ) > 0 
+			AND "店舗ID" = :shopId 
+		ORDER BY
+			"商品種別"
 	</sql>
-<!-- sl：检索商品番号 -->
-<sql id="searchproducno">
- SELECT DISTINCT
-	"商品管理番号" AS value,
-	"商品管理番号" AS text 
-  FROM
-	"MST_出品マスタ情報" 
- WHERE
-	"length" ( 商品管理番号 ) > 0 
-	AND "店舗ID" = :shopId  
- ORDER BY
-	"商品管理番号"
-</sql>
-<!-- sl：检索商品总结 -->
-<sql id="selectstockinfo" >
- select
-	a."商品種別" as type,
-	a."商品管理番号" as no,
-	a."親子区分" as preproduct,	
-	a."分類１" as sub1,
-	a."分類２" as sub2,
-	a."ASIN番号" as asin,
-	a."SKU番号" as sku,
-	a."LABEL番号" as label,
-	a."商品名称" as productname,
-	
- CASE
-	WHEN (d."FBA在庫" IS NULL OR d."FBA在庫" = 0 ) AND (d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )THEN NULL
-	WHEN ( d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )AND ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) THEN 'FBA'
-	WHEN  (d."FBA在庫" IS NULL OR d."FBA在庫" = 0) AND (d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL ) THEN 'FBM'
-	ELSE ''
- END  AS send ,
-	d."FBA在庫" as fba,
-	d."FBM在庫" as fbm,
-	d."途中在庫_入庫" as put,	
-	d."LOCAL在庫" as local,
-	d."途中在庫_仕入" as purchase,
-	
- ((CASE 
-	WHEN d."FBA在庫" is null THEN 0
-	ELSE CAST(d."FBA在庫" as int4) END)+
- (CASE 
-	WHEN d."FBM在庫" is null THEN 0
-	ELSE CAST(d."FBM在庫" as int4) END)+
- (CASE 
-	WHEN d."途中在庫_入庫" is null THEN 0
-	ELSE CAST(d."途中在庫_入庫" as int4) END)) as stockonsell,
 
- ((CASE 
-	WHEN d."LOCAL在庫" is null THEN 0
-	ELSE CAST(d."LOCAL在庫" as int4) END)+
- (CASE 
-	WHEN d."途中在庫_仕入" is null THEN 0
-	ELSE CAST(d."途中在庫_仕入" as int4) END)) as stockprepare,
+	<sql id="searchproducno">
+		SELECT DISTINCT
+			"商品管理番号" AS value,
+			"商品管理番号" AS text 
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品管理番号 ) > 0 
+			AND "店舗ID" = :shopId  
+		ORDER BY
+			"商品管理番号"
+	</sql>
 
- ((CASE WHEN d."FBA在庫" is null THEN 0
-	ELSE CAST(d."FBA在庫" as int4) END)+
- (CASE  WHEN d."FBM在庫" is null THEN 0
-	ELSE CAST(d."FBM在庫" as int4) END)+
- (CASE  WHEN d."途中在庫_入庫" is null THEN 0
-	ELSE CAST(d."途中在庫_入庫" as int4) END)+
- (CASE  WHEN d."LOCAL在庫" is null THEN 0
-	ELSE CAST(d."LOCAL在庫" as int4) END)+
- (CASE  WHEN d."途中在庫_仕入" is null THEN 0
-	ELSE CAST(d."途中在庫_仕入" as int4)  END)) as stockall,
-	
-	
- lpad((CASE  WHEN "販売数量（直近３日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３日間）" as VARCHAR) 
-	END), 3, '0')  as selled3, 
- lpad(	(CASE  WHEN "販売数量（直近７日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近７日間）" as VARCHAR) 
-	END), 3, '0')  as selled7,
- lpad(	(CASE  WHEN "販売数量（直近３０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３０日間）" as VARCHAR) 
-	END), 3, '0')  as selled30,
- lpad(	(CASE  WHEN "販売数量（直近６０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近６０日間）" as VARCHAR) 
-	END), 3, '0')  as selled60,
- lpad(	(CASE  WHEN "販売数量（直近９０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近９０日間）" as VARCHAR) 
-	END), 3, '0')  as selled90,
- lpad(	(CASE  WHEN "販売数量（直近１８０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近１８０日間）" as VARCHAR) 
-	END), 3, '0')  as selled180,
- lpad(	(CASE  WHEN "販売数量（直近３６０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３６０日間）" as VARCHAR) 
-	END), 3, '0')  as selled360,
-	
-  round((((CASE  WHEN "販売数量（直近３日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３日間）" as int4) END) * 0.05)+
-	((CASE  WHEN "販売数量（直近７日間）" is null THEN 0
-	ELSE CAST("販売数量（直近７日間）" as int4) END) * 0.05)+
-	((CASE  WHEN "販売数量（直近３０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３０日間）" as int4) END) * 0.1)+
-	((CASE  WHEN "販売数量（直近６０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近６０日間）" as int4) END) * 0.3)+
-	((CASE  WHEN "販売数量（直近９０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近９０日間）" as int4) END) * 0.3)+
-	((CASE  WHEN "販売数量（直近１８０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近１８０日間）" as int4) END) * 0.1)+
-	((CASE  WHEN "販売数量（直近３６０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３６０日間）" as int4) END) * 0.1) ),2 ) AS dayaverage,
-
-	c."在庫販売可能日数" as stocknumber,
-	c."保有数量販売可能日数" as salenumber,	
-	c."推奨納品数量" as deliveryquantity,
-	c."推奨仕入数量" as purchasequantity
- from
-	"MST_出品マスタ情報" a
-	LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" AND a."SKU番号"=b."SKU番号"
-	LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号" AND a."SKU番号"=c."SKU番号"
-    LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号" AND a."SKU番号"=d."SKU番号"
-	LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
-		a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
-	LEFT JOIN "MST_ソート情報" S2 ON 
-		a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
-		a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"
-	WHERE
-			1=1
- 	<if exists="opt_productno"> AND (
-				<if istrue="opt_productno == 'マスタ未登録'"> A."商品管理番号" is NULL </if>
-				<if istrue="opt_productno != 'マスタ未登録'"> A."商品管理番号" = :opt_productno </if>
-			    )
-	</if>
-
-	<if exists="text_keyword"> AND (
-		UPPER(A."商品種別") LIKE concat('%', :text_keyword ,'%') OR
-		UPPER(A."商品管理番号") LIKE concat('%', :text_keyword ,'%') OR
-		UPPER(A."親子区分") LIKE concat('%', :text_keyword ,'%') OR
-
-		UPPER(A."分類１") LIKE concat('%', :text_keyword ,'%') OR
-		UPPER(A."分類２") LIKE concat('%', :text_keyword ,'%') OR
-		UPPER(A."SKU番号") LIKE concat('%', :text_keyword ,'%') OR
-
-		UPPER(A."ASIN番号") LIKE concat('%', :text_keyword ,'%') OR
-		UPPER(A."LABEL番号") LIKE concat('%', :text_keyword ,'%')OR
-		<!-- UPPER(A."商品名称") LIKE concat('%', :text_keyword ,'%') -->
-			    )
+	<sql id="updatelocalstockflg1_local" paramPrefix="!">
+		UPDATE "MST_在庫情報" 
+		SET "LOCAL在庫" = !local,
+			"更新日時"=now()
+		WHERE 
+			"店舗ID" =!shopid
+		<if exists="productno"> AND (	
+			"商品管理番号" = !productno
+			)
+			</if>
+		<if notexists="productno"> AND (	
+			"商品管理番号" is NULL
+			)
+		</if> 
+			<if exists="preproduct"> AND (	
+			"親子区分" = !preproduct
+			)
+			</if>
+		<if notexists="preproduct"> AND (	
+			"親子区分" is NULL
+			)
 		</if>
+			<if exists="producttype"> AND (	
+			"商品種別" = !producttype
+			)
+			</if>
+		<if notexists="producttype"> AND (	
+			"商品種別" is NULL
+			)
+		</if>
+		<if exists="productsub1"> AND (	
+			"分類１" = !productsub1
+			)
+			</if>
+		<if notexists="productsub1"> AND (	
+			"分類１" is NULL
+			)
+		</if>
+		<if exists="productsub2"> AND (	
+			"分類２" = !productsub2
+			)
+		</if>
+		<if notexists="productsub2"> AND (	
+			"分類２" is NULL
+			)
+		</if>
+	</sql>
 
-	 <if exists="ptype"> AND (	
-		  A."商品種別" IN (@ptype)
-		)
-	 </if>
-
-	<if exists="sendArr">	AND (
-		 ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) OR (  d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL)
-	  )
-	</if>
-	<if notexists="sendArr">  	
-		 <if exists="send">	
-			 <if istrue='send1 =="FBA"'> AND ( ( d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )AND  ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) )  </if>
-			<if istrue='send1 =="FBM"'> AND (( d."FBA在庫" IS NULL OR d."FBA在庫" = 0 )AND (d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL ) ) </if>
-		  </if>
-	</if>
-		AND A."店舗ID" = :shopid  
-	ORDER BY
-		a."商品管理番号",
-		a."親子区分" desc,
-    	COALESCE(cast(S1."ソート" as varchar), a."分類１"),
-    	COALESCE(cast(S2."ソート" as varchar), a."分類２")
-</sql>
- 
- <!-- sl:暂定，更新local -->
-<sql id="updatelocalstockflg1" paramPrefix="!">
+	<sql id="updatelocalstockflg1_put" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
-		SET
-		CASE  
-			WHEN  "途中在庫_入庫" is null OR
-					"途中在庫_入庫"  ==0  OR
-					"途中在庫_入庫"  =='' THEN 0
-			ELSE "途中在庫_入庫" = CAST(!put as int4)
-		END,
-		 
-			"LOCAL在庫" = CAST(!local as int4),
-		CASE  
-			WHEN  "途中在庫_仕入" is null OR
-					"途中在庫_仕入"  ==0  OR
-					"途中在庫_仕入"  =='' THEN 0
-			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
-		END,
-		    "更新日時"=now()
+		SET "途中在庫_入庫" = !put,
+			"更新日時"=now()
 		WHERE 
-		    "店舗ID" =!shopid
-	 	<if exists="productno"> AND (	
-		  "商品管理番号" = !productno
-		)
-	    </if>
-	   <if notexists="productno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if> 
-	 	<if exists="preproduct"> AND (	
-		  "親子区分" = !preproduct
-		)
-	    </if>
-	   <if notexists="preproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="producttype"> AND (	
-		  "商品種別" = !producttype
-		)
-	    </if>
-	   <if notexists="producttype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
- 	<if exists="productsub1"> AND (	
-		  "分類１" = !productsub1
-		)
-	    </if>
-	   <if notexists="productsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="productsub2"> AND (	
-		  "分類２" = !productsub2
-		)
-	    </if>
-	    <if notexists="productsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
-</sql>
+			"店舗ID" =!shopid
+		<if exists="productno"> AND (	
+			"商品管理番号" = !productno
+			)
+			</if>
+		<if notexists="productno"> AND (	
+			"商品管理番号" is NULL
+			)
+		</if> 
+			<if exists="preproduct"> AND (	
+			"親子区分" = !preproduct
+			)
+			</if>
+		<if notexists="preproduct"> AND (	
+			"親子区分" is NULL
+			)
+		</if>
+			<if exists="producttype"> AND (	
+			"商品種別" = !producttype
+			)
+			</if>
+		<if notexists="producttype"> AND (	
+			"商品種別" is NULL
+			)
+		</if>
+		<if exists="productsub1"> AND (	
+			"分類１" = !productsub1
+			)
+			</if>
+		<if notexists="productsub1"> AND (	
+			"分類１" is NULL
+			)
+		</if>
+		<if exists="productsub2"> AND (	
+			"分類２" = !productsub2
+			)
+		</if>
+		<if notexists="productsub2"> AND (	
+			"分類２" is NULL
+			)
+		</if>
+	</sql>
 
-
- <!-- sl:非暂定，更新local -->
-<sql id="updatelocalstockflg0" paramPrefix="!">
+	<sql id="updatelocalstockflg1_purchase" paramPrefix="!">
 		UPDATE "MST_在庫情報" 
-		SET
-		CASE  
-			WHEN  "途中在庫_入庫" is null OR
-					"途中在庫_入庫"  ==0  OR
-					"途中在庫_入庫"  =='' THEN 0
-			ELSE "途中在庫_入庫" = CAST(!put as int4)
-		END,
-		 
-			"LOCAL在庫" = CAST(!local as int4),
-		CASE  
-			WHEN  "途中在庫_仕入" is null OR
-					"途中在庫_仕入"  ==0  OR
-					"途中在庫_仕入"  =='' THEN 0
-			ELSE "途中在庫_仕入" = CAST(!purchase as int4)
-		END,
-		    "更新日時"=now()
+		SET "途中在庫_仕入" = !purchase,
+			"更新日時"=now()
 		WHERE 
-		    "店舗ID" =!shopid
-	 	<if exists="asin"> AND (	
-		  "ASIN番号" = !asin
-		)
-	    </if>
-	   <if notexists="asin"> AND (	
-		  "ASIN番号" is NULL
-		)
-	   </if> 
-	 	<if exists="sku"> AND (	
-		  "SKU番号" = !sku
-		)
-	    </if>
-	   <if notexists="sku"> AND (	
-		  "SKU番号" is NULL
-		)
-	   </if>
-	
-		   
-</sql>
+			"店舗ID" =!shopid
+		<if exists="productno"> AND (	
+			"商品管理番号" = !productno
+			)
+			</if>
+		<if notexists="productno"> AND (	
+			"商品管理番号" is NULL
+			)
+		</if> 
+			<if exists="preproduct"> AND (	
+			"親子区分" = !preproduct
+			)
+			</if>
+		<if notexists="preproduct"> AND (	
+			"親子区分" is NULL
+			)
+		</if>
+			<if exists="producttype"> AND (	
+			"商品種別" = !producttype
+			)
+			</if>
+		<if notexists="producttype"> AND (	
+			"商品種別" is NULL
+			)
+		</if>
+		<if exists="productsub1"> AND (	
+			"分類１" = !productsub1
+			)
+			</if>
+		<if notexists="productsub1"> AND (	
+			"分類１" is NULL
+			)
+		</if>
+		<if exists="productsub2"> AND (	
+			"分類２" = !productsub2
+			)
+		</if>
+		<if notexists="productsub2"> AND (	
+			"分類２" is NULL
+			)
+		</if>
+	</sql>
 
-<!-- sl：Excel数据查询 -->
-<sql id="selectstock" >
- select
-	a."商品種別" as type,
-	a."商品管理番号" as no,
-	a."親子区分" as preproduct,	
-	a."分類１" as sub1,
-	a."分類２" as sub2,
-	a."ASIN番号" as asin,
-	a."SKU番号" as sku,
-	a."LABEL番号" as label,
-	a."商品名称" as productname,
-	a."仕入価格" as price,
- CASE
-	WHEN (d."FBA在庫" IS NULL OR d."FBA在庫" = 0 ) AND (d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )THEN NULL
-	WHEN ( d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )AND ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) THEN 'FBA'
-	WHEN  (d."FBA在庫" IS NULL OR d."FBA在庫" = 0) AND (d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL ) THEN 'FBM'
-	ELSE ''
- END  AS send ,
-	d."FBA在庫" as fba,
-	d."FBM在庫" as fbm,
-	d."途中在庫_入庫" as put,	
-	d."LOCAL在庫" as local,
-	d."途中在庫_仕入" as purchase,
-	
- ((CASE 
-	WHEN d."FBA在庫" is null THEN 0
-	ELSE CAST(d."FBA在庫" as int4) END)+
- (CASE 
-	WHEN d."FBM在庫" is null THEN 0
-	ELSE CAST(d."FBM在庫" as int4) END)+
- (CASE 
-	WHEN d."途中在庫_入庫" is null THEN 0
-	ELSE CAST(d."途中在庫_入庫" as int4) END)) as stockonsell,
+	<sql id="updatelocalstockflg0" paramPrefix="!">
+			UPDATE "MST_在庫情報" 
+			SET
+				CASE  
+					WHEN  "途中在庫_入庫" is null OR
+							"途中在庫_入庫"  ==0  OR
+							"途中在庫_入庫"  =='' THEN 0
+					ELSE "途中在庫_入庫" = CAST(!put as int4)
+				END,
+				
+					"LOCAL在庫" = CAST(!local as int4),
+				CASE  
+					WHEN  "途中在庫_仕入" is null OR
+							"途中在庫_仕入"  ==0  OR
+							"途中在庫_仕入"  =='' THEN 0
+					ELSE "途中在庫_仕入" = CAST(!purchase as int4)
+			END,
+				"更新日時"=now()
+			WHERE 
+				"店舗ID" =!shopid
+			<if exists="asin"> AND (	
+				"ASIN番号" = !asin
+			)
+			</if>
+			<if notexists="asin"> AND (	
+				"ASIN番号" is NULL
+				)
+			</if> 
+			<if exists="sku"> AND (	
+				"SKU番号" = !sku
+				)
+			</if>
+			<if notexists="sku"> AND (	
+				"SKU番号" is NULL
+				)
+			</if>
+			
+	</sql>
 
- ((CASE 
-	WHEN d."LOCAL在庫" is null THEN 0
-	ELSE CAST(d."LOCAL在庫" as int4) END)+
- (CASE 
-	WHEN d."途中在庫_仕入" is null THEN 0
-	ELSE CAST(d."途中在庫_仕入" as int4) END)) as stockprepare,
+	<sql id="updatelocalstockflg0_local" paramPrefix="!">
+		UPDATE "MST_在庫情報" 
+		SET "LOCAL在庫" = !local,
+			"更新日時"=now()
+		WHERE 
+			"店舗ID" =!shopid
+		<if exists="asin"> AND (	
+			"ASIN番号" = !asin
+			)
+		</if>
+		<if notexists="asin"> AND (	
+			"ASIN番号" is NULL
+			)
+		</if> 
+		<if exists="sku"> AND (	
+			"SKU番号" = !sku
+			)
+		</if>
+		<if notexists="sku"> AND (	
+			"SKU番号" is NULL
+			)
+		</if>
+	</sql>
 
- ((CASE WHEN d."FBA在庫" is null THEN 0
-	ELSE CAST(d."FBA在庫" as int4) END)+
- (CASE  WHEN d."FBM在庫" is null THEN 0
-	ELSE CAST(d."FBM在庫" as int4) END)+
- (CASE  WHEN d."途中在庫_入庫" is null THEN 0
-	ELSE CAST(d."途中在庫_入庫" as int4) END)+
- (CASE  WHEN d."LOCAL在庫" is null THEN 0
-	ELSE CAST(d."LOCAL在庫" as int4) END)+
- (CASE  WHEN d."途中在庫_仕入" is null THEN 0
-	ELSE CAST(d."途中在庫_仕入" as int4)  END)) as stockall,
-	
-	
- lpad((CASE  WHEN "販売数量（直近３日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３日間）" as VARCHAR) 
-	END), 3, '0')  as selled3, 
- lpad(	(CASE  WHEN "販売数量（直近７日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近７日間）" as VARCHAR) 
-	END), 3, '0')  as selled7,
- lpad(	(CASE  WHEN "販売数量（直近３０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３０日間）" as VARCHAR) 
-	END), 3, '0')  as selled30,
- lpad(	(CASE  WHEN "販売数量（直近６０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近６０日間）" as VARCHAR) 
-	END), 3, '0')  as selled60,
- lpad(	(CASE  WHEN "販売数量（直近９０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近９０日間）" as VARCHAR) 
-	END), 3, '0')  as selled90,
- lpad(	(CASE  WHEN "販売数量（直近１８０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近１８０日間）" as VARCHAR) 
-	END), 3, '0')  as selled180,
- lpad(	(CASE  WHEN "販売数量（直近３６０日間）" is null THEN '0'
-	ELSE CAST("販売数量（直近３６０日間）" as VARCHAR) 
-	END), 3, '0')  as selled360,
-	
-  round((((CASE  WHEN "販売数量（直近３日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３日間）" as int4) END) * 0.05)+
-	((CASE  WHEN "販売数量（直近７日間）" is null THEN 0
-	ELSE CAST("販売数量（直近７日間）" as int4) END) * 0.05)+
-	((CASE  WHEN "販売数量（直近３０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３０日間）" as int4) END) * 0.1)+
-	((CASE  WHEN "販売数量（直近６０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近６０日間）" as int4) END) * 0.3)+
-	((CASE  WHEN "販売数量（直近９０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近９０日間）" as int4) END) * 0.3)+
-	((CASE  WHEN "販売数量（直近１８０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近１８０日間）" as int4) END) * 0.1)+
-	((CASE  WHEN "販売数量（直近３６０日間）" is null THEN 0
-	ELSE CAST("販売数量（直近３６０日間）" as int4) END) * 0.1) ),2 ) AS dayaverage,
+	<sql id="updatelocalstockflg0_put" paramPrefix="!">
+		UPDATE "MST_在庫情報" 
+		SET "途中在庫_入庫" = !put,
+			"更新日時"=now()
+		WHERE 
+			"店舗ID" =!shopid
+		<if exists="asin"> AND (	
+			"ASIN番号" = !asin
+		)
+		</if>
+		<if notexists="asin"> AND (	
+			"ASIN番号" is NULL
+			)
+		</if> 
+		<if exists="sku"> AND (	
+			"SKU番号" = !sku
+			)
+		</if>
+		<if notexists="sku"> AND (	
+			"SKU番号" is NULL
+			)
+		</if>
+	</sql>
 
-	c."在庫販売可能日数" as stocknumber,
-	c."保有数量販売可能日数" as salenumber,	
-	c."推奨納品数量" as deliveryquantity,
-	c."推奨仕入数量" as purchasequantity
- from
-	"MST_出品マスタ情報" a
-	LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
-	LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
-    LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
-	LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
-		a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
-	LEFT JOIN "MST_ソート情報" S2 ON 
-		a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
-		a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"	
-	WHERE
+	<sql id="updatelocalstockflg0_purchase" paramPrefix="!">
+		UPDATE "MST_在庫情報" 
+		SET "途中在庫_仕入" = !purchase,
+			"更新日時"=now()
+		WHERE 
+			"店舗ID" =!shopid
+		<if exists="asin"> AND (	
+			"ASIN番号" = !asin
+		)
+		</if>
+		<if notexists="asin"> AND (	
+			"ASIN番号" is NULL
+			)
+		</if> 
+		<if exists="sku"> AND (	
+			"SKU番号" = !sku
+			)
+		</if>
+		<if notexists="sku"> AND (	
+			"SKU番号" is NULL
+			)
+		</if>
+	</sql>
+
+	<!-- sl：Excel数据查询 -->
+	<sql id="selectstock" >
+	select
+		a."商品種別" as type,
+		a."商品管理番号" as no,
+		a."親子区分" as preproduct,	
+		a."分類１" as sub1,
+		a."分類２" as sub2,
+		a."ASIN番号" as asin,
+		a."SKU番号" as sku,
+		a."LABEL番号" as label,
+		a."商品名称" as productname,
+		a."仕入価格" as price,
+	CASE
+		WHEN (d."FBA在庫" IS NULL OR d."FBA在庫" = 0 ) AND (d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )THEN NULL
+		WHEN ( d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )AND ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) THEN 'FBA'
+		WHEN  (d."FBA在庫" IS NULL OR d."FBA在庫" = 0) AND (d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL ) THEN 'FBM'
+		ELSE ''
+	END  AS send ,
+		d."FBA在庫" as fba,
+		d."FBM在庫" as fbm,
+		d."途中在庫_入庫" as put,	
+		d."LOCAL在庫" as local,
+		d."途中在庫_仕入" as purchase,
+		
+	((CASE 
+		WHEN d."FBA在庫" is null THEN 0
+		ELSE CAST(d."FBA在庫" as int4) END)+
+	(CASE 
+		WHEN d."FBM在庫" is null THEN 0
+		ELSE CAST(d."FBM在庫" as int4) END)+
+	(CASE 
+		WHEN d."途中在庫_入庫" is null THEN 0
+		ELSE CAST(d."途中在庫_入庫" as int4) END)) as stockonsell,
+
+	((CASE 
+		WHEN d."LOCAL在庫" is null THEN 0
+		ELSE CAST(d."LOCAL在庫" as int4) END)+
+	(CASE 
+		WHEN d."途中在庫_仕入" is null THEN 0
+		ELSE CAST(d."途中在庫_仕入" as int4) END)) as stockprepare,
+
+	((CASE WHEN d."FBA在庫" is null THEN 0
+		ELSE CAST(d."FBA在庫" as int4) END)+
+	(CASE  WHEN d."FBM在庫" is null THEN 0
+		ELSE CAST(d."FBM在庫" as int4) END)+
+	(CASE  WHEN d."途中在庫_入庫" is null THEN 0
+		ELSE CAST(d."途中在庫_入庫" as int4) END)+
+	(CASE  WHEN d."LOCAL在庫" is null THEN 0
+		ELSE CAST(d."LOCAL在庫" as int4) END)+
+	(CASE  WHEN d."途中在庫_仕入" is null THEN 0
+		ELSE CAST(d."途中在庫_仕入" as int4)  END)) as stockall,
+		
+		
+	lpad((CASE  WHEN "販売数量（直近３日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近３日間）" as VARCHAR) 
+		END), 3, '0')  as selled3, 
+	lpad(	(CASE  WHEN "販売数量（直近７日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近７日間）" as VARCHAR) 
+		END), 3, '0')  as selled7,
+	lpad(	(CASE  WHEN "販売数量（直近３０日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近３０日間）" as VARCHAR) 
+		END), 3, '0')  as selled30,
+	lpad(	(CASE  WHEN "販売数量（直近６０日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近６０日間）" as VARCHAR) 
+		END), 3, '0')  as selled60,
+	lpad(	(CASE  WHEN "販売数量（直近９０日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近９０日間）" as VARCHAR) 
+		END), 3, '0')  as selled90,
+	lpad(	(CASE  WHEN "販売数量（直近１８０日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近１８０日間）" as VARCHAR) 
+		END), 3, '0')  as selled180,
+	lpad(	(CASE  WHEN "販売数量（直近３６０日間）" is null THEN '0'
+		ELSE CAST("販売数量（直近３６０日間）" as VARCHAR) 
+		END), 3, '0')  as selled360,
+		
+	round((((CASE  WHEN "販売数量（直近３日間）" is null THEN 0
+		ELSE CAST("販売数量（直近３日間）" as int4) END) * 0.05)+
+		((CASE  WHEN "販売数量（直近７日間）" is null THEN 0
+		ELSE CAST("販売数量（直近７日間）" as int4) END) * 0.05)+
+		((CASE  WHEN "販売数量（直近３０日間）" is null THEN 0
+		ELSE CAST("販売数量（直近３０日間）" as int4) END) * 0.1)+
+		((CASE  WHEN "販売数量（直近６０日間）" is null THEN 0
+		ELSE CAST("販売数量（直近６０日間）" as int4) END) * 0.3)+
+		((CASE  WHEN "販売数量（直近９０日間）" is null THEN 0
+		ELSE CAST("販売数量（直近９０日間）" as int4) END) * 0.3)+
+		((CASE  WHEN "販売数量（直近１８０日間）" is null THEN 0
+		ELSE CAST("販売数量（直近１８０日間）" as int4) END) * 0.1)+
+		((CASE  WHEN "販売数量（直近３６０日間）" is null THEN 0
+		ELSE CAST("販売数量（直近３６０日間）" as int4) END) * 0.1) ),2 ) AS dayaverage,
+
+		c."在庫販売可能日数" as stocknumber,
+		c."保有数量販売可能日数" as salenumber,	
+		c."推奨納品数量" as deliveryquantity,
+		c."推奨仕入数量" as purchasequantity
+	from
+		"MST_出品マスタ情報" a
+		LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
+		LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
+		LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
+		LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
+			a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
+		LEFT JOIN "MST_ソート情報" S2 ON 
+			a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
+			a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"	
+		WHERE
+				1=1
+		AND a."親子区分" = '子商品'
+			AND A."店舗ID" = :shopid  
+		ORDER BY
+			a."商品管理番号",
+			a."親子区分" desc,
+			COALESCE(cast(S1."ソート" as varchar), a."分類１"),
+			COALESCE(cast(S2."ソート" as varchar), a."分類２")
+	</sql>
+
+	<sql id="selectstockinfo">
+		select 
+			T.type,
+			T.pno,
+			T.preproduct,	
+			T.sub1,
+			T.sub2,
+			T.asin,
+			T.sku,
+			T.label,
+			T.productname,
+			T.shippingway,
+			T.fba,
+			T.fbm,
+			T.put,
+			T.local,
+			T.purchase,
+			T.stockonsell,
+			T.stockprepare,
+			T.stockall,
+			T.selled3,
+			T.selled7,
+			T.selled30,
+			T.selled60,
+			T.selled90,
+			T.selled180,
+			T.selled360,
+			T.dayaverage,
+			T.stocknumber,
+			T.salenumber,
+			T.deliveryquantity,
+			T.purchasequantity,
+			T.zt_flg
+		from
+			(
+				select
+					a."商品種別" as type,
+					a."商品管理番号" as pno,
+					a."親子区分" as preproduct,	
+					a."分類１" as sub1,
+					a."分類２" as sub2,
+					a."ASIN番号" as asin,
+					a."SKU番号" as sku,
+					a."LABEL番号" as label,
+					a."商品名称" as productname,
+					case
+						when a."親子区分" = '親商品' then null
+						when d."FBA在庫" != 0 then 'FBA'
+						when d."FBA在庫" is null and d."FBM在庫" is null then '-'
+						when d."FBA在庫" is null and d."FBM在庫" is not null then 'FBM'
+						when d."FBA在庫" = 0 and d."FBM在庫" is null then 'FBA'
+						when d."FBA在庫" = 0 and d."FBM在庫" = 0 then '-'
+						when d."FBA在庫" = 0 and d."FBM在庫" != 0 then 'FBM'
+					end as shippingway,
+					d."FBA在庫" as fba,
+					d."FBM在庫" as fbm,
+					d."途中在庫_入庫" as put,	
+					d."LOCAL在庫" as local,
+					d."途中在庫_仕入" as purchase,
+					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
+					COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
+					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
+					lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
+					lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
+					lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
+					lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
+					lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
+					lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
+					lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
+					round(
+						COALESCE(b."販売数量（直近３日間）", 0) / 3 * 0.05 +
+						COALESCE(b."販売数量（直近７日間）", 0) / 7 * 0.05 +
+						COALESCE(b."販売数量（直近３０日間）", 0) / 30 * 0.1 +
+						COALESCE(b."販売数量（直近６０日間）", 0) / 60 * 0.3 +
+						COALESCE(b."販売数量（直近９０日間）", 0) / 90 * 0.3 +
+						COALESCE(b."販売数量（直近１８０日間）", 0) / 180 * 0.1 +
+						COALESCE(b."販売数量（直近３６０日間）", 0) / 360 * 0.1,
+						2
+					) as dayaverage,
+					c."在庫販売可能日数" as stocknumber,
+					c."保有数量販売可能日数" as salenumber,
+					c."推奨納品数量" as deliveryquantity,
+					c."推奨仕入数量" as purchasequantity,
+					a."店舗ID" as shopid,
+					a."暫定フラグ" as zt_flg
+				from
+					"MST_出品マスタ情報" a
+					left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" and a."SKU番号"=b."SKU番号" and a."店舗ID" = b."店舗ID"
+					left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号"=c."ASIN番号" and a."SKU番号"=c."SKU番号" and a."店舗ID" = c."店舗ID"
+					left join "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号" and a."SKU番号"=d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
+				where
+					a."暫定フラグ" = '0'
+					and
+					a."店舗ID" = :shopid
+				
+				union all
+				
+				select
+					a."商品種別" as type,
+					a."商品管理番号" as pno,
+					a."親子区分" as preproduct,	
+					a."分類１" as sub1,
+					a."分類２" as sub2,
+					a."ASIN番号" as asin,
+					a."SKU番号" as sku,
+					a."LABEL番号" as label,
+					a."商品名称" as productname,
+					null as shippingway,
+					d."FBA在庫" as fba,
+					d."FBM在庫" as fbm,
+					d."途中在庫_入庫" as put,	
+					d."LOCAL在庫" as local,
+					d."途中在庫_仕入" as purchase,
+					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
+					COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
+					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
+					null as selled3,
+					null as selled7, 
+					null as selled30, 
+					null as selled60, 
+					null as selled90, 
+					null as selled180, 
+					null as selled360, 
+					null as dayaverage,
+					null as stocknumber,
+					null as salenumber,
+					null as deliveryquantity,
+					null as purchasequantity,
+					a."店舗ID" as shopid,
+					a."暫定フラグ" as zt_flg
+				from
+					"MST_出品マスタ情報" a
+					left join "MST_在庫情報" d on 
+						a."商品管理番号"=d."商品管理番号" and 
+						a."親子区分"=d."親子区分" and 
+						a."商品種別"=d."商品種別" and 
+						a."分類１"=d."分類１" and 
+						a."分類２"=d."分類２" and 
+						a."暫定フラグ" = d."暫定フラグ" and 
+						a."店舗ID" = d."店舗ID" 
+				where
+					a."暫定フラグ" = '1'
+					and
+					a."店舗ID" = :shopid
+			) T
+			LEFT JOIN "MST_ソート情報" S1 ON 
+				T."type" = S1."商品種別" AND 
+				S1."分類" = '分類１' AND 
+				T."sub1" = S1."内容" AND
+				T."shopid" = S1."店舗ID"
+			LEFT JOIN "MST_ソート情報" S2 ON 
+				T."type" = S2."商品種別" AND 
+				S2."分類" = '分類２' AND 
+				T."sub2" = S2."内容" AND
+				T."shopid" = S2."店舗ID"
+		where
 			1=1
-	AND a."親子区分" = '子商品'
-		AND A."店舗ID" = :shopid  
-	ORDER BY
-		a."商品管理番号",
-		a."親子区分" desc,
-    	COALESCE(cast(S1."ソート" as varchar), a."分類１"),
-    	COALESCE(cast(S2."ソート" as varchar), a."分類２")
-</sql>
-  
+			<if exists="opt_productno"> and (
+				<if istrue="opt_productno == 'マスタ未登録'"> T."pno" is null </if>
+				<if istrue="opt_productno != 'マスタ未登録'"> T."pno" = :opt_productno </if>
+				)
+			</if>
+
+			<if exists="text_keyword"> and (
+				UPPER(T."type") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."pno") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."preproduct") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."sub1") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."sub2") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."sku") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."asin") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."label") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."productname") LIKE concat('%', :text_keyword ,'%') 
+				)
+			</if>
+
+			<if exists="ptype"> and (	
+				T."type" IN (@ptype)
+				)
+			</if>
+
+			<if exists="shippingway"> and (	
+				T."shippingway" IN (@shippingway)
+				)
+			</if>
+
+			order by
+				T."pno",
+				T."preproduct" desc,
+				COALESCE(cast(S1."ソート" as varchar), T."sub1"),
+				COALESCE(cast(S2."ソート" as varchar), T."sub2")
+	</sql>
  
 </sqls>
 

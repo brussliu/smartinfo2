@@ -5,59 +5,119 @@ stockinfo_update.paramsFormat = {
 };
 
 stockinfo_update.fire = function (params) {
+
 	var ret = new Result();
 
-	var alllocalArr = params["alllocalArr"];
 	// セッションチェック
 	sessionCheck(ret);
 
+	var alllocalArr = params["alllocalArr"];
 
 	for (var i = 0; i < alllocalArr.length; i++) {
 
 		var localinfo = alllocalArr[i];
-		var sku = localinfo[0];
-		var asin = localinfo[1];
-		var local = localinfo[2];
-		var producttype = localinfo[3];
-		var productno = localinfo[4];
-		var preproduct = localinfo[5];
-		var productsub1 = localinfo[6];
-		var productsub2 = localinfo[7];
+
+		var flg = localinfo[0];
+		var sku = localinfo[1];
+		var asin = localinfo[2];
+		var local = localinfo[3];
+		var producttype = localinfo[4];
+		var productno = localinfo[5];
+		var preproduct = localinfo[6];
+		var productsub1 = localinfo[7];
+		var productsub2 = localinfo[8];
+		var put = localinfo[9];
+		var purchase = localinfo[10];
 	 
-		// ASIN，SKU为空时，表示暂定数据,更新local
-		if (sku == '' ||sku == null && asin == '' || asin == null){
+		// 暫定データ
+		if (flg == "1"){
 			var updateResult = db.change(
 				"STOCK",
-				"updatelocalstockflg1",
+				"updatelocalstockflg1_local",
 				{
 					producttype: producttype,
 					productno: productno,
 					preproduct: preproduct,
 					productsub1: productsub1,
 					productsub2: productsub2,
-					local: local,
+					local: parseInt(local),
 					shopid: getShopId(),
 				}
 			);
-			updateResult.debug("-------updatelocalstockflg1");
-	}else if(sku != '' && sku != null && asin != '' && asin != null){
-	// ASIN，SKU不为空时，表示非暂定数据,更新local
-		var updateResult2 = db.change(
-			"STOCK",
-			"updatelocalstockflg0",
-			{
-				asin:asin,
-				sku:sku,
-				local: local,
-				shopid: getShopId(),
+			if(put != null){
+				var updateResult = db.change(
+					"STOCK",
+					"updatelocalstockflg1_put",
+					{
+						producttype: producttype,
+						productno: productno,
+						preproduct: preproduct,
+						productsub1: productsub1,
+						productsub2: productsub2,
+						put: parseInt(put),
+						shopid: getShopId(),
+					}
+				);
 			}
-		);
-		updateResult2.debug("-------updatelocalstockflg0");
+			if(purchase != null){
+				var updateResult = db.change(
+					"STOCK",
+					"updatelocalstockflg1_purchase",
+					{
+						producttype: producttype,
+						productno: productno,
+						preproduct: preproduct,
+						productsub1: productsub1,
+						productsub2: productsub2,
+						purchase: parseInt(purchase),
+						shopid: getShopId(),
+					}
+				);
+			}
+	
+		// 非暫定データ
+		}else if(flg == "0"){
+
+			var updateResult2 = db.change(
+				"STOCK",
+				"updatelocalstockflg0_local",
+				{
+					asin:asin,
+					sku:sku,
+					local: parseInt(local),
+					shopid: getShopId(),
+				}
+			);
+			if(put != null){
+				var updateResult2 = db.change(
+					"STOCK",
+					"updatelocalstockflg0_put",
+					{
+						asin:asin,
+						sku:sku,
+						put: parseInt(put),
+						shopid: getShopId(),
+					}
+				);
+			}
+			if(purchase != null){
+				var updateResult2 = db.change(
+					"STOCK",
+					"updatelocalstockflg0_purchase",
+					{
+						asin:asin,
+						sku:sku,
+						purchase: parseInt(purchase),
+						shopid: getShopId(),
+					}
+				);
+			}
+		}
 	}
-}
 
 
 	// 画面へ結果を返す
 	ret.eval("searchstockinfo();");
+
 	return ret;
 };

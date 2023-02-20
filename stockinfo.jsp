@@ -25,21 +25,24 @@
                         producttypeArr.push($(this).val());
                     });
 
-                    var send = new Array();
-                    $('#checkbox_send input:checkbox:checked').each(function (index, item) {
-                        send.push($(this).val());
-                    });
-                    Efw('stockinfo_search', { 'producttypeArr': producttypeArr, 'send': send });
+                    // var send = new Array();
+                    // $('#checkbox_send input:checkbox:checked').each(function (index, item) {
+                    //     send.push($(this).val());
+                    // });
+                    Efw('stockinfo_search', { 'producttypeArr': producttypeArr});
                 }
 
                 // 选中当前数据，编辑LOCAL在庫
                 function check(val) {
-                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
-                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
-                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    // 途中（納品）
+                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next();
+                    // 途中（LOCAL）
+                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    // 途中（仕入）
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
 
                     if ($(val).is(':checked')) {
                         if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
@@ -74,37 +77,32 @@
 
                         var tdArr = $(this).children();
 
-                        if (tdArr.eq(0).children().get(0).checked) {
+                        var checkbox = tdArr.eq(0).children().get(0);
+
+                        if (checkbox != undefined && checkbox.checked) {
+
+                            // 暫定フラグ
+                            var flg = tdArr.eq(0).children().eq(1).val();
                             // ASIN番号
                             var asin = tdArr.eq(6).html();
-                            console.log(asin)
                             // SKU番号
                             var sku = tdArr.eq(7).html();
-                            console.log(sku)
-
                             // LOCAL在庫
-                            var local = tdArr.eq(14).children().next().val();
-                            console.log(local)
-
+                            var local = tdArr.eq(13).children().next().val();
                             // 商品種別
                             var producttype = tdArr.eq(1).children().html();
-                            console.log(producttype)
                             // 商品管理番号
                             var productno = tdArr.eq(2).html();
-                            console.log(productno)
                             // 親子区分
                             var preproduct = tdArr.eq(3).html();
-                            console.log(preproduct)
                             // 分類①
                             var productsub1 = tdArr.eq(4).children().html();
-                            console.log(productsub1)
                             // 分類②
                             var productsub2 = tdArr.eq(5).children().html();
-                            console.log(productsub2)
-
 
                             var localArr = new Array();
 
+                            localArr.push(flg);
                             localArr.push(sku);
                             localArr.push(asin);
                             localArr.push(local);
@@ -113,25 +111,25 @@
                             localArr.push(preproduct);
                             localArr.push(productsub1);
                             localArr.push(productsub2);
-                            //途中（入庫）
-                            var put = tdArr.eq(13);
-                            if (put.data("text") != "undefined") {
-                                var putval = tdArr.eq(13).children().next().val();
-                                localArr.push(putval);
-                            }
-                            console.log(put);
-                            console.log(putval);
-                            // 途中（仕入）
-                            var purchase = tdArr.eq(15).children().next().val();
-                            console.log(purchase)
 
-                            var purchase = tdArr.eq(15);
+                            //途中（入庫）
+                            var put = tdArr.eq(12);
+                            if (put.data("text") != "undefined") {
+                                var putval = tdArr.eq(12).children().next().val();
+                                localArr.push(putval);
+                            }else{
+                                localArr.push(null);
+                            }
+
+                            // 途中（仕入）
+                            var purchase = tdArr.eq(14);
                             if (purchase.data("text") != "undefined") {
                                 var purchaseval = tdArr.eq(15).children().next().val();
                                 localArr.push(purchaseval);
+                            }else{
+                                localArr.push(null);
                             }
-                            console.log(purchase);
-                            console.log(purchaseval);
+
                             alllocalArr.push(localArr);
 
                         }
@@ -144,18 +142,17 @@
 
                 }
 
-
-                // 输出納品EXCEL
-                function outputdeliver(val) {
+                // 出力（１：納品出力　２：仕入出力）
+                function output(val) {
                     console.log("outputdeliver");
                     Efw('stockinfo_output', { 'exl': val });
                 }
 
-                // 输出仕入EXCEL
-                function outputreceiving(val) {
-                    console.log("outputreceiving");
-                    Efw('stockinfo_output', { 'exl': val });
-                }
+                // // 输出仕入EXCEL
+                // function outputreceiving(val) {
+                //     console.log("outputreceiving");
+                //     Efw('stockinfo_output', { 'exl': val });
+                // }
                 
                 function changeColor() {
 
@@ -165,7 +162,6 @@
                     $("#stocktable").find("tr").each(function () {
 
                         var tdArr = $(this).children();
-
 
                         // 商品管理番号
                         var newproductno = tdArr.eq(2).html();
@@ -201,205 +197,7 @@
                         }
                         oldproductno = newproductno;
 
-                        // 入力足りない
 
-                        // １，商品種別が未入力
-                        var inputValue = tdArr.eq(1).children(0).html();
-                        if (inputValue == null || inputValue == "") {
-                            tdArr.eq(1).css({ "background": "rgb(255,150,150)" });
-                        }
-                        // ２，商品管理番号が未入力
-                        var inputValue = tdArr.eq(2).html();
-                        if (inputValue == null || inputValue == "") {
-                            tdArr.eq(2).css({ "background": "rgb(255,150,150)" });
-                        }
-                        // ３，商品分類が未入力
-                        var inputValue1 = tdArr.eq(4).children(0).html();
-                        var inputValue2 = tdArr.eq(5).children(0).html();
-                        if (productkinds == "親商品") {
-                            if (inputValue1 != null && inputValue1 != "") {
-                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
-                            }
-                            if (inputValue2 != null && inputValue2 != "") {
-                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
-                            }
-                        } else {
-                            if (
-                                (inputValue1 == null || inputValue1 == "") &&
-                                (inputValue2 == null || inputValue2 == "")
-                            ) {
-                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
-                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        // ４，暫定商品
-                        var inputValue1 = tdArr.eq(6).html();
-                        var inputValue2 = tdArr.eq(7).html();
-                        if (inputValue1 == null || inputValue1 == "") {
-                            $(this).css({ "background": "rgb(200,200,200)" });
-                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
-                        }
-                        if (inputValue2 == null || inputValue2 == "") {
-                            $(this).css({ "background": "rgb(200,200,200)" });
-                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
-                        }
-                        // ５，LABEL番号
-                        var inputValue = tdArr.eq(8).html();
-                        if (productkinds == "親商品") {
-                            if (inputValue != null && inputValue != "") {
-                                tdArr.eq(8).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        // ６，商品名称
-                        var inputValue = tdArr.eq(9).children(0).html();
-                        
-                            if (inputValue == null || inputValue == "") {
-                                tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
-                              }
-                    
-                       
-                        // ７，发送方式
-                        var inputValue = tdArr.eq(10).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != ""){
-                                tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == ""){
-                                tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                        
-                            // 8，途中（入庫）
-                            var inputValue = tdArr.eq(13).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(13).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(13).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-     
-                            // 9，LOCAL在庫
-                            var inputValue = tdArr.eq(14).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(14).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(14).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                            // 10，途中（仕入）
-                            var inputValue = tdArr.eq(15).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(15).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(15).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                        
-                            // 11，在庫合計（販売中）
-                            var inputValue = tdArr.eq(16).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(16).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(16).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-     
-                            // 12，	在庫合計（予備）
-                            var inputValue = tdArr.eq(17).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(17).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(17).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                            // 13，在庫合計（全体）
-                            var inputValue = tdArr.eq(18).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(18).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(18).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                              // 14，販売数量（3日/7日/30日/60日/90日/180日/360日）
-                              var inputValue = tdArr.eq(19).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "000 / 000 / 000 / 000 / 000 / 000 / 000"){
-                                tdArr.eq(19).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "000 / 000 / 000 / 000 / 000 / 000 / 000"){
-                                tdArr.eq(19).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                              // 15，販売数量（日平均値）
-                              var inputValue = tdArr.eq(20).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(20).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(20).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                              // 16，販売可能期間（販売中）
-                              var inputValue = tdArr.eq(21).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(21).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(21).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-
-                                  // 17，販売可能期間（全体）
-                                  var inputValue = tdArr.eq(22).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != "" && inputValue != "0"){
-                                tdArr.eq(22).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == "0"){
-                                tdArr.eq(22).css({ "background": "rgb(255,150,150)" });
-                            }
-                        }
                     });
                 }
             </script>
@@ -449,10 +247,10 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 200px;"><button onclick="searchstockinfo()">検索</button></td>
+                                    <td style="width: 200px;"><button onclick="output('1')">納品出力</button></td>
+                                    <td style="width: 200px;"><button onclick="output('2')">仕入出力</button></td>
                                     <td style="width: 200px;"><button onclick="updatestock()">更新</button></td>
-                                    <td style="width: 200px;"><button onclick="outputdeliver('1')">納品出力</button></td>
-                                    <td style="width: 200px;"><button onclick="outputreceiving('2')">仕入出力</button></td>
+                                    <td style="width: 200px;"><button onclick="searchstockinfo()">検索</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -485,8 +283,8 @@
                               
                                     <td style="width: 110px;font-weight: bold;">発送方式：</td>
                                     <td style="width: 180px;" id="checkbox_send">
-                                        <input type="checkbox" value="FBA"> FBA
-                                        &ensp; <input type="checkbox" value="FBM"> FBM
+                                        <input type="checkbox" value="FBA" id="shippingway_fba"> FBA
+                                        &ensp; <input type="checkbox" value="FBM" id="shippingway_fbm"> FBM
 
                                     </td>
                                     <td style="width: 110px;font-weight: bold;">
@@ -503,7 +301,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
-                        <table class="table_detail_header" style="width: 2597px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2685px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
@@ -523,28 +321,29 @@
                                     <th style="width: 80px;">FBA在庫</th>
                                     <th style="width: 80px;">FBM在庫</th>
 
-                                    <th style="width: 80px">途中<br>（入庫）</th>
+                                    <th style="width: 80px;">途中<br>（入庫）</th>
                                     <th style="width: 80px;">LOCAL<br>在庫</th>
                                     <th style="width: 80px;">途中<br>（仕入）</th>
 
                                     <th style="width: 80px;">在庫合計<br>（販売中）</th>
                                     <th style="width: 80px;">在庫合計<br>（予備）</th>
-                                    <th style="width: 80px">在庫合計<br>（全体）</th>
+                                    <th style="width: 80px;">在庫合計<br>（全体）</th>
 
-                                    <th style="width: 320px;">販売数量<br>（3日/7日/30日/60日/90日/180日/360日）</th>
+                                    <th style="width: 350px;">販売数量<br>（3日/7日/30日/60日/90日/180日/360日）</th>
                                     <th style="width: 100px;">販売数量<br>（日平均値）</th>
                                     <th style="width: 100px;">販売可能期間<br>（販売中）</th>
 
                                     <th style="width: 100px;">販売可能期間<br>（全体）</th>
-                                    <th style="width: 100px">推奨納品数量</th>
-                                    <th style="width: 117px">推奨仕入数量</th>
+                                    <th style="width: 100px;">推奨納品数量</th>
+                                    <th style="width: 117px;">推奨仕入数量</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2580px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2668px;table-layout: fixed;" id="stocktable">
                             <tbody>
+                                <!-- 
                                 <tr>
                                     <td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this)"
                                             name="choice"></input></td>
@@ -580,45 +379,8 @@
                                     <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
                                     <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
 
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this)"
-                                            name="choice"></input></td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">number(W001)</td>
-
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 817px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
-
-                                    <td style="width: 80px;" class="c">fma</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-
-
-                                    <td style="width: 80px;" class="c"><span>{lsssscal}</span> </td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 320px;" class="r">999 / 999 / 999 / 999 / 999 / 999 / 999</td>
-
-                                    <td style="width: 100px;" class="r"><span class="r5">9999.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-
-                                </tr>
-
+                                </tr> 
+                                -->
                             </tbody>
                         </table>
                     </div>
