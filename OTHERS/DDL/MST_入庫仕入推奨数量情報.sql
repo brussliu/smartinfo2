@@ -3,6 +3,11 @@ drop table public."MST_入庫仕入推奨数量情報";
 create table public."MST_入庫仕入推奨数量情報" (
     "SKU番号" character varying(12)
   , "ASIN番号" character varying(20)
+  , "商品管理番号" character varying(20)
+  , "親子区分" character varying(20)
+  , "商品種別" character varying(50)
+  , "分類１" character varying(100)
+  , "分類２" character varying(100)
   , "在庫販売可能日数" int
   , "保有数量販売可能日数" int
   , "推奨納品数量" int
