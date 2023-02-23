@@ -181,7 +181,7 @@
 
                 }
 
-                function changeColor() {
+                function changeColor(hideflg) {
 
                     var oyflg = false;
                     var oldproductno = "";
@@ -223,16 +223,18 @@
                         oldproductno = newproductno;
 
                         // 入力足りない
-
+                        var displayflg = false;
                         // １，商品種別が未入力
                         var inputValue = tdArr.eq(1).children(0).html();
                         if(inputValue == null || inputValue == ""){
                             tdArr.eq(1).css({ "background": "rgb(255,150,150)" });
+                            displayflg = true;
                         }
                         // ２，商品管理番号が未入力
                         var inputValue = tdArr.eq(2).html();
                         if(inputValue == null || inputValue == ""){
                             tdArr.eq(2).css({ "background": "rgb(255,150,150)" });
+                            displayflg = true;
                         }
                         // ３，商品分類が未入力
                         var inputValue1 = tdArr.eq(4).children(0).html();
@@ -240,9 +242,11 @@
                         if (productkinds == "親商品") {
                             if(inputValue1 != null && inputValue1 != ""){
                                 tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                             if(inputValue2 != null && inputValue2 != ""){
                                 tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }else{
                             if(
@@ -251,6 +255,7 @@
                             ){
                                 tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
                                 tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }
                         // ４，暫定商品
@@ -259,16 +264,19 @@
                         if(inputValue1 == null || inputValue1 == ""){
                             $(this).css({ "background": "rgb(200,200,200)" });
                             tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                            displayflg = true;
                         } 
                         if(inputValue2 == null || inputValue2 == ""){
                             $(this).css({ "background": "rgb(200,200,200)" });
                             tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                            displayflg = true;
                         }
                         // ５，LABEL番号
                         var inputValue = tdArr.eq(8).html();
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
                                 tdArr.eq(8).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }
                         // ６，仕入価格
@@ -276,11 +284,13 @@
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
                                 tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }
                         if (productkinds == "子商品") {
                             if(inputValue == null || inputValue == "" || inputValue == 0){
                                 tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }
                         // ７，FBA発送方式
@@ -288,11 +298,19 @@
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
                                 tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
                             }
                         }
                         if (productkinds == "子商品") {
                             if(inputValue == null || inputValue == ""){
                                 tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
+                            }
+                        }
+
+                        if(hideflg == 1){
+                            if(displayflg == false){
+                                $(this).hide();
                             }
                         }
 
@@ -398,10 +416,10 @@
                                     <td style="width: 220px;">
                                         <input type="text" style="width: 200px;height: 30px;" id="keyword"></input>
                                     </td>
-                                    <td style="width: 120px;font-weight: bold;"><!--表示項目：--></td>
-                                    <td style="width: 250px;" id="displayitem">
-                                        <!-- <input type="checkbox" id="displayItem1" onclick="showitem(this);" value="ASIN、SKU、LABEL" checked>
-                                        ASIN、SKU、LABEL -->
+                                    <td style="width: 120px;font-weight: bold;">表示条件：</td>
+                                    <td style="width: 250px;">
+                                        <input type="checkbox" id="notenough" value="1">
+                                        入力不足項目のみ
                                     </td>
 
                                 </tr>

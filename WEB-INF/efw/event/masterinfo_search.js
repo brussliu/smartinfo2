@@ -4,6 +4,7 @@ masterinfo_search.paramsFormat={
 	"producttype":null,
 	"#productno":null,
 	"#keyword":null,
+	"#notenough":null,
 	//"displayflg2":null,
 	//"#displayItem1":null
 
@@ -16,6 +17,8 @@ masterinfo_search.fire=function(params){
 	var pdArr = params["producttype"];
 	var productno = params["#productno"];
 	var keyword = params["#keyword"].toUpperCase();
+	var notenough = params["#notenough"];
+
 	//var displayflg2 = params["displayflg2"];
 	var type="";
 	for(let i=0;i<pdArr.length;i++){
@@ -70,7 +73,13 @@ masterinfo_search.fire=function(params){
 
 	ret.show('.c_detail_header').show('.c_detail_content');
 
-	ret.eval("changeColor()");
+	//notenough.debug("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+
+	if(notenough != null && notenough != ""){
+		ret.eval("changeColor(1)");
+	}else{
+		ret.eval("changeColor(0)");
+	}
 
 	// 画面へ結果を返す
 	return ret;

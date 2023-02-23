@@ -13,18 +13,14 @@ stockinfo_output.fire = function (params) {
 
 	var exl = params["exl"];
 
-	var selectResult = db.select(
-		"STOCK",
-		"selectstock",
-		{
-			shopid: getShopId(),
+	// 非暫定データ
+	var selectResult0 = db.select("STOCK", "selectstockinfo0_excel", {shopid: getShopId()}).getArray();
+	// 暫定データ
+	var selectResult1 = db.select("STOCK", "selectstockinfo1_excel", {shopid: getShopId()}).getArray();
 
-		}
-	).getArray();
+	var tempFilePathName = writeExcel(selectResult0, selectResult1, exl);
 
 	if(exl=='1'){
-
-		var tempFilePathName = deliver(selectResult);
 
 		ret.attach(tempFilePathName)
 		.saveas(getShopId()+"納品情報_" + (new Date()).format("yyyyMMdd") + ".xlsx")
@@ -32,95 +28,86 @@ stockinfo_output.fire = function (params) {
 
 	}else{
 
-		var tempFilePathName = receiving(selectResult);
-
 		ret.attach(tempFilePathName)
-		.saveas(getShopId()+"仕入上納_" + (new Date()).format("yyyyMMdd") + ".xlsx")
+		.saveas(getShopId()+"仕入情報_" + (new Date()).format("yyyyMMdd") + ".xlsx")
 		.deleteAfterDownload();
 	}
 
 	return ret;
 };
 
-// 納品EXCEL
-function deliver(selectResult) {
+// Excelファイル書き込み
+function writeExcel(selectResult0, selectResult1, exl) {
+
+	var sheet1 = "DELIVERYLIST";
+	var sheet2 = "PURCHASELIST";
+	var sheet0 = "";
+	if(exl == '1'){
+		sheet0 = sheet1;
+	}else{
+		sheet0 = sheet2;
+	}
+
 	// テンプレートにより、EXCELオブジェクトを作成する
 	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
 	var tempFilePathName = file.getTempFileName();
-	var Y_from = 3;//EXCEL数据起始行
-	var type_no = 0;//商品分类数组序号
-	var typearray = new Array();//所有商品类别
 
-	// sl:检索所有分类，存放数组中
-	typearray.push(returnType(selectResult[0]["type"]));
-	for (var j = 1; j < selectResult.length; j++) {
-		if (selectResult[j]["type"] != selectResult[j - 1]["type"]) {
-			typearray.push(returnType(selectResult[j]["type"]))
+	var y_from = 3;
+	var old_type = "";
+	var new_type = "";
+	var firstsheet = "";
+
+	// 非暫定データ
+	for (var i = 0; i < selectResult0.length; i++) {
+
+		if (i == 0){
+			firstsheet = selectResult0[i]["type"].replaceAll(':', '.');
 		}
-	}
-		// 循环插入数据
-	for (var i = 0; i < selectResult.length; i++) {
 
-		if (i == 0) {//第一个商品分类
-			// sl:克隆分页
-			excel.createSheet(typearray[type_no], "DELIVERYLIST");
+		new_type = selectResult0[i]["type"].replaceAll(':', '.');
 
-		} else {
-			// 判断与上一条数据的类别是否相等，相等则创建新分页
-			if (selectResult[i - 1]["type"] != selectResult[i]["type"]) {
-				type_no++;//下一个商品分类
-				excel.createSheet(typearray[type_no], "DELIVERYLIST");
-				Y_from = 3;//重新从第三行开始插入数据
+		if (new_type != old_type) {
+
+			if(old_type != ""){
+				excel.delRow(old_type, y_from - 1, 500 - y_from + 1);
 			}
-		}
+
+			excel.createSheet(new_type, sheet0);
+
+			y_from = 3;
+
+		} 
 		// 设定值
-		setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from);
-		Y_from++;//下一行
+		setInfoToExcel(excel, selectResult0[i], new_type, y_from);
+		old_type = new_type;
+		y_from ++;
+
 	}
 
-	excel.hideSheet("DELIVERYLIST").hideSheet("PURCHASELIST");
-	excel.setActiveSheet(typearray[0]).save(tempFilePathName);
+	// 暫定データ
+	if(selectResult1.length > 0){
+
+		excel.createSheet("暫定データ", sheet0);
+		y_from = 3;
+
+		for (var i = 0; i < selectResult1.length; i++) {
+
+			excel.delRow("暫定データ", y_from - 1, 500 - y_from + 1);
+
+			// 设定值
+			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from);
+			y_from ++;
+
+		}
+
+	}
+
+	excel.hideSheet(sheet1).hideSheet(sheet2);
+	excel.setActiveSheet(firstsheet).save(tempFilePathName);
+
 	return tempFilePathName;
 }
-// 仕入EXCEL
-function receiving(selectResult) {
-	// テンプレートにより、EXCELオブジェクトを作成する
-	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
-	var tempFilePathName = file.getTempFileName();
-	var Y_from = 3;//EXCEL数据起始行
-	var type_no = 0;//商品分类数组序号
-	var typearray = new Array();//所有商品类别
 
-	// sl:检索所有分类，存放数组中
-	typearray.push(returnType(selectResult[0]["type"]));
-	for (var j = 1; j < selectResult.length; j++) {
-		if (selectResult[j]["type"] != selectResult[j - 1]["type"]) {
-			typearray.push(returnType(selectResult[j]["type"]))
-		}
-	}
-		// 循环插入数据
-	for (var i = 0; i < selectResult.length; i++) {
-
-		if (i == 0) {//第一个商品分类
-			// sl:克隆分页
-			excel.createSheet(typearray[type_no], "PURCHASELIST");
-		} else {
-			// 判断与上一条数据的类别是否相等，相等则创建新分页
-			if (selectResult[i - 1]["type"] != selectResult[i]["type"]) {
-				type_no++;//下一个商品分类
-				excel.createSheet(typearray[type_no], "PURCHASELIST");
-				Y_from = 3;//重新从第三行开始插入数据
-			}
-		}
-		// 设定值
-		setInfoToExcel(excel, selectResult[i], typearray[type_no], Y_from);
-		Y_from++;//下一行
-	}
-	
-	excel.hideSheet("DELIVERYLIST").hideSheet("PURCHASELIST");
-	excel.setActiveSheet(typearray[0]).save(tempFilePathName);
-	return tempFilePathName;
-}
 
 function setInfoToExcel(excel, selectRecord, sheetName, from) {
 
@@ -149,7 +136,7 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	var COL_Y = "Y";
 
 
-	var no = returnNull(selectRecord["no"]);
+	var no = returnNull(selectRecord["pno"]);
 	var asin = returnNull(selectRecord["asin"]);
 
 	var sku = returnNull(selectRecord["sku"]);
@@ -159,7 +146,7 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	var sub2 = returnNull(selectRecord["sub2"]);
 	var productname = returnNull(selectRecord["productname"]);
 
-	var send = returnNull(selectRecord["send"]);
+	var shippingway = returnNull(selectRecord["shippingway"]);
 	var price = returnNumber(selectRecord["price"]);
 	var fba = returnNull(selectRecord["fba"]);
 	var fbm = returnNull(selectRecord["fbm"]);
@@ -191,7 +178,7 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	// 商品名
 	setExcelValue(excel, sheetName, COL_H + from, productname);
 	// 発送区分
-	setExcelValue(excel, sheetName, COL_I + from, send);
+	setExcelValue(excel, sheetName, COL_I + from, shippingway);
 	// 価格
 	setExcelValue(excel, sheetName, COL_J + from, price);
 	// 在庫数量(FBA)
@@ -220,8 +207,6 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	setExcelValue(excel, sheetName, COL_X + from, selled360);
 	// 販売数量(参照値)
 	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
-
-
 
 }
 
@@ -257,18 +242,18 @@ function returnNumber(decimalNumber) {
 	return parseFloat(decimalNumber);
 }
 
-function returnJPPrice(price) {
+// function returnJPPrice(price) {
 
-	if (price == null || price == "" || price == "0" || price == 0) {
-		return null;
-	}
-	return parseInt(price);
-}
+// 	if (price == null || price == "" || price == "0" || price == 0) {
+// 		return null;
+// 	}
+// 	return parseInt(price);
+// }
 
-function returnType(type) {
+// function returnType(type) {
 
-	if (type == null || type == "" || type == "0") {
-		return '空格';
-	}
-	return type.substring(3);
-}
+// 	if (type == null || type == "" || type == "0") {
+// 		return '空格';
+// 	}
+// 	return type.substring(3);
+// }

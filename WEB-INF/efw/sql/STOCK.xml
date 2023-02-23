@@ -283,118 +283,148 @@
 		</if>
 	</sql>
 
-	<!-- sl：Excel数据查询 -->
-	<sql id="selectstock" >
-	select
-		a."商品種別" as type,
-		a."商品管理番号" as no,
-		a."親子区分" as preproduct,	
-		a."分類１" as sub1,
-		a."分類２" as sub2,
-		a."ASIN番号" as asin,
-		a."SKU番号" as sku,
-		a."LABEL番号" as label,
-		a."商品名称" as productname,
-		a."仕入価格" as price,
-	CASE
-		WHEN (d."FBA在庫" IS NULL OR d."FBA在庫" = 0 ) AND (d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )THEN NULL
-		WHEN ( d."FBM在庫" IS NULL OR d."FBM在庫" = 0 )AND ( d."FBA在庫" != 0 AND d."FBA在庫" IS NOT NULL) THEN 'FBA'
-		WHEN  (d."FBA在庫" IS NULL OR d."FBA在庫" = 0) AND (d."FBM在庫" != 0 AND d."FBM在庫" IS NOT NULL ) THEN 'FBM'
-		ELSE ''
-	END  AS send ,
-		d."FBA在庫" as fba,
-		d."FBM在庫" as fbm,
-		d."途中在庫_入庫" as put,	
-		d."LOCAL在庫" as local,
-		d."途中在庫_仕入" as purchase,
-		
-	((CASE 
-		WHEN d."FBA在庫" is null THEN 0
-		ELSE CAST(d."FBA在庫" as int4) END)+
-	(CASE 
-		WHEN d."FBM在庫" is null THEN 0
-		ELSE CAST(d."FBM在庫" as int4) END)+
-	(CASE 
-		WHEN d."途中在庫_入庫" is null THEN 0
-		ELSE CAST(d."途中在庫_入庫" as int4) END)) as stockonsell,
-
-	((CASE 
-		WHEN d."LOCAL在庫" is null THEN 0
-		ELSE CAST(d."LOCAL在庫" as int4) END)+
-	(CASE 
-		WHEN d."途中在庫_仕入" is null THEN 0
-		ELSE CAST(d."途中在庫_仕入" as int4) END)) as stockprepare,
-
-	((CASE WHEN d."FBA在庫" is null THEN 0
-		ELSE CAST(d."FBA在庫" as int4) END)+
-	(CASE  WHEN d."FBM在庫" is null THEN 0
-		ELSE CAST(d."FBM在庫" as int4) END)+
-	(CASE  WHEN d."途中在庫_入庫" is null THEN 0
-		ELSE CAST(d."途中在庫_入庫" as int4) END)+
-	(CASE  WHEN d."LOCAL在庫" is null THEN 0
-		ELSE CAST(d."LOCAL在庫" as int4) END)+
-	(CASE  WHEN d."途中在庫_仕入" is null THEN 0
-		ELSE CAST(d."途中在庫_仕入" as int4)  END)) as stockall,
-		
-		
-	lpad((CASE  WHEN "販売数量（直近３日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近３日間）" as VARCHAR) 
-		END), 3, '0')  as selled3, 
-	lpad(	(CASE  WHEN "販売数量（直近７日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近７日間）" as VARCHAR) 
-		END), 3, '0')  as selled7,
-	lpad(	(CASE  WHEN "販売数量（直近３０日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近３０日間）" as VARCHAR) 
-		END), 3, '0')  as selled30,
-	lpad(	(CASE  WHEN "販売数量（直近６０日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近６０日間）" as VARCHAR) 
-		END), 3, '0')  as selled60,
-	lpad(	(CASE  WHEN "販売数量（直近９０日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近９０日間）" as VARCHAR) 
-		END), 3, '0')  as selled90,
-	lpad(	(CASE  WHEN "販売数量（直近１８０日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近１８０日間）" as VARCHAR) 
-		END), 3, '0')  as selled180,
-	lpad(	(CASE  WHEN "販売数量（直近３６０日間）" is null THEN '0'
-		ELSE CAST("販売数量（直近３６０日間）" as VARCHAR) 
-		END), 3, '0')  as selled360,
-		
-	round((((CASE  WHEN "販売数量（直近３日間）" is null THEN 0
-		ELSE CAST("販売数量（直近３日間）" as int4) END) * 0.05)+
-		((CASE  WHEN "販売数量（直近７日間）" is null THEN 0
-		ELSE CAST("販売数量（直近７日間）" as int4) END) * 0.05)+
-		((CASE  WHEN "販売数量（直近３０日間）" is null THEN 0
-		ELSE CAST("販売数量（直近３０日間）" as int4) END) * 0.1)+
-		((CASE  WHEN "販売数量（直近６０日間）" is null THEN 0
-		ELSE CAST("販売数量（直近６０日間）" as int4) END) * 0.3)+
-		((CASE  WHEN "販売数量（直近９０日間）" is null THEN 0
-		ELSE CAST("販売数量（直近９０日間）" as int4) END) * 0.3)+
-		((CASE  WHEN "販売数量（直近１８０日間）" is null THEN 0
-		ELSE CAST("販売数量（直近１８０日間）" as int4) END) * 0.1)+
-		((CASE  WHEN "販売数量（直近３６０日間）" is null THEN 0
-		ELSE CAST("販売数量（直近３６０日間）" as int4) END) * 0.1) ),2 ) AS dayaverage,
-
-		c."在庫販売可能日数" as stocknumber,
-		c."保有数量販売可能日数" as salenumber,	
-		c."推奨納品数量" as deliveryquantity,
-		c."推奨仕入数量" as purchasequantity
-	from
-		"MST_出品マスタ情報" a
-		LEFT JOIN "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号"and a."SKU番号"=b."SKU番号"
-		LEFT JOIN "MST_入庫仕入推奨数量情報" c on a ."ASIN番号"=c."ASIN番号"and a."SKU番号"=c."SKU番号"
-		LEFT JOIN "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号"and a."SKU番号"=d."SKU番号"
-		LEFT JOIN "MST_ソート情報" S1 ON  a."商品種別" = S1."商品種別" AND  S1."分類" = '分類１' AND 
-			a."分類１" = S1."内容" AND a."店舗ID" = S1."店舗ID"
-		LEFT JOIN "MST_ソート情報" S2 ON 
-			a."商品種別" = S2."商品種別" AND  S2."分類" = '分類２' AND 
-			a."分類２" = S2."内容" AND a."店舗ID" = S2."店舗ID"	
-		WHERE
-				1=1
-		AND a."親子区分" = '子商品'
-			AND A."店舗ID" = :shopid  
-		ORDER BY
+	<sql id="selectstockinfo0_excel" >
+		select
+			a."商品種別" as type,
+			a."商品管理番号" as pno,
+			a."親子区分" as preproduct,	
+			a."分類１" as sub1,
+			a."分類２" as sub2,
+			a."ASIN番号" as asin,
+			a."SKU番号" as sku,
+			a."LABEL番号" as label,
+			a."商品名称" as productname,
+			e."価格" as price,
+			case
+				when a."親子区分" = '親商品' then null
+				when d."FBA在庫" != 0 then 'FBA'
+				when d."FBA在庫" is null and d."FBM在庫" is null then '-'
+				when d."FBA在庫" is null and d."FBM在庫" is not null then 'FBM'
+				when d."FBA在庫" = 0 and d."FBM在庫" is null then 'FBA'
+				when d."FBA在庫" = 0 and d."FBM在庫" = 0 then '-'
+				when d."FBA在庫" = 0 and d."FBM在庫" != 0 then 'FBM'
+			end as shippingway,
+			d."FBA在庫" as fba,
+			d."FBM在庫" as fbm,
+			d."途中在庫_入庫" as put,	
+			d."LOCAL在庫" as local,
+			d."途中在庫_仕入" as purchase,
+			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
+			COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
+			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
+			lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
+			lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
+			lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
+			lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
+			lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
+			lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
+			lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
+			round(
+				cast(COALESCE(b."販売数量（直近３日間）", 0) as numeric) / 3 * 0.05 +
+				cast(COALESCE(b."販売数量（直近７日間）", 0) as numeric) / 7 * 0.05 +
+				cast(COALESCE(b."販売数量（直近３０日間）", 0) as numeric) / 30 * 0.1 +
+				cast(COALESCE(b."販売数量（直近６０日間）", 0) as numeric) / 60 * 0.3 +
+				cast(COALESCE(b."販売数量（直近９０日間）", 0) as numeric) / 90 * 0.3 +
+				cast(COALESCE(b."販売数量（直近１８０日間）", 0) as numeric) / 180 * 0.1 +
+				cast(COALESCE(b."販売数量（直近３６０日間）", 0) as numeric) / 360 * 0.1,
+				2
+			) as dayaverage,
+			c."在庫販売可能日数" as stocknumber,
+			c."保有数量販売可能日数" as salenumber,
+			c."推奨納品数量" as deliveryquantity,
+			c."推奨仕入数量" as purchasequantity,
+			a."店舗ID" as shopid,
+			a."暫定フラグ" as zt_flg
+		from
+			"MST_出品マスタ情報" a
+			left join "MST_販売数量情報" b on a."ASIN番号" = b."ASIN番号" and a."SKU番号" = b."SKU番号" and a."店舗ID" = b."店舗ID"
+			left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号" = c."ASIN番号" and a."SKU番号" = c."SKU番号" and a."店舗ID" = c."店舗ID"
+			left join "MST_在庫情報"  d on a."ASIN番号" = d."ASIN番号" and a."SKU番号" = d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
+			left join "IPT_全出品情報" e on a."ASIN番号" = e."ASIN 1" and a."SKU番号" = e."出品者SKU" and a."店舗ID" = e."店舗ID" 
+			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
+			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
+		where
+			a."暫定フラグ" = '0'
+			and
+			a."店舗ID" = :shopid
+			and 
+			a."親子区分" = '子商品'
+		order by
+			a."商品種別",
 			a."商品管理番号",
-			a."親子区分" desc,
+			COALESCE(cast(S1."ソート" as varchar), a."分類１"),
+			COALESCE(cast(S2."ソート" as varchar), a."分類２")
+	</sql>
+
+	<sql id="selectstockinfo1_excel" >
+		select
+			a."商品種別" as type,
+			a."商品管理番号" as pno,
+			a."親子区分" as preproduct,	
+			a."分類１" as sub1,
+			a."分類２" as sub2,
+			a."ASIN番号" as asin,
+			a."SKU番号" as sku,
+			a."LABEL番号" as label,
+			a."商品名称" as productname,
+			e."価格" as price,
+			case
+				when a."親子区分" = '親商品' then null
+				when d."FBA在庫" != 0 then 'FBA'
+				when d."FBA在庫" is null and d."FBM在庫" is null then '-'
+				when d."FBA在庫" is null and d."FBM在庫" is not null then 'FBM'
+				when d."FBA在庫" = 0 and d."FBM在庫" is null then 'FBA'
+				when d."FBA在庫" = 0 and d."FBM在庫" = 0 then '-'
+				when d."FBA在庫" = 0 and d."FBM在庫" != 0 then 'FBM'
+			end as shippingway,
+			d."FBA在庫" as fba,
+			d."FBM在庫" as fbm,
+			d."途中在庫_入庫" as put,	
+			d."LOCAL在庫" as local,
+			d."途中在庫_仕入" as purchase,
+			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
+			COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
+			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
+			lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
+			lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
+			lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
+			lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
+			lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
+			lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
+			lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
+			round(
+				cast(COALESCE(b."販売数量（直近３日間）", 0) as numeric) / 3 * 0.05 +
+				cast(COALESCE(b."販売数量（直近７日間）", 0) as numeric) / 7 * 0.05 +
+				cast(COALESCE(b."販売数量（直近３０日間）", 0) as numeric) / 30 * 0.1 +
+				cast(COALESCE(b."販売数量（直近６０日間）", 0) as numeric) / 60 * 0.3 +
+				cast(COALESCE(b."販売数量（直近９０日間）", 0) as numeric) / 90 * 0.3 +
+				cast(COALESCE(b."販売数量（直近１８０日間）", 0) as numeric) / 180 * 0.1 +
+				cast(COALESCE(b."販売数量（直近３６０日間）", 0) as numeric) / 360 * 0.1,
+				2
+			) as dayaverage,
+			c."在庫販売可能日数" as stocknumber,
+			c."保有数量販売可能日数" as salenumber,
+			c."推奨納品数量" as deliveryquantity,
+			c."推奨仕入数量" as purchasequantity,
+			a."店舗ID" as shopid,
+			a."暫定フラグ" as zt_flg
+		from
+			"MST_出品マスタ情報" a
+			left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" and a."SKU番号"=b."SKU番号" and a."店舗ID" = b."店舗ID"
+			left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号"=c."ASIN番号" and a."SKU番号"=c."SKU番号" and a."店舗ID" = c."店舗ID"
+			left join "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号" and a."SKU番号"=d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
+			left join "IPT_全出品情報" e on a."ASIN番号" = e."ASIN 1" and a."SKU番号" = e."出品者SKU" and a."店舗ID" = e."店舗ID" 
+			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
+			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
+		where
+			a."暫定フラグ" = '1'
+			and
+			a."店舗ID" = :shopid
+			and 
+			a."親子区分" = '子商品'
+		order by
+			a."商品種別",
+			a."商品管理番号",
 			COALESCE(cast(S1."ソート" as varchar), a."分類１"),
 			COALESCE(cast(S2."ソート" as varchar), a."分類２")
 	</sql>
