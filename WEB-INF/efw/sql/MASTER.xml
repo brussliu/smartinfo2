@@ -199,14 +199,7 @@
  
 </sql>
 
-<!-- sl：设置登录时间 -->
-<sql id="logintime" paramPrefix="!">
-		UPDATE "MST_出品マスタ情報" 
-		SET
-		   "登録日時"=now()
-		WHERE 
-		  "店舗ID" =!shopid
-</sql>
+
 
 <!-- sl：新规-親商品 -->
 <sql id="savemasterinfopre">

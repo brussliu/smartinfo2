@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls> 
+
+<!-- sl:检索 -->
+<sql id="selectpurchase">
+ SELECT
+	"仕入NO" AS no,
+	"仕入名称" AS name,
+	"仕入区分" AS type,
+	"数量" AS number,
+	"金額" AS money,
+	"ステータス" AS state,
+	to_char("登録日",'YYYY/MM/DD') AS logindate,
+	to_char("発送日①",'YYYY/MM/DD') AS senddate1,
+	to_char("発送日②",'YYYY/MM/DD') AS senddate2,
+	to_char("完了日",'YYYY/MM/DD')  AS completiondate,
+	"発送方式" AS sendway,
+	"商品費用" AS productamountrmb,
+	"商品費用（円）" AS productamountry,
+	"物流費用" AS shipamountrmb,
+	"物流費用（円）" AS shipamountry,
+	"税金" AS faxamountrmb,
+	"税金（円）" AS faxamountry,
+	"為替レート" AS rate,
+	"合計" AS totalrmb,
+	"合計（円）" AS totalry,
+	"追跡番号" AS tracknumber 
+ FROM
+	"TRN_仕入管理" 
+ WHERE
+	"店舗ID" = :shopid 
+ ORDER BY
+	"仕入NO"
+</sql>
+<!-- sl:削除 -->
+	<sql id="deletepurchase" paramPrefix="!">
+		delete
+		from
+			"TRN_仕入管理"
+		where
+			"仕入NO" = !no
+			and
+			"店舗ID"= !shopid	 
+	</sql>
+
+	<!-- sl：新规 -->
+<sql id="savepurchase" paramPrefix="!">
+	INSERT into "TRN_仕入管理" 
+		(
+		"仕入NO",
+		"仕入名称",
+		"仕入区分",
+		<!-- "数量",
+		"金額", -->
+
+		"ステータス",
+		"登録日",
+		"発送日①",
+		"発送日②",
+
+		"完了日",
+		"発送方式",
+		"為替レート",
+
+		"商品費用",
+		"商品費用（円）",
+		"物流費用",
+		"物流費用（円）",
+		"税金",
+		"税金（円）",
+		"合計",
+		"合計（円）",
+
+		"店舗ID",
+		"登録日時",
+		"追跡番号" )
+	VALUES(
+		!no, --仕入NO
+		!purchase, --仕入名称
+		'A', --仕入区分
+
+		'0:新規登録', --ステータス
+		to_timestamp(!entrydate,'yyyy-MM-dd hh24:mi:ss'), --登録日
+		to_timestamp(!forwarddate1,'yyyy-MM-dd hh24:mi:ss'), --発送日①
+		to_timestamp(!forwarddate2,'yyyy-MM-dd hh24:mi:ss'), --発送日②
+
+		to_timestamp(!completiondate,'yyyy-MM-dd hh24:mi:ss'), --完了日
+		!ship, --発送方式
+		cast(!rate as numeric), --為替レート
+
+		cast(!productamountRMB as numeric), --商品費用
+		cast(SUBSTRING (!productamountRY,1,4) as numeric), --商品費用（円）
+		cast(!shipamountRMB as numeric), --物流費用
+		cast(SUBSTRING (!shipamountRY,1,4) as numeric), --物流費用（円）
+		cast(!faxamountRMB as numeric), --税金
+		cast(SUBSTRING (!faxamountRY,1,4) as numeric), --税金（円）
+		cast(!totalRMB as numeric), --合計
+		cast(!totalRY as numeric), --合計（円）
+
+		!shopid, --店舗ID
+		now(), --登録日時
+		!track --追跡番号
+	)
+</sql>
+</sqls>
+
