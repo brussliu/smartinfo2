@@ -22,6 +22,17 @@ function setTitleInfo(ret){
 
 }
 
+function setTitleInfoForShopList(ret){
+
+	ret.runat("#sessioninfo").withdata(
+		{
+			"#shopid":"未選択",
+			"#userid":getUserId()
+		}
+	);
+
+}
+
 function sessionCheck(ret){
 
 	var smartId = getSmartId();
@@ -41,8 +52,29 @@ function sessionCheck(ret){
 		ret.navigate("login.jsp");
 	}
 
+}
+
+function sessionCheckForShopList(ret){
+
+	var smartId = getSmartId();
+	if(smartId == null || smartId == ""){
+		ret.navigate("login.jsp");
+	}
+	var userId = getUserId();
+	if(userId == null || userId == ""){
+		ret.navigate("login.jsp");
+	}
 
 }
+
+function clearSessionForShopList(){
+
+	session.set("SHOP_ID", null);
+
+	session.set("ROLE", null);
+
+}
+
 
 function getSmartId(){
 
@@ -87,6 +119,7 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					var flg_m1 = false;
 					var flg_m2 = false;
 					var flg_m3 = false;
+					var flg_m4 = false;
 
 					var flg_t1 = false;
 
@@ -150,10 +183,18 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					if(flg_r1){
 						excute_r1_m3();	flg_m3 = true;
 					}
+					
+					if(flg_m1){
+						excute_m1_m4();	flg_m4 = true;
+					}
+					if(flg_m2 || flg_m3){
+						excute_m2_m4();	flg_m4 = true;
+					}
 
 					// --------------------------------↑↑↑確認済↑↑↑--------------------------------
 
 					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
+
 					// excute_m1_m5();
 					// excute_13_m5();
 
@@ -188,9 +229,24 @@ function excute_13_m5() {
 
 function excute_m1_m3() {
 
-	var updateResult = db.change("IMPORT", "excute_m1_m3", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m3_01", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m3_02", {"shopId": getShopId()});
 
 }
+
+function excute_m1_m4() {
+
+	var updateResult = db.change("IMPORT", "excute_m1_m4_01", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m4_02", {"shopId": getShopId()});
+
+}
+
+function excute_m2_m4() {
+
+	var updateResult = db.change("IMPORT", "excute_m2_m4", {"shopId": getShopId()});
+
+}
+
 
 function excute_r1_m3() {
 
@@ -201,6 +257,8 @@ function excute_r1_m3() {
 	var updateResult5 = db.change("IMPORT", "excute_r1_m3_05", {"shopId": getShopId()});
 	var updateResult6 = db.change("IMPORT", "excute_r1_m3_06", {"shopId": getShopId()});
 	var updateResult7 = db.change("IMPORT", "excute_r1_m3_07", {"shopId": getShopId()});
+
+	var updateResult8 = db.change("IMPORT", "excute_r1_m3_08", {"shopId": getShopId()});
 
 }
 
@@ -328,4 +386,49 @@ function excute_15_h4() {
 	var deleteResult = db.change("IMPORT", "deleteFile_15_h4", {"shopId": getShopId()});
 	var insertResult = db.change("IMPORT", "insertFile_15_h4", {"shopId": getShopId(), "nowTime": nowTime});
 
+}
+
+
+function checkUpladFileExsits(foldername){
+
+	foldername.debug("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+
+	var returnValue = false;
+
+	returnValue = returnValue || checkFile(foldername, "01");
+	returnValue = returnValue || checkFile(foldername, "02");
+	returnValue = returnValue || checkFile(foldername, "03");
+	returnValue = returnValue || checkFile(foldername, "04");
+	returnValue = returnValue || checkFile(foldername, "05");
+	returnValue = returnValue || checkFile(foldername, "07");
+	returnValue = returnValue || checkFile(foldername, "08");
+	returnValue = returnValue || checkFile(foldername, "09");
+	returnValue = returnValue || checkFile(foldername, "10");
+	returnValue = returnValue || checkFile(foldername, "11");
+	returnValue = returnValue || checkFile(foldername, "12");
+	returnValue = returnValue || checkFile(foldername, "13");
+	returnValue = returnValue || checkFile(foldername, "14");
+	returnValue = returnValue || checkFile(foldername, "15");
+	returnValue = returnValue || checkFile(foldername, "16");
+	returnValue = returnValue || checkFile(foldername, "17");
+	returnValue = returnValue || checkFile(foldername, "18");
+
+	return returnValue;
+
+}
+
+function checkFile(foldername, fileno){
+
+	var filefoldername = "";
+	eval('filefoldername = FILE' + fileno + '_NAME;');
+
+	var filelist = file.list(foldername + "\\" + filefoldername);
+
+	foldername.debug("=====================================");
+
+	if(filelist.length == 0){
+		return false;
+	}else{
+		return true;
+	}
 }

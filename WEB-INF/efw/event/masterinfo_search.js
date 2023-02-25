@@ -14,6 +14,9 @@ masterinfo_search.fire=function(params){
 	
 	var ret = new Result();
 
+	// セッションチェック
+	sessionCheck(ret);
+
 	var pdArr = params["producttype"];
 	var productno = params["#productno"];
 	var keyword = params["#keyword"].toUpperCase();

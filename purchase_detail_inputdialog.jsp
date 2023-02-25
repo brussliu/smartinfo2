@@ -68,7 +68,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>サプライヤー：</td>
+                            <td>発送方式：</td>
                             <td colspan="2">
                                 <select id="opt_ship" style="width: 400px;">
                                     <option value=""></option>

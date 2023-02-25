@@ -10,6 +10,7 @@ create table public."MST_”Ì”„”—Êî•ñ" (
   , "”Ì”„”—Êi’¼‹ß‚X‚O“úŠÔj" int
   , "”Ì”„”—Êi’¼‹ß‚P‚W‚O“úŠÔj" int
   , "”Ì”„”—Êi’¼‹ß‚R‚U‚O“úŠÔj" int
+  , "”Ì”„”—Êi“ú•½‹Ï’lj" numeric(10,5)
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone

@@ -49,7 +49,7 @@ function writeExcel(selectResult0, selectResult1, exl) {
 	}
 
 	// テンプレートにより、EXCELオブジェクトを作成する
-	var excel = new Excel("templates/PRODUCT_LIST.xlsx");
+	var excel = new Excel("common/templates/PRODUCT_LIST.xlsx");
 	var tempFilePathName = file.getTempFileName();
 
 	var y_from = 3;

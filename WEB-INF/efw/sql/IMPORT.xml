@@ -314,13 +314,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -361,13 +372,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -407,13 +429,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -453,13 +486,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -499,13 +543,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -545,13 +600,24 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
 			"MST_販売数量情報"."ASIN番号" = LIST."ASIN番号" 
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
+			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -591,7 +657,8 @@
 							MST."ASIN番号" = RES."ORDER_ASIN番号" 
 								and 
 							MST."店舗ID" = RES."店舗ID" 
-			) LIST
+			) LIST,
+			"MST_出品マスタ情報" MST
 		where
 			"MST_販売数量情報"."SKU番号" = LIST."SKU番号" 
 			and 
@@ -599,10 +666,49 @@
 			and 
 			"MST_販売数量情報"."店舗ID" = LIST."店舗ID" 
 			and 
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
+			and 
+			"MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+	<sql id="excute_r1_m3_08">
+		update "MST_販売数量情報" 
+		set
+			"販売数量（日平均値）" = 
+            round(
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近３日間）", 0) as numeric) / 3 * 0.05 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近７日間）", 0) as numeric) / 7 * 0.05 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近３０日間）", 0) as numeric) / 30 * 0.1 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近６０日間）", 0) as numeric) / 60 * 0.3 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近９０日間）", 0) as numeric) / 90 * 0.3 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近１８０日間）", 0) as numeric) / 180 * 0.1 +
+				cast(COALESCE("MST_販売数量情報" ."販売数量（直近３６０日間）", 0) as numeric) / 360 * 0.1,
+				5
+			)
+		from "MST_出品マスタ情報" MST
+		where
+			"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+			and 
+			"MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+			and 
+			"MST_販売数量情報"."店舗ID" = MST."店舗ID" 
+			and
+			MST."親子区分" = '子商品'
+			and
+			MST."暫定フラグ" = '0'
+			and
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_m1_m3">
+
+	<sql id="excute_m1_m3_01">
 		insert into "MST_販売数量情報" (
 			  "SKU番号"
 			, "ASIN番号"
@@ -619,6 +725,8 @@
 		from
 			"MST_出品マスタ情報" MST1
 		where
+			MST1."暫定フラグ" = '0'
+			and
 			not exists ( 
 				select
 					1 
@@ -630,6 +738,127 @@
 					and MST1."店舗ID" = MST2."店舗ID"
 			) 
 			and MST1."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m1_m3_02">
+		delete from "MST_販売数量情報"
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"MST_出品マスタ情報" MST
+				where
+					"MST_販売数量情報"."SKU番号" = MST."SKU番号" 
+					and "MST_販売数量情報"."ASIN番号" = MST."ASIN番号" 
+					and "MST_販売数量情報"."店舗ID" = MST."店舗ID"
+			) 
+			and "MST_販売数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m1_m4_01">
+		insert into "MST_入庫仕入推奨数量情報" (
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			  "SKU番号"
+			, "ASIN番号"
+			, "店舗ID"
+			, now()
+			, now()
+		from
+			"MST_出品マスタ情報" MST1
+		where
+			MST1."暫定フラグ" = '0'
+			and
+			not exists ( 
+				select
+					1 
+				from
+					"MST_入庫仕入推奨数量情報" MST2
+				where
+					MST1."SKU番号" = MST2."SKU番号" 
+					and MST1."ASIN番号" = MST2."ASIN番号" 
+					and MST1."暫定フラグ" = '0'
+					and MST1."店舗ID" = MST2."店舗ID"
+			) 
+			and MST1."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m1_m4_02">
+		delete from "MST_入庫仕入推奨数量情報"
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"MST_出品マスタ情報" MST
+				where
+					"MST_入庫仕入推奨数量情報"."SKU番号" = MST."SKU番号" 
+					and "MST_入庫仕入推奨数量情報"."ASIN番号" = MST."ASIN番号" 
+					and "MST_入庫仕入推奨数量情報"."店舗ID" = MST."店舗ID"
+			) 
+			and "MST_入庫仕入推奨数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_m2_m4">
+		update "MST_入庫仕入推奨数量情報" set
+		"在庫販売可能日数" = case when MST3."販売数量（日平均値）" is null or MST3."販売数量（日平均値）" = 0 then 9999 else 
+				    COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) / MST3."販売数量（日平均値）" end,
+		"保有数量販売可能日数" = case when MST3."販売数量（日平均値）" is null or MST3."販売数量（日平均値）" = 0 then 9999 else 
+			        COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) + 
+					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."途中在庫_仕入", 0) / MST3."販売数量（日平均値）" end,
+		"推奨納品数量" = 
+			COALESCE(MST3."販売数量（日平均値）", 0) * 30 - 
+			(	COALESCE(MST2."FBA在庫", 0) + 
+				COALESCE(MST2."FBM在庫", 0) + 
+				COALESCE(MST2."途中在庫_入庫", 0)),
+		"推奨仕入数量" = 
+			COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
+			(	COALESCE(MST2."FBA在庫", 0) + 
+				COALESCE(MST2."FBM在庫", 0) + 
+				COALESCE(MST2."途中在庫_入庫", 0) + 
+				COALESCE(MST2."LOCAL在庫", 0) + 
+				COALESCE(MST2."途中在庫_仕入", 0))
+		from 
+			"MST_出品マスタ情報" MST1,
+			"MST_在庫情報" MST2,
+			"MST_販売数量情報" MST3
+		where 
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST1."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST1."ASIN番号"
+			and
+			MST1."暫定フラグ" = '0'
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST1."店舗ID"
+			and
+			MST1."親子区分" = '子商品'
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST2."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
+			and
+			MST2."暫定フラグ" = '0'
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST3."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST3."ASIN番号"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST3."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = :shopId
 	</sql>
 
 	<sql id="excute_03_m2">
@@ -770,7 +999,7 @@
 			, "分類１"
 			, "分類２"
 			, "仕入価格"
-			, "FBA発送方式"
+			, "FBM発送方式"
 			, "商品名称"
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"
@@ -788,7 +1017,7 @@
 			null as "分類１",
 			null as "分類２",
 			null as "仕入価格",
-			null as "FBA発送方式",
+			null as "FBM発送方式",
 			"商品名" as "商品名称",
 			null as "仕入申報価格（元）",
 			null as "仕入申報価格（ドル）",
@@ -811,7 +1040,7 @@
 			"分類１" = case when BK."分類１" is not null then BK."分類１" else "MST_出品マスタ情報"."分類１" end,
 			"分類２" = case when BK."分類２" is not null then BK."分類２" else "MST_出品マスタ情報"."分類２" end,
 			"仕入価格" = case when BK."仕入価格" is not null then BK."仕入価格" else "MST_出品マスタ情報"."仕入価格" end,
-			"FBA発送方式" = case when BK."FBA発送方式" is not null then BK."FBA発送方式" else "MST_出品マスタ情報"."FBA発送方式" end,
+			"FBM発送方式" = case when BK."FBM発送方式" is not null then BK."FBM発送方式" else "MST_出品マスタ情報"."FBM発送方式" end,
 			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end,
 			"仕入申報価格（元）" = case when BK."仕入申報価格（元）" is not null then BK."仕入申報価格（元）" else "MST_出品マスタ情報"."仕入申報価格（元）" end,
 			"仕入申報価格（ドル）" = case when BK."仕入申報価格（ドル）" is not null then BK."仕入申報価格（ドル）" else "MST_出品マスタ情報"."仕入申報価格（ドル）" end,
@@ -839,7 +1068,7 @@
 			, "分類１"
 			, "分類２"
 			, "仕入価格"
-			, "FBA発送方式"
+			, "FBM発送方式"
 			, "商品名称"
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"
@@ -855,7 +1084,7 @@
 			, "分類１"
 			, "分類２"
 			, "仕入価格"
-			, "FBA発送方式"
+			, "FBM発送方式"
 			, "商品名称"
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"

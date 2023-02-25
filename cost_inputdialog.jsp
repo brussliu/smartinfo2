@@ -50,7 +50,7 @@
                     </tr> 
                     <tr>
                         <td>発生日：</td>
-                        <td><input type="text" id="txt_accrualdate"></input></td>
+                        <td><input type="date" id="txt_accrualdate"></input></td>
                         <td>分類：</td>
                         <td>
                             <select style="width:200px;" id="txt_classification">

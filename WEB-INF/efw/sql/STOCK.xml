@@ -309,26 +309,17 @@
 			d."途中在庫_入庫" as put,	
 			d."LOCAL在庫" as local,
 			d."途中在庫_仕入" as purchase,
-			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
-			COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
-			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
-			lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
-			lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
-			lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
-			lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
-			lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
-			lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
-			lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
-			round(
-				cast(COALESCE(b."販売数量（直近３日間）", 0) as numeric) / 3 * 0.05 +
-				cast(COALESCE(b."販売数量（直近７日間）", 0) as numeric) / 7 * 0.05 +
-				cast(COALESCE(b."販売数量（直近３０日間）", 0) as numeric) / 30 * 0.1 +
-				cast(COALESCE(b."販売数量（直近６０日間）", 0) as numeric) / 60 * 0.3 +
-				cast(COALESCE(b."販売数量（直近９０日間）", 0) as numeric) / 90 * 0.3 +
-				cast(COALESCE(b."販売数量（直近１８０日間）", 0) as numeric) / 180 * 0.1 +
-				cast(COALESCE(b."販売数量（直近３６０日間）", 0) as numeric) / 360 * 0.1,
-				2
-			) as dayaverage,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+			b."販売数量（直近３日間）" as selled3,
+			b."販売数量（直近７日間）" as selled7, 
+			b."販売数量（直近３０日間）" as selled30, 
+			b."販売数量（直近６０日間）" as selled60, 
+			b."販売数量（直近９０日間）" as selled90, 
+			b."販売数量（直近１８０日間）" as selled180, 
+			b."販売数量（直近３６０日間）" as selled360, 
+			case when a."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
 			c."在庫販売可能日数" as stocknumber,
 			c."保有数量販売可能日数" as salenumber,
 			c."推奨納品数量" as deliveryquantity,
@@ -379,29 +370,20 @@
 			end as shippingway,
 			d."FBA在庫" as fba,
 			d."FBM在庫" as fbm,
-			d."途中在庫_入庫" as put,	
+			d."途中在庫_入庫" as put,
 			d."LOCAL在庫" as local,
 			d."途中在庫_仕入" as purchase,
-			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
-			COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
-			COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
-			lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
-			lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
-			lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
-			lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
-			lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
-			lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
-			lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
-			round(
-				cast(COALESCE(b."販売数量（直近３日間）", 0) as numeric) / 3 * 0.05 +
-				cast(COALESCE(b."販売数量（直近７日間）", 0) as numeric) / 7 * 0.05 +
-				cast(COALESCE(b."販売数量（直近３０日間）", 0) as numeric) / 30 * 0.1 +
-				cast(COALESCE(b."販売数量（直近６０日間）", 0) as numeric) / 60 * 0.3 +
-				cast(COALESCE(b."販売数量（直近９０日間）", 0) as numeric) / 90 * 0.3 +
-				cast(COALESCE(b."販売数量（直近１８０日間）", 0) as numeric) / 180 * 0.1 +
-				cast(COALESCE(b."販売数量（直近３６０日間）", 0) as numeric) / 360 * 0.1,
-				2
-			) as dayaverage,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+			b."販売数量（直近３日間）" as selled3,
+			b."販売数量（直近７日間）" as selled7, 
+			b."販売数量（直近３０日間）" as selled30, 
+			b."販売数量（直近６０日間）" as selled60, 
+			b."販売数量（直近９０日間）" as selled90, 
+			b."販売数量（直近１８０日間）" as selled180, 
+			b."販売数量（直近３６０日間）" as selled360, 
+			case when a."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
 			c."在庫販売可能日数" as stocknumber,
 			c."保有数量販売可能日数" as salenumber,
 			c."推奨納品数量" as deliveryquantity,
@@ -488,26 +470,17 @@
 					d."途中在庫_入庫" as put,	
 					d."LOCAL在庫" as local,
 					d."途中在庫_仕入" as purchase,
-					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
-					COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
-					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
-					lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'0') , 3, '0')  as selled3,
-					lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'0') , 3, '0')  as selled7, 
-					lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'0') , 3, '0')  as selled30, 
-					lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'0') , 3, '0')  as selled60, 
-					lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'0') , 3, '0')  as selled90, 
-					lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'0') , 3, '0')  as selled180, 
-					lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'0') , 3, '0')  as selled360, 
-					round(
-						COALESCE(b."販売数量（直近３日間）", 0) / 3 * 0.05 +
-						COALESCE(b."販売数量（直近７日間）", 0) / 7 * 0.05 +
-						COALESCE(b."販売数量（直近３０日間）", 0) / 30 * 0.1 +
-						COALESCE(b."販売数量（直近６０日間）", 0) / 60 * 0.3 +
-						COALESCE(b."販売数量（直近９０日間）", 0) / 90 * 0.3 +
-						COALESCE(b."販売数量（直近１８０日間）", 0) / 180 * 0.1 +
-						COALESCE(b."販売数量（直近３６０日間）", 0) / 360 * 0.1,
-						2
-					) as dayaverage,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+					lpad(COALESCE(CAST(b."販売数量（直近３日間）" as VARCHAR),'') , 3, '-')  as selled3,
+					lpad(COALESCE(CAST(b."販売数量（直近７日間）" as VARCHAR),'') , 3, '-')  as selled7, 
+					lpad(COALESCE(CAST(b."販売数量（直近３０日間）" as VARCHAR),'') , 3, '-')  as selled30, 
+					lpad(COALESCE(CAST(b."販売数量（直近６０日間）" as VARCHAR),'') , 3, '-')  as selled60, 
+					lpad(COALESCE(CAST(b."販売数量（直近９０日間）" as VARCHAR),'') , 3, '-')  as selled90, 
+					lpad(COALESCE(CAST(b."販売数量（直近１８０日間）" as VARCHAR),'') , 3, '-')  as selled180, 
+					lpad(COALESCE(CAST(b."販売数量（直近３６０日間）" as VARCHAR),'') , 3, '-')  as selled360, 
+					case when a."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 6, '0') end as dayaverage,
 					c."在庫販売可能日数" as stocknumber,
 					c."保有数量販売可能日数" as salenumber,
 					c."推奨納品数量" as deliveryquantity,
@@ -542,9 +515,9 @@
 					d."途中在庫_入庫" as put,	
 					d."LOCAL在庫" as local,
 					d."途中在庫_仕入" as purchase,
-					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) as stockonsell,
-					COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockprepare,
-					COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) as stockall,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+					case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
 					null as selled3,
 					null as selled7, 
 					null as selled30, 

@@ -15,6 +15,9 @@ stockinfo_search.fire=function(params){
 	
 	var ret = new Result();
 
+	// セッションチェック
+	sessionCheck(ret);
+
 	var ptArr = params["producttypeArr"];
 	var type="";
 	for(let i=0;i<ptArr.length;i++){

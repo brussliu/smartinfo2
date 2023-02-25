@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	
+	<sql id="searchUserInfo" >
+		select 
+			"ユーザーID" as userid
+		, "パスワード" as password
+		, "SmartID" as smartid
+		, "店舗ID" as shopid
+		, "ロール" as role
+		, "廃止フラグ" as del_flg
+		, "使用開始日付" as date_from
+		, "使用終了日付" as date_to
+		from
+			"MST_ユーザー情報"
+		where 
+			"ユーザーID" = :userid
+			and
+			"パスワード" = :passwword
+			and
+			"使用開始日付" &lt; now()
+			and
+			"使用終了日付" &gt; now()
+			and
+			"廃止フラグ" &lt;&gt; '1'
+	</sql>
+
+	<sql id="searchShoplistInfo" >
+		select 
+			"ユーザーID" as userid
+		, "パスワード" as password
+		, "SmartID" as smartid
+		, "店舗ID" as shopid
+		, "ロール" as role
+		, "廃止フラグ" as del_flg
+		, "使用開始日付" as date_from
+		, "使用終了日付" as date_to
+		from
+			"MST_ユーザー情報"
+		where 
+			"ユーザーID" = :userid
+			and
+			"SmartID" = :smartid
+			and
+			"使用開始日付" &lt; now()
+			and
+			"使用終了日付" &gt; now()
+			and
+			"廃止フラグ" &lt;&gt; '1'
+	</sql>
+
+	<sql id="searchShopRoleInfo" >
+		select 
+			"ユーザーID" as userid
+		, "パスワード" as password
+		, "SmartID" as smartid
+		, "店舗ID" as shopid
+		, "ロール" as role
+		, "廃止フラグ" as del_flg
+		, "使用開始日付" as date_from
+		, "使用終了日付" as date_to
+		from
+			"MST_ユーザー情報"
+		where 
+			"ユーザーID" = :userid
+			and
+			"SmartID" = :smartid
+			and
+			"店舗ID" = :shopid
+			and
+			"使用開始日付" &lt; now()
+			and
+			"使用終了日付" &gt; now()
+			and
+			"廃止フラグ" &lt;&gt; '1'
+	</sql>
+
+
+
+
+</sqls>
+

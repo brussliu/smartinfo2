@@ -197,14 +197,14 @@
     </style>
 </head>
 
-<body style="background-color:ghostwhite;">
+<body style="background-color:ghostwhite;" onload="Efw('common_logininit');">
  
 	<div class="container right-panel-active">
 		<div class="container__form container--signup">
 		  <div  class="form" id="form1">
 			<h2 class="form__title">ログイン </h2>
-			<input type="text" placeholder="UserID" class="input" />
-			<input type="password" placeholder="Password" class="input" />
+			<input type="text" placeholder="UserID" class="input" id="txt_userid"/>
+			<input type="password" placeholder="Password" class="input" id="txt_userpassword"/>
 			<button class="btn"onclick="Efw('common_login');">ログイン </button>
 		  </div>
 		</div>

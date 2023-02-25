@@ -8,6 +8,14 @@
             <link rel="stylesheet" href="css/common.css" type="text/css"/>
 
             <efw:Client />
+            <script>
+
+                function selectShop(shopid){
+                    Efw("common_chooseshop",{"shopid": shopid});
+                }
+
+
+            </script>
             <style>
            
                 /* content */
@@ -45,7 +53,7 @@
             </style>
         </head>
 
-        <body>
+        <body onload="Efw('common_shoplistinit');">
             <div>
                 <div class="head">
                     <div class="hleft">
@@ -60,10 +68,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;padding-right: 20px;">
-                                    店舗ID：<span id="shopid">未选择</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    UserID：<span id="userid">XXXX</span>
+                                <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                                    店舗ID:<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    UserID:<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
                                 </td>
                             </tr>
                         </table>
@@ -83,7 +91,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a class="link" onclick="Efw('common_chooseshop',{UserID:this.innerHTML})">Smart-bear</a></td>
+                                <td><a class="link" onclick="Efw('common_chooseshop',{shopid: this.innerHTML})">Smart-bear</a></td>
                             </tr>
                         </tbody>
                     </table>
