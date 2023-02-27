@@ -81,7 +81,7 @@
                         </tr>
                         <tr>
                             <td>登録日： </td>
-                            <td><input type="text" id="date_entrydate" class="date" style="width: 200px;"></input></td>
+                            <td  id="date_entrydate"></td>
                             <td></td>
                             <td></td>
 
@@ -112,48 +112,51 @@
 
                         <tr>
                             <td>商品費用： </td>
-                            <td><input type="number" id="number_productamountRMB" onchange="cal();" style="width: 200px;"></input></td>
+                            <td><input type="number" id="number_productamountRMB" onchange="Xchanger();" style="width: 200px;"></input></td>
                             <td>
-                                <select id="opt_monetaryunit1" onchange="cal();" style="width: 100px;">
+                                <select id="opt_monetaryunit1" onchange="Xchanger();" style="width: 100px;">
+                                    <option value="CNY"  selected="selected">元</option>
                                     <option value="JPY" >円</option>
-                                    <option value="CNY" selected>元</option>
+                                
                                 </select>
                             </td>
                             <td id="number_productamountRY">999999円</td>
                         </tr>
                         <tr>
                             <td>物流費用： </td>
-                            <td><input type="number" id="number_shipamountRMB" onchange="cal();" style="width: 200px;"></input></td>
+                            <td><input type="number" id="number_shipamountRMB" onchange="Xchanger();" style="width: 200px;"></input></td>
                             <td>
-                                <select id="opt_monetaryunit2" onchange="cal();" style="width: 100px;">
+                                <select id="opt_monetaryunit2" onchange="Xchanger();" style="width: 100px;">
+                                    <option value="CNY" selected="selected">元</option>
                                     <option value="JPY" >円</option>
-                                    <option value="CNY" selected>元</option>
+                            
                                 </select>
                             </td>
                             <td id="number_shipamountRY"></td>
                         </tr>
                         <tr>
                             <td>税金： </td>
-                            <td><input type="number" id="number_faxamountRMB" onchange="cal();" style="width: 200px;"></input></td>
+                            <td><input type="number" id="number_faxamountRMB" onchange="Xchanger();" style="width: 200px;"></input></td>
                             <td>
-                                <select id="opt_monetaryunit3" onchange="cal();" style="width: 100px;">
-                                    <option value="JPY" >円</option>
-                                    <option value="CNY" selected>元</option>
+                                <select id="opt_monetaryunit3" onchange="Xchanger();" style="width: 100px;">
+                                    <option value="JPY" selected="selected">円</option>
+                                    <option value="CNY"  >元</option>
                                 </select>
                             </td>
                             <td id="number_faxamountRY"></td>
                         </tr>
                         <tr>
                             <td>為替レート： </td>
-                            <td><input type="number" id="number_rate"  onchange="cal();" style="width: 200px;"></input></td>
+                            <td><input type="number" id="number_rate"  onchange="Xchanger();" style="width: 200px;"></input></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>合計： </td>
-                            <td><input type="number" id="text_totalRMB" style="width: 200px;"></input> 元</td>
+                            <!--  元 -->
+                            <td  id="text_totalRMB"></td>
 
-                            <td colspan="2"><input type="text" id="text_totalRY" style="width: 200px;"></input> 円</td>
+                            <td colspan="2" id="text_totalRY"></td>
 
                         </tr>
                         <tr>
@@ -173,7 +176,7 @@
                 <table class="table_inputdialog" border="0">
                     <tbody>
                         <tr>
-                            <td style="width: 150px;">添付ファイル：</td>
+                            <td style="width: 150px;">添付ファイル：<input type="hidden" id="purchaseno"></input></td>
                             <td style="width: 400px;"><input type="file" id="file_acces" style="width: 400px;"></input>
                             </td>
                             <td style="width:10px"></td>
@@ -181,138 +184,22 @@
                         <tr>
                             <td>ファイル名：</td>
                             <td><input type="text" id="text_filename" style="width: 400px;"></input></td>
-                            <td><button style="height: 30px;" id="btn_up">⬆UP</button></td>
+                            <td><button style="height: 30px;" id="btn_up" onclick="upload()">⬆UP</button></td>
                         </tr>
 
                     </tbody>
                 </table>
-                <div style="width: 100%;height: 512px;overflow-y: auto;border: 1px solid black;margin-top: 10px;">
-                    <table class="file_table" border="0">
-                        <tbody>
-                            <tr>
+                <div style="width: 99%;height: 512px;overflow-y: auto;border: 1px solid black;margin-top: 10px;">
+                    <table class="file_table" border="0" id="filetable">
+                   
+                            <!-- <tr>
                                 <td>
                                     <img src="img/word.png"></img>
                                 </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td> <img src="img/delete.png"></img></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 60px;height: 60px;">
-                                    <img src="img/word.png" style="width:40px;height: 40px;"></img>
-                                </td>
-                                <td style="width: 400px;">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
-                                <td style="width: 60px;height: 30px;">
-                                    <img src="img/delete.png" style="width:30px;height: 30px;"></img>
-                                </td>
-                            </tr>
+                                <td style="width: 400px;" class="a">XXXXXXXXXXXXXXXXXXXXXXXXXX.word</td>
+                                <td> <img src="img/delete.png" onclick="delfile(this)"></img></td>
+                            </tr> -->
+                          
                         </tbody>
                     </table>
                 </div>
