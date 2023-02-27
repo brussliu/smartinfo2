@@ -18,28 +18,32 @@
                 function init() {
                     Efw('purchase_init');
                 }
-                // sl:时间格式化
-                Date.prototype.Format = function (fmt) {
-                    var o = {
-                        "M+": this.getMonth() + 1, //月份   
-                        "d+": this.getDate(), //日   
-                        "H+": this.getHours(), //小时   
-                        "m+": this.getMinutes(), //分   
-                        "s+": this.getSeconds(), //秒   
-                        "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
-                        "S": this.getMilliseconds() //毫秒   
-                    };
-                    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                    for (var k in o)
-                        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                    return fmt;
-                }
+              
+                Date.prototype.Format = function(fmt)   
+                    {  
+                    var o = {   
+                        "M+" : this.getMonth()+1,                 //月份   
+                        "d+" : this.getDate(),                    //日   
+                        "h+" : this.getHours(),                   //小时   
+                        "m+" : this.getMinutes(),                 //分   
+                        "s+" : this.getSeconds(),                 //秒   
+                        "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+                        "S"  : this.getMilliseconds()             //毫秒   
+                    };   
+                    if(/(y+)/.test(fmt))   
+                        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+                    for(var k in o)   
+                        if(new RegExp("("+ k +")").test(fmt))   
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+                    return fmt;   
+                    }
+
                 // new初始化
                 function newdialog() {
                     $('#td_no').html("-");
                     $('#text_purchase').val("");
                     $('#opt_ship').get(0).selectedIndex = 0;
-                    $('#date_entrydate').val("");
+                    $('#date_entrydate').html('-');
                     $('#date_forwarddate1').val("");
                     $('#date_forwarddate2').val("");
                     $('#date_completiondate').val("");
@@ -53,18 +57,24 @@
                     $('#opt_monetaryunit3').get(0).selectedIndex = 0;
                     $('#number_faxamountRY').html("");
                     $('#number_rate').val("");
-                    $('#text_totalRMB').val("");
-                    $('#text_totalRY').val("");
+                    $('#text_totalRMB').html("");
+                    $('#text_totalRY').html("");
                     $('#file_ProContent').val("");
                     $('#text_track').val("");
                     $('#file_acces').val("");
                     $('#text_filename').val("");
+                    // 上传NO
+                    $('#purchaseno').val("");
+                    $('#filetable').html("");
                 }
                 // 打开dialog
                 function opendialog(val) {
+                    
+                var curTime = new Date().format("yyyyMMdd-HHmmss");
+
                     if (val == 'new') {
                         newdialog();
-
+                        $('#purchaseno').val(curTime);
                     }
                     else {
 
@@ -82,14 +92,20 @@
                     // console.log(tempno);
                     // console.log($('#temp').data("temp"));
                     if (v == '0:新規登録') {
+                        $('#btn_content').attr('disabled', false);
+                        $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', false);
                         $('#btn_send').attr('disabled', false);
                         $('#btn_collection').attr('disabled', false);
                     } else if (v == '2:钠品凳送') {
+                        $('#btn_content').attr('disabled', false);
+                        $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', false);
                     } else if (v == '4:受取済み') {
+                        $('#btn_content').attr('disabled', false);
+                        $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
@@ -101,7 +117,7 @@
                 }
 
                 // 汇率转换
-                function cal() {
+                function Xchanger() {
                     //為替レート取得
                     var exchange = $("#number_rate").val();
                     //商品費用
@@ -114,11 +130,11 @@
                     var monetaryunit1 = $("#opt_monetaryunit1").val();
                     // 货币单位为CNY时
                     if (monetaryunit1 == "CNY" && exchange != null && exchange != "" && productamountRMB != null && productamountRMB != "") {
-                        $("#number_productamountRY").html((productamountRMB / exchange).toFixed(2) + " 円");
+                        $("#number_productamountRY").html((productamountRMB / exchange*100).toFixed(2) + " 円");
                     }
                     // 货币单位为JPY时
                     if (monetaryunit1 == "JPY" && exchange != null && exchange != "" && productamountRMB != null && productamountRMB != "") {
-                        $("#number_productamountRY").html((productamountRMB * exchange).toFixed(2) + " 元");
+                        $("#number_productamountRY").html((productamountRMB * exchange/100).toFixed(2) + " 元");
                     }
 
                     //物流費用
@@ -130,11 +146,11 @@
                     var monetaryunit2 = $("#opt_monetaryunit2").val();
                     if (monetaryunit2 == "CNY" && exchange != null && exchange != "" && shipamountRMB != null && shipamountRMB != "") {
 
-                        $("#number_shipamountRY").html((shipamountRMB / exchange).toFixed(2) + " 円");
+                        $("#number_shipamountRY").html((shipamountRMB / exchange*100).toFixed(2) + " 円");
                     }
                     if (monetaryunit2 == "JPY" && exchange != null && exchange != "" && shipamountRMB != null && shipamountRMB != "") {
 
-                        $("#number_shipamountRY").html((shipamountRMB * exchange).toFixed(2) + " 元");
+                        $("#number_shipamountRY").html((shipamountRMB * exchange/100).toFixed(2) + " 元");
                     }
 
                     //税金
@@ -146,11 +162,11 @@
                     var monetaryunit3 = $("#opt_monetaryunit3").val();
                     if (monetaryunit3 == "CNY" && exchange != null && exchange != "" && faxamountRMB != null && faxamountRMB != "") {
 
-                        $("#number_faxamountRY").html((faxamountRMB / exchange).toFixed(2) + " 円");
+                        $("#number_faxamountRY").html((faxamountRMB / exchange*100).toFixed(2) + " 円");
                     }
                     if (monetaryunit3 == "JPY" && exchange != null && exchange != "" && faxamountRMB != null && faxamountRMB != "") {
 
-                        $("#number_faxamountRY").html((faxamountRMB * exchange).toFixed(2) + " 元");
+                        $("#number_faxamountRY").html((faxamountRMB * exchange/100).toFixed(2) + " 元");
                     }
 
                     // 合计
@@ -184,8 +200,8 @@
                     //记录rmb和jpy总和  
                     var rmbmoney = rmb1 + rmb2 + rmb3;
                     var jpymoney = jpy1 + jpy2 + jpy3;
-                    $("#text_totalRMB").val(rmbmoney);
-                    $("#text_totalRY").val(jpymoney.toFixed(3));
+                    $("#text_totalRMB").html(rmbmoney.toFixed(2)+'元');
+                    $("#text_totalRY").html(jpymoney.toFixed(2)+'円');
                 }
                 // 判断转换的值是否为空
                 function isNULL(val) {
@@ -204,16 +220,26 @@
                     Efw('purchase_delete', { 'no': no });
                 }
 
-                // sl:保存
+                // 保存
                 function save() {
-                    // 仕入NO
-                    var no = new Date().Format("yyyyMMdd-HHmmss"); 
-                    console.log(no);
-                    Efw('purchase_save');
+                    var purchaseno=$('#purchaseno').val();
+                    Efw('purchase_save',{"purchaseno":purchaseno});
                 }
 
+                //上传文件
+                function upload(){
+                    Efw('purchase_upload');
+                }
 
-
+                // 删除文件
+                function delfile(val){
+                    // 資料名称
+                    var data=$(val).parent().prev().html();
+                    var f=data.split(".");
+                    var dataname=f[0];
+                    console.log(dataname);
+                    Efw('purchase_delfile',{"dataname":dataname});
+                }
             </script>
             <style>
                 .table_btn td button {
@@ -241,10 +267,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;padding-right: 20px;">
-                                    店舗ID：<span id="shopid">未选择</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    UserID：<span id="userid">XXXX</span>
+                                <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                                    店舗ID：<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
                                 </td>
                             </tr>
                         </table>
@@ -266,10 +292,11 @@
 
                                     <td style="width: 120px;"><button id="btn_new"
                                             onclick="opendialog('new')">新規</button></td>
-                                    <td style="width: 120px;"><button id="btn_content"
+                                    <td style="width: 120px;"><button id="btn_content" disabled="disabled"
                                             onclick="purchase_content_inputdialog.dialog('open');">仕入内容</button></td>
-                                    <td style="width: 120px;"><button id="btn_update"
-                                            onclick="opendialog('update')">仕入更新</button></td>
+                                    <td style="width: 120px;">
+                                        <button id="btn_update"
+                                            onclick="opendialog('update')" disabled="disabled">仕入更新</button></td>
 
                                     <td style="width: 120px;"><button id="btn_delete" onclick="deletepurchase()"
                                             disabled="disabled">仕入削除</button>
@@ -323,7 +350,7 @@
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="purchasetable"
                             style="width: 2037px;table-layout: fixed;">
-                            <tbody>
+                   
                                 <tr>
                                     <td style="width: 50px;" rowspan="2" class="c"><input type="radio"
                                             name="choice"></input></td>
@@ -360,7 +387,7 @@
                                     <td class="r"><span class="r5">999999.99円</span></td>
                                 </tr>
 
-                            </tbody>
+                    
                         </table>
                     </div>
                 </div>
