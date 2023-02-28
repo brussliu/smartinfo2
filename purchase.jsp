@@ -98,8 +98,8 @@
                     // 仕入NO
                     var tempno = $(val).parent().next().children().html();
 
+                    $('#btn_update').data("state", v);
                     $('#temp').data("temp", tempno);
-
                     if (v == '1.新　規') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
@@ -238,8 +238,8 @@
 
                 // 保存
                 function save() {
-          
-                    Efw('purchase_save');
+                    var state = $('#btn_update').data("state");
+                    Efw('purchase_save',{"state":state});
                 }
 
                 //上传文件
@@ -261,7 +261,7 @@
                 // 打开仕入内容
                 function opencontentdialog(){
                     var purchaseno = $('#temp').data("temp");
-                    console.log(purchaseno);
+                
                     Efw('purchase_list',{"purchaseno":purchaseno});  
                 }
              

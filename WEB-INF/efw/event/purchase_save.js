@@ -30,8 +30,8 @@ purchase_save.paramsFormat = {
 	"#file_ProContent": null,
 	"#text_track": null,
 	"#purchaseno": null,
-	"#flg": null
-
+	"#flg": null,
+	"state": null
 };
 
 purchase_save.fire = function (params) {
@@ -43,7 +43,7 @@ purchase_save.fire = function (params) {
 	// 仕入NO
 	var date = params["#purchaseno"];
 
- 
+
 
 	// 仕入名称
 	var purchase = params["#text_purchase"];
@@ -87,7 +87,7 @@ purchase_save.fire = function (params) {
 	var totalRMB = total1.substring(0, total1.length - 1);
 	var total2 = params["#text_totalRY"];
 	var totalRY = total2.substring(0, total2.length - 1);
-	totalRY.debug('totalRY');
+
 	// 仕入内容
 	var ProContent = params["#file_ProContent"];
 	if (ProContent == null || ProContent == '') {
@@ -97,10 +97,68 @@ purchase_save.fire = function (params) {
 	var track = params["#text_track"];
 	// 新规or更新
 	var flg = params["#flg"];
+	//  ステータス
+	var state = params["state"];
 	var shop = getShopId();
 	if (flg == 'new') {
 
 	} else {
+		if (state == '2.発送済') {
+			// 检索仕入明细所有sku,asin,数量
+			var selectOld = db.select(
+				"PURCHASE",
+				"queryPurchaseCount",
+				{
+					purchaseno: date,
+					shopid: getShopId()
+				}
+			).getArray();
+
+			// 更新途中在庫_仕入数量
+			for (var i = 0; i < selectOld.length; i++) {
+				var update = db.change(
+					"PURCHASE",
+					"updateMSTPurMinus",
+					{
+						asin: selectOld[i]['asin'],
+						sku: selectOld[i]['sku'],
+						count: selectOld[i]['count'],
+						purchaseno: date,
+						shopid: getShopId()
+					}
+				);
+			}
+
+
+		} else if (state == '3.仕入済') {
+			// 检索仕入明细所有sku,asin,数量
+			var selectOld = db.select(
+				"PURCHASE",
+				"queryPurchaseCount",
+				{
+					purchaseno: date,
+					shopid: getShopId()
+				}
+			).getArray();
+
+			// 更新MST_在庫情報-减去LOCAL在庫数量
+			for (var i = 0; i < selectOld.length; i++) {
+				var update = db.change(
+					"PURCHASE",
+					"updateMSTLocalMinus",
+					{
+						asin: selectOld[i]['asin'],
+						sku: selectOld[i]['sku'],
+						count: selectOld[i]['count'],
+						purchaseno: date,
+						shopid: getShopId()
+					}
+				);
+			}
+
+		}
+
+
 		// 删除仕入明细
 		var deleteResult = db.change(
 			"PURCHASE",
@@ -120,25 +178,24 @@ purchase_save.fire = function (params) {
 	// 文件名
 	var fa = ProContent.split("\\");
 	var f = fa[fa.length - 1];
-	f.debug('---f');
 	// Excelファイル
 	var exl = new Excel("Smart-Bear/upload/" + f);
-	exl.debug('---exl');
 	// excel表名
 	var exlarray = exl.getSheetNames();
-	exlarray.debug('---exlarray');
 	//  序号
 	var COL_C = "C";//ASIN番号
 	var COL_D = "D";//SKU番号
 	var COL_Z = "Z";//仕入数量
-
 	var Y_from = 3;//EXCEL数据起始行
-	var Y_to = 99;//EXCEL数据起始行
-	// 仕入明细
+	var Y_to = 999;//EXCEL数据起始行
+
+	// 导入仕入明细
 	for (var i = 0; i < exlarray.length; i++) {
 		//文件，Excel表名，用户名 
 		importProContent(exl, exlarray[i], COL_C, COL_D, COL_Z, Y_from, Y_to, shop, date);
 	}
+
+
 	// 统计数量，金额
 	var countResult = db.select(
 		"PURCHASE",
@@ -152,7 +209,7 @@ purchase_save.fire = function (params) {
 	var count = countResult[0]['count'];
 	var money = countResult[0]['money'];
 
- 
+
 	if (flg == 'new') {
 		// 保存TRN_仕入管理
 		var selectResult = db.change(
@@ -187,7 +244,61 @@ purchase_save.fire = function (params) {
 			}
 		);
 		selectResult.debug('------savepurchase----');
+
 	} else {
+
+		if (state == '2.発送済') {
+			// 检索仕入明细所有sku,asin,数量
+			var selectNew = db.select(
+				"PURCHASE",
+				"queryPurchaseCount",
+				{
+					purchaseno: date,
+					shopid: getShopId()
+				}
+			).getArray();
+
+				// 更新途中在庫_仕入数量
+			for (var i = 0; i < selectNew.length; i++) {
+				var update = db.change(
+					"PURCHASE",
+					"updateMSTPurAdd",
+					{
+						asin: selectNew[i]['asin'],
+						sku: selectNew[i]['sku'],
+						count: selectNew[i]['count'],
+						purchaseno: date,
+						shopid: getShopId()
+					}
+				);
+			}
+
+		} else if (state == '3.仕入済') {
+			// 检索仕入明细所有sku,asin,数量
+			var selectNew = db.select(
+				"PURCHASE",
+				"queryPurchaseCount",
+				{
+					purchaseno: date,
+					shopid: getShopId()
+				}
+			).getArray();
+
+			// 更新MST_在庫情報-加上LOCAL在庫数量
+			for (var i = 0; i < selectNew.length; i++) {
+				var update = db.change(
+					"PURCHASE",
+					"updateMSTLocalAdd",
+					{
+						asin: selectNew[i]['asin'],
+						sku: selectNew[i]['sku'],
+						count: selectNew[i]['count'],
+						purchaseno: date,
+						shopid: getShopId()
+					}
+				);
+			}
+		}
 		// 更新TRN_仕入管理
 		var selectResult = db.change(
 			"PURCHASE",

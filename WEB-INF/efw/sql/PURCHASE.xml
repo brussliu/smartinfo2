@@ -338,7 +338,7 @@
 </sql>
 
 <!-- 仕入内容 -->
-<!-- 通过仕入NO检索asin,sku -->
+<!-- 通过仕入NO检索 仕入名称 -->
 <sql id="seachAsinAndSku" paramPrefix="!">
  	SELECT
 		"仕入名称" as purchasename
@@ -483,6 +483,72 @@
  WHERE
 	"店舗ID" = !shopid 
 	and	"仕入NO" = !purchaseno
+</sql>
+
+<!--sl:检索仕入明细所有sku,asin,数量  -->
+<sql id="queryPurchaseCount" paramPrefix="!">
+ 	SELECT
+		"ASIN番号" AS asin,
+		"SKU番号" AS sku,
+		"数量" as count
+	FROM
+		"TRN_仕入明細"   
+	WHERE
+			"店舗ID" = !shopid 
+		and	"仕入NO" = !purchaseno
+
+</sql>
+
+<!--sl:更新MST_在庫情報-减去途中在庫_仕入数量  -->
+<sql id="updateMSTPurMinus" paramPrefix="!">
+ UPDATE 
+ 	"MST_在庫情報" 
+ 	SET 
+	 "途中在庫_仕入" = "途中在庫_仕入" - cast(!count as int)
+ WHERE
+	"店舗ID" = !shopid 
+	and	"ASIN番号" = !asin
+	and	"SKU番号" = !sku
+
+</sql>
+
+
+<!--sl:更新MST_在庫情報-加上途中在庫_仕入数量  -->
+<sql id="updateMSTPurAdd" paramPrefix="!">
+ UPDATE 
+ 	"MST_在庫情報" 
+ 	SET 
+	 "途中在庫_仕入" = "途中在庫_仕入" + cast(!count as int)
+ WHERE
+	"店舗ID" = !shopid 
+	and	"ASIN番号" = !asin
+	and	"SKU番号" = !sku
+</sql>
+
+<!--sl:更新MST_在庫情報-减去LOCAL在庫数量  -->
+<sql id="updateMSTLocalMinus" paramPrefix="!">
+ UPDATE 
+ 	"MST_在庫情報" 
+ 	SET 
+	 "LOCAL在庫" = "LOCAL在庫" - cast(!count as int)
+ WHERE
+	"店舗ID" = !shopid 
+	and	"ASIN番号" = !asin
+	and	"SKU番号" = !sku
+
+</sql>
+
+
+<!--sl:更新MST_在庫情報-加上LOCAL在庫数量  -->
+<sql id="updateMSTLocalAdd" paramPrefix="!">
+ UPDATE 
+ 	"MST_在庫情報" 
+ 	SET 
+	 "LOCAL在庫" = "LOCAL在庫" + cast(!count as int)
+ WHERE
+	"店舗ID" = !shopid 
+	and	"ASIN番号" = !asin
+	and	"SKU番号" = !sku
 </sql>
  </sqls>
 
