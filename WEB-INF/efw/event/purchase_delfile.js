@@ -2,7 +2,7 @@ var purchase_delfile = {};
 purchase_delfile.name = "仕入詳細文件削除";
 purchase_delfile.paramsFormat = {
 	"dataname": null,
-	"#purchaseno": null,
+	"purchaseno": null,
 
 };
 
@@ -14,9 +14,8 @@ purchase_delfile.fire = function (params) {
 	// 资源名
 	var dataname = params["dataname"];
 	// 仕入NO
-	var purchaseno = params["#purchaseno"];
-
-	// 删除本地文件
+	var purchaseno = params["purchaseno"];
+	// 检索文件名
 	var selectResult = db.select(
 		"PURCHASE",
 		"queryPurchaseFileForDataname",
@@ -26,8 +25,10 @@ purchase_delfile.fire = function (params) {
 			shopid: getShopId()
 		}
 	).getArray();
-	selectResult.debug("-------------queryPurchaseFileFordataname")
-	var files = "purchasefile/" + purchaseno + "/" + selectResult[0]['files'] + "." + selectResult[0]['suffix'];
+	selectResult.debug("-------------queryPurchaseFileFordataname");
+	
+	// 删除本地文件
+	var files = "Smart-Bear/purchasefile/" + purchaseno + "/" + selectResult[0]['files'] + "." + selectResult[0]['suffix'];
 	file.remove(files);
 
 

@@ -29,7 +29,8 @@ purchase_save.paramsFormat = {
 
 	"#file_ProContent": null,
 	"#text_track": null,
-	"purchaseno": null
+	"#purchaseno": null,
+	"#flg": null
 
 };
 
@@ -39,17 +40,16 @@ purchase_save.fire = function (params) {
 	// セッションチェック
 	sessionCheck(ret);
 	// 当前时间
-	// var date = new Date().format("yyyyMMdd-HHmmss");
-	var date = params["purchaseno"];
-
 	// 仕入NO
-	var no = params["#td_no"];
+	var date = params["#purchaseno"];
+
+ 
+
 	// 仕入名称
 	var purchase = params["#text_purchase"];
 	// 発送方式
 	var ship = params["#opt_ship"];
-	// 登録日
-	var entrydate = params["#date_entrydate"];
+
 	// 発送日①
 	var forwarddate1 = params["#date_forwarddate1"];
 	// 発送日②
@@ -58,20 +58,27 @@ purchase_save.fire = function (params) {
 	var completiondate = params["#date_completiondate"];
 	// 商品費用
 	var productamountRMB = params["#number_productamountRMB"];
+
+	productamountRMB.debug('111--productamountRMB');
 	// 商品費用货币单位
 	var monetaryunit1 = params["#opt_monetaryunit1"];
 	// 商品費用转换值
-	var productamountRY = params["#number_productamountRY"];
+	var productamount2 = params["#number_productamountRY"];
+	var productamountRY = productamount2.substring(0, productamount2.length - 1);
+
 	unit(monetaryunit1, productamountRMB, productamountRY);
+
 	// 物流費用
 	var shipamountRMB = params["#number_shipamountRMB"];
 	var monetaryunit2 = params["#opt_monetaryunit2"];
-	var shipamountRY = params["#number_shipamountRY"];
+	var shipamount2 = params["#number_shipamountRY"];
+	var shipamountRY = shipamount2.substring(0, shipamount2.length - 1);
 	unit(monetaryunit2, shipamountRMB, shipamountRY);
 	// 税金
 	var faxamountRMB = params["#number_faxamountRMB"];
 	var monetaryunit3 = params["#opt_monetaryunit3"];
-	var faxamountRY = params["#number_faxamountRY"];
+	var faxamount2 = params["#number_faxamountRY"];
+	var faxamountRY = faxamount2.substring(0, faxamount2.length - 1);
 	unit(monetaryunit3, faxamountRMB, faxamountRY);
 	// 為替レート
 	var rate = params["#number_rate"];
@@ -83,37 +90,54 @@ purchase_save.fire = function (params) {
 	totalRY.debug('totalRY');
 	// 仕入内容
 	var ProContent = params["#file_ProContent"];
+	if (ProContent == null || ProContent == '') {
+		ret.eval("alter('仕入内容is null')");
+	}
 	// 追跡番号
 	var track = params["#text_track"];
-
-
-
+	// 新规or更新
+	var flg = params["#flg"];
 	var shop = getShopId();
+	if (flg == 'new') {
 
-	file.saveUploadFiles("upload");
+	} else {
+		// 删除仕入明细
+		var deleteResult = db.change(
+			"PURCHASE",
+			"deletePurchaseContent",
+			{
+				purchaseno: date,
+				shopid: getShopId()
+			}
+		);
+		deleteResult.debug('--------deletePurchaseContent--------')
+	}
+
+
+
+
+	file.saveUploadFiles("Smart-Bear/upload");
 	// 文件名
 	var fa = ProContent.split("\\");
 	var f = fa[fa.length - 1];
+	f.debug('---f');
 	// Excelファイル
-	var exl = new Excel("upload/" + f);
+	var exl = new Excel("Smart-Bear/upload/" + f);
+	exl.debug('---exl');
 	// excel表名
 	var exlarray = exl.getSheetNames();
-
+	exlarray.debug('---exlarray');
 	//  序号
-	var COL_B = "B";//管理番号
 	var COL_C = "C";//ASIN番号
 	var COL_D = "D";//SKU番号
-	var COL_E = "E";//LABEL番号
-	var COL_F = "F";//分類①
-	var COL_G = "G";//分類②
-	var COL_O = "O";//仕入数量
+	var COL_Z = "Z";//仕入数量
 
 	var Y_from = 3;//EXCEL数据起始行
 	var Y_to = 99;//EXCEL数据起始行
 	// 仕入明细
 	for (var i = 0; i < exlarray.length; i++) {
 		//文件，Excel表名，用户名 
-		importProContent(exl, exlarray[i], COL_B, COL_C, COL_D, COL_E, COL_F, COL_G, COL_O, Y_from, Y_to, shop, date);
+		importProContent(exl, exlarray[i], COL_C, COL_D, COL_Z, Y_from, Y_to, shop, date);
 	}
 	// 统计数量，金额
 	var countResult = db.select(
@@ -128,84 +152,118 @@ purchase_save.fire = function (params) {
 	var count = countResult[0]['count'];
 	var money = countResult[0]['money'];
 
+ 
+	if (flg == 'new') {
+		// 保存TRN_仕入管理
+		var selectResult = db.change(
+			"PURCHASE",
+			"savepurchase",
+			{
+				purchaseno: date,
+				purchase: purchase,
+				ship: ship,
 
-	// 保存
-	var selectResult = db.change(
-		"PURCHASE",
-		"savepurchase",
-		{
-			no: date,
-			purchase: purchase,
-			ship: ship,
+				count: count,
+				money: money,
+				forwarddate1: forwarddate1,
+				forwarddate2: forwarddate2,
 
-			count: count,
-			money: money,
-			forwarddate1: forwarddate1,
-			forwarddate2: forwarddate2,
+				completiondate: completiondate,
 
-			completiondate: completiondate,
+				productamountRMB: productamountRMB,
+				productamountRY: productamountRY,
 
-			productamountRMB: productamountRMB,
-			productamountRY: productamountRY,
+				shipamountRMB: shipamountRMB,
+				shipamountRY: shipamountRY,
 
-			shipamountRMB: shipamountRMB,
-			shipamountRY: shipamountRY,
+				faxamountRMB: faxamountRMB,
+				faxamountRY: faxamountRY,
 
-			faxamountRMB: faxamountRMB,
-			faxamountRY: faxamountRY,
+				rate: rate,
+				totalRMB: totalRMB,
+				totalRY: totalRY,
+				track: track,
+				shopid: getShopId()
+			}
+		);
+		selectResult.debug('------savepurchase----');
+	} else {
+		// 更新TRN_仕入管理
+		var selectResult = db.change(
+			"PURCHASE",
+			"updatepurchase",
+			{
+				purchaseno: date,
+				purchase: purchase,
+				ship: ship,
 
-			rate: rate,
-			totalRMB: totalRMB,
-			totalRY: totalRY,
-			track: track,
-			shopid: getShopId()
-		}
-	);
-	selectResult.debug('------savepurchase----');
+				count: count,
+				money: money,
+				forwarddate1: forwarddate1,
+				forwarddate2: forwarddate2,
+
+				completiondate: completiondate,
+
+				productamountRMB: productamountRMB,
+				productamountRY: productamountRY,
+
+				shipamountRMB: shipamountRMB,
+				shipamountRY: shipamountRY,
+
+				faxamountRMB: faxamountRMB,
+				faxamountRY: faxamountRY,
+
+				rate: rate,
+				totalRMB: totalRMB,
+				totalRY: totalRY,
+				track: track,
+				shopid: getShopId()
+			}
+		);
+		selectResult.debug('------updatepurchase----');
+
+	}
+
 	ret.eval("$('#purchaseno').val(" + date + ")");
 	ret.eval("purchase_detail_inputdialog.dialog('close');");
+	ret.eval("choice('');");
 	ret.eval("init();");
 	// 画面へ結果を返す
 	return ret;
 
 };
 // 导入文件
-function importProContent(exl, sheetName, XB, XC, XD, XE, XF, XG, XO, Y_from, Y_to, shopid, date) {
+function importProContent(exl, sheetName, XC, XD, XZ, Y_from, Y_to, shopid, date) {
 
 	// 循环
 	for (var y = Y_from; y <= Y_to; y++) {
 		// 获取excel值
-		// 管理番号
-		var productno = exl.getValue(sheetName, XB + y);
 		// ASIN番号
 		var asin = exl.getValue(sheetName, XC + y);
+
 		// SKU番号
 		var sku = exl.getValue(sheetName, XD + y);
-		// LABEL番号
-		var label = exl.getValue(sheetName, XE + y);
-		// 分類①
-		var sub1 = exl.getValue(sheetName, XF + y);
-		// 分類②
-		var sub2 = exl.getValue(sheetName, XG + y);
+
 		// 仕入数量
-		var count = exl.getValue(sheetName, XO + y);
+		var count = exl.getValue(sheetName, XZ + y);
 
-		if ((sku == null || sku == '') && (asin == null || asin == '')) {
+		// if ((sku == null || sku == '') && (asin == null || asin == '')) {
 
-			// 通过暂定数据查商品,获取价格
-			var selectResult = db.select(
-				"PURCHASE",
-				"searchProduct",
-				{
-					type: sheetName,
-					no: productno,
-					sub1: sub1,
-					sub2: sub2,
-					shopid: shopid
-				}
-			).getArray();
-			// selectResult.debug('--searchProduct/-----');
-		} else {
+		// 	// 通过暂定数据查商品,获取价格
+		// 	var selectResult = db.select(
+		// 		"PURCHASE",
+		// 		"searchProduct",
+		// 		{
+		// 			type: sheetName,
+		// 			no: productno,
+		// 			sub1: sub1,
+		// 			sub2: sub2,
+		// 			shopid: shopid
+		// 		}
+		// 	).getArray();
+
+		// } else {
+		if ((sku != null && sku != '') && (asin != null && asin != '')) {
 			// 通过ASIN番号，SKU番号查商品,获取价格
 			var selectResult = db.select(
 				"PURCHASE",
@@ -216,17 +274,13 @@ function importProContent(exl, sheetName, XB, XC, XD, XE, XF, XG, XO, Y_from, Y_
 					shopid: shopid
 				}
 			).getArray();
-			// selectResult.debug('--searchProductAS/-----');
+
+			var productno = selectResult[0]['productno'];
+			var type = selectResult[0]['type'];
+			var sub1 = selectResult[0]['sub1'];
+			var sub2 = selectResult[0]['sub2'];
+			var price = Number(selectResult[0]['price']);
 		}
-
-
-		var price = '';
-		// 価格
-		if (selectResult.length > 0) {
-			price = Number(selectResult[0]['price']);
-			// price.debug('======price====');	
-		}
-
 
 		// 判断下一行数据是否为空
 		if ((sku == null || sku == '') && (asin == null || asin == '')
@@ -246,7 +300,7 @@ function importProContent(exl, sheetName, XB, XC, XD, XE, XF, XG, XO, Y_from, Y_
 						asin: asin,
 						sku: sku,
 						productno: productno,
-						type: sheetName,
+						type: type,
 						sub1: sub1,
 						sub2: sub2,
 						price: price,
@@ -268,7 +322,9 @@ function importProContent(exl, sheetName, XB, XC, XD, XE, XF, XG, XO, Y_from, Y_
 // sl:根据单位确认左右的值
 function unit(unit, cny, jpy) {
 	var zh;
+
 	if (unit == "CNY") {
+
 		zh = cny;
 		cny = jpy;
 		jpy = zh;

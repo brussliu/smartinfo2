@@ -64,6 +64,7 @@
                     $('#file_acces').val("");
                     $('#text_filename').val("");
                     // 上传NO
+                    $('#purchasediv').css('display', 'none');
                     $('#purchaseno').val("");
                     $('#filetable').html("");
                 }
@@ -75,11 +76,20 @@
                     if (val == 'new') {
                         newdialog();
                         $('#purchaseno').val(curTime);
+                        $('#flg').val('new');
+                 
+                        purchase_detail_inputdialog.dialog('open');
                     }
                     else {
-
+                    var purchaseno= $('#temp').data("temp");
+                
+                    $('#purchaseno').val(purchaseno);
+             
+                    $('#purchasediv').css('display', 'inline-block');
+                    $('#flg').val('update');
+                    Efw('purchase_update',{"purchaseno":purchaseno});
                     }
-                    purchase_detail_inputdialog.dialog('open');
+                 
                 }
                 // button初始化
                 function choice(val) {
@@ -89,23 +99,28 @@
                     var tempno = $(val).parent().next().children().html();
 
                     $('#temp').data("temp", tempno);
-                    // console.log(tempno);
-                    // console.log($('#temp').data("temp"));
-                    if (v == '0:新規登録') {
+
+                    if (v == '1.新　規') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', false);
                         $('#btn_send').attr('disabled', false);
                         $('#btn_collection').attr('disabled', false);
-                    } else if (v == '2:钠品凳送') {
+                    } else if (v == '2.発送済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', false);
-                    } else if (v == '4:受取済み') {
+                    } else if (v == '3.仕入済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
+                        $('#btn_delete').attr('disabled', true);
+                        $('#btn_send').attr('disabled', true);
+                        $('#btn_collection').attr('disabled', true);
+                    }else{
+                        $('#btn_content').attr('disabled', true);
+                        $('#btn_update').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
@@ -114,6 +129,7 @@
                 //关闭dialog
                 function cel() {
                     purchase_detail_inputdialog.dialog('close');
+                    newdialog();
                 }
 
                 // 汇率转换
@@ -222,13 +238,14 @@
 
                 // 保存
                 function save() {
-                    var purchaseno=$('#purchaseno').val();
-                    Efw('purchase_save',{"purchaseno":purchaseno});
+          
+                    Efw('purchase_save');
                 }
 
                 //上传文件
                 function upload(){
-                    Efw('purchase_upload');
+                    var purchaseno= $('#temp').data("temp");
+                    Efw('purchase_upload',{"purchaseno":purchaseno});
                 }
 
                 // 删除文件
@@ -237,9 +254,29 @@
                     var data=$(val).parent().prev().html();
                     var f=data.split(".");
                     var dataname=f[0];
-                    console.log(dataname);
-                    Efw('purchase_delfile',{"dataname":dataname});
+                    var purchaseno= $('#temp').data("temp");
+                    Efw('purchase_delfile',{"dataname":dataname,"purchaseno":purchaseno});
                 }
+            
+                // 打开仕入内容
+                function opencontentdialog(){
+                    var purchaseno = $('#temp').data("temp");
+                    console.log(purchaseno);
+                    Efw('purchase_list',{"purchaseno":purchaseno});  
+                }
+             
+                 // 仕入発送
+                 function send(){
+                    var purchaseno = $('#temp').data("temp");
+                    Efw('purchase_send',{"purchaseno":purchaseno});  
+                }
+             
+                  //仕入受取
+                  function finish(){
+                    var purchaseno = $('#temp').data("temp");
+                    Efw('purchase_receive',{"purchaseno":purchaseno});  
+                }
+             
             </script>
             <style>
                 .table_btn td button {
@@ -288,12 +325,12 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td><input type="hidden" id="flg"></input></td>
 
                                     <td style="width: 120px;"><button id="btn_new"
                                             onclick="opendialog('new')">新規</button></td>
                                     <td style="width: 120px;"><button id="btn_content" disabled="disabled"
-                                            onclick="purchase_content_inputdialog.dialog('open');">仕入内容</button></td>
+                                            onclick="opencontentdialog()">仕入内容</button></td>
                                     <td style="width: 120px;">
                                         <button id="btn_update"
                                             onclick="opendialog('update')" disabled="disabled">仕入更新</button></td>
@@ -302,9 +339,9 @@
                                             disabled="disabled">仕入削除</button>
                                     </td>
 
-                                    <td style="width: 120px;"><button id="btn_send" disabled="disabled">仕入発送</button>
+                                    <td style="width: 120px;"><button id="btn_send" onclick="send()" disabled="disabled">仕入発送</button>
                                     </td>
-                                    <td style="width: 120px;"><button id="btn_collection"
+                                    <td style="width: 120px;"><button id="btn_collection" onclick="finish()"
                                             disabled="disabled">仕入受取</button></td>
                                 </tr>
                             </tbody>

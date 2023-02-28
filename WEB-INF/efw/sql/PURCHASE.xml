@@ -76,12 +76,12 @@
 		"登録日時",
 		"追跡番号" )
 	VALUES(
-		!no, --仕入NO
+		!purchaseno, --仕入NO
 		!purchase, --仕入名称
 		'A', --仕入区分
 		!count, --数量
 		!money, --金額
-		'0:新規登録', --ステータス
+		'1.新　規', --ステータス
 		now(), --登録日
 		to_timestamp(!forwarddate1,'yyyy-MM-dd hh24:mi:ss'), --発送日①
 		to_timestamp(!forwarddate2,'yyyy-MM-dd hh24:mi:ss'), --発送日②
@@ -91,11 +91,11 @@
 		cast(!rate as numeric), --為替レート
 
 		cast(!productamountRMB as numeric), --商品費用
-		cast(SUBSTRING (!productamountRY,1,4) as numeric), --商品費用（円）
+		cast(!productamountRY as numeric), --商品費用（円）
 		cast(!shipamountRMB as numeric), --物流費用
-		cast(SUBSTRING (!shipamountRY,1,4) as numeric), --物流費用（円）
+		cast(!shipamountRY as numeric), --物流費用（円）
 		cast(!faxamountRMB as numeric), --税金
-		cast(SUBSTRING (!faxamountRY,1,4) as numeric), --税金（円）
+		cast(!faxamountRY as numeric), --税金（円）
 		cast(!totalRMB as numeric), --合計
 		cast(!totalRY as numeric), --合計（円）
 
@@ -104,6 +104,18 @@
 		!track --追跡番号
 	)
 </sql>
+
+
+<!-- sl:删除TRN_仕入管理 -->
+<sql id="removepurchase" paramPrefix="!">
+ DELETE 
+ FROM
+		"TRN_仕入管理" 
+ WHERE
+	 	"店舗ID" = !shopid 
+ and	"仕入NO" = !purchaseno
+</sql>
+
 
 
 
@@ -142,16 +154,34 @@
 	)
 </sql>
 
+<!-- sl:删除TRN_仕入明細 -->
+<sql id="deletePurchaseContent" paramPrefix="!">
+ DELETE 
+ FROM
+		"TRN_仕入明細" 
+ WHERE
+	 	"店舗ID" = !shopid 
+ and	"仕入NO" = !purchaseno
+</sql>
+
 <!--sl:通过ASIN番号，SKU番号查商品,获取价格  -->
 <sql id="searchProductAS" paramPrefix="!">
  SELECT 
-	"仕入価格" as price
+	"仕入価格" as price,
+	"商品管理番号" AS productno,
+	"商品種別" AS type,
+	"分類１" AS sub1,
+	"分類２" AS sub2
  FROM
 	"MST_出品マスタ情報" 
  WHERE
   "店舗ID" = !shopid 
   	    <if exists="asin"> AND (	
 		  "ASIN番号" = !asin
+		)
+	    </if>
+		  <if notexists="asin"> AND (	
+		  "ASIN番号" is null
 		)
 	    </if>
 	 	<if exists="sku"> AND (	
@@ -307,5 +337,152 @@
 	</if>  
 </sql>
 
+<!-- 仕入内容 -->
+<!-- 通过仕入NO检索asin,sku -->
+<sql id="seachAsinAndSku" paramPrefix="!">
+ 	SELECT
+		"仕入名称" as purchasename
+	FROM
+		"TRN_仕入管理"   
+	WHERE
+			"店舗ID" = !shopid 
+		and	"仕入NO" = !purchaseno
+</sql>
+
+<!--通过asin,sku检索  -->
+<sql id="seachpurchasecontent" paramPrefix="!">
+ SELECT 
+  DISTINCT
+ 	 	A."商品管理番号" AS productno,
+		A."分類１" AS sub1,
+		A."分類２" AS sub2,
+		A."ASIN番号" AS asin,
+		A."SKU番号" AS sku,
+		A."LABEL番号" AS label,
+		B."FBA在庫" AS fba,
+		B."LOCAL在庫" AS LOCAL,
+		C."数量" AS NUMBER 
+ FROM
+		"TRN_仕入明細" C
+		LEFT JOIN  "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" 
+	AND A."SKU番号" = C."SKU番号" 
+ LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" 
+	AND C."SKU番号" = B."SKU番号"
+	
+ WHERE
+			A."ASIN番号" IN (
+		SELECT
+			cc."ASIN番号" AS asin 
+		FROM
+			"TRN_仕入明細" cc
+			LEFT JOIN "TRN_仕入管理" bb ON cc."仕入NO" = bb."仕入NO" 
+			AND cc."店舗ID" = bb."店舗ID" 
+		WHERE
+			cc."店舗ID" = !shopid 
+		AND cc."仕入NO" = !purchaseno 
+ ) AND
+		A."SKU番号" IN 
+			(SELECT 
+			 cc."SKU番号" AS sku
+		FROM
+			"TRN_仕入明細" cc
+			LEFT JOIN "TRN_仕入管理" bb ON cc."仕入NO" = bb."仕入NO" 
+			AND cc."店舗ID" = bb."店舗ID" 
+		WHERE
+			cc."店舗ID" = !shopid 
+			AND cc."仕入NO" = !purchaseno 
+	)
+ ORDER BY   A."商品管理番号",A."分類１",A."分類２"
+
+</sql>
+
+
+<!-- 更新 -->
+<!-- sl:通过仕入no检索 -->
+<sql id="seachpurchaseforno">
+ SELECT 
+	"仕入NO" AS purchaseno,
+	"仕入名称" AS purchasename,
+	"発送方式" AS sendway,
+	
+	"登録日" AS logindate,
+	"発送日①" AS senddate1,
+	"発送日②" AS senddate2,
+	
+	"完了日" AS completiondate,
+	"商品費用" AS productamountrmb,
+	"商品費用（円）" AS productamountry,
+	
+	"物流費用" AS shipamountrmb,
+	"物流費用（円）" AS shipamountry,
+	"税金" AS faxamountrmb,
+	
+	"税金（円）" AS faxamountry,
+	"合計" AS totalrmb,
+	"合計（円）" AS totalry,
+	
+	"為替レート" AS rate,
+	"追跡番号" AS tracknumber 
+	
+	FROM 
+		"TRN_仕入管理" 
+ 	 WHERE
+	"店舗ID" = :shopid 
+	and	"仕入NO" = :purchaseno
+
+</sql>
+
+<!--更新ステータス为2.発送済  -->
+<sql id="updatepurchase2" paramPrefix="!">
+ UPDATE 
+ 	"TRN_仕入管理" 
+ 	SET "ステータス" = '2.発送済'
+ WHERE
+	"店舗ID" = !shopid 
+	and	"仕入NO" = !purchaseno
+</sql>
+
+<!--更新ステータス3.仕入済  -->
+<sql id="updatepurchase3" paramPrefix="!">
+ UPDATE 
+	"TRN_仕入管理" 
+	SET "ステータス" = '3.仕入済'
+ WHERE
+	"店舗ID" = !shopid 
+	and	"仕入NO" = !purchaseno
+</sql>
+
+<!--更新TRN_仕入管理  -->
+<sql id="updatepurchase" paramPrefix="!">
+ UPDATE 
+		"TRN_仕入管理" 
+ SET 
+  
+		"仕入名称"= !purchase,
+		"数量"= !count,
+		"金額"= !money,
+ 
+		"発送日①"= to_timestamp(!forwarddate1,'yyyy-MM-dd hh24:mi:ss'),
+		"発送日②"= to_timestamp(!forwarddate2,'yyyy-MM-dd hh24:mi:ss'),
+
+		"完了日"= to_timestamp(!completiondate,'yyyy-MM-dd hh24:mi:ss'),
+		"発送方式"= !ship,
+		"為替レート"= cast(!rate as numeric),
+
+		"商品費用"= cast(!productamountRMB as numeric),
+		"商品費用（円）"= cast(!productamountRY as numeric),
+		"物流費用"= cast(!shipamountRMB as numeric),
+		"物流費用（円）"= cast(!shipamountRY as numeric),
+		"税金"= cast(!faxamountRMB as numeric),
+		"税金（円）"= cast(!faxamountRY as numeric),
+		"合計"= cast(!totalRMB as numeric),
+		"合計（円）"= cast(!totalRY as numeric),
+
+		"更新日時"= now(),
+		"追跡番号"= !track 
+ WHERE
+	"店舗ID" = !shopid 
+	and	"仕入NO" = !purchaseno
+</sql>
  </sqls>
 

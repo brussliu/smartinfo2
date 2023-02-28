@@ -22,6 +22,7 @@ purchase_delete.fire = function (params) {
 	)
 
 	selectResult.debug("-------------deletepurchase")
+	ret.eval("newdialog();");
 	ret.eval("init();");
 	// 画面へ結果を返す
 	return ret;

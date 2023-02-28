@@ -1,7 +1,7 @@
 var purchase_upload = {};
 purchase_upload.name = "仕入詳細upload";
 purchase_upload.paramsFormat = {
-	"#purchaseno": null,
+	"purchaseno": null,
 	"#file_acces": null,
 	"#text_filename": null
 };
@@ -11,7 +11,7 @@ purchase_upload.fire = function (params) {
 	var ret = new Result();
 	// セッションチェック
 	sessionCheck(ret);
-	var purchaseno = params["#purchaseno"];
+	var purchaseno = params["purchaseno"];
 	// 获取文件
 	var acces = params["#file_acces"];
 	//  检索max枝番
@@ -26,7 +26,6 @@ purchase_upload.fire = function (params) {
 	).getArray();
 	selectResult.debug("-------------queryPurchaseData");
 	//枝番
- 
 	var maxno = selectResult[0]['maxno'];
 	if(maxno==null||maxno==''){
 		maxno=0;
@@ -63,11 +62,11 @@ purchase_upload.fire = function (params) {
 
 		selectResult.debug('----savepurchasefile---');
 	// 创建文件夹
-	file.makeDir("purchasefile/" + purchaseno);
+	file.makeDir("Smart-Bear/purchasefile/" + purchaseno);
 	// 保存文件
-	file.saveUploadFiles("purchasefile/" + purchaseno);
+	file.saveUploadFiles("Smart-Bear/purchasefile/" + purchaseno);
 	// 修改文件名
-	var oldfilename = "purchasefile/" + purchaseno + "/" + files;
+	var oldfilename = "Smart-Bear/purchasefile/" + purchaseno + "/" + files;
 	var newfilename = filename.concat(".", suffix);
 	file.rename(oldfilename, newfilename);
 	//查询所有文件

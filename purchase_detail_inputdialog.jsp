@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 800,
-                    width: 1600,
+                    width: 1500,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -52,7 +52,7 @@
         </style>
 
         <div style="margin: 10px;">
-            <div style=" width: 55%;display: inline-block;">
+            <div style=" width: 51%;display: inline-block;">
                 <table class="table_inputdialog" border="0">
                     <tbody>
                         <tr>
@@ -172,7 +172,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="width: 42%;display: inline-block;vertical-align: top;">
+            <div id="purchasediv"   style="width: 42%;vertical-align: top;display:  none;">
                 <table class="table_inputdialog" border="0">
                     <tbody>
                         <tr>
@@ -209,10 +209,10 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td></td>
+                       
                         <td style="width: 200px;"><button onclick="save()" class="btn">保存</button></td>
                         <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
-
+                        <td style="width: 92px;"></td>
                     </tr>
                 </tbody>
             </table>
