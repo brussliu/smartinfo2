@@ -202,13 +202,23 @@
                             </tr>
                             <tr class="datatr">
                                 <td class="td1">6</td>
-                                <td class="td2">Qoo10未出荷レポート</td>
+                                <td class="td2">Qoo10未出荷レポート(CSV)</td>
                                 <td class="td3">随時</td>
-                                <td class="td4" id="file06_filename"></td>
-                                <td class="td5" id="file06_reorganizetime">-</td>
-                                <td class="td6" id="file06_reorganizecount">-</td>
-                                <td class="td6" id="file06_importtime">-</td>
-                                <td class="td6" id="file06_importcount">-</td>
+                                <td class="td4" id="file06_1_filename"></td>
+                                <td class="td5" id="file06_1_reorganizetime">-</td>
+                                <td class="td6" id="file06_1_reorganizecount">-</td>
+                                <td class="td6" id="file06_1_importtime">-</td>
+                                <td class="td6" id="file06_1_importcount">-</td>
+                            </tr>
+                            <tr class="datatr">
+                                <td class="td1">6</td>
+                                <td class="td2">Qoo10未出荷レポート(HTML)</td>
+                                <td class="td3">随時</td>
+                                <td class="td4" id="file06_2_filename"></td>
+                                <td class="td5" id="file06_2_reorganizetime">-</td>
+                                <td class="td6" id="file06_2_reorganizecount">-</td>
+                                <td class="td6" id="file06_2_importtime">-</td>
+                                <td class="td6" id="file06_2_importcount">-</td>
                             </tr>
                             <tr class="datatr">
                                 <td class="td1">7</td>

@@ -2,6 +2,221 @@
 <!DOCTYPE sqls>
 <sqls>
 
+	<sql id="insert_06_h5">
+		insert into "HIS_Q10未出荷情報" 
+		select 
+			*
+		from
+			"IPT_Q10未出荷情報" IPT 
+		where
+			IPT."店舗ID" = :shopId
+	</sql>
+
+	<sql id="insert_05_t1">
+		insert into "TRN_発送情報" ( 
+			  "Amazon注文番号"
+			, "Qoo10注文番号"
+			, "代行発送管理番号"
+			, "自行発送管理番号"
+
+			, "受注日時"
+			, "支払日時"
+			, "出荷期限日時"
+			, "期限日数"
+
+			, "ASIN番号"
+			, "SKU番号" 
+			, "商品管理番号" 
+			, "商品種別"
+			, "分類１"
+			, "分類２"
+			, "商品名称"
+			, "オプション内容"
+			, "数量"
+
+			, "購入者メール"
+			, "購入者氏名"
+			, "購入者電話番号"
+
+			, "お届け先-国"
+			, "お届け先-郵便番号"
+			, "お届け先-都道府県"
+			, "お届け先-市区町村"
+			, "お届け先-住所1"
+			, "お届け先-住所2"
+			, "お届け先-住所3"
+			, "お届け先-住所全部"
+			, "お届け先-名前"
+
+			, "区分" 
+			, "発送方法" 
+			, "ステータス" 
+
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		) 
+		select
+			  "order-id" as "Amazon注文番号"
+			, null as "Qoo10注文番号"
+			, null as "代行発送管理番号"
+			, null as "自行発送管理番号"
+
+			, "purchase-date" as "受注日時"
+			, "payments-date" as "支払日時"
+			, "promise-date" as "出荷期限日時"
+			, "days-past-promise" as "期限日数"
+
+			, MST."ASIN番号" as "ASIN番号"
+			, MST."SKU番号" as "SKU番号" 
+			, MST."商品管理番号" as "商品管理番号" 
+			, MST."商品種別" as "商品種別"
+			, MST."分類１" as "分類１"
+			, MST."分類２" as "分類２"
+			, MST."商品名称" as "商品名称"
+			, null as "オプション内容"
+			, "quantity-to-ship" as "数量"
+
+			, "buyer-email" as "購入者メール"
+			, "buyer-name" as "購入者氏名"
+			, "buyer-phone-number" as "購入者電話番号"
+
+			, "ship-country" as "お届け先-国"
+			, "ship-postal-code" as "お届け先-郵便番号"
+			, "ship-state" as "お届け先-都道府県"
+			, "ship-city" as "お届け先-市区町村"
+			, "ship-address-1" as "お届け先-住所1"
+			, "ship-address-2" as "お届け先-住所2"
+			, "ship-address-3" as "お届け先-住所3"
+			, null as "お届け先-住所全部"
+			, "recipient-name" as "お届け先-名前"
+
+			, 'A.AmazonFBM' as "区分" 
+			, MST."FBM発送方式" as "発送方法" 
+			, '1.未発送' as "ステータス" 
+
+			, "店舗ID" 
+			, now()
+			, now()
+		from
+			"IPT_FBA未出荷情報" IPT 
+			LEFT JOIN "MST_出品マスタ情報" MST ON IPT."sku" = MST."SKU番号" and IPT."店舗ID" = MST."店舗ID" and MST."暫定フラグ" = '0'
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"TRN_発送情報" TRN 
+				where
+					TRN."Amazon注文番号" = IPT."order-id" 
+					TRN."SKU番号" = IPT."sku" 
+					and TRN."店舗ID" = IPT."店舗ID"
+			) 
+			and IPT."店舗ID" = :shopId
+	</sql>
+
+	<sql id="insert_06_t1">
+		insert into "TRN_発送情報" ( 
+			  "Amazon注文番号"
+			, "Qoo10注文番号"
+			, "代行発送管理番号"
+			, "自行発送管理番号"
+
+			, "受注日時"
+			, "支払日時"
+			, "出荷期限日時"
+			, "期限日数"
+
+			, "ASIN番号"
+			, "SKU番号" 
+			, "商品管理番号" 
+			, "商品種別"
+			, "分類１"
+			, "分類２"
+			, "商品名称"
+			, "オプション内容"
+			, "数量"
+
+			, "購入者メール"
+			, "購入者氏名"
+			, "購入者電話番号"
+
+			, "お届け先-国"
+			, "お届け先-郵便番号"
+			, "お届け先-都道府県"
+			, "お届け先-市区町村"
+			, "お届け先-住所1"
+			, "お届け先-住所2"
+			, "お届け先-住所3"
+			, "お届け先-住所全部"
+			, "お届け先-名前"
+
+			, "区分" 
+			, "発送方法" 
+			, "ステータス" 
+
+			, "店舗ID" 
+			, "登録日時" 
+			, "更新日時" 
+		) 
+		select
+			  null as "Amazon注文番号"
+			, "注文番号" as "Qoo10注文番号"
+			, null as "代行発送管理番号"
+			, null as "自行発送管理番号"
+
+			, null as "受注日時"
+			, null as "支払日時"
+			, null as "出荷期限日時"
+			, null as "期限日数"
+
+			, null as "ASIN番号"
+			, null as "SKU番号" 
+			, null as "商品管理番号" 
+			, null as "商品種別"
+			, null as "分類１"
+			, null as "分類２"
+			, "商品名" as "商品名称"
+			, "オプション情報" as "オプション内容"
+			, cast("数量" as integer) as "数量"
+
+			, null as "購入者メール"
+			, "購入者名" as "購入者氏名"
+			, "購入者電話番号" as "購入者電話番号"
+
+			, null as "お届け先-国"
+			, "郵便番号" as "お届け先-郵便番号"
+			, null as "お届け先-都道府県"
+			, null as "お届け先-市区町村"
+			, null as "お届け先-住所1"
+			, null as "お届け先-住所2"
+			, null as "お届け先-住所3"
+			, "お届け先" as "お届け先-住所全部"
+			, "受取人名" as "お届け先-名前"
+
+			, 'B.Qoo10発送' as "区分" 
+			, null as "発送方法" 
+			, '1.未発送' as "ステータス" 
+
+			, "店舗ID" 
+			, now()
+			, now()
+		from
+			"IPT_Q10未出荷情報" IPT 
+		where
+			not exists ( 
+				select
+					1 
+				from
+					"TRN_発送情報" TRN 
+				where
+					TRN."Qoo10注文番号" = IPT."注文番号" 
+					TRN."商品名称" = IPT."商品名" 
+					and TRN."店舗ID" = IPT."店舗ID"
+			) 
+			and IPT."店舗ID" = :shopId
+	</sql>
+
 	<sql id="update_14_r4" paramPrefix="!">
 		update "RES_在庫保管手数料情報" RES 
 		set 
@@ -2407,10 +2622,52 @@
 			:col72   
 		)
 	</sql>
-<!-- 06 数据库里没有建表 路过 下面07 -->
+
 	<sql id="delAllFile06">	
+		DELETE FROM "IPT_Q10未出荷情報"
 	</sql>
 	<sql id="insertFile06">	
+		INSERT INTO "IPT_Q10未出荷情報"
+		VALUES (
+			:col0, --配送状態
+			:col1, --注文番号
+			:col2, --カート番号
+			:col3, --配送会社
+			:col4, --送り状番号
+			:col5, --発送日
+			:col6, --発送予定日
+			:col7, --商品名
+			:col8, --数量
+			:col9, --オプション情報
+			:col10,--オプションコード
+			:col11,--受取人名
+			:col12,--販売者商品コード
+			:col13, --外部広告
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			:col14, --店舗ID
+			:col15, --登録日時
+			:col16  --更新日時
+		)
+	</sql>
+	<sql id="updateFile06">	
+		UPDATE "IPT_Q10未出荷情報"
+		SET
+			"購入者名" = :col0 ,
+			"受取人名" = :col1 ,
+			"郵便番号" = :col2 ,
+			"お届け先" = :col3 ,
+			"電話番号" = :col4 ,
+			"携帯電話" = :col5 ,
+			"購入者電話番号" = :col6
+		WHERE
+			"店舗ID" = :shopid
+			and
+			"注文番号" = :orderno
 	</sql>
 	<sql id="delAllFile07">
 		DELETE FROM "IPT_ビジネスレポート-1"

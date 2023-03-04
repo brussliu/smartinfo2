@@ -38,20 +38,24 @@ function sessionCheck(ret){
 	var smartId = getSmartId();
 	if(smartId == null || smartId == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
 	var userId = getUserId();
 	if(userId == null || userId == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
 	var shopId = getShopId();
 	if(shopId == null || shopId == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
 	var role = getRole();
 	if(role == null || role == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
-
+	return true;
 }
 
 function sessionCheckForShopList(ret){
@@ -59,11 +63,14 @@ function sessionCheckForShopList(ret){
 	var smartId = getSmartId();
 	if(smartId == null || smartId == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
 	var userId = getUserId();
 	if(userId == null || userId == ""){
 		ret.navigate("login.jsp");
+		return false;
 	}
+	return true;
 
 }
 
@@ -109,6 +116,7 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					var flg_h2 = false;
 					var flg_h3 = false;
 					var flg_h4 = false;
+					var flg_h5 = false;
 
 					var flg_r1 = false;
 					var flg_r2 = false;
@@ -167,6 +175,15 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 						excute_03_m1(); flg_m1 = true;
 					}
 
+					if(flg_file05){
+						excute_05_t1(); flg_t1 = true;
+					}
+
+					if(flg_file06){
+						excute_06_h5(); flg_h5 = true;
+						excute_06_t1(); flg_t1 = true;
+					}
+
 					if(flg_m1){
 						excute_m1_m2();	flg_m2 = true;
 					}
@@ -201,6 +218,19 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 
 							
 }
+
+function excute_05_t1() {
+	var insertResult = db.change("IMPORT", "insert_05_t1", {"shopId": getShopId()});
+}
+
+function excute_06_t1() {
+	var insertResult = db.change("IMPORT", "insert_06_t1", {"shopId": getShopId()});
+}
+
+function excute_06_h5() {
+	var insertResult = db.change("IMPORT", "insert_06_h5", {"shopId": getShopId()});
+}
+
 function excute_15_r5() {
 
 	var updateResult = db.change("IMPORT", "update_15_r5", {"shopId": getShopId()});
@@ -391,8 +421,6 @@ function excute_15_h4() {
 
 function checkUpladFileExsits(foldername){
 
-	foldername.debug("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-
 	var returnValue = false;
 
 	returnValue = returnValue || checkFile(foldername, "01");
@@ -400,6 +428,7 @@ function checkUpladFileExsits(foldername){
 	returnValue = returnValue || checkFile(foldername, "03");
 	returnValue = returnValue || checkFile(foldername, "04");
 	returnValue = returnValue || checkFile(foldername, "05");
+	returnValue = returnValue || checkFile(foldername, "06");
 	returnValue = returnValue || checkFile(foldername, "07");
 	returnValue = returnValue || checkFile(foldername, "08");
 	returnValue = returnValue || checkFile(foldername, "09");
@@ -423,8 +452,6 @@ function checkFile(foldername, fileno){
 	eval('filefoldername = FILE' + fileno + '_NAME;');
 
 	var filelist = file.list(foldername + "\\" + filefoldername);
-
-	foldername.debug("=====================================");
 
 	if(filelist.length == 0){
 		return false;

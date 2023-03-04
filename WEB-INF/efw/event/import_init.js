@@ -14,6 +14,7 @@ var FILE02_NAME = "02.全注文レポート";
 var FILE03_NAME = "03.FBA在庫レポート";
 var FILE04_NAME = "04.ペイメントレポート";
 var FILE05_NAME = "05.FBA未出荷レポート";
+var FILE06_NAME = "06.Qoo10未出荷レポート";
 var FILE07_NAME = "07.日付別_売上およびトラフィック";
 var FILE08_NAME = "08.日付別_パフォーマンス";
 var FILE09_NAME = "09.日付別_詳細ページ 売上トラフィック";
@@ -32,10 +33,17 @@ import_init.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
+
+	ret.debug("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 
 	// タイトル情報設定
 	setTitleInfo(ret);
+
+	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
+	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
+	BACKUP_FILE_PATH = getShopId() + "\\import\\" + "BACKUP_FILE";
+	UPLOADBK_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE_BK";
 
 	// 履歴テ―プルから前回導入日時と件数を取得する
 	var selectResult1 = db.select("IMPORT",	"selectInitInfo1",	{"shopId": getShopId()}).getArray();

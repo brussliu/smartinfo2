@@ -19,6 +19,7 @@ var FILE02_NAME = "02.全注文レポート";
 var FILE03_NAME = "03.FBA在庫レポート";
 var FILE04_NAME = "04.ペイメントレポート";
 var FILE05_NAME = "05.FBA未出荷レポート";
+var FILE06_NAME = "06.Qoo10未出荷レポート";
 var FILE07_NAME = "07.日付別_売上およびトラフィック";
 var FILE08_NAME = "08.日付別_パフォーマンス";
 var FILE09_NAME = "09.日付別_詳細ページ 売上トラフィック";
@@ -39,6 +40,11 @@ import_import.fire = function (params) {   //
 	// セッションチェック
 	sessionCheck(ret);
 
+	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
+	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
+	BACKUP_FILE_PATH = getShopId() + "\\import\\" + "BACKUP_FILE";
+	UPLOADBK_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE_BK";
+
 	today = new Date();
 	registrationDate = today.format("yyyy-MM-dd HH:mm:ss");
 
@@ -49,7 +55,7 @@ import_import.fire = function (params) {   //
 	var flg_file03 = importFile("03",	"UTF-8",		"\t",	"\r\n",		null);
 	var flg_file04 = importFile("04",	"S-JIS",		",",	"\r\n",		null);
 	var flg_file05 = importFile("05",	"S-JIS",		"\t",	"\r\n",		null);
-	var flg_file06 = false;
+	var flg_file06 = importFile06();
 	var flg_file07 = importFile("07",	"UTF-8(BOM)",	",",	"\r\n",		null);
 	var flg_file08 = importFile("08",	"UTF-8(BOM)",	",",	"\r\n",		null);
 	var flg_file09 = importFile("09",	"UTF-8(BOM)",	",",	"\r\n",		null);
@@ -73,6 +79,7 @@ import_import.fire = function (params) {   //
 	moveFile("03");
 	moveFile("04");
 	moveFile("05");
+	moveFile("06");
 	moveFile("07");
 	moveFile("08");
 	moveFile("09");
@@ -111,21 +118,195 @@ function moveFile(fileno){
 
 	var filelist = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
 
-	if(filelist.length == 0){
+	if(fileno == "06"){
+
+		if(filelist.length == 2){
+	
+			// ファイル取込
+			var filename1 = filelist[0]["name"];
+			var filename2 = filelist[1]["name"];
+			// ファイル移動
+			file.duplicate(
+				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename1,
+				BACKUP_FILE_PATH + "\\" + filefoldername + "\\" + filename1
+			);
+			file.duplicate(
+				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename2,
+				BACKUP_FILE_PATH + "\\" + filefoldername + "\\" + filename2
+			);
+
+			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename1);
+			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename2);
+		}
+
+	}else{
+
+		if(filelist.length == 0){
+
+		}
+		if(filelist.length == 1){
+	
+			// ファイル取込
+			var filename = filelist[0]["name"];
+			// ファイル移動
+			file.duplicate(
+				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename,
+				BACKUP_FILE_PATH + "\\" + filefoldername + "\\" + filename
+			);
+			
+			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
+		}
 
 	}
-	if(filelist.length == 1){
+
+
+
+}
+
+function getFileExe(filename){
+
+	var array = filename.split(".");
+	
+	if(array.length < 2){
+
+		return "";
+
+	}else{
+
+		return array[array.length-1];
+
+	}
+
+}
+
+function importFile06(){
+
+	var filefoldername = "";
+	eval('filefoldername = FILE06_NAME;');
+
+	var filelist = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
+
+	if(filelist.length == 2){
 
 		// ファイル取込
-		var filename = filelist[0]["name"];
-		// ファイル移動
-		file.duplicate(
-			PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename,
-			BACKUP_FILE_PATH + "\\" + filefoldername + "\\" + filename
-		);
+		var fileinfo1 = filelist[0];
+		var fileinfo2 = filelist[1];
+
+		var filename1 = fileinfo1["name"];
+		var filename2 = fileinfo2["name"];
+
+		var filename_exe1 = getFileExe(filename1);
+		var filename_exe2 = getFileExe(filename2);
+
+		var csvFile = "";
+		var htmlFile = "";
+
+		if(filename_exe1 == "csv"){
+			csvFile = filename1;
+			htmlFile = filename2;
+		}
+		if(filename_exe2 == "csv"){
+			csvFile = filename2;
+			htmlFile = filename1;
+		}
 		
-		file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		var txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile);
+		
+		txt = txt.substring(1);
+
+		file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, txt, "MS932");
+
+		csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, ",", "\"", "MS932");
+		// データ全件削除
+		var delResult = db.change("IMPORT",	"delAllFile06",{});
+
+		num = 0;
+		eval('csvReader.loopAllLines(import_06);');
+
+		// 履歴テーブル挿入
+		updateImortFileInfo("06_1", csvFile, num);
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		var txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile).split("発注書発行日 : ");
+		num = 0;
+		for(var i = 1;i < txt.length;i ++){
+
+				var tablehtml = txt[i].substring(txt[i].indexOf("<table"), txt[i].indexOf("</table>")+8);
+
+				var orderno_start = "注文番号</td><td class='content'>";
+				var orderno_end = "</td>";
+				var orderno = getContent(tablehtml, orderno_start, orderno_end);
+
+				var buyername_start = "購入者名</td><td class='content'>";
+				var buyername_end = "</td>";
+				var buyername = getContent(tablehtml, buyername_start, buyername_end);
+
+				var buyertel_start = "購入者電話番号</td><td class='content'>";
+				var buyertel_end = "</td>";
+				var buyertel = getContent(tablehtml, buyertel_start, buyertel_end);
+
+				var recievename_start = "受取人名</td><td class='content'>";
+				var recievename_end = "</td>";
+				var recievename = getContent(tablehtml, recievename_start, recievename_end);
+
+				var recievetel_start = "受取人電話番号</td><td class='content'>";
+				var recievetel_end = "</td>";
+				var recievetel = getContent(tablehtml, recievetel_start, recievetel_end);
+
+				var postno_start = "郵便番号</td><td class='content'>";
+				var postno_end = "</td>";
+				var postno = getContent(tablehtml, postno_start, postno_end);
+
+				var address_start = "住所</td><td style='width:760px;' colspan='3'>";
+				var address_end = "</td>";
+				var address = getContent(tablehtml, address_start, address_end);
+
+				var updateResult = db.change(
+					"IMPORT",
+					"updateFile06",
+					{
+						"orderno":orderno,
+						"col0":buyername,
+						"col1":recievename,
+						"col2":postno,
+						"col3":address,
+						"col4":recievetel,
+						"col5":recievetel,
+						"col6":buyertel,
+						"shopid":getShopId()
+					}
+				);
+				num = num + 1;
+		}
+
+		// 履歴テーブル挿入
+		updateImortFileInfo("06_2", htmlFile, num);
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		return true;
+
 	}
+
+	return false;
+
+}
+
+function getContent(tablehtml,start_txt,end_txt){
+
+	var start_index = tablehtml.indexOf(start_txt) + start_txt.length;
+
+	var txt_temp = tablehtml.substring(start_index);
+
+	var end_index = start_index + txt_temp.indexOf(end_txt);
+
+	var content = tablehtml.substring(start_index,   end_index);
+
+	return content;
 
 }
 
@@ -273,6 +454,10 @@ function import_05(aryField, index) {
 };
 function import_06(aryField, index) {
 
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile06",	makeSQLObj(aryField));
+		num++;
+	}
 };
 function import_07(aryField, index) {
 

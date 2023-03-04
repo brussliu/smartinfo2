@@ -13,6 +13,7 @@ var FILE02_NAME = "02.全注文レポート";
 var FILE03_NAME = "03.FBA在庫レポート";
 var FILE04_NAME = "04.ペイメントレポート";
 var FILE05_NAME = "05.FBA未出荷レポート";
+var FILE06_NAME = "06.Qoo10未出荷レポート";
 var FILE07_NAME = "07.日付別_売上およびトラフィック";
 var FILE08_NAME = "08.日付別_パフォーマンス";
 var FILE09_NAME = "09.日付別_詳細ページ 売上トラフィック";
@@ -50,6 +51,11 @@ import_check.fire = function (params) {   //
 
 	// セッションチェック
 	sessionCheck(ret);
+	
+	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
+	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
+	BACKUP_FILE_PATH = getShopId() + "\\import\\" + "BACKUP_FILE";
+	UPLOADBK_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE_BK";
 	
 	// １，ファイル数量判定
 	// uploadフォルダにファイルが存在しない場合、エラー提示
@@ -143,6 +149,10 @@ function checkUpladFileCount2(){
 		errorFile = "ファイル" + errorFile + "が複数指定しています。ご確認ください。";
 	}
 
+	if(checkFile2("06") != ""){
+		errorFile = errorFile + "<br/>ファイル06の数量が正しくありません。ご確認ください。";
+	}
+
 	return errorFile;
 
 }
@@ -168,12 +178,21 @@ function checkFile2(fileno){
 
 	var filelist = file.list(UPLOAD_FILE_PATH + "\\" + filefoldername);
 
-	if(filelist.length > 1){
-
-		return fileno;
+	if(fileno == "06"){
+		if(filelist.length == 1 || filelist.length > 2){
+			return fileno;
+		}else{
+			return "";
+		}
 	}else{
-		return "";
+		if(filelist.length > 1){
+			return fileno;
+		}else{
+			return "";
+		}
 	}
+
+
 
 }
 
@@ -290,6 +309,7 @@ function checkUpladFileCount4(){
 	result = result + checkFile4("03");
 	result = result + checkFile4("04");
 	result = result + checkFile4("05");
+	result = result + checkFile4("06");
 	result = result + checkFile4("07");
 	result = result + checkFile4("08");
 	result = result + checkFile4("09");

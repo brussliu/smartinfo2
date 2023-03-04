@@ -11,6 +11,8 @@ common_menuinit.fire=function(params){   //
 	// セッションチェック
 	sessionCheck(ret);
 
+	ret.debug("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+
 	// タイトル情報設定
 	setTitleInfo(ret);
 	

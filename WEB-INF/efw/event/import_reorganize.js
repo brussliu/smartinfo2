@@ -13,6 +13,7 @@ var FILE02_NAME = "02.全注文レポート";
 var FILE03_NAME = "03.FBA在庫レポート";
 var FILE04_NAME = "04.ペイメントレポート";
 var FILE05_NAME = "05.FBA未出荷レポート";
+var FILE06_NAME = "06.Qoo10未出荷レポート";
 var FILE07_NAME = "07.日付別_売上およびトラフィック";
 var FILE08_NAME = "08.日付別_パフォーマンス";
 var FILE09_NAME = "09.日付別_詳細ページ 売上トラフィック";
@@ -34,11 +35,17 @@ import_reorganize.fire = function (params) {   //
 	// セッションチェック
 	sessionCheck(ret);
 
+	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
+	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
+	BACKUP_FILE_PATH = getShopId() + "\\import\\" + "BACKUP_FILE";
+	UPLOADBK_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE_BK";
+
 	processFile("01", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("02", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("03", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("04", -9);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("05", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("06", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("07", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("08", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("09", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
@@ -60,56 +67,146 @@ function processFile(fileno, countKS){
 	var filefoldername = "";
 	eval('filefoldername = FILE' + fileno + '_NAME;');
 
-	var filelist1 = file.list(UPLOAD_FILE_PATH + "\\" + filefoldername);
-	var filelist2 = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
+	var filelistUpload = file.list(UPLOAD_FILE_PATH + "\\" + filefoldername);
+	var filelistProcess = file.list(PROCESS_FILE_PATH + "\\" + filefoldername);
 
-	if(filelist1.length > 0){
+	if(fileno == "06"){
 
-		var fileinfo = filelist1[0];
+		if(filelistUpload.length > 0){
 
-		var filename_old = fileinfo["name"];
-		var filename_old_exe = getFileExe(fileinfo["name"]);
-
-		var recordCount = getFileRecordCount(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old) + countKS;
-
-		var today = new Date();
-		var nowTime = today.format("yyyyMMdd_HHmmss");
-		var filename_new = "file" + fileno + "_" + nowTime + "."+ filename_old_exe;
-
-		if(filelist2 == 0){
-
-			file.duplicate(
-				UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old,
-				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new
-			);
+			var fileinfo1 = filelistUpload[0];
+			var fileinfo2 = filelistUpload[1];
 	
-			file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+			var filename_old1 = fileinfo1["name"];
+			var filename_old_exe1 = getFileExe(fileinfo1["name"]);
 
-			fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
-		}else{
+			var filename_old2 = fileinfo2["name"];
+			var filename_old_exe2 = getFileExe(fileinfo2["name"]);
 
-			var fileinfo2 = filelist2[0];
-			var filename2_old = fileinfo2["name"];
+			var csvFile = "";
+			var htmlFile = "";
 
-			file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename2_old);
+			if(filename_old_exe1 == "csv"){
+				csvFile = filename_old1;
+				htmlFile = filename_old2;
+			}
+			if(filename_old_exe2 == "csv"){
+				csvFile = filename_old2;
+				htmlFile = filename_old1;
+			}
 
-			file.duplicate(
-				UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old,
-				PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new
-			);
 
-			file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
-			
-			deleteImortFileInfo(fileno);
+			var recordCount = getFileRecordCount(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile) + countKS;
+	
+			var today = new Date();
+			var nowTime = today.format("yyyyMMdd_HHmmss");
+			var filename_new_csv  = "file" + fileno + "_" + nowTime + ".csv";
+			var filename_new_html = "file" + fileno + "_" + nowTime + ".html";
 
-			fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
+			if(filelistProcess.length == 0){
+	
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new_csv
+				);
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new_html
+				);
+
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile);
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile);
+	
+				fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
+
+			}else{
+	
+				var fileinfoProcess1 = filelistProcess[0];
+				var fileinfoProcess2 = filelistProcess[1];
+
+				var filenameProcess1 = fileinfoProcess1["name"];
+				var filenameProcess2 = fileinfoProcess2["name"];
+	
+				file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filenameProcess1);
+				file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filenameProcess2);
+	
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new_csv
+				);
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new_html
+				);
+	
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile);
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile);
+				
+				deleteImortFileInfo(fileno+"_1");
+				deleteImortFileInfo(fileno+"_2");
+	
+				fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
+	
+			}
+
+			// 履歴テーブル挿入
+			saveImortFileInfo(fileno+"_1", csvFile, today, recordCount);
+			saveImortFileInfo(fileno+"_2", htmlFile, today, recordCount);
 
 		}
 
-		// 履歴テーブル挿入
-		saveImortFileInfo(fileno, filename_old, today, recordCount);
+	}else{
+
+		if(filelistUpload.length > 0){
+
+			var fileinfo = filelistUpload[0];
 	
+			var filename_old = fileinfo["name"];
+			var filename_old_exe = getFileExe(fileinfo["name"]);
+	
+			var recordCount = getFileRecordCount(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old) + countKS;
+	
+			var today = new Date();
+			var nowTime = today.format("yyyyMMdd_HHmmss");
+			var filename_new = "file" + fileno + "_" + nowTime + "."+ filename_old_exe;
+	
+			if(filelistProcess.length == 0){
+	
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new
+				);
+		
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+	
+				fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
+			}else{
+	
+				var fileinfo2 = filelistProcess[0];
+				var filename2_old = fileinfo2["name"];
+	
+				file.remove(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename2_old);
+	
+				file.duplicate(
+					UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old,
+					PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename_new
+				);
+	
+				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
+				
+				deleteImortFileInfo(fileno);
+	
+				fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
+	
+			}
+	
+			// 履歴テーブル挿入
+			saveImortFileInfo(fileno, filename_old, today, recordCount);
+		
+		}
 	}
+
+
 
 }
 
