@@ -8,8 +8,9 @@ purchase_init.paramsFormat = {
 purchase_init.fire = function (params) {
 
 	var ret = new Result();
+
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
 
 	// タイトル情報設定
 	setTitleInfo(ret);
@@ -29,7 +30,7 @@ purchase_init.fire = function (params) {
 	selectResult.debug("-------------selectstockinfo")
 	var resultHTML =
 			'<tr>' +
-			'<td style="width: 50px;" rowspan="2" class="c"><input type="radio" onclick="choice(this)" name="choice"></input></td>' +
+			'<td style="width: 50px;" rowspan="2" class="c"><input type="radio" onclick="choice(this)" value="{no}" name="choice"></input></td>' +
 			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="down({no})">{no}</span></td>' +
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{name}</span></td>' +
 

@@ -8,39 +8,26 @@ purchase_send.paramsFormat = {
 purchase_send.fire = function (params) {
 
 	var ret = new Result();
-	// セッションチェック
-	sessionCheck(ret);
 
+	// セッションチェック
+	if(sessionCheck(ret) == false){return ret};
 
 	var purchaseno = params["purchaseno"];
-	// 检索仕入明细所有sku,asin,数量
-	var selectNew = db.select(
+
+	// 途中在庫へ計上
+	var updateResult = db.change(
 		"PURCHASE",
-		"queryPurchaseCount",
+		"allocateStockToShip",
 		{
 			purchaseno: purchaseno,
 			shopid: getShopId()
 		}
-	).getArray();
+	);
 
-	for (var i = 0; i < selectNew.length; i++) {
-		// 更新途中在庫_仕入数量
-		var update = db.change(
-			"PURCHASE",
-			"updateMSTPurAdd",
-			{
-				asin: selectNew[i]['asin'],
-				sku: selectNew[i]['sku'],
-				count: selectNew[i]['count'],
-				purchaseno: purchaseno,
-				shopid: getShopId()
-			}
-		);
-	}
 	// 更新ステータス
 	var updateResult = db.change(
 		"PURCHASE",
-		"updatepurchase2",
+		"updatepurchaseStatus2",
 		{
 			purchaseno: purchaseno,
 			shopid: getShopId()
@@ -51,7 +38,7 @@ purchase_send.fire = function (params) {
 	// 画面へ結果を返す
 
 	ret.eval("init();");
-	ret.eval("choice('');");
+	// ret.eval("choice('');");
 	return ret;
 
 };

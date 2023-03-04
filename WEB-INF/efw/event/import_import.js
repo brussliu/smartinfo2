@@ -38,7 +38,7 @@ import_import.fire = function (params) {   //
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
 
 	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
 	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";

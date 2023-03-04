@@ -90,9 +90,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a class="link" onclick="Efw('common_chooseshop',{shopid: this.innerHTML})">Smart-bear</a></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

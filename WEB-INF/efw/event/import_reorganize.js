@@ -33,7 +33,7 @@ import_reorganize.fire = function (params) {   //
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
 
 	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
 	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
@@ -45,7 +45,7 @@ import_reorganize.fire = function (params) {   //
 	processFile("03", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("04", -9);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("05", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
-	processFile("06", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("06", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("07", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("08", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("09", -1);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}

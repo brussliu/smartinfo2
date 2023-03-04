@@ -33,19 +33,20 @@
  ORDER BY
 	"仕入NO"
 </sql>
+
 <!-- sl:削除 -->
 <sql id="deletepurchase" paramPrefix="!">
 		delete
 		from
 			"TRN_仕入管理"
 		where
-			"仕入NO" = !no
+			"仕入NO" = !purchaseno
 			and
 			"店舗ID"= !shopid	 
 </sql>
 
 <!-- sl：新规TRN_仕入管理 -->
-<sql id="savepurchase" paramPrefix="!">
+<sql id="insertpurchase" paramPrefix="!">
 	INSERT into "TRN_仕入管理" 
 		(
 		"仕入NO",
@@ -74,6 +75,7 @@
 
 		"店舗ID",
 		"登録日時",
+		"更新日時",
 		"追跡番号" )
 	VALUES(
 		!purchaseno, --仕入NO
@@ -101,6 +103,7 @@
 
 		!shopid, --店舗ID
 		now(), --登録日時
+		now(), --更新日時
 		!track --追跡番号
 	)
 </sql>
@@ -121,37 +124,71 @@
 
 <!-- sl:新规TRN_仕入明細 -->
 <sql id="insertpurchasedata" paramPrefix="!">
- INSERT into "TRN_仕入明細" 
-	("仕入NO",
-	"SKU番号",
-	"ASIN番号",
+	insert into "TRN_仕入明細"
+	select 
+		!purchaseno,
+		MST."SKU番号",
+		MST."ASIN番号",
+		
+		MST."商品管理番号",
+		MST."親子区分",
+		MST."商品種別",
+		MST."分類１",
+		MST."分類２",
+		
+		MST."仕入価格",
+		!num,
+		MST."仕入価格" * !num as "金額",
+		MST."暫定フラグ",
+		
+		MST."店舗ID",
+		now(),
+		now()
+	from
+		"MST_出品マスタ情報" MST
+	where
+		MST."SKU番号" = !sku
+		and
+		MST."ASIN番号" = !asin
+		and
+		MST."暫定フラグ" = '0'
+		and
+		MST."店舗ID" = !shopid
+</sql>
 
-	"商品管理番号",
-	"商品種別",
-	"分類１",
-
-	"分類２",
-	"単価",
-	"数量",
-	"金額",
-	"店舗ID",
-	"登録日時")
- VALUES(
-	 !no,
-	 !sku,
-	 !asin,
-
-	 !productno,
-	 !type,
-	 !sub1,
-
-	 !sub2,
-	 !price,
-	 !num,
-	 (cast(!price as numeric(10,2))*cast(!num as int)),
-	 !shopid,
-	 now()
-	)
+<sql id="insertpurchasedata2" paramPrefix="!">
+	insert into "TRN_仕入明細"
+	select 
+		!purchaseno,
+		MST."SKU番号",
+		MST."ASIN番号",
+		
+		MST."商品管理番号",
+		MST."親子区分",
+		MST."商品種別",
+		MST."分類１",
+		MST."分類２",
+		
+		MST."仕入価格",
+		!num,
+		MST."仕入価格" * !num as "金額",
+		MST."暫定フラグ",
+		
+		MST."店舗ID",
+		now(),
+		now()
+	from
+		"MST_出品マスタ情報" MST
+	where
+		MST."商品管理番号" = !pno
+		and
+		MST."分類１" = !sub1
+		and
+		MST."分類２" = !sub2
+		and
+		MST."暫定フラグ" = '1'
+		and
+		MST."店舗ID" = !shopid
 </sql>
 
 <!-- sl:删除TRN_仕入明細 -->
@@ -218,36 +255,52 @@
 </sql>
 
 <!-- sl:统计数量，金额 -->
-<sql id="countNumberAndMoney" paramPrefix="!">
- SELECT 
- 	sum("数量") AS count,
- 	sum("金額") AS money 
- from "TRN_仕入明細"
- 	WHERE
-  	"店舗ID" = !shopid 
- and "仕入NO" = !purchaseno
+<sql id="updateCountAndAmount" paramPrefix="!">
+	UPDATE "TRN_仕入管理" MST
+	SET "数量" = TEMP."数量合計"
+	  , "金額" = TEMP."金額合計"
+	FROM
+	(
+		SELECT 
+			"店舗ID",
+			"仕入NO",
+			sum("数量") as "数量合計",
+			sum("金額") as "金額合計"
+		FROM
+			"TRN_仕入明細"
+		GROUP BY
+			"店舗ID",
+			"仕入NO"
+	) TEMP
+	WHERE
+		MST."仕入NO" = TEMP."仕入NO"
+	and MST."店舗ID" = TEMP."店舗ID"
+	and MST."仕入NO" = !purchaseno 
+	and MST."店舗ID" = !shopid
 </sql>
 
 
 
 <!-- sl: 新规TRN_仕入資料-->
 <sql id="savepurchasefile" paramPrefix="!">
-	 INSERT into "TRN_仕入資料" (
+	insert into "TRN_仕入資料" (
 		 "仕入NO",
 		 "枝番",
 		 "ファイル名称",
 		 "資料名称",
 		 "拡張子",
 		 "店舗ID",
-		 "登録日時"
-	 ) VALUES(
-	 !purchaseno,
-	 cast(!maxno as int),
-	 !filename,
-	 !dataname,
-	 !suffix,
-	 !shopid,
-	 now()
+		 "登録日時",
+		 "更新日時"
+	 ) values (
+		!purchaseno,
+		!subno,
+		!filename,
+		!dataname,
+		!suffix,
+		!shopid,
+		now(),
+		now()
 	 )
 </sql>
 
@@ -269,6 +322,7 @@
 <sql id="queryPurchaseFile" paramPrefix="!">
  SELECT 
 	"資料名称" as dataname,
+	"ファイル名称" as filename,
 	"拡張子" as suffix
  FROM
 	"TRN_仕入資料" 
@@ -300,12 +354,12 @@
 		"仕入NO" is null
 		 )
 		</if> 
-			<if exists="dataname"> AND (	
-		"資料名称" = !dataname
+			<if exists="filename"> AND (	
+		"ファイル名称" = !filename
 			)
 		</if>
-		<if notexists="dataname"> AND (	
-		"資料名称" is null
+		<if notexists="filename"> AND (	
+		"ファイル名称" is null
 			)
 			</if>
 </sql>
@@ -339,9 +393,19 @@
 
 <!-- 仕入内容 -->
 <!-- 通过仕入NO检索 仕入名称 -->
-<sql id="seachAsinAndSku" paramPrefix="!">
+<sql id="seachPurchaseName" paramPrefix="!">
  	SELECT
 		"仕入名称" as purchasename
+	FROM
+		"TRN_仕入管理"   
+	WHERE
+			"店舗ID" = !shopid 
+		and	"仕入NO" = !purchaseno
+</sql>
+
+<sql id="seachPurchaseStatus" paramPrefix="!">
+ 	SELECT
+		"ステータス" as status
 	FROM
 		"TRN_仕入管理"   
 	WHERE
@@ -352,7 +416,6 @@
 <!--通过asin,sku检索  -->
 <sql id="seachpurchasecontent" paramPrefix="!">
  SELECT 
-  DISTINCT
  	 	A."商品管理番号" AS productno,
 		A."分類１" AS sub1,
 		A."分類２" AS sub2,
@@ -364,76 +427,54 @@
 		C."数量" AS NUMBER 
  FROM
 		"TRN_仕入明細" C
-		LEFT JOIN  "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" 
-	AND A."SKU番号" = C."SKU番号" 
- LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" 
-	AND C."SKU番号" = B."SKU番号"
-	
+		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
+		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
  WHERE
-			A."ASIN番号" IN (
-		SELECT
-			cc."ASIN番号" AS asin 
-		FROM
-			"TRN_仕入明細" cc
-			LEFT JOIN "TRN_仕入管理" bb ON cc."仕入NO" = bb."仕入NO" 
-			AND cc."店舗ID" = bb."店舗ID" 
-		WHERE
-			cc."店舗ID" = !shopid 
-		AND cc."仕入NO" = !purchaseno 
- ) AND
-		A."SKU番号" IN 
-			(SELECT 
-			 cc."SKU番号" AS sku
-		FROM
-			"TRN_仕入明細" cc
-			LEFT JOIN "TRN_仕入管理" bb ON cc."仕入NO" = bb."仕入NO" 
-			AND cc."店舗ID" = bb."店舗ID" 
-		WHERE
-			cc."店舗ID" = !shopid 
-			AND cc."仕入NO" = !purchaseno 
-	)
- ORDER BY   A."商品管理番号",A."分類１",A."分類２"
-
+		C."店舗ID" = !shopid 
+		and
+		C."仕入NO" = !purchaseno 
+ ORDER BY
+ 		A."商品管理番号",A."分類１",A."分類２"
 </sql>
 
 
 <!-- 更新 -->
 <!-- sl:通过仕入no检索 -->
 <sql id="seachpurchaseforno">
- SELECT 
-	"仕入NO" AS purchaseno,
-	"仕入名称" AS purchasename,
-	"発送方式" AS sendway,
-	
-	"登録日" AS logindate,
-	"発送日①" AS senddate1,
-	"発送日②" AS senddate2,
-	
-	"完了日" AS completiondate,
-	"商品費用" AS productamountrmb,
-	"商品費用（円）" AS productamountry,
-	
-	"物流費用" AS shipamountrmb,
-	"物流費用（円）" AS shipamountry,
-	"税金" AS faxamountrmb,
-	
-	"税金（円）" AS faxamountry,
-	"合計" AS totalrmb,
-	"合計（円）" AS totalry,
-	
-	"為替レート" AS rate,
-	"追跡番号" AS tracknumber 
-	
+	SELECT 
+		"仕入NO" AS purchaseno,
+		"仕入名称" AS purchasename,
+		"発送方式" AS sendway,
+		
+		"登録日" AS logindate,
+		"発送日①" AS senddate1,
+		"発送日②" AS senddate2,
+		
+		"完了日" AS completiondate,
+		"商品費用" AS productamountrmb,
+		"商品費用（円）" AS productamountry,
+		
+		"物流費用" AS shipamountrmb,
+		"物流費用（円）" AS shipamountry,
+		"税金" AS faxamountrmb,
+		
+		"税金（円）" AS faxamountry,
+		"合計" AS totalrmb,
+		"合計（円）" AS totalry,
+		
+		"為替レート" AS rate,
+		"追跡番号" AS tracknumber 
 	FROM 
 		"TRN_仕入管理" 
- 	 WHERE
-	"店舗ID" = :shopid 
-	and	"仕入NO" = :purchaseno
+ 	WHERE
+		"店舗ID" = :shopid 
+		and	
+		"仕入NO" = :purchaseno
 
 </sql>
 
 <!--更新ステータス为2.発送済  -->
-<sql id="updatepurchase2" paramPrefix="!">
+<sql id="updatepurchaseStatus2" paramPrefix="!">
  UPDATE 
  	"TRN_仕入管理" 
  	SET "ステータス" = '2.発送済'
@@ -443,7 +484,7 @@
 </sql>
 
 <!--更新ステータス3.仕入済  -->
-<sql id="updatepurchase3" paramPrefix="!">
+<sql id="updatepurchaseStatus3" paramPrefix="!">
  UPDATE 
 	"TRN_仕入管理" 
 	SET "ステータス" = '3.仕入済'
@@ -486,7 +527,7 @@
 </sql>
 
 <!--sl:检索仕入明细所有sku,asin,数量  -->
-<sql id="queryPurchaseCount" paramPrefix="!">
+<!-- <sql id="queryPurchaseCount" paramPrefix="!">
  	SELECT
 		"ASIN番号" AS asin,
 		"SKU番号" AS sku,
@@ -497,10 +538,10 @@
 			"店舗ID" = !shopid 
 		and	"仕入NO" = !purchaseno
 
-</sql>
+</sql> -->
 
 <!--sl:更新MST_在庫情報-减去途中在庫_仕入数量  -->
-<sql id="updateMSTPurMinus" paramPrefix="!">
+<!-- <sql id="updateMSTPurMinus" paramPrefix="!">
  UPDATE 
  	"MST_在庫情報" 
  	SET 
@@ -510,23 +551,56 @@
 	and	"ASIN番号" = !asin
 	and	"SKU番号" = !sku
 
-</sql>
+</sql> -->
 
 
 <!--sl:更新MST_在庫情報-加上途中在庫_仕入数量  -->
-<sql id="updateMSTPurAdd" paramPrefix="!">
- UPDATE 
- 	"MST_在庫情報" 
- 	SET 
-	 "途中在庫_仕入" = "途中在庫_仕入" + cast(!count as int)
- WHERE
-	"店舗ID" = !shopid 
-	and	"ASIN番号" = !asin
-	and	"SKU番号" = !sku
+<sql id="allocateStockToShip" paramPrefix="!">
+	UPDATE "MST_在庫情報" MST
+	SET "途中在庫_仕入" = "途中在庫_仕入" + TRN."数量"
+	FROM "TRN_仕入明細" TRN
+	WHERE
+		MST."ASIN番号" = TRN."ASIN番号" 
+	and	MST."SKU番号" = 	TRN."SKU番号"
+	and TRN."仕入NO" = !purchaseno
+	and TRN."店舗ID" = !shopid
+</sql>
+
+<sql id="removeStockFromShip" paramPrefix="!">
+	UPDATE "MST_在庫情報" MST
+	SET "途中在庫_仕入" = "途中在庫_仕入" - TRN."数量"
+	FROM "TRN_仕入明細" TRN
+	WHERE
+		MST."ASIN番号" = TRN."ASIN番号" 
+	and	MST."SKU番号" = 	TRN."SKU番号"
+	and TRN."仕入NO" = !purchaseno
+	and TRN."店舗ID" = !shopid
+</sql>
+
+<sql id="removeStockFromLocal" paramPrefix="!">
+	UPDATE "MST_在庫情報" MST
+	SET "LOCAL在庫" = "LOCAL在庫" - TRN."数量"
+	FROM "TRN_仕入明細" TRN
+	WHERE
+		MST."ASIN番号" = TRN."ASIN番号" 
+	and	MST."SKU番号" = 	TRN."SKU番号"
+	and TRN."仕入NO" = !purchaseno
+	and TRN."店舗ID" = !shopid
+</sql>
+
+<sql id="allocateStockToLocal" paramPrefix="!">
+	UPDATE "MST_在庫情報" MST
+	SET "LOCAL在庫" = "LOCAL在庫" + TRN."数量"
+	FROM "TRN_仕入明細" TRN
+	WHERE
+		MST."ASIN番号" = TRN."ASIN番号" 
+	and	MST."SKU番号" = 	TRN."SKU番号"
+	and TRN."仕入NO" = !purchaseno
+	and TRN."店舗ID" = !shopid
 </sql>
 
 <!--sl:更新MST_在庫情報-减去LOCAL在庫数量  -->
-<sql id="updateMSTLocalMinus" paramPrefix="!">
+<!-- <sql id="updateMSTLocalMinus" paramPrefix="!">
  UPDATE 
  	"MST_在庫情報" 
  	SET 
@@ -536,11 +610,11 @@
 	and	"ASIN番号" = !asin
 	and	"SKU番号" = !sku
 
-</sql>
+</sql> -->
 
 
 <!--sl:更新MST_在庫情報-加上LOCAL在庫数量  -->
-<sql id="updateMSTLocalAdd" paramPrefix="!">
+<!-- <sql id="updateMSTLocalAdd" paramPrefix="!">
  UPDATE 
  	"MST_在庫情報" 
  	SET 
@@ -549,6 +623,7 @@
 	"店舗ID" = !shopid 
 	and	"ASIN番号" = !asin
 	and	"SKU番号" = !sku
-</sql>
+</sql> -->
+
  </sqls>
 

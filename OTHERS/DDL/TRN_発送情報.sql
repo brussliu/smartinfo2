@@ -23,7 +23,7 @@ create table public."TRN_”­‘—î•ñ" (
 
   , "w“üÒƒ[ƒ‹" character varying(200)
   , "w“üÒ–¼" character varying(50)
-  , "w“üÒ“d˜b”Ô†" character varying(20)
+  , "w“üÒ“d˜b”Ô†" character varying(50)
 
   , "‚¨“Í‚¯æ-‘" character varying(20)
   , "‚¨“Í‚¯æ-—X•Ö”Ô†" character varying(20)

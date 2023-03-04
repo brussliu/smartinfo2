@@ -109,7 +109,9 @@
 					"TRN_発送情報" TRN 
 				where
 					TRN."Amazon注文番号" = IPT."order-id" 
+					and
 					TRN."SKU番号" = IPT."sku" 
+					and
 					and TRN."店舗ID" = IPT."店舗ID"
 			) 
 			and IPT."店舗ID" = :shopId
@@ -211,8 +213,10 @@
 					"TRN_発送情報" TRN 
 				where
 					TRN."Qoo10注文番号" = IPT."注文番号" 
+					and
 					TRN."商品名称" = IPT."商品名" 
-					and TRN."店舗ID" = IPT."店舗ID"
+					and 
+					TRN."店舗ID" = IPT."店舗ID"
 			) 
 			and IPT."店舗ID" = :shopId
 	</sql>

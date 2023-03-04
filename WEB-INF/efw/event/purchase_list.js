@@ -8,32 +8,30 @@ purchase_list.paramsFormat = {
 purchase_list.fire = function (params) {
 
 	var ret = new Result();
-	// セッションチェック
-	sessionCheck(ret);
- 
 
+	// セッションチェック
+	if(sessionCheck(ret) == false){return ret};
+ 
 	var purchaseno = params["purchaseno"];
 
-	//  检索asin,sku
+	// 仕入名称
 	var selectResult = db.select(
 		"PURCHASE",
-		"seachAsinAndSku",
+		"seachPurchaseName",
 		{
 			purchaseno:purchaseno,
 			shopid: getShopId()
 
 		}
-	).getArray();
-	selectResult.debug('--seachAsinAndSku--')
+	).getSingle();
 
-	var purchasename=selectResult[0]['purchasename'];
-	purchaseno.debug('------purchaseno-------')
+	var purchasename = selectResult['purchasename'];
 	// 仕入NO
-	ret.eval('$("#td_contno").html('+purchaseno+')');
+	ret.eval('$("#td_contno").html("' + purchaseno + '")');
 	// 仕入名称
-	ret.eval('$("#td_conname").html('+purchasename+')');
+	ret.eval('$("#td_conname").html("' + purchasename + '")');
 
-	//  检索明细列表
+	// 明細検索
 	var selectResult = db.select(
 		"PURCHASE",
 		"seachpurchasecontent",
@@ -42,10 +40,7 @@ purchase_list.fire = function (params) {
 			shopid: getShopId()
 
 		}
-	).getArray();
-
-
-	selectResult.debug("-------------seachpurchasecontent")
+	).getArray();// TODO ソート順修正要
 
 	var  resultHTML='<tr>' +
 	'<td style="width: 90px;">{productno}</td>' +
@@ -57,10 +52,12 @@ purchase_list.fire = function (params) {
 	'<td style="width: 80px;">{fba}</td>' +
 	'<td style="width: 80px;">{local}</td>' +
 	'<td style="width: 80px;">{number}</td>' +
-	'</tr>'
+	'</tr>';
+
 	ret.runat("#table_cot").remove("tr").append(resultHTML).withdata(selectResult);
 
 	ret.eval("purchase_content_inputdialog.dialog('open');");
+
 	// 画面へ結果を返す
 	return ret;
 

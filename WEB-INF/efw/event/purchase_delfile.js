@@ -1,7 +1,7 @@
 var purchase_delfile = {};
 purchase_delfile.name = "仕入詳細文件削除";
 purchase_delfile.paramsFormat = {
-	"dataname": null,
+	"filename": null,
 	"purchaseno": null,
 
 };
@@ -9,60 +9,45 @@ purchase_delfile.paramsFormat = {
 purchase_delfile.fire = function (params) {
 
 	var ret = new Result();
+
 	// セッションチェック
-	sessionCheck(ret);
-	// 资源名
-	var dataname = params["dataname"];
+	if(sessionCheck(ret) == false){return ret};
+
+	// ファイル名
+	var filename = params["filename"];
 	// 仕入NO
 	var purchaseno = params["purchaseno"];
-	// 检索文件名
-	var selectResult = db.select(
-		"PURCHASE",
-		"queryPurchaseFileForDataname",
-		{
-			dataname: dataname,
-			purchaseno: purchaseno,
-			shopid: getShopId()
-		}
-	).getArray();
-	selectResult.debug("-------------queryPurchaseFileFordataname");
+
+	// // ファイル名称検索
+	// var selectResult = db.select(
+	// 	"PURCHASE",
+	// 	"queryPurchaseFileForDataname",
+	// 	{
+	// 		dataname: dataname,
+	// 		purchaseno: purchaseno,
+	// 		shopid: getShopId()
+	// 	}
+	// ).getArray();
+	// selectResult.debug("-------------queryPurchaseFileFordataname");
 	
-	// 删除本地文件
-	var files = "Smart-Bear/purchasefile/" + purchaseno + "/" + selectResult[0]['files'] + "." + selectResult[0]['suffix'];
+	// ファイル削除
+	var files = getShopId() + "/purchasefile/" + purchaseno + "/" + filename;
 	file.remove(files);
 
-
-	//  删除数据库文件
+	// データ削除
 	var selectResult = db.change(
 		"PURCHASE",
 		"deletePurchaseFile",
 		{
 			shopid: getShopId(),
-			dataname: dataname,
+			filename: filename,
 			purchaseno: purchaseno
 		}
 	)
 
-	selectResult.debug("-------------deletePurchaseFile")
-
-
-	//查询所有文件
-	var selectResult = db.select(
-		"PURCHASE",
-		"queryPurchaseFile",
-		{
-			purchaseno: purchaseno,
-			shopid: getShopId()
-		}
-	).getArray();
-	selectResult.debug('----queryPurchaseFile---');
-	var resultHTML = '<tr>' +
-		'<td><img src="img/{suffix}.png"></img></td>' +
-		'<td style="width: 400px;" class="a">{dataname}.{suffix}</td>' +
-		'<td> <img src="img/delete.png" id="delfile" onclick="delfile(this)"></img></td>' +
-		'</tr>'
-	ret.runat("#filetable").remove("tr").append(resultHTML).withdata(selectResult);
-
+	// 添付ファイル表示
+	ret.eval("showFileList('" + purchaseno + "');");
+	
 	// 画面へ結果を返す
 	return ret;
 

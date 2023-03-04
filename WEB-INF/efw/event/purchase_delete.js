@@ -7,22 +7,32 @@ purchase_delete.paramsFormat = {
 purchase_delete.fire = function (params) {
 
 	var ret = new Result();
+
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
 
 	var no = params["no"];
+
 	//  削除
 	var selectResult = db.change(
 		"PURCHASE",
 		"deletepurchase",
 		{
-			shopid: getShopId(),
-			no:no
+			purchaseno:no,
+			shopid: getShopId()
 		}
 	)
 
-	selectResult.debug("-------------deletepurchase")
-	ret.eval("newdialog();");
+	// 删除仕入明细
+	var deleteResult = db.change(
+		"PURCHASE",
+		"deletePurchaseContent",
+		{
+			purchaseno: no,
+			shopid: getShopId()
+		}
+	);
+
 	ret.eval("init();");
 	// 画面へ結果を返す
 	return ret;
