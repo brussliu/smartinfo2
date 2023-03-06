@@ -1,12 +1,12 @@
-var delivery_receive = {};
-delivery_receive.name = "納品受領ボタン押下";
-delivery_receive.paramsFormat = {
+var delivery_complete = {};
+delivery_complete.name = "納品完了ボタン押下";
+delivery_complete.paramsFormat = {
 	"no": null,
 	"#file_receiverfile": null
 
 };
 
-delivery_receive.fire = function (params) {
+delivery_complete.fire = function (params) {
 
 	var ret = new Result();
 	// セッションチェック
@@ -20,27 +20,18 @@ delivery_receive.fire = function (params) {
 	var fa = receiverfile.split("\\");
 	var f = fa[fa.length - 1];
 
-	f.debug('------f')
-	var csvReader = new CSVReader("Smart-Bear/upload/" + f, "\t","\r\n","UTF-8",);
-	csvReader.debug('------csvReader')
+
+	var csvReader = new CSVReader("Smart-Bear/upload/" + f, "\t");
+
 	// データ全件導入
 	csvReader.loopAllLines(importAcceptance);
 
-	// 1.更新途中在庫_入庫数量
-	var update = db.change(
-		"DELIVERY",
-		"updateMSTDelveryAdd",
-		{
-			no: no,
-			shopid: getShopId()
-		}
-	);
-	update.debug('------updateMSTDelAdd')
 
-	// 2.更新纳品管理受領数量
+
+	// 更新纳品管理受領完了数量，状态和时间
 	var update = db.change(
 		"DELIVERY",
-		"updateReceiveNumber",
+		"updateReceiveCompleteNumber",
 		{
 			no: no,
 			shopid: getShopId()
@@ -56,7 +47,7 @@ delivery_receive.fire = function (params) {
 };
 
 function importAcceptance(aryField, index) {
-	index.debug('----------index');
+
 	var amz_delivery_no = "";
 	var amz_delivery_name = "";
 	var amz_delivery_plan = "";
@@ -101,7 +92,6 @@ function importAcceptance(aryField, index) {
 	}
 	if (index == 3) {
 		amz_delivery_point = aryField[1];
-		amz_delivery_point.debug('----amz_delivery_point---')
 		var updResult = db.change(
 			"DELIVERY",
 			"updateDeliveryAmz4",
@@ -144,12 +134,12 @@ function importAcceptance(aryField, index) {
 		// 納品明細の受領数量を更新
 		var updResult = db.change(
 			"DELIVERY",
-			"updateDeliveryConAcceptance",
+			"updateDeliveryNum",
 			{
 				"acceptance": aryField[9],
 				"sku": aryField[0],
 				"asin": aryField[2],
-				"col0": no,
+				"no": no,
 				"shopid": getShopId()
 			}
 		);

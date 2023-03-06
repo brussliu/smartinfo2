@@ -169,49 +169,49 @@
 
 <!--sl:更新MST_在庫情報-途中在庫_入庫数量减去数量   -->
 <sql id="removeDeliveryFromShip" paramPrefix="!">
-	UPDATE "MST_在庫情報" MST
+	UPDATE "MST_在庫情報" 
 	SET "途中在庫_入庫" = "途中在庫_入庫" - TRN."数量",
-		MST."更新日時"= now() 
-	FROM "TRN_納品明細" TRN
+		"更新日時"= now() 
+	FROM "TRN_納品明細" AS TRN
 	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" =  TRN."SKU番号"
+		"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = !no
 	and TRN."店舗ID" = !shopid
 </sql>
 <!--sl:更新MST_在庫情報-LOCAL在庫数量减去数量  -->
 <sql id="removeDeliveryFromLocal" paramPrefix="!">
-	UPDATE "MST_在庫情報" MST
+	UPDATE "MST_在庫情報" 
 	SET "LOCAL在庫" = "LOCAL在庫" - TRN."数量",
-		MST."更新日時"= now() 
-	FROM "TRN_納品明細" TRN
+		"更新日時"= now() 
+	FROM "TRN_納品明細" AS TRN
 	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" =  TRN."SKU番号"
+		"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = !no
 	and TRN."店舗ID" = !shopid
 </sql>
 <!--sl:更新MST_在庫情報-途中在庫_入庫数量加上数量  -->
 <sql id="allocateDeliveryToShip" paramPrefix="!">
-	UPDATE "MST_在庫情報" MST
+	UPDATE "MST_在庫情報"  
 	SET "途中在庫_入庫" = "途中在庫_入庫" + TRN."数量",
-		MST."更新日時"= now() 
-	FROM "TRN_納品明細" TRN
+		"更新日時"= now() 
+	FROM "TRN_納品明細" AS TRN
 	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" =  TRN."SKU番号"
+		"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = !no
 	and TRN."店舗ID" = !shopid
 </sql>
 
 <sql id="allocateDeliveryToLocal" paramPrefix="!">
-	UPDATE "MST_在庫情報" MST
+	UPDATE "MST_在庫情報"  
 	SET "LOCAL在庫" = "LOCAL在庫" + TRN."数量",
-		MST."更新日時"= now() 
-	FROM "TRN_納品明細" TRN
+		"更新日時"= now() 
+	FROM "TRN_納品明細" AS TRN
 	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" =  TRN."SKU番号"
+		"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = !no
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -259,6 +259,83 @@
 	and	"納品NO" = !no
 </sql>
  
+
+<!-- 受領完了 -->
+
+<!-- sl:受領完了-更新途中在庫_入庫 -->
+<sql id="updateDeliveryNum"> 
+	UPDATE "MST_在庫情報"
+ 	SET 
+	 "LOCAL在庫" = (
+			CASE
+			WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量" 
+					THEN "LOCAL在庫" + TRN."受領数量" - :acceptance else "LOCAL在庫"
+			WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+					THEN "LOCAL在庫" + TRN."受領数量" - :acceptance else "LOCAL在庫"
+			WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0
+					THEN "LOCAL在庫" - :acceptance else "LOCAL在庫"
+		END  ) ,
+	 "途中在庫_入庫" =
+		  ( CASE  WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+			THEN  "途中在庫_入庫" + TRN."受領数量" - :acceptance else TRN."受領数量"
+			 END ) ,
+	 TRN."受領数量" =
+		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
+			THEN :acceptance else TRN."受領数量"
+				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+			THEN :acceptance else TRN."受領数量"
+					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
+			THEN :acceptance else TRN."受領数量"
+			 END )  ,
+	 TRN."更新日時" =
+		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
+			THEN now( ) else TRN."更新日時"
+				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+			THEN now( ) else TRN."更新日時"
+					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
+			THEN now( ) else TRN."更新日時"
+			 END )  ,
+	  "更新日時" =
+		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
+			THEN now( ) else  "更新日時"
+				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+			THEN now( ) else  "更新日時"
+					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
+			THEN now( ) else  "更新日時"
+			 END ) 
+		FROM
+				"TRN_納品明細" TRN 
+		WHERE
+			TRN."ASIN番号" = :asin
+		and TRN."ASIN番号" = :sku
+		and	"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+		and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
+		and TRN."納品NO" = !no
+		and TRN."店舗ID" = !shopid
+</sql>
+<!-- sl:受領完了-更新纳品管理受領完了数量和状态-->
+<sql id="updateReceiveCompleteNumber">
+	UPDATE "TRN_納品管理"  
+		SET 
+		"完了日" = now(),
+	  	"更新日時" = now(),
+		"ステータス" = '4.納品済',
+		"最終納品数量" = 
+			( SELECT  sum(TRN2."受領数量") AS count
+			from "TRN_納品明細" TRN2
+			WHERE
+				TRN2."店舗ID" = :shopid 
+			and TRN2."納品NO" = :no
+			) 
+	WHERE 
+		"店舗ID" = :shopid 
+	AND
+		"納品NO" = :no
+</sql>
+
+<!-- #####受領完了################### -->
+
+<!-- receive受领中 -->
 
 <!-- sl:新规amz -->
 <sql id="updateDeliveryAmz1">
@@ -329,7 +406,7 @@
 
 </sql>
 
-<!-- sl:更新明细受領数量-->
+<!-- sl:納品明細の受領数量を更新-->
 <sql id="updateDeliveryConAcceptance">
 	UPDATE "TRN_納品明細"
 		SET "受領数量" = :acceptance,
@@ -342,8 +419,6 @@
 		"納品NO" = :col0
 	AND
 		"店舗ID" = :shopid 
-	AND
-		"納品NO" = :col0
 
 </sql>
 
@@ -370,63 +445,78 @@
 		)
 </sql>
 
-<!-- sl:受領-更新途中在庫_入庫 -->
-<sql id="updateMSTDelAdd"> 
-	UPDATE "MST_在庫情報" MST
-	SET 
-	MST."更新日時" = now(),
-		case 
-		when TRN."数量" &gt; 0 AND TRN."数量" = TRN."受領数量"   then MST."途中在庫_入庫" = MST."途中在庫_入庫" - TRN."受領数量" 
-		when TRN."数量" &gt; 0 AND TRN."数量" &lt; TRN."受領数量"   then MST."途中在庫_入庫" = MST."途中在庫_入庫" - TRN."数量" AND MST."LOCAL在庫" = MST."LOCAL在庫" + TRN."数量" -TRN."受領数量" 
-		when TRN."数量" &gt; 0 AND TRN."数量" &gt; TRN."受領数量"   then MST."途中在庫_入庫" = MST."途中在庫_入庫" - TRN."受領数量" 
-		when TRN."数量" &gt; 0 AND TRN."数量" = TRN."受領数量" AND TRN."受領数量" = 0    then MST."途中在庫_入庫" = MST."途中在庫_入庫" - TRN."受領数量" 
-		when TRN."数量" = 0 AND TRN."受領数量" &gt; 0  then MST."LOCAL在庫" = MST."LOCAL在庫" -TRN."受領数量" 
-		end 
-	 
-	FROM "TRN_納品明細" TRN
-	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" =  TRN."SKU番号"
-	and TRN."納品NO" = !no
-	and TRN."店舗ID" = !shopid
+<!-- sl:受領中-更新途中在庫_入庫 -->
+<sql id="updateMSTDelveryAdd"> 
+	UPDATE "MST_在庫情報"
+ 	SET "更新日時" = now( ),
+	 "途中在庫_入庫" = (
+			CASE
+			WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."受領数量" else "途中在庫_入庫"
+			WHEN TRN."数量" &gt; 0   AND TRN."数量" &lt; TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."数量" else "途中在庫_入庫"
+			WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."受領数量" else "途中在庫_入庫"
+			WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量"  AND TRN."受領数量" = 0 
+					THEN "途中在庫_入庫" - TRN."受領数量"  else "途中在庫_入庫"
+		END  ) ,
+	 "LOCAL在庫" =
+		  ( CASE   WHEN TRN."数量" = 0 AND TRN."受領数量" &gt; 0 
+			THEN "LOCAL在庫" - TRN."受領数量" else "LOCAL在庫"
+				   WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
+			THEN "LOCAL在庫" + TRN."数量" -TRN."受領数量"  else "LOCAL在庫"
+			 END ) 
+		FROM
+				"TRN_納品明細" TRN 
+		WHERE
+			"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+		and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
+		and TRN."納品NO" = :no
+		and TRN."店舗ID" = :shopid
 </sql>
+
+<!-- sl:更新纳品管理受領数量-->
+<sql id="updateReceiveNumber">
+	UPDATE "TRN_納品管理"  
+		SET 
+		"受領日" = now(),
+	  	"更新日時" = now(),
+		"ステータス" = '3.受領中',
+		"受領数量" = 
+			( SELECT  sum(TRN2."受領数量") AS count
+			from "TRN_納品明細" TRN2
+			WHERE
+				TRN2."店舗ID" = :shopid 
+			and TRN2."納品NO" = :no
+			) 
+	WHERE 
+		"店舗ID" = :shopid 
+	AND
+		"納品NO" = :no
+</sql>
+
+<!-- ############受領中#####################3 -->
+
 
 
 <!-- sl:更新纳品管理発送数量-->
 <sql id="updateDeliverySend">
-	UPDATE "TRN_納品管理" TRN1
+	UPDATE "TRN_納品管理"  
 		SET 
-		TRN1."発送日" = now(),
-	  	TRN1."更新日時" = now(),
-		TRN1."発送数量" = 
-			( SELECT  sum("TRN2.数量") AS count
+		"発送日" = now(),
+		"ステータス" = '2.発送済',
+	  	"更新日時" = now(),
+		"発送数量" = 
+			( SELECT  sum(TRN2."数量") AS count
 			from "TRN_納品明細" TRN2
 			WHERE
 				TRN2."店舗ID" = :shopid 
 			and TRN2."納品NO" = :no
 			) 
 	WHERE 
-		TRN1."店舗ID" = :shopid 
+		 "店舗ID" = :shopid 
 	AND
-		TRN1."納品NO" = :no
-</sql>
-<!-- sl:更新纳品管理受領数量-->
-<sql id="updateDeliveryAcceptance">
-	UPDATE "TRN_納品管理" TRN1
-		SET 
-		TRN1."受領日" = now(),
-	  	TRN1."更新日時" = now(),
-		TRN1."受領数量" = 
-			( SELECT  sum("TRN2.数量") AS count
-			from "TRN_納品明細" TRN2
-			WHERE
-				TRN2."店舗ID" = :shopid 
-			and TRN2."納品NO" = :no
-			) 
-	WHERE 
-		TRN1."店舗ID" = :shopid 
-	AND
-		TRN1."納品NO" = :no
+		 "納品NO" = :no
 </sql>
 
 <!-- sl:納品NOリンク押下 -->
