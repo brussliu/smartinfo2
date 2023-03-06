@@ -31,7 +31,7 @@ purchase_init.fire = function (params) {
 	var resultHTML =
 			'<tr>' +
 			'<td style="width: 50px;" rowspan="2" class="c"><input type="radio" onclick="choice(this)" value="{no}" name="choice"></input></td>' +
-			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="down({no})">{no}</span></td>' +
+			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="outputFile()">{no}</span></td>' +
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{name}</span></td>' +
 
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{no}</span></td>' +

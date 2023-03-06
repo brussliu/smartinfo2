@@ -17,6 +17,8 @@
                         setTimeout(function () { });
                     },
                 });
+
+
             });
         </script>
         <style>
@@ -29,11 +31,11 @@
                     <tr>
                         <td style="width: 100px;text-align: left;">スキャン欄</td>
                         <td style="width: 200px;"><input type="text" style="width: 160px;"></input></td>
-                        <td style="width: 150px;"><input type="radio" style="vertical-align:middle; margin-top:-4px; "> 増加操作（+）</input></td>
+                        <td style="width: 150px;"><input type="radio" checked style="vertical-align:middle; margin-top:-4px; "> 増加操作（+）</input></td>
                         <td style="width: 150px;"><input type="radio" style="vertical-align:middle; margin-top:-4px; "> 増加操作（-）</input></td>
                         <td></td>
                         <td></td>
-                        <td><button>箱增加</button></td>
+                        <td><button onclick="box()">箱增加</button></td>
                     
                     </tr>
                 </tbody>
@@ -52,7 +54,7 @@
 
                             <th style="width: 80px;">予定数量</th>
                             <th style="width: 80px;">実際数量</th>
-                            <th style="width: 80px;"><input type="radio"></input><br>箱（No.1）</th>
+                            <th style="width: 80px;"><input type="radio" checked></input><br>箱（No.1）</th>
                         </tr>
                     </thead>
                 </table>
