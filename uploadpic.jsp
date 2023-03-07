@@ -4,14 +4,25 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>写真アップロード</title>
-
-	<script type="text/javascript" language="javascript" src="js/common.js"></script>
-
 	<efw:Client/>
 
 	<script>
-		function uplaodPic(obj){
 
+		(function ($) {
+            $.getUrlParam = function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]); return null;
+            }
+        })(jQuery);
+
+		var shopid = $.getUrlParam('shopid');
+
+		
+		 
+
+
+		function uplaodPic(obj){
 			$(obj).next().click();
 		}
 

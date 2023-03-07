@@ -287,14 +287,12 @@
                                         &ensp; <input type="checkbox" value="FBM" id="shippingway_fbm"> FBM
 
                                     </td>
-                                    <td style="width: 110px;font-weight: bold;">
-                                        <!-- 表示項目： -->
+                                    <td style="width: 110px;font-weight: bold;">出力区分：</td>
+                                    <td style="width: 150px;">
+                                        <input type="checkbox" id="recommend" value="1"> 推奨数量入り
                                     </td>
                                     <td style="width: 350px;">
-                                        <!-- <input type="checkbox" id="checkbox_ASL" value="ASIN、SKU、LABEL" checked>
-                                        ASIN、SKU、LABEL
-                                        &nbsp;
-                                        <input type="checkbox" id="checkbox_productname" value="商品名称" checked> 商品名称 -->
+                                        日数 <input type="text" style="width: 50px;height: 30px;" id="" value="30"></input>
                                     </td>
                                 </tr>
                             </tbody>
