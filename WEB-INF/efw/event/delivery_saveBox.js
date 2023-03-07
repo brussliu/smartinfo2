@@ -4,12 +4,11 @@ delivery_saveBox.name="箱詰め情報保存";
 delivery_saveBox.paramsFormat={
 
 	"deliveryno":"required:true;display-name:仕入No;",
-	"#si_box_inputdialog":{
+	"#delivery_box_inputdialog":{
 		"skuArr":null,
 		"asinArr":null,
 		"qArr":null,
-	},
-	"#shop":null
+	} 
 };
  
 /**
@@ -19,11 +18,11 @@ delivery_saveBox.fire=function(params){
 
 	var deliveryno = params["deliveryno"];
 
-	var skuArr = params["#si_box_inputdialog"]["skuArr"];
+	var skuArr = params["#delivery_box_inputdialog"]["skuArr"];
 
-	var asinArr = params["#si_box_inputdialog"]["asinArr"];
+	var asinArr = params["#delivery_box_inputdialog"]["asinArr"];
 
-	var qArr = params["#si_box_inputdialog"]["qArr"];
+	var qArr = params["#delivery_box_inputdialog"]["qArr"];
 	
  
 

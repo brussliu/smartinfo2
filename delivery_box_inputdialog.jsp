@@ -295,7 +295,7 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td style="width: 200px;"><button class="btn">確定</button></td>
+                        <td style="width: 200px;"><button class="btn"onclick="savebox()" >確定</button></td>
                         <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
                     </tr>
                 </tbody>
