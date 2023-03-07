@@ -7,7 +7,7 @@ var shopname = "";
 delivery_outputdeliveryfile.fire=function(params){
 	
 	var ret = new Result();
-
+	if (sessionCheck(ret) == false) { return ret };
 	shopname = params["#shop"];
 
 	var deliveryno =  getShopId();

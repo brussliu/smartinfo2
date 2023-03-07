@@ -10,7 +10,7 @@ delivery_add.fire = function (params) {
 
 	var ret = new Result();
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 	// 当前时间
 	// 納品NO
 	var date = new Date().format('yyyyMMdd-HHmmss');
@@ -97,7 +97,7 @@ function importProContent(exl, sheetName, XC, XD, XZ, Y_from, Y_to, shopid, date
 						shopid: shopid
 					}
 				);
-				selectResult2.debug('-----insertdeliverydata');
+ 
 			}
 		}
 

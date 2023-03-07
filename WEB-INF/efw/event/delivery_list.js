@@ -42,9 +42,6 @@ delivery_list.fire = function (params) {
 		}
 	).getArray();
 
-
-	selectResult.debug("-------------seachdeliverycontent")
-
 	var  resultHTML='<tr>' +
 	'<td style="width: 90px;">{productno}</td>' +
 	'<td style="width: 160px;">{sub1}</td>' +

@@ -584,5 +584,46 @@
 			COALESCE(cast(S1."ソート" as varchar), a."分類１")
 			,COALESCE(cast(S2."ソート" as varchar), a."分類２")
 </sql>
+
+
+<!-- sl:箱詰め -->
+	<sql id="searchDeliveryInfo">
+		select 
+			B."商品管理番号" AS pno,
+			B."分類１" AS sub1,
+			B."分類２" AS sub2,
+			A."ASIN番号" AS asin,
+			A."SKU番号" AS sku,
+			B."LABEL番号" AS label,
+			A."数量" AS quantity
+		from
+		"TRN_納品明細" A
+		left join "MST_出品マスタ情報" B
+		on A."SKU番号" = B."SKU番号" and A."ASIN番号" = B."ASIN番号"
+		where
+			A."納品NO" = :col0
+		AND A."店舗ID" = :shopid
+		order by
+			B."商品管理番号",
+			B."分類１",
+			B."分類２"
+	</sql>
+
+<sql id="searchProductInfo">
+	select 
+			"商品管理番号" AS pno,
+			"分類１" AS sub1,
+			"分類２" AS sub2,
+			"ASIN番号" AS asin,
+			"SKU番号" AS sku,
+			"LABEL番号" AS label
+	from
+	"MST_出品マスタ情報" 
+	where
+	"LABEL番号" = :labelno
+	and
+	"店舗ID" = :shopid
+</sql>
+ 
  </sqls>
 

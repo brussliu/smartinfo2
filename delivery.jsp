@@ -117,7 +117,7 @@
                 function update() {
                     var no = $('#temp').data("temp");
               
-                    $('#text_name').val(names);
+                 
                     Efw('delivery_update', { 'no': no });
                 }
 
@@ -133,7 +133,7 @@
                     Efw('delivery_receive', { "no": no });
                 }
                 //納品完了
-                function receive() {
+                function final() {
                     var no = $('#temp').data("temp");
                     Efw('delivery_complete', { "no": no });
                 }
@@ -148,9 +148,10 @@
                     Efw('delivery_output', { "no": no });
                 }
                 // 箱增加
-                // function box() {
-                //     Efw('addbox');
-                // }
+                function box() {
+                    var no = $('#temp').data("temp");
+                    Efw('delivery_addbox', { "no": no });
+                }
             </script>
         </head>
 
@@ -199,9 +200,9 @@
                                             onclick="content()">納品内容</button></td>
                                     <td style="width: 120px;"><button id="btn_update" onclick="update()"
                                             disabled="disabled">納品更新</button></td>
-
+                                         
                                     <td style="width: 120px;"><button id="btn_encasement" disabled="disabled"
-                                            onclick="delivery_box_inputdialog.dialog('open');">箱詰め</button></td>
+                                            onclick="box()">箱詰め</button></td>
                                     <td style="width: 120px;"><button id="btn_delete" disabled="disabled">納品削除</button>
                                     </td>
                                     <td style="width: 240px;"><button id="outputfile" disabled

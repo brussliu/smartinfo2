@@ -8,7 +8,7 @@ delivery_delete.fire = function (params) {
 
 	var ret = new Result();
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	var no = params["no"];
 	//  削除
@@ -21,7 +21,7 @@ delivery_delete.fire = function (params) {
 		}
 	)
 
-	selectResult.debug("-------------deletedelivery")
+ 
 	ret.eval("newdialog();");
 	ret.eval("init();");
 	// 画面へ結果を返す

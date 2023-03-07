@@ -24,7 +24,6 @@ delivery_init.fire = function (params) {
 		}
 	).getArray();
 
-	selectResult.debug("-------------selectdelivery")
 	var resultHTML =
 	' <tr>' +
 	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice"></input></td>' +

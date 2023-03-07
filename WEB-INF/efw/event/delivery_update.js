@@ -32,7 +32,7 @@ delivery_update.fire = function (params) {
 			shopid: getShopId()
 		}
 	);
-	deleteResult.debug('--------deletePurchaseContent--------')
+ 
 
 	file.saveUploadFiles("Smart-Bear/upload");
 	// 文件名
@@ -67,7 +67,6 @@ delivery_update.fire = function (params) {
 			shopid: shop
 		}
 	);
-	selectResult2.debug('-----updatedelivery');
  
 	ret.eval("$('#text_name').val('');");
 	ret.eval("$('#file_deliveryfile').val('');");
@@ -113,7 +112,7 @@ function importProContent(exl, sheetName, XC, XD, XZ, Y_from, Y_to, shopid, date
 						shopid: shopid
 					}
 				);
-				selectResult2.debug('-----insertdeliverydata');
+ 
 			}
 		}
 
