@@ -47,7 +47,7 @@
                     Efw('delivery_update', { 'deliveryno': deliveryno });
                 }
 
-                納品作成用ファイル出力
+                // 納品作成用ファイル出力
                 function outputdeliveryfile() {
                     var deliveryno = $('input:radio[name="choice"]:checked').val();
                     Efw('delivery_outputdeliveryfile', { "deliveryno": deliveryno });
@@ -75,6 +75,12 @@
                 function receive() {
                     var deliveryno = $('input:radio[name="choice"]:checked').val();
                     Efw('delivery_receive', { "deliveryno": deliveryno });
+                }
+
+                // 納品完了
+                function final() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_complete', { "deliveryno": deliveryno });
                 }
 
                 // ボタン状態初期化
@@ -133,21 +139,6 @@
                         $('#btn_receiver').attr('disabled', false);
                         $('#btn_final').attr('disabled', false);
                     }
-                }
-
-
-
-
-
-
-
-
-
-
-                //納品完了
-                function final() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_complete', { "no": no });
                 }
 
 

@@ -1,7 +1,7 @@
 var delivery_complete = {};
 delivery_complete.name = "納品完了ボタン押下";
 delivery_complete.paramsFormat = {
-	"no": null,
+	"deliveryno": null,
 	"#file_receiverfile": null
 
 };
@@ -9,11 +9,12 @@ delivery_complete.paramsFormat = {
 delivery_complete.fire = function (params) {
 
 	var ret = new Result();
+
 	// セッションチェック
 	if (sessionCheck(ret) == false) { return ret };
 
-
-	var no = params["no"];
+	// 納品NO
+	var deliveryno = params["deliveryno"];
 	var receiverfile = params["#file_receiverfile"];
 	file.saveUploadFiles("Smart-Bear/upload");
 	// 文件名
@@ -33,7 +34,7 @@ delivery_complete.fire = function (params) {
 		"DELIVERY",
 		"updateReceiveCompleteNumber",
 		{
-			no: no,
+			no: deliveryno,
 			shopid: getShopId()
 		}
 	);
