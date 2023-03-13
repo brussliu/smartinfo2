@@ -200,7 +200,28 @@
 
                     });
                 }
-            </script>
+           
+
+                // 推奨数量入り
+                function changeRecommend(val){
+                   
+                   var item = $(val).is(':checked');
+                   
+                    if(item==true){
+                        $('#text_date').val(30)
+                        $('#text_date').attr ("disabled",false);
+                        
+                  
+                    }else{
+                        $('#text_date').val('')
+                        $('#text_date').attr ("disabled",true);
+                    }
+              
+
+                }
+           
+           
+           </script>
             <style>
 
             </style>
@@ -289,10 +310,10 @@
                                     </td>
                                     <td style="width: 110px;font-weight: bold;">出力区分：</td>
                                     <td style="width: 150px;">
-                                        <input type="checkbox" id="recommend" value="1"> 推奨数量入り
+                                        <input type="checkbox" id="checkbox_recommend" value="1" onchange="changeRecommend(this)"> 推奨数量入り
                                     </td>
                                     <td style="width: 350px;">
-                                        日数 <input type="text" style="width: 50px;height: 30px;" id="" value="30"></input>
+                                        日数 <input type="text" style="width: 50px;height: 30px;" id="text_date" value="" disabled></input>
                                     </td>
                                 </tr>
                             </tbody>

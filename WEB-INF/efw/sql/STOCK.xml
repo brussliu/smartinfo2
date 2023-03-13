@@ -595,5 +595,107 @@
 				COALESCE(cast(S2."ソート" as varchar), T."sub2")
 	</sql>
  
+
+<!-- sl:推奨数量入り-推奨納品数量 -->
+	<sql id="updatedeliverynumber">
+		update "MST_入庫仕入推奨数量情報" set
+		"推奨納品数量" = 
+			COALESCE(MST3."販売数量（日平均値）", 0) *  cast(:date as int) - 
+			(	COALESCE(MST2."FBA在庫", 0) + 
+				COALESCE(MST2."FBM在庫", 0) + 
+				COALESCE(MST2."途中在庫_入庫", 0)),
+		"更新日時" = now()
+		from 
+			"MST_在庫情報" MST2,
+			"MST_販売数量情報" MST3
+		where 
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST2."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
+			and
+			MST2."暫定フラグ" = '0'
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST3."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST3."ASIN番号"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = :sku
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = :asin
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST3."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="selectdeliverynumber">
+		SELECT DISTINCT
+			"推奨納品数量" num
+		FROM
+			"MST_入庫仕入推奨数量情報" 
+		WHERE
+			"SKU番号" = :sku
+			and
+			"ASIN番号" = :asin
+			and
+			"店舗ID" = :shopId
+			and
+			"推奨納品数量" > 0
+	</sql>
+
+
+
+<!-- sl:推奨数量入り-推奨仕入数量  -->
+	<sql id="updatepurchasenumber">
+		update "MST_入庫仕入推奨数量情報" set
+	"推奨仕入数量" = 
+			COALESCE(MST3."販売数量（日平均値）", 0) * cast(:date as int) - 
+			(	COALESCE(MST2."FBA在庫", 0) + 
+				COALESCE(MST2."FBM在庫", 0) + 
+				COALESCE(MST2."途中在庫_入庫", 0) + 
+				COALESCE(MST2."LOCAL在庫", 0) + 
+				COALESCE(MST2."途中在庫_仕入", 0)),
+	"更新日時" = now()
+		from 
+			"MST_在庫情報" MST2,
+			"MST_販売数量情報" MST3
+		where 
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST2."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
+			and
+			MST2."暫定フラグ" = '0'
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST3."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST3."ASIN番号"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = :sku
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = :asin
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST3."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = :shopId
+	</sql>
+
+	<sql id="selectpurchasenumber">
+		SELECT DISTINCT
+			"推奨仕入数量" num
+		FROM
+			"MST_入庫仕入推奨数量情報" 
+		WHERE
+			"SKU番号" = :sku
+			and
+			"ASIN番号" = :asin
+			and
+			"店舗ID" = :shopId
+			and
+			"推奨仕入数量" > 0
+	</sql>
 </sqls>
 

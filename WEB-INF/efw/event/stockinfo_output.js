@@ -1,7 +1,8 @@
 var stockinfo_output = {};
 stockinfo_output.name = "在庫補足";
 stockinfo_output.paramsFormat = {
-	"exl":null
+	"exl":null,
+	"#text_date":null
 };
 
 stockinfo_output.fire = function (params) {
@@ -12,13 +13,14 @@ stockinfo_output.fire = function (params) {
 	sessionCheck(ret);
 
 	var exl = params["exl"];
+	var text_date = params["#text_date"];
 
 	// 非暫定データ
 	var selectResult0 = db.select("STOCK", "selectstockinfo0_excel", {shopid: getShopId()}).getArray();
 	// 暫定データ
 	var selectResult1 = db.select("STOCK", "selectstockinfo1_excel", {shopid: getShopId()}).getArray();
 
-	var tempFilePathName = writeExcel(selectResult0, selectResult1, exl);
+	var tempFilePathName = writeExcel(selectResult0, selectResult1, exl , text_date );
 
 	if(exl=='1'){
 
@@ -37,7 +39,7 @@ stockinfo_output.fire = function (params) {
 };
 
 // Excelファイル書き込み
-function writeExcel(selectResult0, selectResult1, exl) {
+function writeExcel(selectResult0, selectResult1, exl , text_date ) {
 
 	var sheet1 = "DELIVERYLIST";
 	var sheet2 = "PURCHASELIST";
@@ -59,7 +61,7 @@ function writeExcel(selectResult0, selectResult1, exl) {
 
 	// 非暫定データ
 	for (var i = 0; i < selectResult0.length; i++) {
-
+		 
 		if (i == 0){
 			firstsheet = selectResult0[i]["type"].replaceAll(':', '.');
 		}
@@ -78,7 +80,7 @@ function writeExcel(selectResult0, selectResult1, exl) {
 
 		} 
 		// 设定值
-		setInfoToExcel(excel, selectResult0[i], new_type, y_from);
+		setInfoToExcel(excel, selectResult0[i], new_type, y_from , exl , text_date );
 		old_type = new_type;
 		y_from ++;
 
@@ -95,7 +97,7 @@ function writeExcel(selectResult0, selectResult1, exl) {
 			excel.delRow("暫定データ", y_from - 1, 500 - y_from + 1);
 
 			// 设定值
-			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from);
+			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from,exl , text_date );
 			y_from ++;
 
 		}
@@ -109,7 +111,7 @@ function writeExcel(selectResult0, selectResult1, exl) {
 }
 
 
-function setInfoToExcel(excel, selectRecord, sheetName, from) {
+function setInfoToExcel(excel, selectRecord, sheetName, from , exl , text_date ) {
 
 
 	var COL_B = "B";
@@ -134,7 +136,7 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	var COL_W = "W";
 	var COL_X = "X";
 	var COL_Y = "Y";
-
+	var COL_Z = "Z";
 
 	var no = returnNull(selectRecord["pno"]);
 	var asin = returnNull(selectRecord["asin"]);
@@ -207,6 +209,62 @@ function setInfoToExcel(excel, selectRecord, sheetName, from) {
 	setExcelValue(excel, sheetName, COL_X + from, selled360);
 	// 販売数量(参照値)
 	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
+
+	
+	if(exl == '1'){//纳品
+		// 更新推奨数量入り
+		var update = db.change(
+			"STOCK",
+			"updatedeliverynumber",
+			{
+				sku:sku,
+				asin:asin,
+				date:text_date,
+				shopId: getShopId()
+			});
+
+ 
+		// 查询推奨数量入り
+		var selectResult1 = db.select(
+			"STOCK",
+			"selectdeliverynumber",
+			{
+				sku:sku,
+				asin:asin,
+				shopId: getShopId()
+			}).getSingle();
+
+	
+	//納品数量
+	setExcelValue(excel, sheetName, COL_Z + from, selectResult1["num"]);
+
+	}else{
+	 		// 更新推奨数量入り
+			 var update = db.change(
+				"STOCK",
+				"updatepurchasenumber",
+				{
+					sku:sku,
+					asin:asin,
+					date:text_date,
+					shopId:  getShopId()
+				});
+			// 查询推奨数量入り
+			var selectResult2 = db.select(
+				"STOCK",
+				"selectpurchasenumber",
+				{
+					sku:sku,
+					asin:asin,
+					shopId: getShopId()
+				}).getSingle();
+	
+	
+		//納品数量
+		setExcelValue(excel, sheetName, COL_Z + from, selectResult2["num"]);
+
+
+	}
 
 }
 
