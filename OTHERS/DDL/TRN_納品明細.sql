@@ -1,8 +1,7 @@
-drop table public."TRN_”[•iŠÇ—";
+drop table public."TRN_”[•i–¾×";
 
-create table public."TRN_”[•iŠÇ—" (
-
-  , "”[•iNO" character varying(20)
+create table public."TRN_”[•i–¾×" (
+    "”[•iNO" character varying(20)
   , "SKU”Ô†" character varying(50)
   , "ASIN”Ô†" character varying(50)
   , "”—Ê" integer

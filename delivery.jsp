@@ -13,44 +13,81 @@
                 }
             </style>
             <script>
+
                 function scrollHead(obj) {
                     var p = $(obj).get(0).scrollLeft;
                     $(".c_detail_header").get(0).scrollLeft = p;
                 }
 
+                // 初期化
                 function init() {
                     Efw('delivery_init');
                 }
-                // 时间格式
-                Date.prototype.Format = function (fmt) {
-                    var o = {
-                        "M+": this.getMonth() + 1,                 //月份   
-                        "d+": this.getDate(),                    //日   
-                        "h+": this.getHours(),                   //小时   
-                        "m+": this.getMinutes(),                 //分   
-                        "s+": this.getSeconds(),                 //秒   
-                        "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
-                        "S": this.getMilliseconds()             //毫秒   
-                    };
-                    if (/(y+)/.test(fmt))
-                        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                    for (var k in o)
-                        if (new RegExp("(" + k + ")").test(fmt))
-                            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                    return fmt;
+
+                // 新規
+                function add() {
+                    Efw('delivery_add');
                 }
 
-                // button初始化
+                // 納品内容
+                function content() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_list', { 'deliveryno': deliveryno });
+                }
+
+                // 納品削除
+                function deletepurchase() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_delete', { 'deliveryno': deliveryno });
+                }
+
+                // 納品更新
+                function update() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_update', { 'deliveryno': deliveryno });
+                }
+
+                納品作成用ファイル出力
+                function outputdeliveryfile() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_outputdeliveryfile', { "deliveryno": deliveryno });
+                }
+
+                // 箱詰め
+                function box() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_box', { "deliveryno": deliveryno });
+                }
+
+                // 納品発送
+                function send() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_send', { "deliveryno": deliveryno });
+                }
+
+                // 納品NOリンク押下
+                function outputFile(){
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_output', { "deliveryno": deliveryno });
+                }
+
+                //納品受取
+                function receive() {
+                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                    Efw('delivery_receive', { "deliveryno": deliveryno });
+                }
+
+                // ボタン状態初期化
                 function choice(val) {
                     // 納品名称
-                    var n = $(val).parent().next().next().children().html();
+                    var deliveryname = $(val).parent().next().next().children().html();
                     // ステータス
-                    var v = $(val).parent().next().next().next().next().next().html();
+                    //var v = $(val).parent().next().next().next().next().next().html();
                     // 仕入NO
-                    var tempno = $(val).parent().next().children().html();
-                    $('#temp').data("temp", tempno);
-                    $('#text_name').val(n);
-                    $('#temptype').data("type", v);
+                    //var tempno = $(val).parent().next().children().html();
+                    //$('#temp').data("temp", tempno);
+                    $('#text_name').val(deliveryname);
+                    //$('#temptype').data("type", v);
                     if (v == '1.新　規') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
@@ -88,7 +125,8 @@
 
                     }
                 }
-                // 改变納品受領，納品完了状态
+
+                // 受領ファイル添付
                 function view(val) {
                     var v = $(val).val();
                     if (v != null && v != '') {
@@ -96,62 +134,24 @@
                         $('#btn_final').attr('disabled', false);
                     }
                 }
-                // 削除
-                function deletepurchase() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_delete', { 'no': no });
-                }
 
-                // 新規
-                function add() {
-                    Efw('delivery_add');
-                }
 
-                // 納品内容
-                function content() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_list', { 'no': no });
-                }
 
-                // 納品更新
-                function update() {
-                    var no = $('#temp').data("temp");
-              
-                 
-                    Efw('delivery_update', { 'no': no });
-                }
 
-                // 納品発送
-                function send() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_send', { "no": no });
-                }
 
-                //納品受取
-                function receive() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_receive', { "no": no });
-                }
+
+
+
+
+
                 //納品完了
                 function final() {
                     var no = $('#temp').data("temp");
                     Efw('delivery_complete', { "no": no });
                 }
-                // 納品作成用ファイル出力
-                function outputdeliveryfile() {
-                    var no = $('#temp').data("temp");
-                    Efw('outputdeliveryfile', { "no": no });
-                }
-                // 納品NOリンク押下
-                function outputFile(){
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_output', { "no": no });
-                }
-                // 箱增加
-                function box() {
-                    var no = $('#temp').data("temp");
-                    Efw('delivery_addbox', { "no": no });
-                }
+
+
+
             </script>
         </head>
 

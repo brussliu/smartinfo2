@@ -357,7 +357,7 @@ function importProContent(proContent, purchaseno) {
 								pno: pno,
 								sub1: sub1,
 								sub2: sub2,
-								num: count,
+								num: parseInt(count),
 								shopid: getShopId()
 							}
 						);
@@ -401,7 +401,7 @@ function importProContent(proContent, purchaseno) {
 								purchaseno: purchaseno,
 								asin: asin,
 								sku: sku,
-								num: count,
+								num: parseInt(count),
 								shopid: getShopId()
 							}
 						);

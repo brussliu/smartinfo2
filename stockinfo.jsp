@@ -144,7 +144,7 @@
 
                 // 出力（１：納品出力　２：仕入出力）
                 function output(val) {
-                    console.log("outputdeliver");
+                    
                     Efw('stockinfo_output', { 'exl': val });
                 }
 

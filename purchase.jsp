@@ -317,7 +317,7 @@
                 // 仕入NOリンク押下
                 function outputFile() {
                     var purchaseno = $('input:radio[name="choice"]:checked').val();
-                    Efw('purchase_output', { "no": purchaseno });
+                    Efw('purchase_output', { "purchaseno": purchaseno });
                 }
             </script>
             <style>

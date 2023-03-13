@@ -8,11 +8,11 @@
 	"納品NO" AS no,
 	"納品名称" AS name,
 	case
-				when "ステータス" = '1.新　規' then 0
-				when "ステータス" = '2.発送済' then "発送数量"
-				when "ステータス" = '3.受領中' then "受領数量"
-				when "ステータス" = '4.納品済' then "最終納品数量"
-			end as number,
+		when "ステータス" = '1.新　規' then 0
+		when "ステータス" = '2.発送済' then "発送数量"
+		when "ステータス" = '3.受領中' then "受領数量"
+		when "ステータス" = '4.納品済' then "最終納品数量"
+	end as number,
 	"ステータス" AS state,
 	to_char("登録日",'YYYY/MM/DD') AS logindate,
 	to_char("発送日",'YYYY/MM/DD') AS senddate,
@@ -29,18 +29,18 @@
   WHERE
 	"店舗ID" = :shopid 
   ORDER BY
-	"納品NO"
+	"納品NO" desc
 </sql>
 
 <!-- sl:削除 -->
 <sql id="deletedelivery" paramPrefix="!">
-		delete
-		from
-			"TRN_納品管理"
-		where
-			"納品NO" = !no
-			and
-			"店舗ID"= !shopid	 
+	delete
+	from
+		"TRN_納品管理"
+	where
+		"納品NO" = !no
+		and
+		"店舗ID"= !shopid	 
 </sql>
 
 <!-- sl：新规TRN_納品管理 -->
@@ -68,8 +68,6 @@
 		"TRN_納品管理" 
  SET 
 		"納品名称"= !names,
-		"数量"= !count,
-		"金額"= !money,
 		"更新日時"= now() 
  WHERE
 	"店舗ID" = !shopid 
@@ -78,7 +76,7 @@
 
 
 <!-- 通过納品NO检索 納品名称 -->
-<sql id="seachName" paramPrefix="!">
+<sql id="seachDeliveryName" paramPrefix="!">
  	SELECT
 		"納品名称" as name
 	FROM
@@ -102,7 +100,7 @@
 	 !no,
 	 !sku,
 	 !asin,
-	 cast(!num AS int),
+	 !num,
 	 !shopid,
 	 now()
 	)
@@ -110,59 +108,37 @@
 
 <!-- sl:删除TRN_納品明细 -->
 <sql id="deleteDeliveryContent" paramPrefix="!">
- DELETE 
- FROM
+	DELETE 
+	FROM
 		"TRN_納品明細" 
- WHERE
-	 	"店舗ID" = !shopid 
- and	"納品NO" = !no
+	WHERE
+		"店舗ID" = !shopid 
+	and	"納品NO" = !no
 </sql>
 
 <!--通过asin,sku检索  -->
 <sql id="seachdeliverycontent" paramPrefix="!">
- SELECT 
-  DISTINCT
- 	 	A."商品管理番号" AS productno,
+	SELECT 
+		A."商品管理番号" AS productno,
 		A."分類１" AS sub1,
 		A."分類２" AS sub2,
 		A."ASIN番号" AS asin,
 		A."SKU番号" AS sku,
 		A."LABEL番号" AS label,
 		B."FBA在庫" AS fba,
-		B."LOCAL在庫" AS LOCAL,
-		C."数量" AS NUMBER 
- FROM
-		"TRN_納品明細" C
-		LEFT JOIN  "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" 
-	AND A."SKU番号" = C."SKU番号" 
- LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" 
-	AND C."SKU番号" = B."SKU番号"
-	
- WHERE
-			A."ASIN番号" IN (
-		SELECT
-			cc."ASIN番号" AS asin 
-		FROM
-			"TRN_納品明細" cc
-			LEFT JOIN "TRN_納品管理" bb ON cc."納品NO" = bb."納品NO" 
-			AND cc."店舗ID" = bb."店舗ID" 
-		WHERE
-			cc."店舗ID" = !shopid 
-		AND cc."納品NO" = !no 
- ) AND
-		A."SKU番号" IN 
-			(SELECT 
-			 cc."SKU番号" AS sku
-		FROM
-			"TRN_納品明細" cc
-			LEFT JOIN "TRN_納品管理" bb ON cc."納品NO" = bb."納品NO" 
-			AND cc."店舗ID" = bb."店舗ID" 
-		WHERE
-			cc."店舗ID" = !shopid 
-			AND cc."納品NO" = !no 
-	)
- ORDER BY   A."商品管理番号",A."分類１",A."分類２"
-
+		B."LOCAL在庫" AS local,
+		CASE WHEN D."ステータス" = '4.納品済' THEN C."受領数量" ELSE C."数量" END AS count 
+	FROM
+		"TRN_納品管理" D
+		LEFT JOIN "TRN_納品明細" C ON D."納品NO" = C."納品NO"
+		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
+		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
+	WHERE
+		D."店舗ID" = !shopid 
+		AND 
+		D."納品NO" = !no 
+	ORDER BY
+		A."商品管理番号",A."分類１",A."分類２"
 </sql>
 
 
@@ -449,30 +425,31 @@
 <sql id="updateMSTDelveryAdd"> 
 	UPDATE "MST_在庫情報"
  	SET "更新日時" = now( ),
-	 "途中在庫_入庫" = (
-			CASE
-			WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."受領数量" else "途中在庫_入庫"
-			WHEN TRN."数量" &gt; 0   AND TRN."数量" &lt; TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."数量" else "途中在庫_入庫"
-			WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."受領数量" else "途中在庫_入庫"
-			WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量"  AND TRN."受領数量" = 0 
-					THEN "途中在庫_入庫" - TRN."受領数量"  else "途中在庫_入庫"
-		END  ) ,
-	 "LOCAL在庫" =
-		  ( CASE   WHEN TRN."数量" = 0 AND TRN."受領数量" &gt; 0 
-			THEN "LOCAL在庫" - TRN."受領数量" else "LOCAL在庫"
-				   WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
-			THEN "LOCAL在庫" + TRN."数量" -TRN."受領数量"  else "LOCAL在庫"
-			 END ) 
-		FROM
-				"TRN_納品明細" TRN 
-		WHERE
-			"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
-		and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
-		and TRN."納品NO" = :no
-		and TRN."店舗ID" = :shopid
+		"途中在庫_入庫" = (
+				CASE
+				WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."受領数量" 
+				WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."数量" 
+				WHEN TRN."数量" &gt; 0  AND TRN."数量" &gt; TRN."受領数量" 
+					THEN "途中在庫_入庫" - TRN."受領数量" 
+				ELSE "途中在庫_入庫"
+				END  ) ,
+		"LOCAL在庫" = ( 
+				CASE
+				WHEN TRN."数量" = 0 AND TRN."受領数量" &gt; 0 
+					THEN "LOCAL在庫" - TRN."受領数量"
+				WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
+					THEN "LOCAL在庫" + TRN."数量" -TRN."受領数量"
+				ELSE "LOCAL在庫"
+				END ) 
+	FROM
+			"TRN_納品明細" TRN 
+	WHERE
+		"MST_在庫情報"."ASIN番号" = TRN."ASIN番号" 
+	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
+	and TRN."納品NO" = :no
+	and TRN."店舗ID" = :shopid
 </sql>
 
 <!-- sl:更新纳品管理受領数量-->
@@ -522,18 +499,18 @@
 <!-- sl:納品NOリンク押下 -->
 <sql id="selectdelivery_excel" >
 	select  
-			a."商品種別" as type,
-			a."商品管理番号" as pno,
-			a."親子区分" as preproduct,	
-			a."分類１" as sub1,
-			a."分類２" as sub2,
-			a."ASIN番号" as asin,
-			a."SKU番号" as sku,
-			a."LABEL番号" as label,
-			a."商品名称" as productname,
+			m."商品種別" as type,
+			m."商品管理番号" as pno,
+			m."親子区分" as preproduct,	
+			m."分類１" as sub1,
+			m."分類２" as sub2,
+			m."ASIN番号" as asin,
+			m."SKU番号" as sku,
+			m."LABEL番号" as label,
+			m."商品名称" as productname,
 			e."価格" as price,
 			case
-				when a."親子区分" = '親商品' then null
+				when m."親子区分" = '親商品' then null
 				when d."FBA在庫" != 0 then 'FBA'
 				when d."FBA在庫" is null and d."FBM在庫" is null then '-'
 				when d."FBA在庫" is null and d."FBM在庫" is not null then 'FBM'
@@ -546,9 +523,9 @@
 			d."途中在庫_入庫" as put,	
 			d."LOCAL在庫" as local,
 			d."途中在庫_仕入" as purchase,
-			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
-			case when a."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
-			case when a."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+			case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
+			case when m."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+			case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
 			b."販売数量（直近３日間）" as selled3,
 			b."販売数量（直近７日間）" as selled7, 
 			b."販売数量（直近３０日間）" as selled30, 
@@ -556,33 +533,34 @@
 			b."販売数量（直近９０日間）" as selled90, 
 			b."販売数量（直近１８０日間）" as selled180, 
 			b."販売数量（直近３６０日間）" as selled360, 
-			case when a."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
+			case when m."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
 			c."在庫販売可能日数" as stocknumber,
 			c."保有数量販売可能日数" as salenumber,
 			c."推奨納品数量" as deliveryquantity,
 			c."推奨仕入数量" as purchasequantity,
-			a."店舗ID" as shopid,
-			a."暫定フラグ" as zt_flg,
-			a.num as num
+			m."店舗ID" as shopid,
+			m."暫定フラグ" as zt_flg,
+			case when D."ステータス" = '4.納品済' then a."受領数量" else a."数量" end as num 
 		from
-			(select m.*,TRN."数量" num from "TRN_納品明細" TRN,"MST_出品マスタ情報" m  where TRN."店舗ID" = :shopid  AND TRN."納品NO" = :no AND m."ASIN番号"=TRN."ASIN番号" AND m."SKU番号" = TRN."SKU番号") a
-			left join "MST_販売数量情報" b on a."ASIN番号" = b."ASIN番号" and a."SKU番号" = b."SKU番号" and a."店舗ID" = b."店舗ID"
-			left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号" = c."ASIN番号" and a."SKU番号" = c."SKU番号" and a."店舗ID" = c."店舗ID"
-			left join "MST_在庫情報"  d on a."ASIN番号" = d."ASIN番号" and a."SKU番号" = d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
-			left join "IPT_全出品情報" e on a."ASIN番号" = e."ASIN 1" and a."SKU番号" = e."出品者SKU" and a."店舗ID" = e."店舗ID" 
-			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
-			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
+			"MST_出品マスタ情報" m
+			left join "TRN_納品明細" a on m."ASIN番号" = a."ASIN番号" and m."SKU番号" = a."SKU番号" and m."店舗ID" = a."店舗ID" and a."納品NO" = :no
+			left join "MST_販売数量情報" b on m."ASIN番号" = b."ASIN番号" and m."SKU番号" = b."SKU番号" and m."店舗ID" = b."店舗ID"
+			left join "MST_入庫仕入推奨数量情報" c on m."ASIN番号" = c."ASIN番号" and m."SKU番号" = c."SKU番号" and m."店舗ID" = c."店舗ID"
+			left join "MST_在庫情報"  d on m."ASIN番号" = d."ASIN番号" and m."SKU番号" = d."SKU番号" and m."暫定フラグ" = d."暫定フラグ" and m."店舗ID" = d."店舗ID" 
+			left join "IPT_全出品情報" e on m."ASIN番号" = e."ASIN 1" and m."SKU番号" = e."出品者SKU" and m."店舗ID" = e."店舗ID" 
+			left join "MST_ソート情報" S1 on m."商品種別" = S1."商品種別" and S1."分類" = '分類１' and m."分類１" = S1."内容" and m."店舗ID" = S1."店舗ID"
+			left join "MST_ソート情報" S2 on m."商品種別" = S2."商品種別" and S2."分類" = '分類２' and m."分類２" = S2."内容" and m."店舗ID" = S2."店舗ID"
 		where
-			a."暫定フラグ" = '0'
+			m."暫定フラグ" = '0'
 			and
-			a."店舗ID" = :shopid
+			m."店舗ID" = :shopid
 			and 
-			a."親子区分" = '子商品'
+			m."親子区分" = '子商品'
 		order by
-			a."商品種別",
-			a."商品管理番号",
-			COALESCE(cast(S1."ソート" as varchar), a."分類１")
-			,COALESCE(cast(S2."ソート" as varchar), a."分類２")
+			m."商品種別",
+			m."商品管理番号",
+			COALESCE(cast(S1."ソート" as varchar), m."分類１"),
+			COALESCE(cast(S2."ソート" as varchar), m."分類２")
 </sql>
 
 
@@ -601,7 +579,7 @@
 		left join "MST_出品マスタ情報" B
 		on A."SKU番号" = B."SKU番号" and A."ASIN番号" = B."ASIN番号"
 		where
-			A."納品NO" = :col0
+			A."納品NO" = :no
 		AND A."店舗ID" = :shopid
 		order by
 			B."商品管理番号",

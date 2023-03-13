@@ -1,25 +1,25 @@
 var delivery_send = {};
 delivery_send.name = "納品発送ボタン押下";
 delivery_send.paramsFormat = {
-	"no": null
+	"deliveryno": null
 
 };
 
 delivery_send.fire = function (params) {
 
 	var ret = new Result();
+
 	// セッションチェック
 	if (sessionCheck(ret) == false) { return ret };
 
-
-	var no = params["no"];
+	var deliveryno = params["deliveryno"];
 
 	// 更新LOCAL数量-minus
 	var update = db.change(
 		"DELIVERY",
 		"removeDeliveryFromLocal",
 		{
-			no: no,
+			deliveryno: deliveryno,
 			shopid: getShopId()
 		}
 	);
@@ -29,7 +29,7 @@ delivery_send.fire = function (params) {
 		"DELIVERY",
 		"allocateDeliveryToShip",
 		{
-			no: no,
+			deliveryno: deliveryno,
 			shopid: getShopId()
 		}
 	);
@@ -39,7 +39,7 @@ delivery_send.fire = function (params) {
 		"DELIVERY",
 		"updateDeliverySend",
 		{
-			no: no,
+			deliveryno: deliveryno,
 			shopid: getShopId()
 		}
 	);
@@ -48,7 +48,7 @@ delivery_send.fire = function (params) {
 	// 画面へ結果を返す
 
 	ret.eval("init();");
-	ret.eval("choice('');");
+	// ret.eval("choice('');");
 	return ret;
 
 };
