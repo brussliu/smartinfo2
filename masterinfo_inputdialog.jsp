@@ -144,8 +144,8 @@
             <table class="table_inputdialog_btn" border="0">
                 <tbody>
                     <tr>
-                        <td></td>
                         <td><input type="hidden" id="opt" value="new"></input></td>
+                        <td><button class="btn" id="del" onclick="del()">削除</button></td>
                         <td style="width: 200px;"><button class="btn" onclick="save()">保存</button></td>
                         <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
                     </tr>

@@ -413,6 +413,112 @@
 		)
 	     </if>
 </sql>
+
+<sql id="udateStockflg1sub2" paramPrefix="!">
+		UPDATE "MST_在庫情報" 
+		SET
+			"SKU番号" = !sku,
+			"ASIN番号" = !asin,
+			"LABEL番号" = !label,
+
+			"暫定フラグ" = '0',
+		    "更新日時"=now()
+		WHERE 
+		    "店舗ID" =!shopid
+	 <if exists="oldno"> AND (	
+		  "商品管理番号" = !oldno
+		)
+	    </if>
+	   <if notexists="oldno"> AND (	
+		  "商品管理番号" is NULL
+		)
+	   </if> 
+	 	<if exists="oldpreproduct"> AND (	
+		  "親子区分" = !oldpreproduct
+		)
+	    </if>
+	   <if notexists="oldpreproduct"> AND (	
+		  "親子区分" is NULL
+		)
+	   </if>
+	 	<if exists="oldtype"> AND (	
+		  "商品種別" = !oldtype
+		)
+	    </if>
+	   <if notexists="oldtype"> AND (	
+		  "商品種別" is NULL
+		)
+	   </if>
+	 	<if exists="oldsub1"> AND (	
+		  "分類１" = !oldsub1
+		)
+	    </if>
+	   <if notexists="oldsub1"> AND (	
+		  "分類１" is NULL
+		)
+	   </if>
+	    <if exists="oldsub2"> AND (	
+		  "分類２" = !oldsub2
+		)
+	    </if>
+	    <if notexists="oldsub2"> AND (	
+		  "分類２" is NULL
+		)
+	     </if>
+</sql>
+
+<sql id="udatePurchaseflg1sub2" paramPrefix="!">
+		UPDATE "TRN_仕入明細" 
+		SET
+			"SKU番号" = !sku,
+			"ASIN番号" = !asin,
+			"LABEL番号" = !label,
+
+			"暫定フラグ" = '0',
+		    "更新日時"=now()
+		WHERE 
+		    "店舗ID" =!shopid
+	 <if exists="oldno"> AND (	
+		  "商品管理番号" = !oldno
+		)
+	    </if>
+	   <if notexists="oldno"> AND (	
+		  "商品管理番号" is NULL
+		)
+	   </if> 
+	 	<if exists="oldpreproduct"> AND (	
+		  "親子区分" = !oldpreproduct
+		)
+	    </if>
+	   <if notexists="oldpreproduct"> AND (	
+		  "親子区分" is NULL
+		)
+	   </if>
+	 	<if exists="oldtype"> AND (	
+		  "商品種別" = !oldtype
+		)
+	    </if>
+	   <if notexists="oldtype"> AND (	
+		  "商品種別" is NULL
+		)
+	   </if>
+	 	<if exists="oldsub1"> AND (	
+		  "分類１" = !oldsub1
+		)
+	    </if>
+	   <if notexists="oldsub1"> AND (	
+		  "分類１" is NULL
+		)
+	   </if>
+	    <if exists="oldsub2"> AND (	
+		  "分類２" = !oldsub2
+		)
+	    </if>
+	    <if notexists="oldsub2"> AND (	
+		  "分類２" is NULL
+		)
+	     </if>
+</sql>
 <!-- sl：更新-暂定0-親商品 -->
 <sql id="udatemasterinfoflg0pre" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
@@ -487,6 +593,67 @@
 		  "商品管理番号" = :no
 		AND 
 		  "親子区分" = '子商品'
+</sql>
+<!--sl:更新仕入明细价格  -->
+<sql id="udatePurchasesubprice1"  >
+		UPDATE "TRN_仕入明細" 
+		SET
+		   "単価" =  :price1,
+		   "更新日時"= now()
+		WHERE 
+		  "店舗ID" =:shopid
+		AND 
+		  "商品管理番号" = :no
+		AND 
+		  "親子区分" = '子商品'
+</sql>
+<sql id="udatePurchasesubprice2"  >
+		UPDATE "TRN_仕入明細" 
+		SET
+		   "単価" =  :price1,
+		   "更新日時"= now()
+		WHERE 
+		  "店舗ID" =:shopid
+		  	 <if exists="oldno"> AND (	
+		  "商品管理番号" = !oldno
+		)
+	    </if>
+	   <if notexists="oldno"> AND (	
+		  "商品管理番号" is NULL
+		)
+	   </if> 
+	 	<if exists="oldpreproduct"> AND (	
+		  "親子区分" = !oldpreproduct
+		)
+	    </if>
+	   <if notexists="oldpreproduct"> AND (	
+		  "親子区分" is NULL
+		)
+	   </if>
+	 	<if exists="oldtype"> AND (	
+		  "商品種別" = !oldtype
+		)
+	    </if>
+	   <if notexists="oldtype"> AND (	
+		  "商品種別" is NULL
+		)
+	   </if>
+	 	<if exists="oldsub1"> AND (	
+		  "分類１" = !oldsub1
+		)
+	    </if>
+	   <if notexists="oldsub1"> AND (	
+		  "分類１" is NULL
+		)
+	   </if>
+	    <if exists="oldsub2"> AND (	
+		  "分類２" = !oldsub2
+		)
+	    </if>
+	    <if notexists="oldsub2"> AND (	
+		  "分類２" is NULL
+		)
+	     </if>
 </sql>
 <sql id="udatemasterinfosubprice2"  >
 		UPDATE "MST_出品マスタ情報" 
@@ -564,6 +731,47 @@
 			"ASIN番号" = :asin
 			and
 			"SKU番号" = :sku
+			and
+			"店舗ID" =:shopid
+	</sql>
+
+	<sql id="deleteByAsinSkuForStock" >
+		DELETE FROM "MST_在庫情報" 
+		WHERE
+			"暫定フラグ" = '0'
+			and
+			"ASIN番号" = :asin
+			and
+			"SKU番号" = :sku
+			and
+			"店舗ID" =:shopid
+	</sql>
+
+	
+	<sql id="deleteByAsinSkuForPurchase" >
+		DELETE FROM "TRN_仕入明細" 
+		WHERE
+			"暫定フラグ" = '0'
+			and
+			"ASIN番号" = :asin
+			and
+			"SKU番号" = :sku
+			and
+			"店舗ID" =:shopid
+	</sql>
+<!-- sl:删除マスタ -->
+		<sql id="deletemasterinfo" >
+		DELETE FROM "MST_出品マスタ情報" 
+		WHERE
+			"商品管理番号" = :oldno
+			and
+			"親子区分" = :oldpreproduct
+			and
+			"商品種別" = :oldtype
+			and
+			"分類１" = :oldsub1
+			and
+			"分類２" = :oldsub2
 			and
 			"店舗ID" =:shopid
 	</sql>

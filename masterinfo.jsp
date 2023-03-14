@@ -69,6 +69,8 @@
                     
                     $("#opt").val("update");
 
+       
+
                     var type = $(btn).parent().next().children().html();
                     var no = $(btn).parent().next().next().html();
                     var preproduct = $(btn).parent().next().next().next().html();
@@ -86,13 +88,13 @@
                     var sku = $(btn).parent().next().next().next().next().next().next().next().html().toString();
 
                     if (flg == '1') {//更新时，当暂定为1时
-
+                        $("#del").css("display","block");
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
 
                         Efw('masterinfo_update1', { 'type': type, 'no': no, 'preproduct': preproduct, 'sub1': sub1, 'sub2': sub2 });
 
                     } else if (flg == '0') {//更新时，当暂定为0时
-
+                        $("#del").css("display","none");
 
 
                         $("#asinselect").attr("disabled", "disabled").css("background", "lightgray");
@@ -317,7 +319,23 @@
                     });
                 }
 
+                function del(){
 
+                    var oldtype = $('#newproducttype2').data('oldvalue');
+                    var oldno = $('#newproductno2').data('oldvalue');
+                    var oldpreproduct = $('#preproduct').data('oldvalue');
+                    var oldsub1 = $('#sub1').data('oldvalue');
+                    var oldsub2 = $('#sub2').data('oldvalue');
+
+                    Efw('masterinfo_delete', {
+                        'oldtype': oldtype, 
+                        'oldno': oldno, 
+                        'oldpreproduct': oldpreproduct,
+                        'oldsub1': oldsub1,
+                        'oldsub2': oldsub2,
+                    });
+
+                }
 
 
                 // ASL显示
