@@ -15,7 +15,7 @@ purchase_init.fire = function (params) {
 	// タイトル情報設定
 	setTitleInfo(ret);
 
-	//  检索
+	// 检索
 	var selectResult = db.select(
 		"PURCHASE",
 		"selectpurchase",
@@ -25,15 +25,15 @@ purchase_init.fire = function (params) {
 		}
 	).getArray();
 
-	selectResult.debug("-------------selectpurchase");
+	ret.runat("#purchasetable").remove("tr");
 
-
-	ret.runat("#purchasetable").remove("tr")
-
+	// 検索結果をループする
 	for (var i = 0; i < selectResult.length; i++) {
+
+		// 仕入NO
 		var purchaseno = selectResult[i]["no"];
 
-		// 检索资料名
+		// 資料名称検索
 		var selectResult2 = db.select(
 			"PURCHASE",
 			"selectfilename",
@@ -44,7 +44,7 @@ purchase_init.fire = function (params) {
 			}
 		).getArray();
 
-		var top = '<td style="width: 150px;" rowspan="2" class="l">  <ul>';
+		var top = '<td style="width: 250px;" rowspan="2" class="l">  <ul>';
 		var content = '';
 		for (var j = 0; j < selectResult2.length; j++) {
 			content = content + '<li class = "l5 a" onclick="down(this)">' + selectResult2[j]["filename"] + '.' + selectResult2[j]["suffix"] + '</li>'

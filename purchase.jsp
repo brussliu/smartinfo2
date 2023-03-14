@@ -409,7 +409,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_header" style="width: 2054px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2154px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;" rowspan="2" id="temp">選択</th>
@@ -435,7 +435,7 @@
                                     <th style="width: 120px;" class="l"><span class="l5">物流費用</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">税金</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">合計</span></th>
-                                    <th style="width: 150px;" rowspan="2">ファイル</th>
+                                    <th style="width: 250px;" rowspan="2">ファイル</th>
                                 </tr>
                                 <tr class="header">
                                     <th class="l"><span class="l5">商品費用（円）</span></th>
@@ -448,7 +448,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="purchasetable"
-                            style="width: 2037px;table-layout: fixed;">
+                            style="width: 2137px;table-layout: fixed;">
 
                             <tr>
                                 <td style="width: 50px;" rowspan="2" class="c"><input type="radio"
