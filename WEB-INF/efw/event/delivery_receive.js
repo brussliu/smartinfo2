@@ -204,13 +204,12 @@ function importAcceptance1(aryField, index) {
 
 	if (index >= 8) {
 
-		// 数量 が存在する場合
-
+		// 受領数量更新
 		var updResult = db.change(
 			"DELIVERY",
 			"updateDeliveryConAcceptance",
 			{
-				"acceptance": aryField[9],
+				"acceptance": parseInt(aryField[9]),
 				"sku": aryField[0],
 				"asin": aryField[2],
 				"col0": deliveryno,
@@ -224,52 +223,15 @@ function importAcceptance1(aryField, index) {
 				"DELIVERY",
 				"insertAcceptanceDetail",
 				{
-					"col0": no,
+					"col0": deliveryno,
 					"col1": aryField[0],
 					"col2": aryField[2],
-					"col3": aryField[9],
+					"col3": parseInt(aryField[9]),
 					"shopid": getShopId()
 				}
 			);
 		}
 
-		// // 納品明細の数量を検索
-		// var acceptance = parseInt(aryField[9]);
-		// var sku = aryField[0];
-		// var asin = aryField[2];
-
-		// // TODO 納品明細の数量と受領数量を検索する
-		// var count;
-
-		// // 数量 > 0
-		// if(count > 0){
-
-		// 	// 数量 = 受領数量
-		// 	if(count == acceptance){
-
-		// 		// 途中 = 途中 - 受領数量
-
-		// 	// 数量 > 受領数量
-		// 	}else if(count > acceptance){
-
-		// 		// 途中 = 途中 - 数量
-
-		// 		// LOCAL数量 = LOCAL数量 + 数量 - 途中数量
-
-		// 	// 数量 < 受領数量
-		// 	}else if(count > acceptance){
-
-		// 		// 途中 = 途中 - 受領数量
-
-		// 	}
-		
-		// // 数量 = 0
-		// }else{
-
-
-		// 	// LOCAL数量 = LOCAL数量 + 数量 - 途中数量
-		// }
-		
 	}
 
 };

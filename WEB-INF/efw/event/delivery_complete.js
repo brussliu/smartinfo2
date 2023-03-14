@@ -6,6 +6,8 @@ delivery_complete.paramsFormat = {
 
 };
 
+var deliveryno = "";
+
 delivery_complete.fire = function (params) {
 
 	var ret = new Result();
@@ -14,18 +16,43 @@ delivery_complete.fire = function (params) {
 	if (sessionCheck(ret) == false) { return ret };
 
 	// 納品NO
-	var deliveryno = params["deliveryno"];
+	deliveryno = params["deliveryno"];
+
+	// 受領ファイル
 	var receiverfile = params["#file_receiverfile"];
-	file.saveUploadFiles("Smart-Bear/upload");
-	// 文件名
-	var fa = receiverfile.split("\\");
-	var f = fa[fa.length - 1];
+
+	// TODO ステータス検索
+	var status = "";
 
 
-	var csvReader = new CSVReader("Smart-Bear/upload/" + f, "\t");
+	// 2.発送済の場合
+	if(status == "2.発送済"){
 
-	// データ全件導入
-	csvReader.loopAllLines(importAcceptance);
+		// 受領ファイル取り込み
+		loadAcceptanceFile(receiverfile, 1);
+
+		// TODO
+		// 1.更新途中在庫_入庫数量
+		var update = db.change(
+			"DELIVERY",
+			"updateMSTDelveryAdd",
+			{
+				no: deliveryno,
+				shopid: getShopId()
+			}
+		);
+
+	// TODO 3.受領中の場合
+	}else if(status == "3.受領中"){
+
+		// TODO
+		// 受領ファイル取り込み
+		loadAcceptanceFile(receiverfile, 2);
+
+
+
+
+	}
 
 
 
@@ -42,124 +69,210 @@ delivery_complete.fire = function (params) {
 	// 画面へ結果を返す
 
 	ret.eval("init();");
-	ret.eval("choice('');");
+	//ret.eval("choice('');");
 	return ret;
 
 };
 
-function importAcceptance(aryField, index) {
 
-	var amz_delivery_no = "";
-	var amz_delivery_name = "";
-	var amz_delivery_plan = "";
-	var amz_delivery_point = "";
-	var amz_delivery_sku = "";
-	var amz_delivery_count = "";
+function importAcceptance2(aryField, index) {
+
+	// AMZ-納品番号
 	if (index == 0) {
-		amz_delivery_no = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz1",
-			{
-				"info": amz_delivery_no,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz1",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
+	// AMZ-納品名
 	if (index == 1) {
-		amz_delivery_name = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz2",
-			{
-				"info": amz_delivery_name,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz2",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
+	// AMZ-納品プラン番号
 	if (index == 2) {
-		amz_delivery_plan = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz3",
-			{
-				"info": amz_delivery_plan,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz3",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
+	// AMZ-納品先
 	if (index == 3) {
-		amz_delivery_point = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz4",
-			{
-				"info": amz_delivery_point,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz4",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
-
+	// AMZ-SKU合計
 	if (index == 4) {
-		amz_delivery_sku = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz5",
-			{
-				"info": amz_delivery_sku,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz5",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
-
+	// AMZ-商品合計数
 	if (index == 5) {
-		amz_delivery_count = aryField[1];
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryAmz6",
-			{
-				"info": amz_delivery_count,
-				"col0": no,
-				"shopid": getShopId()
-			}
-		);
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz6",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
 	}
 
 	if (index >= 8) {
 
-		// 納品明細の受領数量を更新
+		var acceptance_new = parseInt(aryField[9]);
+		var sku = aryField[0];
+		var asin = aryField[2];
+
+		// TODO 納品明細の数量と受領数量を検索する
+		var count;
+		var acceptance_old;
+
+		if(acceptance_new > acceptance_old){
+
+			// 数量 <= 受領数量
+			if(count <= acceptance_old){
+
+				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+
+				// 受領数量更新
+
+			}else{
+
+				// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+
+				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+
+				// 受領数量更新
+
+			}
+
+		}
+
+		// 納品明細に存在しない場合、Insert
+		if (updResult == 0 || updResult == "0") {
+			// var insResult = db.change(
+			// 	"DELIVERY",
+			// 	"insertAcceptanceDetail",
+			// 	{
+			// 		"col0": no,
+			// 		"col1": aryField[0],
+			// 		"col2": aryField[2],
+			// 		"col3": aryField[9],
+			// 		"shopid": getShopId()
+			// 	}
+			// );
+		}
+
+	}
+
+};
+
+function importAcceptance1(aryField, index) {
+
+	// AMZ-納品番号
+	if (index == 0) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz1",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+	// AMZ-納品名
+	if (index == 1) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz2",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+	// AMZ-納品プラン番号
+	if (index == 2) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz3",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+	// AMZ-納品先
+	if (index == 3) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz4",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+	// AMZ-SKU合計
+	if (index == 4) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz5",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+	// AMZ-商品合計数
+	if (index == 5) {
+		var updResult = db.change("DELIVERY",	"updateDeliveryAmz6",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+	}
+
+	if (index >= 8) {
+
+		// 受領数量更新
 		var updResult = db.change(
 			"DELIVERY",
-			"updateDeliveryNum",
+			"updateDeliveryConAcceptance",
 			{
-				"acceptance": aryField[9],
+				"acceptance": parseInt(aryField[9]),
 				"sku": aryField[0],
 				"asin": aryField[2],
-				"no": no,
+				"col0": deliveryno,
 				"shopid": getShopId()
 			}
 		);
 
 		// 想定外納品
 		if (updResult == 0 || updResult == "0") {
-			var insResult3 = db.change(
+			var insResult = db.change(
 				"DELIVERY",
 				"insertAcceptanceDetail",
 				{
-					"col0": no,
+					"col0": deliveryno,
 					"col1": aryField[0],
 					"col2": aryField[2],
-					"col3": aryField[9],
+					"col3": parseInt(aryField[9]),
 					"shopid": getShopId()
 				}
 			);
 		}
 
+		
 	}
 
 };
+
+
+
+// function importAcceptance(aryField, index) {
+
+// 	// AMZ-納品番号
+// 	if (index == 0) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz1",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+// 	// AMZ-納品名
+// 	if (index == 1) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz2",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+// 	// AMZ-納品プラン番号
+// 	if (index == 2) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz3",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+// 	// AMZ-納品先
+// 	if (index == 3) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz4",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+// 	// AMZ-SKU合計
+// 	if (index == 4) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz5",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+// 	// AMZ-商品合計数
+// 	if (index == 5) {
+// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz6",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
+// 	}
+
+// 	if (index >= 8) {
+
+// 		// 納品明細の受領数量を更新
+// 		var updResult = db.change(
+// 			"DELIVERY",
+// 			"updateDeliveryNum",
+// 			{
+// 				"acceptance": aryField[9],
+// 				"sku": aryField[0],
+// 				"asin": aryField[2],
+// 				"no": no,
+// 				"shopid": getShopId()
+// 			}
+// 		);
+
+// 		// 想定外納品
+// 		if (updResult == 0 || updResult == "0") {
+// 			var insResult3 = db.change(
+// 				"DELIVERY",
+// 				"insertAcceptanceDetail",
+// 				{
+// 					"col0": no,
+// 					"col1": aryField[0],
+// 					"col2": aryField[2],
+// 					"col3": aryField[9],
+// 					"shopid": getShopId()
+// 				}
+// 			);
+// 		}
+
+// 	}
+
+// };
