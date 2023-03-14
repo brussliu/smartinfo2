@@ -763,5 +763,37 @@
 		COALESCE(cast(S1."ソート" as varchar), m."分類１"),
 		COALESCE(cast(S2."ソート" as varchar), m."分類２")
 </sql>
+
+
+<!--sl:检索资料名  -->
+<sql id="selectfilename" paramPrefix="!">
+ SELECT 
+	"資料名称" as filename,
+	"拡張子" AS suffix
+ FROM
+	"TRN_仕入資料" 
+ WHERE
+  	"店舗ID" = !shopid 
+	and
+	"仕入NO" = !purchaseno
+
+</sql>
+<!--sl:检索ファイル名称  -->
+<sql id="selectpurchase_file" paramPrefix="!">
+ SELECT 
+	"ファイル名称" as files
+	 
+ FROM
+	"TRN_仕入資料" 
+ WHERE
+  	"店舗ID" = !shopid 
+	and
+	"仕入NO" = !purchaseno
+		and
+	"資料名称" = !filename
+		and
+	"拡張子" = !suffix
+
+</sql>
  </sqls>
 

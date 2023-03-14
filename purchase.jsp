@@ -317,12 +317,37 @@
                 // 仕入NOリンク押下
                 function outputFile() {
                     var purchaseno = $('input:radio[name="choice"]:checked').val();
-                    Efw('purchase_output', { "purchaseno": purchaseno });
+                    Efw('purchase_output', { "no": purchaseno });
+                }
+
+                // 下载
+                function down(val){
+                    var f=$(val).html();
+                    var no = $(val).parent().parent().parent().children().next().children().html();
+                    var filearray=f.split('.');
+                    var file = filearray[0];
+                    var suffix = filearray[1];
+
+                    Efw('purchase_down', { "purchaseno": no, "filename": file ,"suffix" : suffix});
                 }
             </script>
             <style>
                 .table_btn td button {
                     width: 100px;
+                }
+
+                .c_detail_content ul{
+                    padding: 0;
+                    overflow: auto;
+                   
+                }
+                .c_detail_content ul li{
+       
+                    line-height: 20px;
+                    list-style:disc ;
+                    list-style-type:disc ;
+                    overflow: auto;
+                    list-style-position:inside;
                 }
             </style>
         </head>
@@ -398,18 +423,19 @@
                                     <th style="width: 120px;" rowspan="2">ステータス</th>
 
                                     <th style="width: 150px;" rowspan="2">登録日</th>
-                                    <th style="width: 150px" rowspan="2">発送日</th>
-                                    <th style="width: 150px;" rowspan="2">受取日</th>
+                                    <th style="width: 150px" rowspan="2">発送日①</th>
+                                    <th style="width: 150px;" rowspan="2">発送日②</th>
                                     <th style="width: 150px;" rowspan="2">完了日</th>
 
                                     <th style="width: 150px;" rowspan="2">発送方式</th>
+                                    <th style="width: 150px;" rowspan="2">追跡番号</th>
                                     <th style="width: 80px" rowspan="2">為替レート</th>
 
                                     <th style="width: 120px;" class="l"><span class="l5">商品費用</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">物流費用</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">税金</span></th>
-                                    <th style="width: 137px;" class="l"><span class="l5">合計</span></th>
-
+                                    <th style="width: 120px;" class="l"><span class="l5">合計</span></th>
+                                    <th style="width: 150px;" rowspan="2">ファイル</th>
                                 </tr>
                                 <tr class="header">
                                     <th class="l"><span class="l5">商品費用（円）</span></th>

@@ -101,7 +101,7 @@ purchase_upload.fire = function (params) {
 
 	// 添付ファイル表示
 	ret.eval("showFileList('" + purchaseno + "');");
-
+	ret.eval("init();");
 	// 画面へ結果を返す
 	return ret;
 
