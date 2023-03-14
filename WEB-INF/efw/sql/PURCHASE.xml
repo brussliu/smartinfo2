@@ -429,12 +429,18 @@
 		"TRN_仕入明細" C
 		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
 		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
+		LEFT JOIN "MST_ソート情報" S1 on C."商品種別" = S1."商品種別" and S1."分類" = '分類１' and C."分類１" = S1."内容" and C."店舗ID" = S1."店舗ID"
+		LEFT JOIN "MST_ソート情報" S2 on C."商品種別" = S2."商品種別" and S2."分類" = '分類２' and C."分類２" = S2."内容" and C."店舗ID" = S2."店舗ID"
+		
  WHERE
 		C."店舗ID" = !shopid 
 		and
 		C."仕入NO" = !purchaseno 
  ORDER BY
- 		A."商品管理番号",A."分類１",A."分類２"
+ 		A."商品管理番号",
+		A."親子区分" desc,
+    	COALESCE(cast(S1."ソート" as varchar), A."分類１"),
+    	COALESCE(cast(S2."ソート" as varchar), A."分類２")
 </sql>
 
 
