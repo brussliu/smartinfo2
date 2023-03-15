@@ -86,21 +86,21 @@
                         </tr>
                         <tr>
                             <td>発送日①： </td>
-                            <td><input type="date" id="date_forwarddate1" style="width: 200px;"></input>
+                            <td><input type="text" class="date id="date_forwarddate1" style="width: 200px;"></input>
                             </td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>発送日②： </td>
-                            <td><input type="date" id="date_forwarddate2" style="width: 200px;"></input>
+                            <td><input type="text" class="date id="date_forwarddate2" style="width: 200px;"></input>
                             </td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>完了日： </td>
-                            <td><input type="date" id="date_completiondate" style="width: 200px;"></input>
+                            <td><input type="text" class="date id="date_completiondate" style="width: 200px;"></input>
                             </td>
                             <td></td>
                             <td></td>
