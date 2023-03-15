@@ -422,7 +422,7 @@
 </sql>
 
 <!-- sl:受領中-更新途中在庫_入庫 -->
-<sql id="updateMSTDelveryAdd"> 
+<!-- <sql id="updateMSTDelveryAdd"> 
 	UPDATE "MST_在庫情報"
  	SET "更新日時" = now( ),
 		"途中在庫_入庫" = (
@@ -450,7 +450,7 @@
 	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = :no
 	and TRN."店舗ID" = :shopid
-</sql>
+</sql> -->
 
 <!-- sl:更新纳品管理受領数量-->
 <sql id="updateReceiveNumber">
@@ -602,6 +602,151 @@
 	and
 	"店舗ID" = :shopid
 </sql>
+
+<!-- sl:查询TRN_納品明細数量和受領数量 -->
+<sql id="queryCountAndAcceptance">
+	select 
+			"数量" AS count,
+			"受領数量" AS acceptance
+	from
+	"TRN_納品明細" 
+	where
+	"納品NO" = :deliveryno
+	and
+	"SKU番号" = :sku
+	and
+	"ASIN番号" = :asin
+	and
+	"店舗ID" = :shopid
+</sql>
  
+<sql id="queryCount">
+	select 
+			"数量" AS count
+	from
+	"TRN_納品明細" 
+	where
+	"納品NO" = :deliveryno
+	and
+	"SKU番号" = :sku
+	and
+	"ASIN番号" = :asin
+	and
+	"店舗ID" = :shopid
+</sql>
+
+ <sql id="updateLocalA">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"LOCAL在庫" = "LOCAL在庫" + :acceptance_old - :acceptance_new ,
+	  	"更新日時" = now()
+	WHERE 
+		"SKU番号" = :sku
+		and
+		"ASIN番号" = :asin
+		and
+		"店舗ID" = :shopid
+</sql>
+
+ <sql id="updateAcceptance">
+	UPDATE "TRN_納品明細"  
+		SET 
+		"受領数量" = :acceptance_new ,
+	  	"更新日時" = now()
+	WHERE 
+		"納品NO" = :deliveryno
+		and
+		"SKU番号" = :sku
+		and
+		"ASIN番号" = :asin
+		and
+		"店舗ID" = :shopid
+</sql>
+
+
+ <sql id="updatePutInB">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"途中在庫_入庫" = "途中在庫_入庫" + :acceptance_old - :acceptance_new ,
+	  	"更新日時" = now()
+	WHERE 
+		"SKU番号" = :sku
+		and
+		"ASIN番号" = :asin
+		and
+		"店舗ID" = :shopid
+</sql>
+
+ <sql id="updateLocalB">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"LOCAL在庫" = "LOCAL在庫" + :acceptance_old - :acceptance_new ,
+	  	"更新日時" = now()
+	WHERE 
+		"SKU番号" = :sku
+		and
+		"ASIN番号" = :asin
+		and
+		"店舗ID" = :shopid
+</sql>
+
+
+<!-- sl:受领完了 -->
+ <sql id="updatePutIn1">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"途中在庫_入庫" = "途中在庫_入庫"  - :acceptance_new ,
+	  	"更新日時" = now()
+	WHERE 
+		"SKU番号" = :sku
+		and
+		"ASIN番号" = :asin
+		and
+		"店舗ID" = :shopid
+</sql>
+
+
+ <sql id="updateLocal1">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"LOCAL在庫" = "LOCAL在庫" + TRN."数量" - :acceptance_new ,
+	  	"更新日時" = now()
+	FROM
+		"TRN_納品明細" TRN
+	WHERE 
+		TRN."SKU番号" = :sku
+		and
+		TRN."ASIN番号" = :asin
+		and
+		TRN."店舗ID" = :shopid
+		and
+		TRN."ASIN番号" = "MST_在庫情報"."ASIN番号"
+		and
+		TRN."SKU番号" = "MST_在庫情報"."SKU番号"
+		and
+		TRN."店舗ID" = "MST_在庫情報"."店舗ID"
+</sql>
+
+
+ <sql id="updateLocal5">
+	UPDATE "MST_在庫情報"  
+		SET 
+		"LOCAL在庫" = "LOCAL在庫"  - :acceptance_new ,
+	  	"更新日時" = now()
+	FROM
+		"TRN_納品明細" TRN
+	WHERE 
+		TRN."SKU番号" = :sku
+		and
+		TRN."ASIN番号" = :asin
+		and
+		TRN."店舗ID" = :shopid
+		and
+		TRN."ASIN番号" = "MST_在庫情報"."ASIN番号"
+		and
+		TRN."SKU番号" = "MST_在庫情報"."SKU番号"
+		and
+		TRN."店舗ID" = "MST_在庫情報"."店舗ID"
+</sql>
  </sqls>
 

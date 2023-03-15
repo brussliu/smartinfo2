@@ -403,7 +403,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 200px;"><button id="insert" onclick="newdialog()">新規</button>
+                                    <td style="width: 200px;"><button id="insert" onclick="newdialog()" disabled>新規</button>
                                     </td>
                                     <td style="width: 200px;"><button id="searchbtn" onclick="searchmasterinfo()">検索</button></td>
                                 </tr>

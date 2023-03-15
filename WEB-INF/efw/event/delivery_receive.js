@@ -2,8 +2,8 @@ var delivery_receive = {};
 delivery_receive.name = "納品受領ボタン押下";
 delivery_receive.paramsFormat = {
 	"deliveryno": null,
-	"#file_receiverfile": null
-
+	"#file_receiverfile": null,
+	"#status": null
 };
 
 var deliveryno = "";
@@ -21,8 +21,8 @@ delivery_receive.fire = function (params) {
 	// 受領ファイル
 	var receiverfile = params["#file_receiverfile"];
 
-	// TODO ステータス検索
-	var status = "";
+	// TODO ステータス検索 √
+	var status =  params["#status"];
 
 	// 2.発送済の場合
 	if(status == "2.発送済"){
@@ -131,27 +131,70 @@ function importAcceptance2(aryField, index) {
 		var sku = aryField[0];
 		var asin = aryField[2];
 
-		// TODO 納品明細の数量と受領数量を検索する
-		var count;
-		var acceptance_old;
+		// TODO 納品明細の数量と受領数量を検索する √
+		var select = db.select(	"DELIVERY",	"queryCountAndAcceptance",
+		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()}).getSingle();
+
+		var count = select["count"];
+		var acceptance_old = select["acceptance"];
 
 		if(acceptance_new > acceptance_old){
 
-			// 数量 <= 受領数量
+			// TODO 数量 <= 受領数量 √
 			if(count <= acceptance_old){
 
 				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
 
+				var update = db.change(	"DELIVERY",	"updateLocalA",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
+		
 				// 受領数量更新
+				var update = db.change(	"DELIVERY",	"updateAcceptance",
+				{
+				  "acceptance_new": acceptance_new,
+				  "asin": asin,
+				  "sku": sku,
+				  "deliveryno": deliveryno,
+				  "shopid": getShopId()
+				});
 
 			}else{
+				// todo 数量 > 受領数量 √
 
-				// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+				// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量 =》途中数量 = 途中数量 + 受領数量 - 受領ファイル数量
+				var update = db.change(	"DELIVERY",	"updatePutInB",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
 
 				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
-
+				var update = db.change(	"DELIVERY",	"updateLocalA",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
 				// 受領数量更新
-
+				var update = db.change(	"DELIVERY",	"updateAcceptance",
+				{
+				  "acceptance_new": acceptance_new,
+				  "asin": asin,
+				  "sku": sku,
+				  "deliveryno": deliveryno,
+				  "shopid": getShopId()
+				});
 			}
 
 		}

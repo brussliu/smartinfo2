@@ -88,12 +88,12 @@
                     // 納品名称
                     var deliveryname = $(val).parent().next().next().children().html();
                     // ステータス
-                    //var v = $(val).parent().next().next().next().next().next().html();
+                    var v = $(val).parent().next().next().next().next().next().html();
                     // 仕入NO
-                    //var tempno = $(val).parent().next().children().html();
-                    //$('#temp').data("temp", tempno);
+                    var tempno = $(val).parent().next().children().html();
+                    $('#temp').data("temp", tempno);
                     $('#text_name').val(deliveryname);
-                    //$('#temptype').data("type", v);
+                    $('#status').data("type", v);
                     if (v == '1.新　規') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
@@ -249,7 +249,7 @@
 
                                     <th style="width: 352px;">納品内容</th>
                                     <th style="width: 50px;">数量</th>
-                                    <th style="width: 120px;">ステータス</th>
+                                    <th style="width: 120px;" id="status">ステータス</th>
 
                                     <th style="width: 100px;">登録日</th>
 

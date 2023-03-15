@@ -2,8 +2,8 @@ var delivery_complete = {};
 delivery_complete.name = "納品完了ボタン押下";
 delivery_complete.paramsFormat = {
 	"deliveryno": null,
-	"#file_receiverfile": null
-
+	"#file_receiverfile": null,
+	"#status": null
 };
 
 var deliveryno = "";
@@ -21,8 +21,8 @@ delivery_complete.fire = function (params) {
 	// 受領ファイル
 	var receiverfile = params["#file_receiverfile"];
 
-	// TODO ステータス検索
-	var status = "";
+	// TODO ステータス検索 √
+	var status =  params["#status"];
 
 
 	// 2.発送済の場合
@@ -33,14 +33,14 @@ delivery_complete.fire = function (params) {
 
 		// TODO
 		// 1.更新途中在庫_入庫数量
-		var update = db.change(
-			"DELIVERY",
-			"updateMSTDelveryAdd",
-			{
-				no: deliveryno,
-				shopid: getShopId()
-			}
-		);
+		// var update = db.change(
+		// 	"DELIVERY",
+		// 	"updateMSTDelveryAdd",
+		// 	{
+		// 		no: deliveryno,
+		// 		shopid: getShopId()
+		// 	}
+		// );
 
 	// TODO 3.受領中の場合
 	}else if(status == "3.受領中"){
@@ -73,6 +73,29 @@ delivery_complete.fire = function (params) {
 	return ret;
 
 };
+
+
+function loadAcceptanceFile(receiverfile, flg){
+	
+	file.saveUploadFiles(getShopId() + "/upload");
+
+	// ファイル名称
+	var fa = receiverfile.split("\\");
+	var f = fa[fa.length - 1];
+
+	var csvReader = new CSVReader(getShopId() + "/upload/" + f, "\t","\r\n","UTF-8");
+
+	if(flg == 1){
+		// データ全件導入
+		csvReader.loopAllLines(importAcceptance1);
+
+	}else if(flg == 2){
+		// データ全件導入
+		csvReader.loopAllLines(importAcceptance2);
+	}
+
+}
+
 
 
 function importAcceptance2(aryField, index) {
@@ -108,27 +131,68 @@ function importAcceptance2(aryField, index) {
 		var sku = aryField[0];
 		var asin = aryField[2];
 
-		// TODO 納品明細の数量と受領数量を検索する
-		var count;
-		var acceptance_old;
+		// TODO 納品明細の数量と受領数量を検索する v
+		var select = db.select(	"DELIVERY",	"queryCount",
+		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()}).getSingle();
+
+		var count = select["count"];
+		var acceptance_old = select["acceptance"];
 
 		if(acceptance_new > acceptance_old){
 
-			// 数量 <= 受領数量
+			// TODO 数量 <= 受領数量 v
 			if(count <= acceptance_old){
 
 				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+				
+				var update = db.change(	"DELIVERY",	"updateLocalA",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
 
 				// 受領数量更新
-
+				var update = db.change(	"DELIVERY",	"updateAcceptance",
+				{
+				  "acceptance_new": acceptance_new,
+				  "asin": asin,
+				  "sku": sku,
+				  "deliveryno": deliveryno,
+				  "shopid": getShopId()
+				});
 			}else{
 
 				// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+				var update = db.change(	"DELIVERY",	"updatePutInB",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
 
 				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
-
+				var update = db.change(	"DELIVERY",	"updateLocalA",
+				{
+				  "acceptance_new": acceptance_new,
+				  "acceptance_old": acceptance_old,
+				  "asin": asin,
+				  "sku": sku,
+				  "shopid": getShopId()
+				});
 				// 受領数量更新
-
+				var update = db.change(	"DELIVERY",	"updateAcceptance",
+				{
+				  "acceptance_new": acceptance_new,
+				  "asin": asin,
+				  "sku": sku,
+				  "deliveryno": deliveryno,
+				  "shopid": getShopId()
+				});
 			}
 
 		}
@@ -180,34 +244,172 @@ function importAcceptance1(aryField, index) {
 	}
 
 	if (index >= 8) {
+		var acceptance_new = parseInt(aryField[9]);
+		var sku = aryField[0];
+		var asin = aryField[2];
 
-		// 受領数量更新
-		var updResult = db.change(
-			"DELIVERY",
-			"updateDeliveryConAcceptance",
+		var select = db.select(	"DELIVERY",	"queryCount",
+		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()}).getSingle();
+		var count = select["count"];
+
+		if( count > 0 && count == acceptance_new){
+			//  途中数量 = 途中数量 - 受領数量
+			var update = db.change(	"DELIVERY",	"updatePutIn1",
 			{
-				"acceptance": parseInt(aryField[9]),
-				"sku": aryField[0],
-				"asin": aryField[2],
-				"col0": deliveryno,
-				"shopid": getShopId()
-			}
-		);
+			  "acceptance_new": acceptance_new,
+			  "asin": asin,
+			  "sku": sku,
+			  "shopid": getShopId()
+			});	
+			// 受領数量更新
+			var update = db.change(	"DELIVERY",	"updateAcceptance",
+			{
+			  "acceptance_new": acceptance_new,
+			  "asin": asin,
+			  "sku": sku,
+			  "deliveryno": deliveryno,
+			  "shopid": getShopId()
+			});
 
-		// 想定外納品
-		if (updResult == 0 || updResult == "0") {
-			var insResult = db.change(
+		}else if( count > 0 && count < acceptance_new){
+
+			//  途中数量 = 途中数量 - 数量
+			var update = db.change(	"DELIVERY",	"updatePutIn1",
+			{
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			});	
+
+  			// LOCAL数量 = LOCAL数量 + 数量 - 受領数量
+			  var update = db.change(	"DELIVERY",	"updateLocal1",
+			  {
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			  });
+			// 受領数量更新
+			var update = db.change(	"DELIVERY",	"updateAcceptance",
+			{
+			  "acceptance_new": acceptance_new,
+			  "asin": asin,
+			  "sku": sku,
+			  "deliveryno": deliveryno,
+			  "shopid": getShopId()
+			});
+		}else if( count > 0 && count > acceptance_new){
+			
+			//  途中数量 = 途中数量 - 数量
+			var update = db.change(	"DELIVERY",	"updatePutIn1",
+			{
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			});	
+
+  			// LOCAL数量 = LOCAL数量 + 数量 - 受領数量
+			  var update = db.change(	"DELIVERY",	"updateLocal1",
+			  {
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			  });
+			// 受領数量更新
+			var update = db.change(	"DELIVERY",	"updateAcceptance",
+			{
+			  "acceptance_new": acceptance_new,
+			  "asin": asin,
+			  "sku": sku,
+			  "deliveryno": deliveryno,
+			  "shopid": getShopId()
+			});
+
+
+		}else if( count > 0 && count > acceptance_new && acceptance_new == 0){
+			//  途中数量 = 途中数量 - 数量
+			var update = db.change(	"DELIVERY",	"updatePutIn1",
+			{
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			});	
+
+  			// LOCAL数量 = LOCAL数量 + 数量 - 受領数量
+			  var update = db.change(	"DELIVERY",	"updateLocal1",
+			  {
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			  });
+			// 受領数量更新
+			var update = db.change(	"DELIVERY",	"updateAcceptance",
+			{
+			  "acceptance_new": acceptance_new,
+			  "asin": asin,
+			  "sku": sku,
+			  "deliveryno": deliveryno,
+			  "shopid": getShopId()
+			});
+
+
+			}else if( count = 0 && acceptance_new > 0){
+  			// LOCAL数量 = LOCAL数量 - 受領数量
+			  var insResult = db.change(
 				"DELIVERY",
 				"insertAcceptanceDetail",
 				{
 					"col0": deliveryno,
-					"col1": aryField[0],
-					"col2": aryField[2],
-					"col3": parseInt(aryField[9]),
+					"col1": sku,
+					"col2": asin,
+					"col3": acceptance_new,
 					"shopid": getShopId()
 				}
 			);
-		}
+
+  			// LOCAL数量 = LOCAL数量 - 受領数量
+			  var update = db.change(	"DELIVERY",	"updateLocal5",
+			  {
+				"acceptance_new": acceptance_new,
+				"asin": asin,
+				"sku": sku,
+				"shopid": getShopId()
+			  });
+
+				}
+
+		// 受領数量更新
+		// var updResult = db.change(
+		// 	"DELIVERY",
+		// 	"updateDeliveryConAcceptance",
+		// 	{
+		// 		"acceptance": parseInt(aryField[9]),
+		// 		"sku": aryField[0],
+		// 		"asin": aryField[2],
+		// 		"col0": deliveryno,
+		// 		"shopid": getShopId()
+		// 	}
+		// );
+
+		// 想定外納品
+		// if (updResult == 0 || updResult == "0") {
+		// 	var insResult = db.change(
+		// 		"DELIVERY",
+		// 		"insertAcceptanceDetail",
+		// 		{
+		// 			"col0": deliveryno,
+		// 			"col1": aryField[0],
+		// 			"col2": aryField[2],
+		// 			"col3": parseInt(aryField[9]),
+		// 			"shopid": getShopId()
+		// 		}
+		// 	);
+		// }
 
 		
 	}
