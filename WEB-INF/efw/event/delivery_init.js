@@ -26,7 +26,7 @@ delivery_init.fire = function (params) {
 
 	var resultHTML =
 	' <tr>' +
-	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice"></input></td>' +
+	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice" value="{no}"></input></td>' +
 	' <td style="width: 155px" class="l a"><span class="l5" onclick="outputFile()">{no}</span> </td>' +
 			' <td style="width: 200px;" class="l"><span class="l5">{name}</span></td>' +
 			' <td style="width: 352px;" class="l"><span class="l5">{no}</span></td>' +

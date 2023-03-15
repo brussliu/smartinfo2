@@ -80,7 +80,7 @@
 	VALUES(
 		!purchaseno, --仕入NO
 		!purchase, --仕入名称
-		'A', --仕入区分
+		'A:普通仕入', --仕入区分
 		!count, --数量
 		!money, --金額
 		'1.新　規', --ステータス
@@ -677,16 +677,16 @@
 			c."推奨仕入数量" as purchasequantity,
 			m."店舗ID" as shopid,
 			m."暫定フラグ" as zt_flg,
-			a."数量" end as num
+			a."数量" as num
 		from
 			"MST_出品マスタ情報" m
 			left join "TRN_仕入明細" a on m."ASIN番号" = a."ASIN番号" and m."SKU番号" = a."SKU番号" and m."店舗ID" = a."店舗ID" and a."仕入NO" = :no
-			left join "MST_販売数量情報" b on a."ASIN番号" = b."ASIN番号" and a."SKU番号" = b."SKU番号" and a."店舗ID" = b."店舗ID"
-			left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号" = c."ASIN番号" and a."SKU番号" = c."SKU番号" and a."店舗ID" = c."店舗ID"
-			left join "MST_在庫情報"  d on a."ASIN番号" = d."ASIN番号" and a."SKU番号" = d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
-			left join "IPT_全出品情報" e on a."ASIN番号" = e."ASIN 1" and a."SKU番号" = e."出品者SKU" and a."店舗ID" = e."店舗ID" 
-			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
-			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
+			left join "MST_販売数量情報" b on m."ASIN番号" = b."ASIN番号" and m."SKU番号" = b."SKU番号" and m."店舗ID" = b."店舗ID"
+			left join "MST_入庫仕入推奨数量情報" c on m."ASIN番号" = c."ASIN番号" and m."SKU番号" = c."SKU番号" and m."店舗ID" = c."店舗ID"
+			left join "MST_在庫情報"  d on m."ASIN番号" = d."ASIN番号" and m."SKU番号" = d."SKU番号" and m."暫定フラグ" = d."暫定フラグ" and m."店舗ID" = d."店舗ID" 
+			left join "IPT_全出品情報" e on m."ASIN番号" = e."ASIN 1" and m."SKU番号" = e."出品者SKU" and m."店舗ID" = e."店舗ID" 
+			left join "MST_ソート情報" S1 on m."商品種別" = S1."商品種別" and S1."分類" = '分類１' and m."分類１" = S1."内容" and m."店舗ID" = S1."店舗ID"
+			left join "MST_ソート情報" S2 on m."商品種別" = S2."商品種別" and S2."分類" = '分類２' and m."分類２" = S2."内容" and m."店舗ID" = S2."店舗ID"
 		where
 			m."暫定フラグ" = '0'
 			and
@@ -735,7 +735,7 @@
 		null as purchasequantity,
 		m."店舗ID" as shopid,
 		m."暫定フラグ" as zt_flg,
-		a."数量" end as num
+		a."数量" as num
 	from
 		"MST_出品マスタ情報" m
 		left join "TRN_仕入明細" a on 

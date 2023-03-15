@@ -21,7 +21,9 @@ delivery_delete.fire = function (params) {
 			no:deliveryno
 		}
 	)
-
+	
+	ret.eval("$('#text_name').val('');");
+	ret.eval("$('#file_deliveryfile').val('');");
 	ret.eval("init();");
 
 	// 画面へ結果を返す

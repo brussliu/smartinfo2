@@ -25,41 +25,25 @@ delivery_add.fire = function (params) {
 	// 明細導入
 	importProContent(deliveryfile, deliveryno);
 
-	// file.saveUploadFiles(getShopId() + "/upload");
-	// // ファイル名称
-	// var fa = deliveryfile.split("\\");
-	// var f = fa[fa.length - 1];
-	// // Excelファイル
-	// var exl = new Excel("Smart-Bear/upload/" + f);
-	// // excel表名
-	// var exlarray = exl.getSheetNames();
-	// var shop = getShopId();
-	// //  序号
-	// var COL_C = "C";//ASIN番号
-	// var COL_D = "D";//SKU番号
-	// var COL_Z = "Z";//納品数量
-	// var Y_from = 3;//EXCEL数据起始行
-	// var Y_to = 999;//EXCEL数据结束行
-
-	// // 导入納品明细
-	// for (var i = 0; i < exlarray.length; i++) {
-	// 	//文件，Excel表名，用户名 
-	// 	importProContent(exl, exlarray[i], COL_C, COL_D, COL_Z, Y_from, Y_to, shop, date);
-	// }
-
 	// 新規TRN_納品管理
-	var selectResult2 = db.change(
+	var selectResult1 = db.change(
 		"DELIVERY",
 		"insertdelivery",
 		{
-			no: date,
+			no: deliveryno,
 			names: name,
-			shopid: shop
+			shopid: getShopId()
 		}
 	);
-	//selectResult2.debug('-----insertdelivery');
-
-	//TODO 新規数量更新
+	// 新規数量更新
+	var selectResult2 = db.change(
+		"DELIVERY",
+		"updateDeliveryNew",
+		{
+			no: deliveryno,
+			shopid: getShopId()
+		}
+	);
 
 	ret.eval("$('#text_name').val('');");
 	ret.eval("$('#file_deliveryfile').val('');");
@@ -152,38 +136,3 @@ function importProContent(proContent, deliveryno) {
 	}
 
 }
-
-
-// // 导入文件
-// function importProContent(exl, sheetName, XC, XD, XZ, Y_from, Y_to, shopid, date) {
-
-// 	// 循环
-// 	for (var y = Y_from; y <= Y_to; y++) {
-// 		// 获取excel值
-// 		// ASIN番号
-// 		var asin = exl.getValue(sheetName, XC + y);
-
-// 		// SKU番号
-// 		var sku = exl.getValue(sheetName, XD + y);
-
-// 		// 納品数量
-// 		var count = exl.getValue(sheetName, XZ + y);
-
-
-// 		// 判断下一行数据是否为空
-// 		if ((sku == null || sku == '') && (asin == null || asin == '')) {
-// 			break;
-// 		} else {
-// 			if (sku == null || sku == '') {
-// 				continue;
-// 			} else {
-
- 
-// 			}
-// 		}
-
-
-
-// 	}
-
-// }

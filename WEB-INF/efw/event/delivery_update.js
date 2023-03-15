@@ -21,7 +21,7 @@ delivery_update.fire = function (params) {
 	// 	納品ファイル
 	var deliveryfile = params["#file_deliveryfile"];
 
-	if(deliveryfile!=null||deliveryfile!=''||typeof(deliveryfile)==="undefined"){
+	if(deliveryfile != null && deliveryfile != "" && typeof(deliveryfile) !="undefined"){
 
 		// 明細導入
 		importProContent(deliveryfile, deliveryno);
@@ -39,7 +39,15 @@ delivery_update.fire = function (params) {
 		}
 	);
  
-	//TODO 新規数量更新
+	// 新規数量更新
+	var selectResult2 = db.change(
+		"DELIVERY",
+		"updateDeliveryNew",
+		{
+			no: deliveryno,
+			shopid: getShopId()
+		}
+	);
 	
 	ret.eval("$('#text_name').val('');");
 	ret.eval("$('#file_deliveryfile').val('');");

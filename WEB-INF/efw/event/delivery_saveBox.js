@@ -16,6 +16,8 @@ delivery_saveBox.paramsFormat={
  */
 delivery_saveBox.fire=function(params){
 
+	var ret = new Result();
+
 	var deliveryno = params["deliveryno"];
 
 	var skuArr = params["#delivery_box_inputdialog"]["skuArr"];
@@ -23,8 +25,6 @@ delivery_saveBox.fire=function(params){
 	var asinArr = params["#delivery_box_inputdialog"]["asinArr"];
 
 	var qArr = params["#delivery_box_inputdialog"]["qArr"];
-	
- 
 
 	var delResult = db.change(
 		"DELIVERY",
@@ -51,13 +51,14 @@ delivery_saveBox.fire=function(params){
 				no:deliveryno,
 				sku:sub_sku,
 				asin:sub_asin,
-				num:sub_q,
+				num:parseInt(sub_q),
 				shopid: getShopId()
 			}
 		);
 
 	}
 
-	return (new Result()).eval("si_box_inputdialog.dialog('close')");
+	ret.eval("delivery_box_inputdialog.dialog('close');");
+	return ret;
 
 };

@@ -51,25 +51,26 @@ purchase_init.fire = function (params) {
 		}
 		var bottom = '</ul> </td> '
 		var file = '' + top + content + bottom;
-		// 将每一个对象转成数组
+
+		// Array変換
 		var record = new Record([selectResult[i]]).getArray();
 
 		var resultHTML =
 			'<tr>' +
 			'<td style="width: 50px;" rowspan="2" class="c"><input type="radio" onclick="choice(this)" value="{no}" name="choice"></input></td>' +
-			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="outputFile()">{no}</span></td>' +
+			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="outputFile(this)">{no}</span></td>' +
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{name}</span></td>' +
 
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{no}</span></td>' +
 			'<td style="width: 100px;" rowspan="2" class="c">{type}</td>' +
 			'<td style="width: 50px;" rowspan="2" class="r"><span class="r5">{number}</span></td>' +
 			'<td style="width: 100px;" rowspan="2" class="r"><span class="r5">{money}</span></td>' +
-			'<td style="width: 120px;" rowspan="2" class="c">{state}</td>' +
+			'<td style="width: 100px;" rowspan="2" class="c">{state}</td>' +
 
-			'<td style="width: 150px;" rowspan="2" class="c">{logindate}</td>' +
-			'<td style="width: 150px;" rowspan="2" class="c">{senddate1}</td>' +
-			'<td style="width: 150px;" rowspan="2" class="c">{senddate2}</td>' +
-			'<td style="width: 150px;" rowspan="2" class="c">{completiondate}</td>' +
+			'<td style="width: 120px;" rowspan="2" class="c">{logindate}</td>' +
+			'<td style="width: 120px;" rowspan="2" class="c">{senddate1}</td>' +
+			'<td style="width: 120px;" rowspan="2" class="c">{senddate2}</td>' +
+			'<td style="width: 120px;" rowspan="2" class="c">{completiondate}</td>' +
 
 			'<td style="width: 150px;" rowspan="2" class="l"><span class="l5">{sendway}</span></td>' +
 			'<td style="width: 150px;" rowspan="2" class="l"><span class="l5">{tracknumber}</span></td>' +
@@ -91,8 +92,10 @@ purchase_init.fire = function (params) {
 		ret.runat("#purchasetable").append(resultHTML).withdata(record);
 	}
 
-	var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
-	ret.eval(script);
+	ret.show('.c_detail_header').show('.c_detail_content');
+	
+	// var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
+	// ret.eval(script);
 	// 画面へ結果を返す
 	return ret;
 

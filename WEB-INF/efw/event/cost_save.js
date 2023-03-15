@@ -21,7 +21,7 @@ cost_save.fire=function(params){
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	if(params["#opt"] == "NEW"){
 		var jpy = null;

@@ -315,12 +315,12 @@
                 }
 
                 // 仕入NOリンク押下
-                function outputFile() {
-                    var purchaseno = $('input:radio[name="choice"]:checked').val();
-                    Efw('purchase_output', { "no": purchaseno });
+                function outputFile(obj) {
+                    var purchaseno = $(obj).html();
+                    Efw('purchase_output', { "purchaseno": purchaseno });
                 }
 
-                // 下载
+                // 資料ダウンロード
                 function down(val){
                     var f=$(val).html();
                     var no = $(val).parent().parent().parent().children().next().children().html();
@@ -409,7 +409,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_header" style="width: 2154px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2014px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;" rowspan="2" id="temp">選択</th>
@@ -420,12 +420,12 @@
                                     <th style="width: 100px;" rowspan="2">仕入区分</th>
                                     <th style="width: 50px;" rowspan="2">数量</th>
                                     <th style="width: 100px;" rowspan="2">金額</th>
-                                    <th style="width: 120px;" rowspan="2">ステータス</th>
+                                    <th style="width: 100px;" rowspan="2">ステータス</th>
 
-                                    <th style="width: 150px;" rowspan="2">登録日</th>
-                                    <th style="width: 150px" rowspan="2">発送日①</th>
-                                    <th style="width: 150px;" rowspan="2">発送日②</th>
-                                    <th style="width: 150px;" rowspan="2">完了日</th>
+                                    <th style="width: 120px;" rowspan="2">登録日</th>
+                                    <th style="width: 120px" rowspan="2">発送日①</th>
+                                    <th style="width: 120px;" rowspan="2">発送日②</th>
+                                    <th style="width: 120px;" rowspan="2">完了日</th>
 
                                     <th style="width: 150px;" rowspan="2">発送方式</th>
                                     <th style="width: 150px;" rowspan="2">追跡番号</th>
@@ -447,44 +447,8 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" id="purchasetable"
-                            style="width: 2137px;table-layout: fixed;">
+                        <table class="table_detail_content" id="purchasetable" style="width: 1997px;table-layout: fixed;">
 
-                            <tr>
-                                <td style="width: 50px;" rowspan="2" class="c"><input type="radio"
-                                        name="choice"></input></td>
-                                <td style="width: 155px" rowspan="2" class="l"><span class="l5 a"
-                                        onclick="purchase_detail_inputdialog.dialog('open')">20230118-151418</span>
-                                </td>
-                                <td style="width: 200px;" rowspan="2" class="l"><span class="l5">20230112-レインコート</span>
-                                </td>
-
-                                <td style="width: 200px;" rowspan="2" class="l"><span class="l5">XXXXXXXXXXXXXX</span>
-                                </td>
-                                <td style="width: 50px;" rowspan="2" class="r"><span class="r5">70</span></td>
-                                <td style="width: 100px;" rowspan="2" class="r"><span class="r5">999999.99</span>
-                                </td>
-                                <td style="width: 120px;" rowspan="2" class="c">2:钠品凳送</td>
-
-                                <td style="width: 100px;" rowspan="2" class="c">2023/01/18</td>
-                                <td style="width: 100px;" rowspan="2" class="c">2023/01/18</td>
-                                <td style="width: 100px;" rowspan="2" class="c">2023/01/18</td>
-                                <td style="width: 100px;" rowspan="2" class="c">2023/01/18</td>
-
-                                <td style="width: 150px;" rowspan="2" class="l"><span class="l5">2：海運（呉）</span></td>
-                                <td style="width: 80px;" rowspan="2" class="r"><span class="r5">5.12</span></td>
-
-                                <td style="width: 120px;" class="r"><span class="r5">999999.99元</span></td>
-                                <td style="width: 120px;" class="r"><span class="r5">999999.99元</span></td>
-                                <td style="width: 120px;" class="r"><span class="r5">999999.99元</span></td>
-                                <td style="width: 120px;" class="r"><span class="r5">999999.99元</span></td>
-                            </tr>
-                            <tr>
-                                <td class="r"><span class="r5">999999.99円</span></td>
-                                <td class="r"><span class="r5">999999.99円</span></td>
-                                <td class="r"><span class="r5">999999.99円</span></td>
-                                <td class="r"><span class="r5">999999.99円</span></td>
-                            </tr>
 
 
                         </table>

@@ -76,7 +76,7 @@
 		UPPER(M."ASIN番号") LIKE concat('%', :keyword ,'%') OR
 		UPPER(M."LABEL番号") LIKE concat('%', :keyword ,'%')OR
 		UPPER(M."FBM発送方式") LIKE concat('%', :keyword ,'%') OR
-		<!-- UPPER(M."商品名称") LIKE concat('%', :keyword ,'%') -->
+		UPPER(M."商品名称") LIKE concat('%', :keyword ,'%')
 		)
 	</if>
 

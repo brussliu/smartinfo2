@@ -39,7 +39,8 @@
                 $("#boxinfobody tr").append(data_td);
                 $("#maxboxcount").val(addboxcount);
             }
-            // 当输入值为空时，语音提示
+
+            // エラー時の声
             function errorMsg() {
                 $("#scanInput").val("");
                 // ダメの音声
@@ -49,7 +50,7 @@
 
             }
 
-            // 对输入值进行判断
+            // ラベル欄入力
             function inputLabel(obj) {
 
                 if ($(obj).val().length == 10 && $(obj).val().startsWith("X00")) {
@@ -70,97 +71,140 @@
                 var colq = 0;
 
                 var overflg = false;
-                // 增加或减少选择
+
+                // 増加：1、削減：-1
                 var opttype = parseInt($("input[name='opttype']:checked").val());
 
+                // 全部行をループする
                 $("#boxinfobody").find("tr").each(function () {
+
                     var tdArr = $(this).children();
                     // 列の数
                     colq = tdArr.length;
 
                     var td_asin = tdArr.eq(3).html();
                     var td_sku = tdArr.eq(4).html();
-                    console.log(td_sku);
+
+                    // 対象商品の行
                     if (sku == td_sku || asin == td_asin) {
 
-                        // 箱詰め数量+1
+                        // 操作対象列（箱No）
                         var boxCol = 7 + parseInt($("input[name='boxno']:checked").val());
-                        // 箱中数量
+
+                        // 対象箱の数量（操作前）
                         var td_q = tdArr.eq(boxCol).html().length <= 0 ? 0 : parseInt(tdArr.eq(boxCol).html());
 
+                        // 操作成功フラグ
                         var successflg = true;
-                        // <0の場合、0で表示
+
+                        // 操作後の数<0の場合
                         if (td_q + opttype < 0) {
-                            // 当减少后小于0，将箱里的值变为0
-                            tdArr.eq(boxCol).html(0);// 減少処理失敗
+
+                            // 箱の数量を0に設定
+                            tdArr.eq(boxCol).html(0);
+                            // 操作失敗
                             successflg = false;
+
+                        // 操作後の数>=0の場合
                         } else {
                             
-                            tdArr.eq(boxCol).html(td_q + opttype);// AAA
+                            // 操作する（操作後の数量を箱列に反映）
+                            tdArr.eq(boxCol).html(td_q + opttype);
                         }
 
-                        // 実際数量+1
-                        // <0の場合、0で表示
+                        // 操作成功の場合、実際数量を設定する
+                        // 変更後>=0の場合、変更後の値で設定
+                        // 変更後<0の場合、0で設定
                         if (successflg == true) {
-                            tdArr.eq(7).html((parseInt(tdArr.eq(7).html()) + opttype) > 0 ? (parseInt(tdArr.eq(7).html()) + opttype) : 0);// AAA
+                            tdArr.eq(7).html((parseInt(tdArr.eq(7).html()) + opttype) > 0 ? (parseInt(tdArr.eq(7).html()) + opttype) : 0);
                         }
 
-                        if (opttype > 0) {
 
-                            // 予定数量
-                            if (parseInt(tdArr.eq(6).html()) < parseInt(tdArr.eq(7).html())) {
+                        // 予定数量 < 実際数量
+                        if (parseInt(tdArr.eq(6).html()) < parseInt(tdArr.eq(7).html())) {
 
-                                if (parseInt(tdArr.eq(6).html()) == 0) {
+                            // 予定数量 = 0の場合、超出種類とする
+                            if (parseInt(tdArr.eq(6).html()) == 0) {
 
+                                // 予定種類に超出する場合
+                                // 増加操作の場合のみ、声が出る
+                                if (opttype > 0) {
                                     var audioElement = document.createElement('audio');
                                     audioElement.setAttribute('src', 'chaochuzhonglei.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
+                                }else{
+                                    // 正常操作の場合、
+                                    var audioElement = document.createElement('audio');
+                                    audioElement.setAttribute('src', 'facai.mp3');
+                                    audioElement.setAttribute('autoplay', 'autoplay');
+                                }
 
-                                } else {
-                                    // 超出预定数量
+                            // 予定数量 != 0の場合、数量超過とする
+                            } else {
+
+                                // 予定数量に超過する場合
+                                // 増加操作の場合のみ、声が出る
+                                if (opttype > 0) {
                                     var audioElement = document.createElement('audio');
                                     audioElement.setAttribute('src', 'shuliangchaoguo.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
-
+                                }else{
+                                    // 正常操作の場合、
+                                    var audioElement = document.createElement('audio');
+                                    audioElement.setAttribute('src', 'facai.mp3');
+                                    audioElement.setAttribute('autoplay', 'autoplay');
                                 }
 
-                                $(this).css("background-color", "pink");
-
-                                overflg = true;
-
-                                return;
                             }
 
+                            // 行の色をピンク変更
+                            $(this).css("background-color", "pink");
+
+                            // 処理終了フラグ
+                            overflg = true;
+
+                            return;
+                            
+                        }else{
+
+                            // 正常操作の場合、
+                            var audioElement = document.createElement('audio');
+                            audioElement.setAttribute('src', 'facai.mp3');
+                            audioElement.setAttribute('autoplay', 'autoplay');
+
+                            // 行の色を少し深くに変更
+                            $(this).css("background-color", "cornsilk");
+
+                            // 処理終了フラグ
+                            overflg = true;
+
+                            return;
+
                         }
-
-                        var audioElement = document.createElement('audio');
-                        audioElement.setAttribute('src', 'facai.mp3');
-                        audioElement.setAttribute('autoplay', 'autoplay');
-
-                        $(this).css("background-color", "cornsilk");
-                        overflg = true;
-                        return;
 
                     }
 
                 });
 
+                // 処理終了の場合
                 if (overflg) {
                     $("#scanInput").val("");
                     return;// 処理終了
                 }
 
+                // 削減の場合、対象商品が表示されていない場合、処理終了する
                 if (opttype < 0) {
                     errorMsg();
                     return;// 処理終了
                 }
 
-                // 新规未录入的商品
-                // 箱部分の列数
+                // 未表示の商品を新規する
+                // 箱数
                 var boxq = colq - 8;
                 // 操作対象箱
                 var boxno = parseInt($("input[name='boxno']:checked").val());
 
+                // 箱部分のHTML
                 var boxhtml = "";
                 for (var i = 1; i <= boxq; i++) {
                     if (i == boxno) {
@@ -241,7 +285,7 @@
                         <td style="width: 150px;"><input type="radio" checked name="opttype" value="1"
                                 style="vertical-align:middle; margin-top:-4px; "> 増加操作（+）</input></td>
                         <td style="width: 150px;"><input type="radio" name="opttype" value="-1" style="vertical-align:middle; margin-top:-4px; ">
-                            増加操作（-）</input></td>
+                            削減操作（-）</input></td>
                         <td></td>
                         <td><input type="hidden" id="maxboxcount" value="1"> </input></td>
                         <td><button onclick="addbox()">箱增加</button></td>

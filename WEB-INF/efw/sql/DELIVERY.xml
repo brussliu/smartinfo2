@@ -2,37 +2,37 @@
 <!DOCTYPE sqls>
 <sqls> 
 
-<!-- sl:检索 -->
+<!-- 検索 -->
 <sql id="selectdelivery">
-  SELECT
-	"納品NO" AS no,
-	"納品名称" AS name,
-	case
-		when "ステータス" = '1.新　規' then 0
-		when "ステータス" = '2.発送済' then "発送数量"
-		when "ステータス" = '3.受領中' then "受領数量"
-		when "ステータス" = '4.納品済' then "最終納品数量"
-	end as number,
-	"ステータス" AS state,
-	to_char("登録日",'YYYY/MM/DD') AS logindate,
-	to_char("発送日",'YYYY/MM/DD') AS senddate,
-	to_char("受領日",'YYYY/MM/DD') AS receivedate,
-	to_char("完了日",'YYYY/MM/DD')  AS completiondate,
-	"AMZ-納品番号" AS amz1,
-	"AMZ-納品名" AS amz2,
-	"AMZ-納品プラン番号" AS amz3,
-	"AMZ-納品先" AS amz4,
-	"AMZ-SKU合計" AS amz5,
-	"AMZ-商品合計数" AS amz6
-  FROM
-	"TRN_納品管理" 
-  WHERE
-	"店舗ID" = :shopid 
-  ORDER BY
-	"納品NO" desc
+	SELECT
+		"納品NO" AS no,
+		"納品名称" AS name,
+		case
+			when "ステータス" = '1.新　規' then "新規数量"
+			when "ステータス" = '2.発送済' then "発送数量"
+			when "ステータス" = '3.受領中' then "受領数量"
+			when "ステータス" = '4.納品済' then "最終納品数量"
+		end as number,
+		"ステータス" AS state,
+		to_char("登録日",'YYYY/MM/DD') AS logindate,
+		to_char("発送日",'YYYY/MM/DD') AS senddate,
+		to_char("受領日",'YYYY/MM/DD') AS receivedate,
+		to_char("完了日",'YYYY/MM/DD')  AS completiondate,
+		"AMZ-納品番号" AS amz1,
+		"AMZ-納品名" AS amz2,
+		"AMZ-納品プラン番号" AS amz3,
+		"AMZ-納品先" AS amz4,
+		"AMZ-SKU合計" AS amz5,
+		"AMZ-商品合計数" AS amz6
+	FROM
+		"TRN_納品管理" 
+	WHERE
+		"店舗ID" = :shopid 
+	ORDER BY
+		"納品NO" desc
 </sql>
 
-<!-- sl:削除 -->
+<!-- 削除 -->
 <sql id="deletedelivery" paramPrefix="!">
 	delete
 	from
@@ -43,70 +43,89 @@
 		"店舗ID"= !shopid	 
 </sql>
 
-<!-- sl：新规TRN_納品管理 -->
+<!-- 新規 -->
 <sql id="insertdelivery" paramPrefix="!">
- INSERT into "TRN_納品管理" 
-	("納品NO",
-	"納品名称",
-	"ステータス",
-	"登録日",
-	"店舗ID",
-	"登録日時")
- VALUES(
-	 !no,
-	 !names,
-	 '1.新　規',
-	 now(),
-	 !shopid,
-	 now()
+	insert into "TRN_納品管理" (
+		"納品NO",
+		"納品名称",
+		"ステータス",
+		"登録日",
+		"店舗ID",
+		"登録日時"
+	)values(
+		!no,
+		!names,
+		'1.新　規',
+		now(),
+		!shopid,
+		now()
 	)
 </sql>
 
-<!--更新TRN_納品管理  -->
+<!-- TRN_納品管理更新 -->
 <sql id="updatedelivery" paramPrefix="!">
- UPDATE 
+	UPDATE 
 		"TRN_納品管理" 
- SET 
+	SET 
 		"納品名称"= !names,
 		"更新日時"= now() 
- WHERE
-	"店舗ID" = !shopid 
-	and	"納品NO" = !no
+	WHERE
+		"店舗ID" = !shopid 
+		and	
+		"納品NO" = !no
 </sql>
 
+<!-- 新規数量更新-->
+<sql id="updateDeliveryNew">
+	UPDATE "TRN_納品管理"  
+		SET 
+	  	"更新日時" = now(),
+		"新規数量" = 
+			( SELECT  sum(TRN2."数量") AS count
+			from "TRN_納品明細" TRN2
+			WHERE
+				TRN2."店舗ID" = :shopid 
+			and TRN2."納品NO" = :no
+			) 
+	WHERE 
+		 "店舗ID" = :shopid 
+	AND
+		 "納品NO" = :no
+</sql>
 
-<!-- 通过納品NO检索 納品名称 -->
+<!-- 納品名称検索 -->
 <sql id="seachDeliveryName" paramPrefix="!">
  	SELECT
 		"納品名称" as name
 	FROM
 		"TRN_納品管理"   
 	WHERE
-			"店舗ID" = !shopid 
-		and	"納品NO" = !no
+		"店舗ID" = !shopid 
+		and	
+		"納品NO" = !no
 </sql>
 
 
-<!-- sl：新规TRN_納品明细 -->
+<!-- TRN_納品明细新規 -->
 <sql id="insertdeliverydata" paramPrefix="!">
- INSERT into "TRN_納品明細" 
-	("納品NO",
-	"SKU番号",
-	"ASIN番号",
-	"数量",
-	"店舗ID",
-	"登録日時")
- VALUES(
-	 !no,
-	 !sku,
-	 !asin,
-	 !num,
-	 !shopid,
-	 now()
+	insert into "TRN_納品明細" (
+		"納品NO",
+		"SKU番号",
+		"ASIN番号",
+		"数量",
+		"店舗ID",
+		"登録日時"
+	)values(
+		!no,
+		!sku,
+		!asin,
+		!num,
+		!shopid,
+		now()
 	)
 </sql>
 
-<!-- sl:删除TRN_納品明细 -->
+<!-- TRN_納品明细削除 -->
 <sql id="deleteDeliveryContent" paramPrefix="!">
 	DELETE 
 	FROM
@@ -116,7 +135,7 @@
 	and	"納品NO" = !no
 </sql>
 
-<!--通过asin,sku检索  -->
+<!-- 納品内容検索  -->
 <sql id="seachdeliverycontent" paramPrefix="!">
 	SELECT 
 		A."商品管理番号" AS productno,
@@ -127,18 +146,22 @@
 		A."LABEL番号" AS label,
 		B."FBA在庫" AS fba,
 		B."LOCAL在庫" AS local,
-		CASE WHEN D."ステータス" = '4.納品済' THEN C."受領数量" ELSE C."数量" END AS count 
+		CASE WHEN D."ステータス" = '4.納品済' THEN C."受領数量" ELSE C."数量" END AS number 
 	FROM
 		"TRN_納品管理" D
 		LEFT JOIN "TRN_納品明細" C ON D."納品NO" = C."納品NO"
 		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
 		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
+		LEFT JOIN "MST_ソート情報" S1 on A."商品種別" = S1."商品種別" and S1."分類" = '分類１' and A."分類１" = S1."内容" and A."店舗ID" = S1."店舗ID"
+		LEFT JOIN "MST_ソート情報" S2 on A."商品種別" = S2."商品種別" and S2."分類" = '分類２' and A."分類２" = S2."内容" and A."店舗ID" = S2."店舗ID"
 	WHERE
 		D."店舗ID" = !shopid 
 		AND 
 		D."納品NO" = !no 
 	ORDER BY
-		A."商品管理番号",A."分類１",A."分類２"
+		A."商品管理番号",
+		COALESCE(cast(S1."ソート" as varchar), A."分類１"),
+    	COALESCE(cast(S2."ソート" as varchar), A."分類２")
 </sql>
 
 
@@ -195,7 +218,7 @@
 
 
 <!--更新ステータス为2.発送済  -->
-<sql id="updatedelivery2" paramPrefix="!">
+<!-- <sql id="updatedelivery2" paramPrefix="!">
  UPDATE 
  	"TRN_納品管理" 
  	SET "ステータス" = '2.発送済' ,
@@ -204,10 +227,10 @@
  WHERE
 	"店舗ID" = !shopid 
 	and	"納品NO" = !no
-</sql>
+</sql> -->
 
 <!--更新ステータス3.受領中  -->
-<sql id="updatedelivery3" paramPrefix="!">
+<!-- <sql id="updatedelivery3" paramPrefix="!">
  UPDATE 
 	"TRN_納品管理" 
 	SET 
@@ -218,11 +241,11 @@
  WHERE
 	"店舗ID" = !shopid 
 	and	"納品NO" = !no
-</sql>
+</sql> -->
 
 
 <!--更新ステータス	4.納品済  -->
-<sql id="updatedelivery4" paramPrefix="!">
+<!-- <sql id="updatedelivery4" paramPrefix="!">
  UPDATE 
 	"TRN_納品管理" 
 	SET 
@@ -233,7 +256,7 @@
  WHERE
 	"店舗ID" = !shopid 
 	and	"納品NO" = !no
-</sql>
+</sql> -->
  
 
 <!-- 受領完了 -->
@@ -322,7 +345,6 @@
 		"店舗ID" = :shopid 
 	and
 		"納品NO" = :col0
- 
 </sql>
 <sql id="updateDeliveryAmz2">
 	UPDATE "TRN_納品管理"
@@ -332,7 +354,6 @@
 		"店舗ID" = :shopid 
 	and
 		"納品NO" = :col0
- 
 </sql>
 
 <sql id="updateDeliveryAmz3">
@@ -344,7 +365,6 @@
 		"店舗ID" = :shopid 
 	and
 		"納品NO" = :col0
- 
 </sql>
 
 <sql id="updateDeliveryAmz4">
@@ -356,7 +376,6 @@
 		"店舗ID" = :shopid 
 	and
 		"納品NO" = :col0
- 
 </sql>
 
 <sql id="updateDeliveryAmz5">
@@ -368,7 +387,6 @@
 		"店舗ID" = :shopid 
 	AND
 		"納品NO" = :col0
-
 </sql>
 
 <sql id="updateDeliveryAmz6">
@@ -379,7 +397,6 @@
 		"店舗ID" = :shopid 
 	AND
 		"納品NO" = :col0
-
 </sql>
 
 <!-- sl:納品明細の受領数量を更新-->
@@ -400,25 +417,25 @@
 
 <!-- sl:新规未录入的明细数据 -->
 <sql id="insertAcceptanceDetail">
-		INSERT INTO "TRN_納品明細"
-		(
-			"納品NO",
-			"SKU番号",
-			"ASIN番号", 
-			"数量",
-			"受領数量",
-			"店舗ID",
-			"登録日時"
-		)
-		VALUES (
-			:col0,--"納品NO"
-			:col1,--"SKU番号"
-			:col2,--"ASIN番号"
-			'0',--"数量"
-			:col3, --"受領数量"
-			:shopid,
-			now()
-		)
+	INSERT INTO "TRN_納品明細"
+	(
+		"納品NO",
+		"SKU番号",
+		"ASIN番号", 
+		"数量",
+		"受領数量",
+		"店舗ID",
+		"登録日時"
+	)
+	VALUES (
+		:col0,--"納品NO"
+		:col1,--"SKU番号"
+		:col2,--"ASIN番号"
+		'0',--"数量"
+		:col3, --"受領数量"
+		:shopid,
+		now()
+	)
 </sql>
 
 <!-- sl:受領中-更新途中在庫_入庫 -->
@@ -540,13 +557,13 @@
 			c."推奨仕入数量" as purchasequantity,
 			m."店舗ID" as shopid,
 			m."暫定フラグ" as zt_flg,
-			case when D."ステータス" = '4.納品済' then a."受領数量" else a."数量" end as num 
+			a."数量" as num 
 		from
 			"MST_出品マスタ情報" m
 			left join "TRN_納品明細" a on m."ASIN番号" = a."ASIN番号" and m."SKU番号" = a."SKU番号" and m."店舗ID" = a."店舗ID" and a."納品NO" = :no
 			left join "MST_販売数量情報" b on m."ASIN番号" = b."ASIN番号" and m."SKU番号" = b."SKU番号" and m."店舗ID" = b."店舗ID"
 			left join "MST_入庫仕入推奨数量情報" c on m."ASIN番号" = c."ASIN番号" and m."SKU番号" = c."SKU番号" and m."店舗ID" = c."店舗ID"
-			left join "MST_在庫情報"  d on m."ASIN番号" = d."ASIN番号" and m."SKU番号" = d."SKU番号" and m."暫定フラグ" = d."暫定フラグ" and m."店舗ID" = d."店舗ID" 
+			left join "MST_在庫情報" d on m."ASIN番号" = d."ASIN番号" and m."SKU番号" = d."SKU番号" and m."暫定フラグ" = d."暫定フラグ" and m."店舗ID" = d."店舗ID" 
 			left join "IPT_全出品情報" e on m."ASIN番号" = e."ASIN 1" and m."SKU番号" = e."出品者SKU" and m."店舗ID" = e."店舗ID" 
 			left join "MST_ソート情報" S1 on m."商品種別" = S1."商品種別" and S1."分類" = '分類１' and m."分類１" = S1."内容" and m."店舗ID" = S1."店舗ID"
 			left join "MST_ソート情報" S2 on m."商品種別" = S2."商品種別" and S2."分類" = '分類２' and m."分類２" = S2."内容" and m."店舗ID" = S2."店舗ID"

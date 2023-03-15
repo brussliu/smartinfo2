@@ -29,17 +29,17 @@ delivery_list.fire = function (params) {
 	var deliveryname = selectResult['name'];
  
 	// 納品NO
-	ret.eval('$("#td_contno").html(' + deliveryno + ')');
+	ret.eval("$('#td_contno').html('" + deliveryno + "')");
 
 	// 納品名称
-	ret.eval('$("#td_conname").html(' + deliveryname + ')');
+	ret.eval("$('#td_conname').html('" + deliveryname + "')");
 
 	// 納品明細検索
 	var selectResult = db.select(
 		"DELIVERY",
 		"seachdeliverycontent",
 		{
-			no:no,
+			no:deliveryno,
 			shopid: getShopId()
 		}
 	).getArray();

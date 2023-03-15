@@ -36,7 +36,7 @@
                 }
 
                 // 納品削除
-                function deletepurchase() {
+                function deletedelivery() {
                     var deliveryno = $('input:radio[name="choice"]:checked').val();
                     Efw('delivery_delete', { 'deliveryno': deliveryno });
                 }
@@ -99,6 +99,7 @@
                         $('#btn_update').attr('disabled', false);
                         $('#btn_encasement').attr('disabled', false);
                         $('#btn_delete').attr('disabled', false);
+                        $('#btn_outputfile').attr('disabled', false);
                         $('#btn_send').attr('disabled', false);
 
                     } else if (v == '2.発送済') {
@@ -106,6 +107,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
 
                     } else if (v == '3.受領中') {
@@ -113,6 +115,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
 
                     } else if (v == '4.納品済') {
@@ -120,6 +123,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
 
                     } else {
@@ -127,6 +131,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
 
                     }
@@ -194,9 +199,9 @@
                                          
                                     <td style="width: 120px;"><button id="btn_encasement" disabled="disabled"
                                             onclick="box()">箱詰め</button></td>
-                                    <td style="width: 120px;"><button id="btn_delete" disabled="disabled">納品削除</button>
+                                    <td style="width: 120px;"><button id="btn_delete" disabled="disabled" onclick="deletedelivery()">納品削除</button>
                                     </td>
-                                    <td style="width: 240px;"><button id="outputfile" disabled
+                                    <td style="width: 240px;"><button id="btn_outputfile" disabled
                                             onclick="outputdeliveryfile();" style="width: 220px;">納品作成用ファイル出力</button>
                                     </td>
                                     <td style="width: 120px;"><button id="btn_send" onclick="send()"
