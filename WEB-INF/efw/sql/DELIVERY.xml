@@ -113,6 +113,7 @@
 		"SKU番号",
 		"ASIN番号",
 		"数量",
+		"受領数量",
 		"店舗ID",
 		"登録日時"
 	)values(
@@ -120,6 +121,7 @@
 		!sku,
 		!asin,
 		!num,
+		0,
 		!shopid,
 		now()
 	)
@@ -437,7 +439,7 @@
 </sql>
 
 <!-- sl:受領中-更新途中在庫_入庫 -->
-<!-- <sql id="updateMSTDelveryAdd"> 
+<sql id="updateMSTDelveryAdd"> 
 	UPDATE "MST_在庫情報"
  	SET "更新日時" = now( ),
 		"途中在庫_入庫" = (
@@ -465,7 +467,7 @@
 	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = :no
 	and TRN."店舗ID" = :shopid
-</sql> -->
+</sql>
 
 <!-- sl:更新纳品管理受領数量-->
 <sql id="updateReceiveNumber">
