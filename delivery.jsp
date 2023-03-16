@@ -91,40 +91,47 @@
                     var v = $(val).parent().next().next().next().next().next().html();
                     // 仕入NO
                     var tempno = $(val).parent().next().children().html();
-                    $('#temp').data("temp", tempno);
+               
                     $('#text_name').val(deliveryname);
-                    $('#status').data("type", v);
                     if (v == '1.新　規') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
                         $('#btn_encasement').attr('disabled', false);
                         $('#btn_delete').attr('disabled', false);
-                        $('#btn_outputfile').attr('disabled', false);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', false);
+                        $('#btn_receiver').attr('disabled', true);
+                        $('#btn_final').attr('disabled', true);
 
                     } else if (v == '2.発送済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', false);
                         $('#btn_send').attr('disabled', true);
+                        $('#btn_receiver').attr('disabled', false);
+                        $('#btn_final').attr('disabled', false);
 
                     } else if (v == '3.受領中') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', false);
                         $('#btn_send').attr('disabled', true);
+                        $('#btn_receiver').attr('disabled', false);
+                        $('#btn_final').attr('disabled', false);
 
                     } else if (v == '4.納品済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', false);
                         $('#btn_send').attr('disabled', true);
+                        $('#btn_receiver').attr('disabled', true);
+                        $('#btn_final').attr('disabled', true);
 
                     } else {
                         $('#btn_content').attr('disabled', true);
@@ -133,16 +140,9 @@
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
+                        $('#btn_receiver').attr('disabled', true);
+                        $('#btn_final').attr('disabled', true);
 
-                    }
-                }
-
-                // 受領ファイル添付
-                function view(val) {
-                    var v = $(val).val();
-                    if (v != null && v != '') {
-                        $('#btn_receiver').attr('disabled', false);
-                        $('#btn_final').attr('disabled', false);
                     }
                 }
 
@@ -201,7 +201,7 @@
                                             onclick="box()">箱詰め</button></td>
                                     <td style="width: 120px;"><button id="btn_delete" disabled="disabled" onclick="deletedelivery()">納品削除</button>
                                     </td>
-                                    <td style="width: 240px;"><button id="btn_outputfile" disabled
+                                    <td style="width: 240px;"><button id="btn_outputfile" 
                                             onclick="outputdeliveryfile();" style="width: 220px;">納品作成用ファイル出力</button>
                                     </td>
                                     <td style="width: 120px;"><button id="btn_send" onclick="send()"
@@ -233,7 +233,7 @@
                                     </td>
                                     <td style="width: 142px;font-weight: bold;">受領ファイル：</td>
                                     <td style="width: 320px;">
-                                        <input type="file" id="file_receiverfile" onchange="view(this)"
+                                        <input type="file" id="file_receiverfile"
                                             style="width: 260px; "></input>
 
                                     </td>

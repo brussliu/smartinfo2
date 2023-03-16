@@ -2,8 +2,7 @@ var delivery_complete = {};
 delivery_complete.name = "納品完了ボタン押下";
 delivery_complete.paramsFormat = {
 	"deliveryno": null,
-	"#file_receiverfile": null,
-	"#status": null
+	"#file_receiverfile": null
 };
 
 var deliveryno = "";
@@ -22,7 +21,9 @@ delivery_complete.fire = function (params) {
 	var receiverfile = params["#file_receiverfile"];
 
 	// TODO ステータス検索 √
-	var status =  params["#status"];
+	var select = db.select("DELIVERY","queryStatus",{ deliveryno: deliveryno,shopid: getShopId() }).getSingle();
+	
+	var status =  select["status"];
 
 
 	// 2.発送済の場合
@@ -69,7 +70,7 @@ delivery_complete.fire = function (params) {
 	// 画面へ結果を返す
 
 	ret.eval("init();");
-	//ret.eval("choice('');");
+	ret.eval("$('#file_receiverfile').val('')");
 	return ret;
 
 };
@@ -198,18 +199,18 @@ function importAcceptance2(aryField, index) {
 		}
 
 		// 納品明細に存在しない場合、Insert
-		if (updResult == 0 || updResult == "0") {
-			// var insResult = db.change(
-			// 	"DELIVERY",
-			// 	"insertAcceptanceDetail",
-			// 	{
-			// 		"col0": no,
-			// 		"col1": aryField[0],
-			// 		"col2": aryField[2],
-			// 		"col3": aryField[9],
-			// 		"shopid": getShopId()
-			// 	}
-			// );
+		if ( typeof(updResult["count"]) == "undefined" || updResult["count"] == null) {
+			var updResult = db.change(
+				"DELIVERY",
+				"updateDeliveryConAcceptance",
+				{
+					"acceptance": parseInt(aryField[9]),
+					"sku": aryField[0],
+					"asin": aryField[2],
+					"col0": deliveryno,
+					"shopid": getShopId()
+				}
+			);
 		}
 
 	}
@@ -359,7 +360,7 @@ function importAcceptance1(aryField, index) {
 
 
 			}else if( count = 0 && acceptance_new > 0){
-  			// LOCAL数量 = LOCAL数量 - 受領数量
+  			// 想定外納品
 			  var insResult = db.change(
 				"DELIVERY",
 				"insertAcceptanceDetail",
@@ -383,33 +384,8 @@ function importAcceptance1(aryField, index) {
 
 				}
 
-		// 受領数量更新
-		// var updResult = db.change(
-		// 	"DELIVERY",
-		// 	"updateDeliveryConAcceptance",
-		// 	{
-		// 		"acceptance": parseInt(aryField[9]),
-		// 		"sku": aryField[0],
-		// 		"asin": aryField[2],
-		// 		"col0": deliveryno,
-		// 		"shopid": getShopId()
-		// 	}
-		// );
 
-		// 想定外納品
-		// if (updResult == 0 || updResult == "0") {
-		// 	var insResult = db.change(
-		// 		"DELIVERY",
-		// 		"insertAcceptanceDetail",
-		// 		{
-		// 			"col0": deliveryno,
-		// 			"col1": aryField[0],
-		// 			"col2": aryField[2],
-		// 			"col3": parseInt(aryField[9]),
-		// 			"shopid": getShopId()
-		// 		}
-		// 	);
-		// }
+ 
 
 		
 	}

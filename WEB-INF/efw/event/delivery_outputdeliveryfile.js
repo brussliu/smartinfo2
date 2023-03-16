@@ -1,11 +1,11 @@
-var delivery_outputdeliveryfile={};
-delivery_outputdeliveryfile.name="納品作成用ファイル出力";
-delivery_outputdeliveryfile.paramsFormat={
-	"deliveryno":null,
+var delivery_outputdeliveryfile = {};
+delivery_outputdeliveryfile.name = "納品作成用ファイル出力";
+delivery_outputdeliveryfile.paramsFormat = {
+	"deliveryno": null,
 };
 
-delivery_outputdeliveryfile.fire=function(params){
-	
+delivery_outputdeliveryfile.fire = function (params) {
+
 	var ret = new Result();
 
 	// セッションチェック
@@ -18,14 +18,15 @@ delivery_outputdeliveryfile.fire=function(params){
 		"DELIVERY",
 		"selectSkuList",
 		{
-			col0:deliveryno
+			col0: deliveryno,
+			shopid: getShopId()
 		}
 	).getArray();
 
-	file.remove("output/test.txt");
-	file.makeFile("output/test.txt");
+	file.remove(getShopId()+"/download/deliveryfile.txt");
+	file.makeFile(getShopId()+"/download/deliveryfile.txt");
 
-	var csvWriter = new CSVWriter("output/test.txt", ",", "\"", "MS932");
+	var csvWriter = new CSVWriter(getShopId()+"/download/deliveryfile.txt", ",", "\"", "MS932");
 
 	var ary = [
 		["このシートに記入する前にExampleタブを確認してください										"],
@@ -41,17 +42,17 @@ delivery_outputdeliveryfile.fire=function(params){
 
 	csvWriter.writeAllLines(ary);
 
-	for(var i = 0;i < skuResult.length;i ++){
+	for (var i = 0; i < skuResult.length; i++) {
 
-		var dary = [skuResult[i]["skuinfo"]];
+			var dary = [skuResult[i]["skuinfo"]];
 
-		csvWriter.writeLine(dary);
-
+			csvWriter.writeLine(dary);
 	}
 
-	ret.attach("output/test.txt")
-	.saveas("納品用ファイル_" + deliveryno + ".txt");
+	ret.attach(getShopId()+"/download/deliveryfile.txt")
+		.saveas("納品用ファイル_" + deliveryno + ".txt");
 
 	return (ret);
 
 };
+

@@ -35,6 +35,10 @@
                 $("#boxinfohead").width(headwidth + 82);
                 var bodywidth = $("#boxinfobody").width();
                 $("#boxinfobody").width(bodywidth + 82);
+                
+                var dialogwidth =  $("#delivery_box_inputdialog").parent().width();
+                $("#delivery_box_inputdialog").parent().width(dialogwidth + 82);
+                
                 $("#boxinfohead tr").append(title_td);
                 $("#boxinfobody tr").append(data_td);
                 $("#maxboxcount").val(addboxcount);

@@ -765,5 +765,17 @@
 		and
 		TRN."店舗ID" = "MST_在庫情報"."店舗ID"
 </sql>
+
+<!-- sl:ステータス検索 -->
+		<sql id="queryStatus">
+		select
+			"ステータス" as status
+		from
+			"TRN_納品管理"
+		WHERE 
+			"納品NO" = :deliveryno
+		and 
+			"店舗ID" = :shopid
+	</sql>
  </sqls>
 
