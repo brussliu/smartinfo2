@@ -19,7 +19,7 @@ delivery_send.fire = function (params) {
 		"DELIVERY",
 		"removeDeliveryFromLocal",
 		{
-			deliveryno: deliveryno,
+			no: deliveryno,
 			shopid: getShopId()
 		}
 	);
@@ -29,7 +29,7 @@ delivery_send.fire = function (params) {
 		"DELIVERY",
 		"allocateDeliveryToShip",
 		{
-			deliveryno: deliveryno,
+			no: deliveryno,
 			shopid: getShopId()
 		}
 	);
@@ -39,7 +39,7 @@ delivery_send.fire = function (params) {
 		"DELIVERY",
 		"updateDeliverySend",
 		{
-			deliveryno: deliveryno,
+			no: deliveryno,
 			shopid: getShopId()
 		}
 	);

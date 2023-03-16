@@ -169,7 +169,7 @@
 <!--sl:更新MST_在庫情報-途中在庫_入庫数量减去数量   -->
 <sql id="removeDeliveryFromShip" paramPrefix="!">
 	UPDATE "MST_在庫情報" 
-	SET "途中在庫_入庫" = "途中在庫_入庫" - TRN."数量",
+	SET "途中在庫_入庫" = (CASE WHEN "途中在庫_入庫" - TRN."数量" &lt; 0 THEN 0 ELSE "途中在庫_入庫" - TRN."数量" END),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -181,7 +181,7 @@
 <!--sl:更新MST_在庫情報-LOCAL在庫数量减去数量  -->
 <sql id="removeDeliveryFromLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" 
-	SET "LOCAL在庫" = "LOCAL在庫" - TRN."数量",
+	SET "LOCAL在庫" = (CASE WHEN "LOCAL在庫" - TRN."数量" &lt; 0 THEN 0 ELSE "LOCAL在庫" - TRN."数量" END),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -203,7 +203,7 @@
 	and TRN."店舗ID" = !shopid
 </sql>
 
-<sql id="allocateDeliveryToLocal" paramPrefix="!">
+<!-- <sql id="allocateDeliveryToLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報"  
 	SET "LOCAL在庫" = "LOCAL在庫" + TRN."数量",
 		"更新日時"= now() 
@@ -213,9 +213,7 @@
 	and	"MST_在庫情報"."SKU番号" =  TRN."SKU番号"
 	and TRN."納品NO" = !no
 	and TRN."店舗ID" = !shopid
-</sql>
-
-
+</sql> -->
 
 <!--更新ステータス为2.発送済  -->
 <!-- <sql id="updatedelivery2" paramPrefix="!">
