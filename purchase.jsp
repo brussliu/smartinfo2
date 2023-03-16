@@ -9,6 +9,13 @@
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <script>
 
+                $(function(){
+                    $(".date").datepicker( {  
+                        dateFormat : 'yy/mm/dd'
+                    });  
+                });
+
+
                 function scrollHead(obj) {
                     var p = $(obj).get(0).scrollLeft;
                     $(".c_detail_header").get(0).scrollLeft = p;

@@ -86,7 +86,7 @@ function loadAcceptanceFile(receiverfile, flg){
 	var fa = receiverfile.split("\\");
 	var f = fa[fa.length - 1];
 
-	var csvReader = new CSVReader(getShopId() + "/upload/" + f, "\t","\r\n","UTF-8");
+	var csvReader = new CSVReader(getShopId() + "/upload/" + f, ",", "\"", "MS932");
 
 	if(flg == 1){
 		// データ全件導入

@@ -113,8 +113,8 @@ purchase_save.fire = function (params) {
 				purchase: purchase,
 				ship: ship,
 
-				count: count,
-				money: money,
+				// count: count,
+				// money: money,
 				forwarddate1: forwarddate1,
 				forwarddate2: forwarddate2,
 
@@ -139,11 +139,9 @@ purchase_save.fire = function (params) {
 		
 		importProContent(proContent, newpurchaseno);
 
-		return ret;
 
-	}
-
-	if (opt == 'update') {
+	// 更新の場合 
+	}else if (opt == 'update') {
 
 		// ステータス
 		var selectResult = db.select(
@@ -167,8 +165,8 @@ purchase_save.fire = function (params) {
 				purchase: purchase,
 				ship: ship,
 
-				count: count,
-				money: money,
+				// count: count,
+				// money: money,
 				forwarddate1: forwarddate1,
 				forwarddate2: forwarddate2,
 
@@ -338,6 +336,8 @@ function importProContent(proContent, purchaseno) {
 				var sub1 = exl.getValue(sheetName, COL_F + y);
 				// 分類２
 				var sub2 = exl.getValue(sheetName, COL_G + y);
+				// 仕入数量
+				var count = exl.getValue(sheetName, COL_Z + y);
 
 				if ((pno == null || pno == '') &&
 					(sub1 == null || sub1 == '') &&
