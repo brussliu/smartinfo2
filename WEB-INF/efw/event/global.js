@@ -688,8 +688,173 @@ function returnNumber(decimalNumber) {
 
 /////////////////////////////////////////////////////////////Excel読み取り/////////////////////////////////////////////////////////////
 
+function importProContent(proContent, no, flg) {
+
+	deleteProContent(no, flg);
+
+	// ファイル
+	file.saveUploadFiles(getShopId() + "/upload");
+	var fa = proContent.split("\\");
+	var f = fa[fa.length - 1];
+
+	// Excelファイル
+	var exl = new Excel(getShopId() + "/upload/" + f);
+
+	// excelシート名
+	var exlarray = exl.getSheetNames();
+
+	// 列名
+	var COL_B = "B";//商品管理番号
+	var COL_C = "C";//ASIN番号
+	var COL_D = "D";//SKU番号
+	var COL_F = "F";//分類１
+	var COL_G = "G";//分類２
+	var COL_Z = "Z";//仕入数量
+	var Y_from = 3;//EXCEL開始行
+	var Y_to = 9999;//EXCEL終了行
+
+	for (var i = 0; i < exlarray.length; i++) {
+
+		var sheetName = exlarray[i];
+
+		if (sheetName == "暫定データ") {
+
+			if (flg == 2) {
+				// ループ
+				for (var y = Y_from; y <= Y_to; y++) {
+
+					// 商品管理番号
+					var pno = exl.getValue(sheetName, COL_B + y);
+					// 分類１
+					var sub1 = exl.getValue(sheetName, COL_F + y);
+					// 分類２
+					var sub2 = exl.getValue(sheetName, COL_G + y);
+					// 仕入数量
+					var count = exl.getValue(sheetName, COL_Z + y);
+
+					if ((pno == null || pno == '') &&
+						(sub1 == null || sub1 == '') &&
+						(sub2 == null || sub2 == '')) {
+
+						break;
+
+					} else {
+
+						if (count != null && count != '' && parseInt(count) > 0) {
+
+							// 新規TRN_仕入明細（暫定データ）
+							var selectResult2 = db.change(
+								"PURCHASE",
+								"insertpurchasedata2",
+								{
+									pno: pno,
+									sub1: sub1,
+									sub2: sub2,
+									num: parseInt(count),
+									shopid: getShopId()
+								}
+							);
+						}
+
+					}
+				}
+			}
+		} else if (sheetName == "DELIVERYLIST") {
 
 
+		} else if (sheetName == "PURCHASELIST") {
 
+
+		} else {
+
+			// ループ
+			for (var y = Y_from; y <= Y_to; y++) {
+
+				// ASIN番号
+				var asin = exl.getValue(sheetName, COL_C + y);
+				// SKU番号
+				var sku = exl.getValue(sheetName, COL_D + y);
+				// 仕入数量
+				var count = exl.getValue(sheetName, COL_Z + y);
+
+				if (sku == null || sku == '' || asin == null || asin == '') {
+
+					break;
+
+				} else {
+
+					if (count != null && count != '' && parseInt(count) > 0) {
+						if (flg == 1) {
+
+							// 新规TRN_納品明細
+							var selectResult2 = db.change(
+								"DELIVERY",
+								"insertdeliverydata",
+								{
+									no: no,
+									asin: asin,
+									sku: sku,
+									num: count,
+									shopid: getShopId()
+								}
+							);
+
+						}
+						
+						if (flg == 2) {
+
+							// 新規TRN_仕入明細（非暫定データ）
+							var selectResult2 = db.change(
+								"PURCHASE",
+								"insertpurchasedata",
+								{
+									purchaseno: no,
+									asin: asin,
+									sku: sku,
+									num: parseInt(count),
+									shopid: getShopId()
+								}
+							);
+
+						}
+
+
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+}
+
+
+function deleteProContent(no, flg) {
+
+	if (flg == 1) {
+		// 纳品明細削除
+		var deleteResult = db.change(
+			"DELIVERY",
+			"deleteDeliveryContent",
+			{
+				no: no,
+				shopid: getShopId()
+			}
+		);
+	}
+	if (flg == 2) {
+		// 仕入明細削除
+		var deleteResult = db.change(
+			"PURCHASE",
+			"deletePurchaseContent",
+			{
+				purchaseno: no,
+				shopid: getShopId()
+			}
+		);
+	}
+}
 
 /////////////////////////////////////////////////////////////Excel読み取り/////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ delivery_add.fire = function (params) {
 	var deliveryfile = params["#file_deliveryfile"];
 
 	// 明細導入
-	importProContent(deliveryfile, deliveryno);
+	importProContent(deliveryfile, deliveryno, 1);
 
 	// 新規TRN_納品管理
 	var selectResult1 = db.change(
@@ -54,85 +54,3 @@ delivery_add.fire = function (params) {
 	return ret;
 
 };
-
-
-// 納品内容導入
-function importProContent(proContent, deliveryno) {
-
-	// deleteProContent(purchaseno);
-
-	// ファイル
-	file.saveUploadFiles(getShopId() + "/upload");
-	var fa = proContent.split("\\");
-	var f = fa[fa.length - 1];
-
-	// Excelファイル
-	var exl = new Excel(getShopId() + "/upload/" + f);
-
-	// excelシート名
-	var exlarray = exl.getSheetNames();
-
-	// 列名
-	var COL_B = "B";	//商品管理番号
-	var COL_C = "C";	//ASIN番号
-	var COL_D = "D";	//SKU番号
-	var COL_F = "F";	//分類１
-	var COL_G = "G";	//分類２
-	var COL_Z = "Z";	//納品数量
-	var Y_from = 3;		//EXCEL開始行
-	var Y_to = 9999;	//EXCEL終了行
-
-	
-	// 各シートから仕入内容を取得
-	for (var i = 0; i < exlarray.length; i++) {
-
-		var sheetName = exlarray[i];
-
-		if(sheetName == "暫定データ"){
-
-		}else if(sheetName == "DELIVERYLIST"){
-		
-		}else if(sheetName == "PURCHASELIST"){
-		
-		}else{
-
-			// ループ
-			for (var y = Y_from; y <= Y_to; y++) {
-
-				// ASIN番号
-				var asin = exl.getValue(sheetName, COL_C + y);
-				// SKU番号
-				var sku = exl.getValue(sheetName, COL_D + y);
-				// 納品数量
-				var count = exl.getValue(sheetName, COL_Z + y);
-
-				if (sku == null || sku == '' || asin == null || asin == '') {
-
-						break;
-					
-				}else{
-
-					if(count != null && count != '' && parseInt(count) > 0){
-
-						// 新规TRN_納品明細
-						var selectResult2 = db.change(
-							"DELIVERY",
-							"insertdeliverydata",
-							{
-								no: deliveryno,
-								asin: asin,
-								sku: sku,
-								num: count,
-								shopid: getShopId()
-							}
-						);
-					}
-
-				}
-			}
-
-		}
-		
-	}
-
-}

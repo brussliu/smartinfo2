@@ -87,7 +87,6 @@ function loadAcceptanceFile(receiverfile, flg){
 	var f = fa[fa.length - 1];
 
 	var csvReader = new CSVReader(getShopId() + "/upload/" + f, ",", "\"", "MS932");
-
 	if(flg == 1){
 		// データ全件導入
 		csvReader.loopAllLines(importAcceptance1);

@@ -777,5 +777,17 @@
 		and 
 			"店舗ID" = :shopid
 	</sql>
+
+	
+		<sql id="selectSkuList">
+		select
+			"SKU番号" || '	' ||"数量" as skuinfo
+		from
+			"TRN_納品明細"
+		WHERE 
+			"納品NO" = :col0
+		and 
+			"店舗ID" = :shopid
+	</sql>
  </sqls>
 

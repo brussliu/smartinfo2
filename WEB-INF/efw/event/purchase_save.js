@@ -137,7 +137,7 @@ purchase_save.fire = function (params) {
 			}
 		);
 		
-		importProContent(proContent, newpurchaseno);
+		importProContent(proContent, newpurchaseno , 2);
 
 
 	// 更新の場合 
@@ -196,7 +196,7 @@ purchase_save.fire = function (params) {
 			if(status == "1.新　規"){
 
 				// 明細導入
-				importProContent(proContent, purchaseno);
+				importProContent(proContent, purchaseno , 2);
 			}
 
 			// 発送済の場合、途中計上を削除し、導入して、再度途中に計上する
@@ -213,7 +213,7 @@ purchase_save.fire = function (params) {
 				);
 
 				// 明細導入
-				importProContent(proContent, purchaseno);
+				importProContent(proContent, purchaseno , 2);
 
 				// 途中在庫へ計上
 				var updateResult = db.change(
@@ -241,7 +241,7 @@ purchase_save.fire = function (params) {
 				);
 
 				// 明細導入
-				importProContent(proContent, purchaseno);
+				importProContent(proContent, purchaseno , 2);
 
 				// Local在庫へ計上
 				var updateResult = db.change(
@@ -274,147 +274,11 @@ purchase_save.fire = function (params) {
 	}
 
 	ret.eval("purchase_detail_inputdialog.dialog('close');");
-	// ret.eval("choice('');");
 	ret.eval("init();");
 	// 画面へ結果を返す
 	return ret;
 
 };
-
-function deleteProContent(purchaseno){
-	// 仕入明細削除
-	var deleteResult = db.change(
-		"PURCHASE",
-		"deletePurchaseContent",
-		{
-			purchaseno: purchaseno,
-			shopid: getShopId()
-		}
-	);
-}
-
-// 仕入内容導入
-function importProContent(proContent, purchaseno) {
-
-	deleteProContent(purchaseno);
-
-	// ファイル
-	file.saveUploadFiles(getShopId() + "/upload");
-	var fa = proContent.split("\\");
-	var f = fa[fa.length - 1];
-
-	// Excelファイル
-	var exl = new Excel(getShopId() + "/upload/" + f);
-
-	// excelシート名
-	var exlarray = exl.getSheetNames();
-
-	// 列名
-	var COL_B = "B";//商品管理番号
-	var COL_C = "C";//ASIN番号
-	var COL_D = "D";//SKU番号
-	var COL_F = "F";//分類１
-	var COL_G = "G";//分類２
-	var COL_Z = "Z";//仕入数量
-	var Y_from = 3;//EXCEL開始行
-	var Y_to = 9999;//EXCEL終了行
-
-	
-	// 各シートから仕入内容を取得
-	for (var i = 0; i < exlarray.length; i++) {
-
-		var sheetName = exlarray[i];
-
-		if(sheetName == "暫定データ"){
-
-			// ループ
-			for (var y = Y_from; y <= Y_to; y++) {
-
-				// 商品管理番号
-				var pno = exl.getValue(sheetName, COL_B + y);
-				// 分類１
-				var sub1 = exl.getValue(sheetName, COL_F + y);
-				// 分類２
-				var sub2 = exl.getValue(sheetName, COL_G + y);
-				// 仕入数量
-				var count = exl.getValue(sheetName, COL_Z + y);
-
-				if ((pno == null || pno == '') &&
-					(sub1 == null || sub1 == '') &&
-					(sub2 == null || sub2 == '')) {
-					
-						break;
-					
-				}else{
-
-					if(count != null && count != '' && parseInt(count) > 0){
-
-						// 新規TRN_仕入明細（暫定データ）
-						var selectResult2 = db.change(
-							"PURCHASE",
-							"insertpurchasedata2",
-							{
-								pno: pno,
-								sub1: sub1,
-								sub2: sub2,
-								num: parseInt(count),
-								shopid: getShopId()
-							}
-						);
-					}
-
-				}
-			}
-
-		}else if(sheetName == "DELIVERYLIST"){
-		
-		
-		}else if(sheetName == "PURCHASELIST"){
-		
-		
-		}else{
-
-			// ループ
-			for (var y = Y_from; y <= Y_to; y++) {
-
-				// ASIN番号
-				var asin = exl.getValue(sheetName, COL_C + y);
-				// SKU番号
-				var sku = exl.getValue(sheetName, COL_D + y);
-				// 仕入数量
-				var count = exl.getValue(sheetName, COL_Z + y);
-
-				if (sku == null || sku == '' ||
-					asin == null || asin == '') {
-					
-						break;
-					
-				}else{
-
-					if(count != null && count != '' && parseInt(count) > 0){
-
-						// 新規TRN_仕入明細（非暫定データ）
-						var selectResult2 = db.change(
-							"PURCHASE",
-							"insertpurchasedata",
-							{
-								purchaseno: purchaseno,
-								asin: asin,
-								sku: sku,
-								num: parseInt(count),
-								shopid: getShopId()
-							}
-						);
-					}
-
-				}
-			}
-
-		}
-		
-	}
-
-}
 
 
 // sl:根据单位确认左右的值
