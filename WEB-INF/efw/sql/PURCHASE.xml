@@ -31,7 +31,7 @@
  WHERE
 	"店舗ID" = :shopid 
  ORDER BY
-	"仕入NO"
+	"仕入NO" desc
 </sql>
 
 <!-- sl:削除 -->

@@ -98,7 +98,7 @@
                         $('#btn_update').attr('disabled', false);
                         $('#btn_encasement').attr('disabled', false);
                         $('#btn_delete').attr('disabled', false);
-                        $('#btn_outputfile').attr('disabled', true);
+                        $('#btn_outputfile').attr('disabled', false);
                         $('#btn_send').attr('disabled', false);
                         $('#btn_receiver').attr('disabled', true);
                         $('#btn_final').attr('disabled', true);
@@ -108,7 +108,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', false);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_receiver').attr('disabled', false);
                         $('#btn_final').attr('disabled', false);
@@ -118,7 +118,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', false);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_receiver').attr('disabled', false);
                         $('#btn_final').attr('disabled', false);
@@ -128,7 +128,7 @@
                         $('#btn_update').attr('disabled', true);
                         $('#btn_encasement').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
-                        $('#btn_outputfile').attr('disabled', false);
+                        $('#btn_outputfile').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_receiver').attr('disabled', true);
                         $('#btn_final').attr('disabled', true);
