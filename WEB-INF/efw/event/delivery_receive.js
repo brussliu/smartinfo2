@@ -49,14 +49,7 @@ delivery_receive.fire = function (params) {
 		// 受領ファイル取り込み
 		loadAcceptanceFile(receiverfile, 2);
 
-
-
-
 	}
-
-
-
-
 
 
 	// 2.更新纳品管理受領数量
@@ -132,75 +125,15 @@ function importAcceptance2(aryField, index) {
 		var asin = aryField[2];
 
 		// TODO 納品明細の数量と受領数量を検索する √
-		var select = db.select(	"DELIVERY",	"queryCountAndAcceptance",
-		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()}).getSingle();
-
-		var count = select["count"];
-		var acceptance_old = select["acceptance"];
-
-		if(acceptance_new > acceptance_old){
-
-			// TODO 数量 <= 受領数量 √
-			if(count <= acceptance_old){
-
-				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
-
-				var update = db.change(	"DELIVERY",	"updateLocalA",
-				{
-				  "acceptance_new": acceptance_new,
-				  "acceptance_old": acceptance_old,
-				  "asin": asin,
-				  "sku": sku,
-				  "shopid": getShopId()
-				});
+		var selectResult = db.select(	"DELIVERY",	"queryCountAndAcceptance",
+		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()});
 		
-				// 受領数量更新
-				var update = db.change(	"DELIVERY",	"updateAcceptance",
-				{
-				  "acceptance_new": acceptance_new,
-				  "asin": asin,
-				  "sku": sku,
-				  "deliveryno": deliveryno,
-				  "shopid": getShopId()
-				});
-
-			}else{
-				// todo 数量 > 受領数量 √
-
-				// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量 =》途中数量 = 途中数量 + 受領数量 - 受領ファイル数量
-				var update = db.change(	"DELIVERY",	"updatePutInB",
-				{
-				  "acceptance_new": acceptance_new,
-				  "acceptance_old": acceptance_old,
-				  "asin": asin,
-				  "sku": sku,
-				  "shopid": getShopId()
-				});
-
-				// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
-				var update = db.change(	"DELIVERY",	"updateLocalA",
-				{
-				  "acceptance_new": acceptance_new,
-				  "acceptance_old": acceptance_old,
-				  "asin": asin,
-				  "sku": sku,
-				  "shopid": getShopId()
-				});
-				// 受領数量更新
-				var update = db.change(	"DELIVERY",	"updateAcceptance",
-				{
-				  "acceptance_new": acceptance_new,
-				  "asin": asin,
-				  "sku": sku,
-				  "deliveryno": deliveryno,
-				  "shopid": getShopId()
-				});
-			}
-
-		}
+		var selectResultObj = selectResult.getSingle();
+		var selectResultArr = selectResult.getArray();
 
 		// 納品明細に存在しない場合、Insert
-		if ( typeof(updResult["count"]) == "undefined" || updResult["count"] == null) {
+		if ( selectResultArr.length == 0) {
+
 			var insResult = db.change(
 				"DELIVERY",
 				"insertAcceptanceDetail",
@@ -212,7 +145,90 @@ function importAcceptance2(aryField, index) {
 					"shopid": getShopId()
 				}
 			);
+
+		}else{
+
+			var count = selectResultObj["count"];
+			var acceptance_old = selectResultObj["acceptance"];
+
+			if(acceptance_new > acceptance_old){
+
+				// TODO 数量 <= 受領数量 √
+				if(count <= acceptance_old){
+	
+					// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+	
+					var update = db.change(	"DELIVERY",	"updateLocalA",
+					{
+					  "acceptance_new": acceptance_new,
+					  "acceptance_old": acceptance_old,
+					  "asin": asin,
+					  "sku": sku,
+					  "shopid": getShopId()
+					});
+			
+					// 受領数量更新
+					var update = db.change(	"DELIVERY",	"updateAcceptance",
+					{
+					  "acceptance_new": acceptance_new,
+					  "asin": asin,
+					  "sku": sku,
+					  "deliveryno": deliveryno,
+					  "shopid": getShopId()
+					});
+	
+				}else{
+					// todo 数量 > 受領数量 √
+	
+					// 途中数量 = LOCAL数量 + 受領数量 - 受領ファイル数量 =》途中数量 = 途中数量 + 受領数量 - 受領ファイル数量
+					var update = db.change(	"DELIVERY",	"updatePutInB",
+					{
+					  "acceptance_new": acceptance_new,
+					  "acceptance_old": acceptance_old,
+					  "asin": asin,
+					  "sku": sku,
+					  "shopid": getShopId()
+					});
+	
+					// LOCAL数量 = LOCAL数量 + 受領数量 - 受領ファイル数量
+					var update = db.change(	"DELIVERY",	"updateLocalA",
+					{
+					  "acceptance_new": acceptance_new,
+					  "acceptance_old": acceptance_old,
+					  "asin": asin,
+					  "sku": sku,
+					  "shopid": getShopId()
+					});
+					// 受領数量更新
+					var update = db.change(	"DELIVERY",	"updateAcceptance",
+					{
+					  "acceptance_new": acceptance_new,
+					  "asin": asin,
+					  "sku": sku,
+					  "deliveryno": deliveryno,
+					  "shopid": getShopId()
+					});
+				}
+	
+			}
+
 		}
+
+	
+		// // 納品明細に存在しない場合、Insert
+		// if ( typeof(updResult["count"]) == "undefined" || updResult["count"] == null) {
+		// 	var insResult = db.change(
+		// 		"DELIVERY",
+		// 		"insertAcceptanceDetail",
+		// 		{
+		// 			"col0": deliveryno,
+		// 			"col1": sku,
+		// 			"col2": asin,
+		// 			"col3": acceptance_new,
+		// 			"shopid": getShopId()
+		// 		}
+		// 	);
+		// }
 
 	}
 
