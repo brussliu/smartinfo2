@@ -190,7 +190,7 @@ purchase_save.fire = function (params) {
 		);
 
 
-		if (proContent != null && proContent == '') {
+		if (proContent != null && proContent != "") {
 
 			// 新規の場合、明細のみ導入
 			if(status == "1.新　規"){
@@ -261,7 +261,7 @@ purchase_save.fire = function (params) {
 	}
 
 
-	if (proContent != null && proContent == '') {
+	if (proContent != null && proContent != "") {
 		// 数量合計、金額合計を更新
 		var countResult = db.change(
 			"PURCHASE",
@@ -270,7 +270,7 @@ purchase_save.fire = function (params) {
 				purchaseno: purchaseno,
 				shopid: getShopId()
 			}
-		).getArray();
+		);
 	}
 
 	ret.eval("purchase_detail_inputdialog.dialog('close');");
