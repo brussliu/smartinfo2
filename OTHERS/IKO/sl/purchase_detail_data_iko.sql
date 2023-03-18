@@ -15,7 +15,7 @@ to_number(T."’P‰¿",'999999.99'),
 to_number(T."”—Ê",'999999'),
 to_number(T."‹àŠz",'999999.99'),
 
- null,
+b."b’èƒtƒ‰ƒO",
  'Smart-Bear',
 current_timestamp,
 current_timestamp
