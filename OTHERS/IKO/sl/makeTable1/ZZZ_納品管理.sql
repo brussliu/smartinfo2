@@ -1,4 +1,4 @@
-create table public."納品管理" (
+create table public."ZZZ_納品管理" (
   "店舗名" character varying(20)
   , "納品NO" character varying(20)
   , "納品名称" character varying(100)

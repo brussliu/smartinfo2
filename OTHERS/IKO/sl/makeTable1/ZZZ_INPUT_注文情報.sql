@@ -1,4 +1,4 @@
-create table public."INPUT_注文情報" (
+create table public."ZZZ_INPUT_注文情報" (
   "Amazon注文番号" character varying(50)
   , "商品注文番号" character varying(50)
   , "注文日時" character varying(50)
