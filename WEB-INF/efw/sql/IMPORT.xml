@@ -12,7 +12,7 @@
 			IPT."店舗ID" = :shopId
 	</sql>
 
-	<sql id="insert_05_t1">
+	<sql id="insert_05_t1" paramPrefix="!">
 		insert into "TRN_発送情報" ( 
 			  "Amazon注文番号"
 			, "Qoo10注文番号"
@@ -62,10 +62,10 @@
 			, null as "代行発送管理番号"
 			, null as "自行発送管理番号"
 
-			, "purchase-date" as "受注日時"
-			, "payments-date" as "支払日時"
-			, "promise-date" as "出荷期限日時"
-			, "days-past-promise" as "期限日数"
+			, to_timestamp("purchase-date",'yyyy-MM-dd hh24:mi:ss') as "受注日時"
+			, to_timestamp("payments-date",'yyyy-MM-dd hh24:mi:ss') as "支払日時"
+			, to_timestamp("promise-date",'yyyy-MM-dd hh24:mi:ss') as "出荷期限日時"
+			, cast("days-past-promise" as int) as "期限日数"
 
 			, MST."ASIN番号" as "ASIN番号"
 			, MST."SKU番号" as "SKU番号" 
@@ -75,7 +75,7 @@
 			, MST."分類２" as "分類２"
 			, MST."商品名称" as "商品名称"
 			, null as "オプション内容"
-			, "quantity-to-ship" as "数量"
+    		, cast("quantity-to-ship" as int) as "数量"
 
 			, "buyer-email" as "購入者メール"
 			, "buyer-name" as "購入者氏名"
@@ -95,7 +95,7 @@
 			, MST."FBM発送方式" as "発送方法" 
 			, '1.未発送' as "ステータス" 
 
-			, "店舗ID" 
+			, IPT."店舗ID" 
 			, now()
 			, now()
 		from
@@ -111,10 +111,10 @@
 					TRN."Amazon注文番号" = IPT."order-id" 
 					and
 					TRN."SKU番号" = IPT."sku" 
-					and
-					and TRN."店舗ID" = IPT."店舗ID"
+					and 
+					TRN."店舗ID" = IPT."店舗ID"
 			) 
-			and IPT."店舗ID" = :shopId
+			and IPT."店舗ID" = !shopId
 	</sql>
 
 	<sql id="insert_06_t1">
