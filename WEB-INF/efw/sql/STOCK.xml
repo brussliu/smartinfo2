@@ -322,8 +322,8 @@
 			case when a."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
 			c."在庫販売可能日数" as stocknumber,
 			c."保有数量販売可能日数" as salenumber,
-			c."推奨納品数量" as deliveryquantity,
-			c."推奨仕入数量" as purchasequantity,
+			case when c."推奨納品数量" &lt;= 0 then null else c."推奨納品数量" end as deliveryquantity,
+			case when c."推奨仕入数量" &lt;= 0 then null else c."推奨仕入数量" end as purchasequantity,
 			a."店舗ID" as shopid,
 			a."暫定フラグ" as zt_flg
 		from
@@ -637,7 +637,7 @@
 			"MST_入庫仕入推奨数量情報"."店舗ID" = :shopId
 	</sql>
 
-	<sql id="selectdeliverynumber">
+	<!-- <sql id="selectdeliverynumber">
 		SELECT DISTINCT
 			"推奨納品数量" num
 		FROM
@@ -650,7 +650,7 @@
 			"店舗ID" = :shopId
 			and
 			"推奨納品数量" > 0
-	</sql>
+	</sql> -->
 
 
 
@@ -658,7 +658,7 @@
 	<sql id="updatepurchasenumber">
 		update "MST_入庫仕入推奨数量情報" set
 			"推奨仕入数量" = 
-					COALESCE(MST3."販売数量（日平均値）", 0) * cast(:date as int) - 
+					COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - 
 					(	COALESCE(MST2."FBA在庫", 0) + 
 						COALESCE(MST2."FBM在庫", 0) + 
 						COALESCE(MST2."途中在庫_入庫", 0) + 

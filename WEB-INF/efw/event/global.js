@@ -512,7 +512,7 @@ function writeExcel(selectResult0, selectResult1, exl, exl_flg) {
 
 		} 
 		// 设定值
-		setInfoToExcel(excel, selectResult0[i], new_type, y_from, writeCount);
+		setInfoToExcel(excel, selectResult0[i], new_type, y_from, exl_flg);
 		old_type = new_type;
 		y_from ++;
 
@@ -529,7 +529,7 @@ function writeExcel(selectResult0, selectResult1, exl, exl_flg) {
 			excel.delRow("暫定データ", y_from - 1, 500 - y_from + 1);
 
 			// 设定值
-			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from, writeCount);
+			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from, exl_flg);
 			y_from ++;
 
 		}
@@ -543,7 +543,7 @@ function writeExcel(selectResult0, selectResult1, exl, exl_flg) {
 }
 
 
-function setInfoToExcel(excel, selectRecord, sheetName, from, writeCount) {
+function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 
 
 	var COL_B = "B";
@@ -597,8 +597,10 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, writeCount) {
 	var selled360 = returnQuantity(selectRecord["selled360"]);
 	var dayaverage = returnNumber(selectRecord["dayaverage"]);
 
-	if(writeCount == true){
-		var num = returnNumber(selectRecord["num"]);
+	if(exl_flg == '1'){
+		var num = returnNumber(selectRecord["deliveryquantity"]);
+	}else if(exl_flg == '2'){
+		var num = returnNumber(selectRecord["purchasequantity"]);
 	}
 	
 	// 管理番号
@@ -646,7 +648,7 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, writeCount) {
 	// 販売数量(参照値)
 	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
 	// 納品数量
-	if(writeCount == true){
+	if(exl_flg == '1' || exl_flg == '2'){
 		setExcelValue(excel, sheetName, COL_Z + from, num);
 	}
 }

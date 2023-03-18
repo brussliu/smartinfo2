@@ -671,13 +671,13 @@
 			b."販売数量（直近１８０日間）" as selled180, 
 			b."販売数量（直近３６０日間）" as selled360, 
 			case when m."親子区分" = '親商品' then null else rpad(cast(round(b."販売数量（日平均値）", 5) as varchar), 5, '0') end as dayaverage,
-			c."在庫販売可能日数" as stocknumber,
+			<!-- c."在庫販売可能日数" as stocknumber,
 			c."保有数量販売可能日数" as salenumber,
 			c."推奨納品数量" as deliveryquantity,
-			c."推奨仕入数量" as purchasequantity,
+			c."推奨仕入数量" as purchasequantity, -->
 			m."店舗ID" as shopid,
 			m."暫定フラグ" as zt_flg,
-			a."数量" as num
+			a."数量" as purchasequantity
 		from
 			"MST_出品マスタ情報" m
 			left join "TRN_仕入明細" a on m."ASIN番号" = a."ASIN番号" and m."SKU番号" = a."SKU番号" and m."店舗ID" = a."店舗ID" and a."仕入NO" = :no
@@ -729,13 +729,13 @@
 		null as selled180, 
 		null as selled360, 
 		null as dayaverage,
-		null as stocknumber,
+		<!-- null as stocknumber,
 		null as salenumber,
 		null as deliveryquantity,
-		null as purchasequantity,
+		null as purchasequantity, -->
 		m."店舗ID" as shopid,
 		m."暫定フラグ" as zt_flg,
-		a."数量" as num
+		a."数量" as purchasequantity
 	from
 		"MST_出品マスタ情報" m
 		left join "TRN_仕入明細" a on 
