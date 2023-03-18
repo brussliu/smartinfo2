@@ -23,5 +23,5 @@ FROM
 	"ZZZ_仕入明細" T LEFT JOIN "MST_出品マスタ情報" b 
 	ON T."ASIN番号" = b."ASIN番号" 
 	AND T."SKU番号" = b."SKU番号" 
-	AND T."店舗ID" = 'Smart-Bear'
+	
 ;
