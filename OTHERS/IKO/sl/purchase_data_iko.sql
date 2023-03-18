@@ -31,7 +31,7 @@ to_number(T."税金円貨",'999999.99'),
 null,
 to_number(T."合計仕入費用",'999999.99'),
 to_number(T."合計仕入費用円貨",'999999'),
-
+null,
 'Smart-Bear',
 current_timestamp,
 current_timestamp

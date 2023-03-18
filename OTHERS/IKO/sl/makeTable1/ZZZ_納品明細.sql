@@ -1,7 +1,7 @@
-create table public."ZZZ_ç´å“æ˜ç´°" (
-  "ç´å“NO" character varying(20)
-  , "SKUç•ªå·" character varying(50)
-  , "ASINç•ªå·" character varying(50)
-  , "æ•°é‡" character varying(10)
-  , "å—é ˜æ•°é‡" character varying(10)
+create table public."ZZZ_”[•i–¾×" (
+  "”[•iNO" character varying(20)
+  , "SKU”Ô†" character varying(50)
+  , "ASIN”Ô†" character varying(50)
+  , "”—Ê" character varying(10)
+  , "ó—Ì”—Ê" character varying(10)
 );
