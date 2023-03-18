@@ -66,8 +66,8 @@
                 }
 
                 // 納品NOリンク押下
-                function outputFile(){
-                    var deliveryno = $('input:radio[name="choice"]:checked').val();
+                function outputFile(obj){
+                    var deliveryno = $(obj).html();
                     Efw('delivery_output', { "deliveryno": deliveryno });
                 }
 
@@ -201,7 +201,7 @@
                                             onclick="box()">箱詰め</button></td>
                                     <td style="width: 120px;"><button id="btn_delete" disabled="disabled" onclick="deletedelivery()">納品削除</button>
                                     </td>
-                                    <td style="width: 240px;"><button id="btn_outputfile" 
+                                    <td style="width: 240px;"><button id="btn_outputfile" disabled="disabled"
                                             onclick="outputdeliveryfile();" style="width: 220px;">納品作成用ファイル出力</button>
                                     </td>
                                     <td style="width: 120px;"><button id="btn_send" onclick="send()"
