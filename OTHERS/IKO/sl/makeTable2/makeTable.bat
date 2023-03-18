@@ -59,7 +59,4 @@ SET PORT=5432
 %PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f TRN_発送情報.sql
 
 
-%PGPATH% -h %IPADDRESS% -p %PORT% -d %DATABASE% -U %DBUSR% -f ZZZ_NEW_出品マスタ情報.sql
-
-
 pause
