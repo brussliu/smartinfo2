@@ -117,7 +117,7 @@ function processFile(fileno, countKS){
 				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + csvFile);
 				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + htmlFile);
 	
-				fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
+				// fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
 
 			}else{
 	
@@ -145,7 +145,7 @@ function processFile(fileno, countKS){
 				deleteImortFileInfo(fileno+"_1");
 				deleteImortFileInfo(fileno+"_2");
 	
-				fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
+				// fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
 	
 			}
 
@@ -179,7 +179,8 @@ function processFile(fileno, countKS){
 		
 				file.remove(UPLOAD_FILE_PATH + "\\" + filefoldername + "\\" + filename_old);
 	
-				fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
+				// fileno.debug("ファイル"+fileno+"はProcessingに移動しました！");
+
 			}else{
 	
 				var fileinfo2 = filelistProcess[0];
@@ -196,7 +197,7 @@ function processFile(fileno, countKS){
 				
 				deleteImortFileInfo(fileno);
 	
-				fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
+				// fileno.debug("Processingに存在したものを削除して、新しいファイル"+fileno+"を、再度Processingに移動しました！");
 	
 			}
 	

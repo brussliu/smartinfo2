@@ -28,7 +28,6 @@ purchase_delfile.fire = function (params) {
 	// 		shopid: getShopId()
 	// 	}
 	// ).getArray();
-	// selectResult.debug("-------------queryPurchaseFileFordataname");
 	
 	// ファイル削除
 	var files = getShopId() + "/purchasefile/" + purchaseno + "/" + filename;

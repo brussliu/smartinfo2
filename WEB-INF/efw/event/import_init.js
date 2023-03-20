@@ -35,8 +35,6 @@ import_init.fire = function (params) {
 	// セッションチェック
 	if(sessionCheck(ret) == false){return ret};
 
-	ret.debug("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-
 	// タイトル情報設定
 	setTitleInfo(ret);
 
@@ -58,7 +56,6 @@ import_init.fire = function (params) {
 	}
 
 	var selectResult2 = db.select("IMPORT",	"selectInitInfo2",	{"shopId": getShopId()}).getArray();
-	selectResult2.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 	
 	// 取得したデータを画面に表示する
 	for (var i = 0; i < selectResult2.length; i++) {
@@ -67,11 +64,6 @@ import_init.fire = function (params) {
 		script = script + "setInit2('" + datatype + "','" + selectResult2[i]["導入ファイル名"] + "','" + selectResult2[i]["導入日時"].format("yyyy-MM-dd HH:mm:ss") + "','" + selectResult2[i]["導入件数"] + "');";
 		
 	}
-
-
-	UPLOAD_FILE_PATH.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-	PROCESS_FILE_PATH.debug("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
 	var r1 = checkUpladFileExsits(UPLOAD_FILE_PATH);
 	var r2 = checkUpladFileExsits(PROCESS_FILE_PATH);

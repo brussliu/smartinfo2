@@ -42,8 +42,6 @@ common_login.fire=function(params){   //
 
 		}else{
 
-			selectResult.debug("--------------------------------------------");
-
 			return ret.navigate("shoplist.jsp");
 
 		}

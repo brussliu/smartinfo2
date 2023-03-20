@@ -88,7 +88,7 @@ purchase_upload.fire = function (params) {
 	// 		shopid: getShopId()
 	// 	}
 	// ).getArray();
-	// selectResult.debug('----queryPurchaseFile---');
+
 	// var resultHTML = '<tr>' +
 	// 	'<td><img src="img/{suffix}.png"></img></td>' +
 	// 	'<td style="width: 400px;" class="a">{dataname}.{suffix}</td>' +

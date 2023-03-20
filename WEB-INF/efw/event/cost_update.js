@@ -48,7 +48,7 @@ cost_update.fire = function (params) {
 		
 	// 	}
 	// );
-	// params.debug("99999999999999999999999999999999999999999999999999999999999");
+
 	var selectResult = db.select(
 		"COST",
 		"selectCostInfo",
@@ -58,7 +58,6 @@ cost_update.fire = function (params) {
 			
 		}
 	).getSingle();
-	selectResult.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
 	ret.runat("#cost_inputdialog")
 	.withdata(

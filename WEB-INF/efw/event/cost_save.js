@@ -24,19 +24,23 @@ cost_save.fire=function(params){
 	if (sessionCheck(ret) == false) { return ret };
 
 	if(params["#opt"] == "NEW"){
+
 		var jpy = null;
 		var cny = null;
-		params["#opt"].debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
 		
 	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+
 		jpy = parseFloat(params["#txt_account"]);
-		jpy.debug("----------------------------------------------------");
 		cny = jpy * parseFloat(params["#txt_exchangerate"]) / 100;
+
 	}
+
 	if(params["#opt_currency"] == "CNY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+
 		cny = parseFloat(params["#txt_account"]);
-		cny.debug("-1---1----1-----1------1---------1----------1-----1-----1---");
 		jpy = cny / parseFloat(params["#txt_exchangerate"]) * 100;
+
 	}
 
 	// var arys = new Array();
@@ -63,18 +67,19 @@ cost_save.fire=function(params){
 	);
 	}
 	if(params["#opt"] == "UPDATE"){
-		params["#opt"].debug("UPDATE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
 		var jpy = null;
 		var cny = null;
 	
 	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+
 		jpy = parseFloat(params["#txt_account"]);
-		jpy.debug("----------------------------------------------------");
 		cny = jpy * parseFloat(params["#txt_exchangerate"]) / 100;
 	}
+
 	if(params["#opt_currency"] == "CNY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+		
 		cny = parseFloat(params["#txt_account"]);
-		cny.debug("-1---1----1-----1------1---------1----------1-----1-----1---");
 		jpy = cny / parseFloat(params["#txt_exchangerate"]) * 100;
 	}
 

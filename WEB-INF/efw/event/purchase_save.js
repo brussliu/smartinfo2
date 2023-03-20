@@ -41,8 +41,6 @@ purchase_save.fire = function (params) {
 	// セッションチェック
 	if(sessionCheck(ret) == false){return ret};
 
-	params.debug("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
 	// 操作区分
 	var opt = params["#opt"];
 	// // 仕入NO
