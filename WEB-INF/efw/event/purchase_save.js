@@ -139,6 +139,15 @@ purchase_save.fire = function (params) {
 		
 		importProContent(proContent, newpurchaseno , 2);
 
+			// 数量合計、金額合計を更新
+			var countResult = db.change(
+				"PURCHASE",
+				"updateCountAndAmount",
+				{
+					purchaseno: newpurchaseno,
+					shopid: getShopId()
+				}
+			);
 
 	// 更新の場合 
 	}else if (opt == 'update') {
@@ -255,23 +264,23 @@ purchase_save.fire = function (params) {
 				
 			}
 
+			// 数量合計、金額合計を更新
+			var countResult = db.change(
+				"PURCHASE",
+				"updateCountAndAmount",
+				{
+					purchaseno: purchaseno,
+					shopid: getShopId()
+				}
+			);
+
 		}
 
 
 	}
 
 
-	if (proContent != null && proContent != "") {
-		// 数量合計、金額合計を更新
-		var countResult = db.change(
-			"PURCHASE",
-			"updateCountAndAmount",
-			{
-				purchaseno: purchaseno,
-				shopid: getShopId()
-			}
-		);
-	}
+
 
 	ret.eval("purchase_detail_inputdialog.dialog('close');");
 	ret.eval("init();");

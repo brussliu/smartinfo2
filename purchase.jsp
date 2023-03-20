@@ -94,7 +94,8 @@
 
                     // 添付ファイル区域
                     $('#purchasediv').css('display', 'inline-block');
-
+                    // 仕入内容
+                    $('#file_proContent').val("");
                     // 操作区分
                     $('#opt').val('update');
 
