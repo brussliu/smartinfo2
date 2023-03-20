@@ -9,9 +9,7 @@ common_menuinit.fire=function(params){   //
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
-
-	ret.debug("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+	if(sessionCheck(ret) == false){return ret};
 
 	// タイトル情報設定
 	setTitleInfo(ret);

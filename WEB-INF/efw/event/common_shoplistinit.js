@@ -11,7 +11,7 @@ common_shoplistinit.fire=function(params){   //
 	clearSessionForShopList();
 
 	// セッションチェック
-	sessionCheckForShopList(ret);
+	if(sessionCheckForShopList(ret) == false){return ret};
 
 	// タイトル情報設定
 	setTitleInfoForShopList(ret);

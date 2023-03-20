@@ -9,7 +9,7 @@ masterinfo_init.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	// タイトル情報設定
 	setTitleInfo(ret);

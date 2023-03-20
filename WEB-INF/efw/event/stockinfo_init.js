@@ -8,7 +8,7 @@ stockinfo_init.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	// タイトル情報設定
 	setTitleInfo(ret);
@@ -25,7 +25,6 @@ stockinfo_init.fire = function (params) {
 	var resultHTML1 = "<option value='{value}'class='option' >{text}</option>";
 
 	ret.runat("#opt_productno").remove("option .option").append(resultHTML1).withdata(selectResult1);
-	selectResult1.debug("-------searchproducno---------");
 
 	// sl:商品分类初始化
 	var selectResult2 = db.select(
@@ -39,6 +38,6 @@ stockinfo_init.fire = function (params) {
 	var resultHTML2 = "<input type='checkbox' value='{value}'>&nbsp;{text}&nbsp;&nbsp;";
 
 	ret.runat("#checkbox_producttype").remove("*").append(resultHTML2).withdata(selectResult2);
-	selectResult2.debug("------searchproducttype----------")
+
 	return ret;
 };

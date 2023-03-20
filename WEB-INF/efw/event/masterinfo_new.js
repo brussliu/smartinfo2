@@ -9,7 +9,7 @@ masterinfo_new.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	// 商品管理番号初期化
 	var selectResult1 = db.select(

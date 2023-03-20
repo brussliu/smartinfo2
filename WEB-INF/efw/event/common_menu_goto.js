@@ -10,7 +10,7 @@ common_menu_goto.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if(sessionCheck(ret) == false){return ret};
 
 	
 	return ret.navigate(params["page"]);

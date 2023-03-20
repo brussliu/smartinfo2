@@ -47,9 +47,7 @@ masterinfo_save.fire = function (params) {
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
-
-	params.debug("==========================================================================");
+	if (sessionCheck(ret) == false) { return ret };
 
 	// 操作区分
 	var opt = params["#opt"];

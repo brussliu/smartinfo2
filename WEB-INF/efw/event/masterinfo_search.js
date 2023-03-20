@@ -15,7 +15,7 @@ masterinfo_search.fire=function(params){
 	var ret = new Result();
 
 	// セッションチェック
-	sessionCheck(ret);
+	if (sessionCheck(ret) == false) { return ret };
 
 	var pdArr = params["producttype"];
 	var productno = params["#productno"];
@@ -75,8 +75,6 @@ masterinfo_search.fire=function(params){
 	// ret.eval(script);
 
 	ret.show('.c_detail_header').show('.c_detail_content');
-
-	//notenough.debug("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 
 	if(notenough != null && notenough != ""){
 		ret.eval("changeColor(1)");
