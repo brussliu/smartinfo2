@@ -506,8 +506,6 @@
  SET 
   
 		"仕入名称"= !purchase,
-		"数量"= !count,
-		"金額"= !money,
  
 		"発送日①"= to_timestamp(!forwarddate1,'yyyy-MM-dd hh24:mi:ss'),
 		"発送日②"= to_timestamp(!forwarddate2,'yyyy-MM-dd hh24:mi:ss'),
