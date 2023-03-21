@@ -563,7 +563,7 @@
 <!--sl:更新MST_在庫情報-加上途中在庫_仕入数量  -->
 <sql id="allocateStockToShip" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "途中在庫_仕入" = "途中在庫_仕入" + TRN."数量"
+	SET "途中在庫_仕入" = COALESCE("途中在庫_仕入",0) + COALESCE(TRN."数量",0)
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
@@ -574,7 +574,7 @@
 
 <sql id="removeStockFromShip" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "途中在庫_仕入" = "途中在庫_仕入" - TRN."数量"
+	SET "途中在庫_仕入" = COALESCE("途中在庫_仕入",0) - COALESCE(TRN."数量",0)
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
@@ -585,7 +585,7 @@
 
 <sql id="removeStockFromLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "LOCAL在庫" = "LOCAL在庫" - TRN."数量"
+	SET "LOCAL在庫" = COALESCE("LOCAL在庫",0) - COALESCE(TRN."数量",0)
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
@@ -596,7 +596,7 @@
 
 <sql id="allocateStockToLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "LOCAL在庫" = "LOCAL在庫" + TRN."数量"
+	SET "LOCAL在庫" = COALESCE("LOCAL在庫",0) + COALESCE(TRN."数量",0)
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 

@@ -223,10 +223,12 @@
                 // }
 
 
+           
                 // 汇率转换
                 function Xchanger() {
                     //為替レート取得
                     var exchange = $("#number_rate").val();
+
                     //商品費用
                     var productamountRMB = $("#number_productamountRMB").val();
                     // 输入为空，转换的值则为空
@@ -309,6 +311,15 @@
                     var jpymoney = jpy1 + jpy2 + jpy3;
                     $("#text_totalRMB").html(rmbmoney.toFixed(2) + '元');
                     $("#text_totalRY").html(jpymoney.toFixed(2) + '円');
+
+                    if(exchange == null || exchange == ""|| exchange == '0'){
+                        $("#number_productamountRY").html('');
+                        $("#number_shipamountRY").html('');
+                        $("#number_faxamountRY").html('');
+                        $("#text_totalRMB").html('');
+                        $("#text_totalRY").html('');
+                   
+                    }
                 }
 
                 // 判断转换的值是否为空

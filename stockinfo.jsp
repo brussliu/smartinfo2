@@ -124,7 +124,7 @@
                             // 途中（仕入）
                             var purchase = tdArr.eq(14);
                             if (purchase.data("text") != "undefined") {
-                                var purchaseval = tdArr.eq(15).children().next().val();
+                                var purchaseval = tdArr.eq(14).children().next().val();
                                 localArr.push(purchaseval);
                             }else{
                                 localArr.push(null);

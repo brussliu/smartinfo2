@@ -34,31 +34,31 @@ purchase_update.fire = function (params) {
 			// 発送方式
 			"#opt_ship":selectResultObj["sendway"],
 			// 登録日
-			"#date_entrydate":selectResultObj["logindate"] == null ? "" : selectResultObj["logindate"].format('yyyy/MM/dd'),
+			"#date_entrydate":isNULLs(selectResultObj["logindate"],4),
 			// 発送日①
-			"#date_forwarddate1":selectResultObj["senddate1"] == null ? "" : selectResultObj["senddate1"].format('yyyy/MM/dd'),
+			"#date_forwarddate1":isNULLs(selectResultObj["senddate1"],4),
 			// 発送日②
-			"#date_forwarddate2":selectResultObj["senddate2"] == null ? "" : selectResultObj["senddate2"].format('yyyy/MM/dd'),
+			"#date_forwarddate2":isNULLs(selectResultObj["senddate2"],4),
 			// 完了日
-			"#date_completiondate":selectResultObj["completiondate"] == null ? "" : selectResultObj["completiondate"].format('yyyy/MM/dd'),
+			"#date_completiondate":isNULLs(selectResultObj["completiondate"],4),
 			// 商品費用
-			"#number_productamountRMB":selectResultObj["productamountrmb"],
+			"#number_productamountRMB":isNULLs(selectResultObj["productamountrmb"],1),
 			// 商品費用（円）
-			"#number_productamountRY":selectResultObj["productamountry"]+"円",
+			"#number_productamountRY":isNULLs(selectResultObj["productamountry"],2),
 			// 物流費用
-			"#number_shipamountRMB":selectResultObj["shipamountrmb"],
+			"#number_shipamountRMB":isNULLs(selectResultObj["shipamountrmb"],1),
 			// 物流費用（円）
-			"#number_shipamountRY":selectResultObj["shipamountry"]+"円",
+			"#number_shipamountRY":isNULLs(selectResultObj["shipamountry"],2),
 			// 税金
-			"#number_faxamountRMB":selectResultObj["faxamountrmb"],
+			"#number_faxamountRMB":isNULLs(selectResultObj["faxamountrmb"],1),
 			// 税金（円）
-			"#number_faxamountRY":selectResultObj["faxamountry"]+"元",
+			"#number_faxamountRY":isNULLs(selectResultObj["faxamountry"],3),
 			// 為替レート
 			"#number_rate":selectResultObj["rate"],
 			// 合計
-			"#text_totalRMB":selectResultObj["totalrmb"]+"元",
+			"#text_totalRMB":isNULLs(selectResultObj["totalrmb"],3),
 			// 合計
-			"#text_totalRY":selectResultObj["totalry"]+"円",
+			"#text_totalRY":isNULLs(selectResultObj["totalry"],2),
 			// 追跡番号
 			"#text_track":selectResultObj["tracknumber"]
 		}
@@ -91,3 +91,22 @@ purchase_update.fire = function (params) {
 	return ret;
 
 };
+
+function isNULLs(val,opt){
+	if(val == null){
+		return '';
+	}else{
+		if(opt==1){
+		}
+		if(opt==2){
+			val = val +'円';
+		}
+		if(opt==3){
+			val = val +'元';
+		}
+		if(opt==4){
+			val = val.format('yyyy/MM/dd');
+		}
+	}
+	return val;
+}
