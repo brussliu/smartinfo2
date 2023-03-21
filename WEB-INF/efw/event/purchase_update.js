@@ -34,13 +34,13 @@ purchase_update.fire = function (params) {
 			// 発送方式
 			"#opt_ship":selectResultObj["sendway"],
 			// 登録日
-			"#date_entrydate":selectResultObj["logindate"].format('yyyy/MM/dd'),
+			"#date_entrydate":selectResultObj["logindate"] == null ? "" : selectResultObj["logindate"].format('yyyy/MM/dd'),
 			// 発送日①
-			"#date_forwarddate1":selectResultObj["senddate1"].format('yyyy/MM/dd'),
+			"#date_forwarddate1":selectResultObj["senddate1"] == null ? "" : selectResultObj["senddate1"].format('yyyy/MM/dd'),
 			// 発送日②
-			"#date_forwarddate2":selectResultObj["senddate2"].format('yyyy/MM/dd'),
+			"#date_forwarddate2":selectResultObj["senddate2"] == null ? "" : selectResultObj["senddate2"].format('yyyy/MM/dd'),
 			// 完了日
-			"#date_completiondate":selectResultObj["completiondate"].format('yyyy/MM/dd'),
+			"#date_completiondate":selectResultObj["completiondate"] == null ? "" : selectResultObj["completiondate"].format('yyyy/MM/dd'),
 			// 商品費用
 			"#number_productamountRMB":selectResultObj["productamountrmb"],
 			// 商品費用（円）
