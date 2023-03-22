@@ -171,7 +171,7 @@
 <!--sl:更新MST_在庫情報-途中在庫_入庫数量减去数量   -->
 <sql id="removeDeliveryFromShip" paramPrefix="!">
 	UPDATE "MST_在庫情報" 
-	SET "途中在庫_入庫" = (CASE WHEN "途中在庫_入庫" - TRN."数量" &lt; 0 THEN 0 ELSE "途中在庫_入庫" - TRN."数量" END),
+	SET "途中在庫_入庫" = (CASE WHEN COALESCE("途中在庫_入庫",0) - COALESCE(TRN."数量",0) &lt; 0 THEN 0 ELSE COALESCE("途中在庫_入庫",0) - COALESCE(TRN."数量",0) END),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -183,7 +183,7 @@
 <!--sl:更新MST_在庫情報-LOCAL在庫数量减去数量  -->
 <sql id="removeDeliveryFromLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" 
-	SET "LOCAL在庫" = (CASE WHEN "LOCAL在庫" - TRN."数量" &lt; 0 THEN 0 ELSE "LOCAL在庫" - TRN."数量" END),
+	SET "LOCAL在庫" = (CASE WHEN COALESCE("LOCAL在庫",0) - COALESCE(TRN."数量",0) &lt; 0 THEN 0 ELSE COALESCE("LOCAL在庫",0) - COALESCE(TRN."数量",0) END),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -195,7 +195,7 @@
 <!--sl:更新MST_在庫情報-途中在庫_入庫数量加上数量  -->
 <sql id="allocateDeliveryToShip" paramPrefix="!">
 	UPDATE "MST_在庫情報"  
-	SET "途中在庫_入庫" = "途中在庫_入庫" + TRN."数量",
+	SET "途中在庫_入庫" = COALESCE("途中在庫_入庫",0) + COALESCE(TRN."数量",0),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -207,7 +207,7 @@
 
 <!-- <sql id="allocateDeliveryToLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報"  
-	SET "LOCAL在庫" = "LOCAL在庫" + TRN."数量",
+	SET "LOCAL在庫" = COALESCE("LOCAL在庫",0) + COALESCE(TRN."数量",0),
 		"更新日時"= now() 
 	FROM "TRN_納品明細" AS TRN
 	WHERE
@@ -267,37 +267,37 @@
  	SET 
 	 "LOCAL在庫" = (
 			CASE
-			WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量" 
-					THEN "LOCAL在庫" + TRN."受領数量" - :acceptance else "LOCAL在庫"
-			WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
-					THEN "LOCAL在庫" + TRN."受領数量" - :acceptance else "LOCAL在庫"
-			WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0
-					THEN "LOCAL在庫" - :acceptance else "LOCAL在庫"
+			WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)  AND COALESCE(TRN."数量",0) &lt;= COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("LOCAL在庫",0) + COALESCE(TRN."受領数量",0) - :acceptance else COALESCE("LOCAL在庫",0)
+			WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)   AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("LOCAL在庫",0) + COALESCE(TRN."受領数量",0) - :acceptance else COALESCE("LOCAL在庫",0)
+			WHEN  TRN."数量"  &gt; 0  AND  TRN."受領数量" = 0
+					THEN COALESCE("LOCAL在庫",0) - :acceptance else COALESCE("LOCAL在庫",0)
 		END  ) ,
 	 "途中在庫_入庫" =
-		  ( CASE  WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
-			THEN  "途中在庫_入庫" + TRN."受領数量" - :acceptance else TRN."受領数量"
+		  ( CASE  WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)   AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
+			THEN  COALESCE("途中在庫_入庫",0) + COALESCE(TRN."受領数量",0) - :acceptance else COALESCE(TRN."受領数量",0)
 			 END ) ,
 	 TRN."受領数量" =
-		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
-			THEN :acceptance else TRN."受領数量"
-				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
-			THEN :acceptance else TRN."受領数量"
-					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
-			THEN :acceptance else TRN."受領数量"
+		  ( CASE    WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)  AND COALESCE(TRN."数量",0) &lt;= COALESCE(TRN."受領数量",0)
+			THEN :acceptance else COALESCE(TRN."受領数量",0)
+				  	WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)   AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
+			THEN :acceptance else COALESCE(TRN."受領数量",0)
+					WHEN  TRN."数量"  &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
+			THEN :acceptance else COALESCE(TRN."受領数量",0)
 			 END )  ,
 	 TRN."更新日時" =
-		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
+		  ( CASE    WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)  AND COALESCE(TRN."数量",0) &lt;= COALESCE(TRN."受領数量",0)
 			THEN now( ) else TRN."更新日時"
-				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+				  	WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)   AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
 			THEN now( ) else TRN."更新日時"
-					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
+					WHEN  TRN."数量"  &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
 			THEN now( ) else TRN."更新日時"
 			 END )  ,
 	  "更新日時" =
-		  ( CASE    WHEN :acceptance &gt; TRN."受領数量"  AND TRN."数量" &lt;= TRN."受領数量"
+		  ( CASE    WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)  AND COALESCE(TRN."数量",0) &lt;= COALESCE(TRN."受領数量",0)
 			THEN now( ) else  "更新日時"
-				  	WHEN :acceptance &gt; TRN."受領数量"   AND TRN."数量" &gt; TRN."受領数量" 
+				  	WHEN :acceptance &gt; COALESCE(TRN."受領数量",0)   AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
 			THEN now( ) else  "更新日時"
 					WHEN TRN."数量" &gt; 0  AND  TRN."受領数量" = 0 AND :acceptance &gt; 0
 			THEN now( ) else  "更新日時"
@@ -444,21 +444,21 @@
  	SET "更新日時" = now( ),
 		"途中在庫_入庫" = (
 				CASE
-				WHEN TRN."数量" &gt; 0  AND TRN."数量" = TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."受領数量" 
-				WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."数量" 
-				WHEN TRN."数量" &gt; 0  AND TRN."数量" &gt; TRN."受領数量" 
-					THEN "途中在庫_入庫" - TRN."受領数量" 
-				ELSE "途中在庫_入庫"
+				WHEN TRN."数量" &gt; 0  AND COALESCE(TRN."数量",0) = COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("途中在庫_入庫",0) - COALESCE(TRN."受領数量",0) 
+				WHEN TRN."数量" &gt; 0  AND COALESCE(TRN."数量",0) &lt; COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("途中在庫_入庫",0) - COALESCE(TRN."数量",0) 
+				WHEN TRN."数量" &gt; 0  AND COALESCE(TRN."数量",0) &gt; COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("途中在庫_入庫",0) - COALESCE(TRN."受領数量",0) 
+				ELSE COALESCE("途中在庫_入庫",0)
 				END  ) ,
 		"LOCAL在庫" = ( 
 				CASE
 				WHEN TRN."数量" = 0 AND TRN."受領数量" &gt; 0 
-					THEN "LOCAL在庫" - TRN."受領数量"
-				WHEN TRN."数量" &gt; 0  AND TRN."数量" &lt; TRN."受領数量" 
-					THEN "LOCAL在庫" + TRN."数量" -TRN."受領数量"
-				ELSE "LOCAL在庫"
+					THEN COALESCE("LOCAL在庫",0) - COALESCE(TRN."受領数量",0)
+				WHEN TRN."数量" &gt; 0  AND COALESCE(TRN."数量",0) &lt; COALESCE(TRN."受領数量",0) 
+					THEN COALESCE("LOCAL在庫",0) + COALESCE(TRN."数量",0) -COALESCE(TRN."受領数量",0)
+				ELSE COALESCE("LOCAL在庫",0)
 				END ) 
 	FROM
 			"TRN_納品明細" TRN 
@@ -655,7 +655,7 @@
  <sql id="updateLocalA">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"LOCAL在庫" = "LOCAL在庫" + :acceptance_old - :acceptance_new ,
+		"LOCAL在庫" = COALESCE("LOCAL在庫",0) + :acceptance_old - :acceptance_new ,
 	  	"更新日時" = now()
 	WHERE 
 		"SKU番号" = :sku
@@ -684,7 +684,7 @@
  <sql id="updatePutInB">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"途中在庫_入庫" = "途中在庫_入庫" + :acceptance_old - :acceptance_new ,
+		"途中在庫_入庫" = COALESCE("途中在庫_入庫",0) + :acceptance_old - :acceptance_new ,
 	  	"更新日時" = now()
 	WHERE 
 		"SKU番号" = :sku
@@ -697,7 +697,7 @@
  <sql id="updateLocalB">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"LOCAL在庫" = "LOCAL在庫" + :acceptance_old - :acceptance_new ,
+		"LOCAL在庫" = COALESCE("LOCAL在庫",0) + :acceptance_old - :acceptance_new ,
 	  	"更新日時" = now()
 	WHERE 
 		"SKU番号" = :sku
@@ -712,7 +712,7 @@
  <sql id="updatePutIn1">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"途中在庫_入庫" = "途中在庫_入庫"  - :acceptance_new ,
+		"途中在庫_入庫" = COALESCE("途中在庫_入庫",0)  - :acceptance_new ,
 	  	"更新日時" = now()
 	WHERE 
 		"SKU番号" = :sku
@@ -726,7 +726,7 @@
  <sql id="updateLocal1">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"LOCAL在庫" = "LOCAL在庫" + TRN."数量" - :acceptance_new ,
+		"LOCAL在庫" = COALESCE("LOCAL在庫",0) + COALESCE(TRN."数量",0) - :acceptance_new ,
 	  	"更新日時" = now()
 	FROM
 		"TRN_納品明細" TRN
@@ -748,7 +748,7 @@
  <sql id="updateLocal5">
 	UPDATE "MST_在庫情報"  
 		SET 
-		"LOCAL在庫" = "LOCAL在庫"  - :acceptance_new ,
+		"LOCAL在庫" = COALESCE("LOCAL在庫",0)  - :acceptance_new ,
 	  	"更新日時" = now()
 	FROM
 		"TRN_納品明細" TRN
