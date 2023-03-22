@@ -1,3 +1,5 @@
+drop table public."ZZZ_INPUT_’•¶î•ñ";
+
 create table public."ZZZ_INPUT_’•¶î•ñ" (
   "Amazon’•¶”Ô†" character varying(50)
   , "¤•i’•¶”Ô†" character varying(50)

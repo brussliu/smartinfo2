@@ -1,3 +1,5 @@
+drop table public."ZZZ_d“ü–¾×";
+
 create table public."ZZZ_d“ü–¾×" (
   "d“üNO" character varying(20)
   , "SKU”Ô†" character varying(50)
