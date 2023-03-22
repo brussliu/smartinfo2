@@ -373,11 +373,12 @@
                         }
                         if(color != ""){
                             $(this).css({ "background": color });
+                            color = "";
                         }
 
                     })
                 }
-                
+
             </script>
             <style>
                 .table_btn td button {
