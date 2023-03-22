@@ -282,6 +282,8 @@ purchase_save.fire = function (params) {
 
 	ret.eval("purchase_detail_inputdialog.dialog('close');");
 	ret.eval("init();");
+
+	ret.eval("choice('');");
 	// 画面へ結果を返す
 	return ret;
 

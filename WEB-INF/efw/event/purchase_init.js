@@ -91,6 +91,8 @@ purchase_init.fire = function (params) {
 
 		ret.runat("#purchasetable").append(resultHTML).withdata(record);
 	}
+	var script = "changeColor();";
+	ret.eval(script);
 
 	ret.show('.c_detail_header').show('.c_detail_content');
 	

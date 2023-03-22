@@ -9,10 +9,10 @@
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <script>
 
-                $(function(){
-                    $(".date").datepicker( {  
-                        dateFormat : 'yy/mm/dd'
-                    });  
+                $(function () {
+                    $(".date").datepicker({
+                        dateFormat: 'yy/mm/dd'
+                    });
                 });
 
 
@@ -223,7 +223,7 @@
                 // }
 
 
-           
+
                 // 汇率转换
                 function Xchanger() {
                     //為替レート取得
@@ -312,13 +312,13 @@
                     $("#text_totalRMB").html(rmbmoney.toFixed(2) + '元');
                     $("#text_totalRY").html(jpymoney.toFixed(2) + '円');
 
-                    if(exchange == null || exchange == ""|| exchange == '0'){
+                    if (exchange == null || exchange == "" || exchange == '0') {
                         $("#number_productamountRY").html('');
                         $("#number_shipamountRY").html('');
                         $("#number_faxamountRY").html('');
                         $("#text_totalRMB").html('');
                         $("#text_totalRY").html('');
-                   
+
                     }
                 }
 
@@ -340,14 +340,27 @@
                 }
 
                 // 資料ダウンロード
-                function down(val){
-                    var f=$(val).html();
+                function down(val) {
+                    var f = $(val).html();
                     var no = $(val).parent().parent().parent().children().next().children().html();
-                    var filearray=f.split('.');
+                    var filearray = f.split('.');
                     var file = filearray[0];
                     var suffix = filearray[1];
 
-                    Efw('purchase_down', { "purchaseno": no, "filename": file ,"suffix" : suffix});
+                    Efw('purchase_down', { "purchaseno": no, "filename": file, "suffix": suffix });
+                }
+
+                function changeColor() {
+
+                    $("#purchasetable").find("tr").each(function () {
+                        var tdArr = $(this).children();
+
+                        var state = tdArr.eq(7).html();
+
+                        if (state == '3.仕入済') {
+                            $(this).css({ "background": "#e6e6e6" });
+                        }
+                    })
                 }
             </script>
             <style>
@@ -355,18 +368,19 @@
                     width: 100px;
                 }
 
-                .c_detail_content ul{
+                .c_detail_content ul {
                     padding: 0;
                     overflow: auto;
-                   
+
                 }
-                .c_detail_content ul li{
-       
+
+                .c_detail_content ul li {
+
                     line-height: 20px;
-                    list-style:disc ;
-                    list-style-type:disc ;
+                    list-style: disc;
+                    list-style-type: disc;
                     overflow: auto;
-                    list-style-position:inside;
+                    list-style-position: inside;
                 }
             </style>
         </head>
@@ -466,7 +480,8 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" id="purchasetable" style="width: 2589px;table-layout: fixed;">
+                        <table class="table_detail_content" id="purchasetable"
+                            style="width: 2589px;table-layout: fixed;">
 
 
 

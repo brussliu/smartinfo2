@@ -4,7 +4,7 @@ insert into "TRN_仕入管理"
 select
 T."仕入NO",
 T."仕入名称",
-null,
+'A:普通仕入',
 to_number(T."受取数量",'999999'),
 to_number(T."受取金額",'999999.99'),
  
