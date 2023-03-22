@@ -3,18 +3,15 @@ drop table public."MST_İŒÉî•ñ";
 create table public."MST_İŒÉî•ñ" (
     "SKU”Ô†" character varying(12)
   , "ASIN”Ô†" character varying(20)
-  , "¤•iŠÇ—”Ô†" character varying(20)
-  , "eq‹æ•ª" character varying(20)
-  , "¤•ií•Ê" character varying(50)
-  , "•ª—Ş‚P" character varying(100)
-  , "•ª—Ş‚Q" character varying(100)
   , "FBAİŒÉ" int
   , "FBMİŒÉ" int
   , "LOCALİŒÉ" int
   , "“r’†İŒÉ_“üŒÉ" int
   , "“r’†İŒÉ_d“ü" int
-  , "b’èƒtƒ‰ƒO" character varying(1)
+  , "b’èƒtƒ‰ƒO" int
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone
+
+  , PRIMARY KEY ("SKU”Ô†", "ASIN”Ô†", "b’èƒtƒ‰ƒO", "“X•ÜID")
 );

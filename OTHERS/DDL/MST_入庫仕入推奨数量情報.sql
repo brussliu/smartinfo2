@@ -10,4 +10,6 @@ create table public."MST_“üŒÉd“ü„§”—Êî•ñ" (
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone
+
+  , PRIMARY KEY ("SKU”Ô†", "ASIN”Ô†", "“X•ÜID")
 );

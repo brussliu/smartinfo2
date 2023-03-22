@@ -14,8 +14,10 @@ create table public."MST_出品マスタ情報" (
   , "商品名称" character varying(500)
   , "仕入申報価格（元）" numeric(10,2)
   , "仕入申報価格（ドル）" numeric(10,2)
-  , "暫定フラグ" character varying(1)
+  , "暫定フラグ" int
   , "店舗ID" character varying(20)
   , "登録日時" timestamp(6) without time zone
   , "更新日時" timestamp(6) without time zone
+
+  , PRIMARY KEY ("SKU番号", "ASIN番号", "暫定フラグ", "店舗ID")
 );

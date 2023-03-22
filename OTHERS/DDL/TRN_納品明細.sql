@@ -9,4 +9,6 @@ create table public."TRN_”[•i–¾×" (
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone
+
+  , PRIMARY KEY ("”[•iNO", "SKU”Ô†", "ASIN”Ô†", "“X•ÜID")
 );
