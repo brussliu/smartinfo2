@@ -352,16 +352,32 @@
 
                 function changeColor() {
 
-                    $("#purchasetable").find("tr").each(function () {
-                        var tdArr = $(this).children();
+                    var color = "";
 
+                    $("#purchasetable").find("tr").each(function () {
+
+                        var tdArr = $(this).children();
                         var state = tdArr.eq(7).html();
 
                         if (state == '3.仕入済') {
-                            $(this).css({ "background": "#e6e6e6" });
+                            $(this).css({ "background": "#E6E6E6" });
+                            color = "#E6E6E6";
                         }
+                        if (state == '2.発送済') {
+                            $(this).css({ "background": "#E1FFFF" });
+                            color = "#E1FFFF";
+                        }
+                        if (state == '1.新　規') {
+                            $(this).css({ "background": "#FFFFE1" });
+                            color = "#FFFFE1";
+                        }
+                        if(color != ""){
+                            $(this).css({ "background": color });
+                        }
+
                     })
                 }
+                
             </script>
             <style>
                 .table_btn td button {
