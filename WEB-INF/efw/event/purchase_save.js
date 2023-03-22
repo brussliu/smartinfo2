@@ -137,15 +137,17 @@ purchase_save.fire = function (params) {
 		
 		importProContent(proContent, newpurchaseno , 2);
 
-			// 数量合計、金額合計を更新
-			var countResult = db.change(
-				"PURCHASE",
-				"updateCountAndAmount",
-				{
-					purchaseno: newpurchaseno,
-					shopid: getShopId()
-				}
-			);
+		// 数量合計、金額合計を更新
+		var countResult = db.change(
+			"PURCHASE",
+			"updateCountAndAmount",
+			{
+				purchaseno: newpurchaseno,
+				shopid: getShopId()
+			}
+		);
+
+		// 仕入内容
 
 	// 更新の場合 
 	}else if (opt == 'update') {
@@ -271,6 +273,8 @@ purchase_save.fire = function (params) {
 					shopid: getShopId()
 				}
 			);
+
+			// 仕入内容
 
 		}
 
