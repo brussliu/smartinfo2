@@ -4,6 +4,7 @@ create table public."TRN_仕入管理" (
   "仕入NO" character varying(20)
   , "仕入名称" character varying(100)
   , "仕入区分" character varying(20)
+  , "仕入内容" character varying(200)
   , "数量" integer
   , "金額" numeric(10,2)
   , "ステータス" character varying(20)
