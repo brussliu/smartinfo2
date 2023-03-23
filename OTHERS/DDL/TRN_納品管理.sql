@@ -3,6 +3,7 @@ drop table public."TRN_”[•iŠÇ—";
 create table public."TRN_”[•iŠÇ—" (
     "”[•iNO" character varying(20)
   , "”[•i–¼Ì" character varying(100)
+  , "”[•i“à—e" character varying(200)
   , "V‹K”—Ê" integer
   , "”­‘—”—Ê" integer
   , "ó—Ì”—Ê" integer

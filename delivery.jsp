@@ -217,8 +217,8 @@
                         </table>
                     </div>
 
-                    <div class="c_condition" style="height: 45px;">
-                        <table border="0">
+                    <div class="c_condition" style="height: 55px;">
+                        <table border="0" style="margin-top: 10px;">
                             <tbody>
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;納品名称：</td>
@@ -245,29 +245,28 @@
 
 
                     <div class="c_detail_header" style="overflow: hidden;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_header" style="width: 2054px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2573px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;" id="temp">選択</th>
                                     <th style="width: 155px">納品NO</th>
-                                    <th style="width: 200px;" id="tempname">納品名称</th>
+                                    <th style="width: 300px;" id="tempname">納品名称</th>
 
-                                    <th style="width: 352px;">納品内容</th>
-                                    <th style="width: 50px;">数量</th>
+                                    <th style="width: 500px;">納品内容</th>
+                                    <th style="width: 80px;">数量</th>
                                     <th style="width: 120px;" id="status">ステータス</th>
 
-                                    <th style="width: 100px;">登録日</th>
+                                    <th style="width: 120px;">登録日</th>
+                                    <th style="width: 120px;">発送日</th>
+                                    <th style="width: 120px;">受領日</th>
+                                    <th style="width: 120px;">完了日</th>
 
-                                    <th style="width: 100px;">発送日</th>
-                                    <th style="width: 100px;">受領日</th>
-                                    <th style="width: 100px;">完了日</th>
-
-                                    <th style="width: 140px">AMZ納品番号</th>
-                                    <th style="width: 200px;">AMZ納品名</th>
+                                    <th style="width: 140px;">AMZ納品番号</th>
+                                    <th style="width: 300px;">AMZ納品名</th>
                                     <th style="width: 160px">AMZ-納品プラン番号</th>
                                     <th style="width: 400px;">AMZ-納品先</th>
                                     <th style="width: 140px;">AMZ-SKU合計</th>
-                                    <th style="width: 140px;">AMZ-商品合計数</th>
+                                    <th style="width: 157px;">AMZ-商品合計数</th>
                                 </tr>
                             </thead>
                         </table>
@@ -275,9 +274,9 @@
 
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="deliverytable"
-                            style="width: 2037px;table-layout: fixed;">
+                            style="width: 2556px;table-layout: fixed;">
 
-                            <tr>
+                            <!-- <tr>
                                 <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
                                 <td style="width: 155px" class="l a"><span class="l5"
                                         onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span>
@@ -299,7 +298,7 @@
                                 <td style="width: 400px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
                                 <td style="width: 140px;" class="r"><span class="r5">33</span></td>
                                 <td style="width: 140px;" class="r"><span class="r5">33</span></td>
-                            </tr>
+                            </tr> -->
 
                         </table>
                     </div>

@@ -6,6 +6,7 @@ T."納品NO",
 T."納品名称",
 null,
 to_number(T."確定数量",'999999'),
+to_number(T."確定数量",'999999'),
 to_number(T."受領数量",'999999'),
 to_number(T."最終納品数量",'999999'),
 
@@ -33,3 +34,20 @@ current_timestamp,
 current_timestamp
 from
 "ZZZ_納品管理" T;
+
+update "TRN_納品管理" K
+set "納品内容" = F."no"
+from 
+(
+SELECT distinct
+        T."納品NO", 
+		string_agg(distinct A."商品管理番号", '、' order by "商品管理番号" ) as no
+	FROM
+		"TRN_納品明細" T,
+		"MST_出品マスタ情報" A
+	WHERE
+		A."ASIN番号" = T."ASIN番号" 
+		AND A."SKU番号" = T."SKU番号" 
+		AND A."店舗ID" = T."店舗ID" 
+group by T."納品NO"
+) F where F."納品NO" = K."納品NO";

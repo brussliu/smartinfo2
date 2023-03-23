@@ -28,18 +28,18 @@ delivery_init.fire = function (params) {
 	' <tr>' +
 	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice" value="{no}"></input></td>' +
 	' <td style="width: 155px" class="l a"><span class="l5" onclick="outputFile(this)">{no}</span> </td>' +
-			' <td style="width: 200px;" class="l"><span class="l5">{name}</span></td>' +
-			' <td style="width: 352px;" class="l"><span class="l5">{no}</span></td>' +
-			' <td style="width: 50px;" class="r"><span class="r5">{number}</span></td>' +
+			' <td style="width: 300px;" class="l"><span class="l5">{name}</span></td>' +
+			' <td style="width: 500px;" class="l"><span class="l5">{no}</span></td>' +
+			' <td style="width: 80px;" class="r"><span class="r5">{number}</span></td>' +
 			' <td style="width: 120px;" class="c">{state}</td>' +
 
-			' <td style="width: 100px;" class="c">{logindate}</td>' +
-			' <td style="width: 100px;" class="c">{senddate}</td>' +
-			' 	<td style="width: 100px;" class="c">{receivedate}</td>' +
-			' <td style="width: 100px;" class="c">{completiondate}</td>' +
+			' <td style="width: 120px;" class="c">{logindate}</td>' +
+			' <td style="width: 120px;" class="c">{senddate}</td>' +
+			' <td style="width: 120px;" class="c">{receivedate}</td>' +
+			' <td style="width: 120px;" class="c">{completiondate}</td>' +
 
-			' 	<td style="width: 140px;" class="c">{amz1}</td>' +
-			' <td style="width: 200px;" class="l"><span class="l5">{amz2}</span></td>' +
+			' <td style="width: 140px;" class="c">{amz1}</td>' +
+			' <td style="width: 300px;" class="l"><span class="l5">{amz2}</span></td>' +
 			' <td style="width: 160px;" class="c">{amz3}</td>' +
 			' <td style="width: 400px;" class="l"><span class="l5">{amz4}</span></td>' +
 			' <td style="width: 140px;" class="r"><span class="r5">{amz5}</span></td>' +
