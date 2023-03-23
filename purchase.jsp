@@ -462,11 +462,11 @@
                                 <tr class="header">
                                     <th style="width: 50px;" rowspan="2" id="temp">選択</th>
                                     <th style="width: 155px" rowspan="2">仕入NO</th>
-                                    <th style="width: 200px;" rowspan="2">仕入名称</th>
+                                    <th style="width: 300px;" rowspan="2">仕入名称</th>
 
-                                    <th style="width: 200px;" rowspan="2">仕入内容</th>
+                                    <th style="width: 500px;" rowspan="2">仕入内容</th>
                                     <th style="width: 100px;" rowspan="2">仕入区分</th>
-                                    <th style="width: 50px;" rowspan="2">数量</th>
+                                    <th style="width: 80px;" rowspan="2">数量</th>
                                     <th style="width: 100px;" rowspan="2">金額</th>
                                     <th style="width: 100px;" rowspan="2">ステータス</th>
 
@@ -483,7 +483,7 @@
                                     <th style="width: 120px;" class="l"><span class="l5">物流費用</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">税金</span></th>
                                     <th style="width: 120px;" class="l"><span class="l5">合計</span></th>
-                                    <th style="width: 267px;" rowspan="2">ファイル</th>
+                                    <th style="width: 267px;" rowspan="2">資料</th>
                                 </tr>
                                 <tr class="header">
                                     <th class="l"><span class="l5">商品費用（円）</span></th>

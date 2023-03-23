@@ -783,19 +783,17 @@
 <!-- sl:仕入内容-->
 <sql id="querypurchasedetail" paramPrefix="!">
 	SELECT DISTINCT 
-		A."商品管理番号" as no
+		string_agg(distinct A."商品管理番号", '、' order by "商品管理番号" ) as no
 	FROM
-		"MST_出品マスタ情報" A,
-		( SELECT T."ASIN番号", T."SKU番号", T."店舗ID", T."暫定フラグ" 
-		FROM "TRN_仕入明細" T 
-		WHERE T."仕入NO" = !purchaseno and T."店舗ID" = !shopid	 ) B 
+		"TRN_仕入明細" T,
+		"MST_出品マスタ情報" A
 	WHERE
-		A."ASIN番号" = B."ASIN番号" 
-		AND A."SKU番号" = B."SKU番号" 
-		AND A."店舗ID" = B."店舗ID" 
-		AND A."暫定フラグ" = B."暫定フラグ" 
-	ORDER BY
-		A."商品管理番号"
+		A."ASIN番号" = T."ASIN番号" 
+		AND A."SKU番号" = T."SKU番号" 
+		AND A."店舗ID" = T."店舗ID" 
+		AND A."暫定フラグ" = T."暫定フラグ" 
+		AND T."仕入NO" = !purchaseno 
+		AND T."店舗ID" = !shopid
 </sql>
 
 

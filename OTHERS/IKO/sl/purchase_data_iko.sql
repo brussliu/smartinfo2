@@ -37,3 +37,22 @@ current_timestamp,
 current_timestamp
 from
 "ZZZ_仕入管理" T;
+
+
+update "TRN_仕入管理" K
+set "仕入内容" = F."no"
+from 
+(
+SELECT distinct
+        T."仕入NO", 
+		string_agg(distinct A."商品管理番号", '、' order by "商品管理番号" ) as no
+	FROM
+		"TRN_仕入明細" T,
+		"MST_出品マスタ情報" A
+	WHERE
+		A."ASIN番号" = T."ASIN番号" 
+		AND A."SKU番号" = T."SKU番号" 
+		AND A."店舗ID" = T."店舗ID" 
+		AND A."暫定フラグ" = T."暫定フラグ" 
+group by T."仕入NO"
+) F where F."仕入NO" = K."仕入NO";

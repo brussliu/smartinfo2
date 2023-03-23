@@ -29,7 +29,7 @@
                         <td style="width: 85px;text-align: left;">仕入NO：</td>
                         <td id="td_contno" style="width: 260px;" ></td>
                         <td style="width: 90px;text-align: left;">仕入名称：</td>
-                        <td id="td_conname" style="width: 180px;"></td>
+                        <td id="td_conname" style="width: 380px;"></td>
                         <td></td>
                         <td></td>
                         <td></td>
