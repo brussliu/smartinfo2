@@ -109,7 +109,7 @@ masterinfo_save.fire = function (params) {
 	// 既存更新の場合
 	if (opt == "update") {
 
-		var flg = params["#zt_flg"];
+		var flg = parentInt(params["#zt_flg"]);
 
 		var asin = params["#asinselect"];
 		var sku = params["#skuselect"];
@@ -133,7 +133,7 @@ masterinfo_save.fire = function (params) {
 		var oldsub2 = params["oldsub2"];
 
 		// 非暫定データ
-		if (flg == "0" && preproduct == '親商品') {
+		if (flg == 0 && preproduct == '親商品') {
 			// 当暂定为0，亲子区分为親商品时,更新
 			var selectResult = db.change(
 				"MASTER",
@@ -194,7 +194,7 @@ masterinfo_save.fire = function (params) {
 			}
 		}
 
-		if (flg == "0" && preproduct == '子商品') {
+		if (flg == 0 && preproduct == '子商品') {
 
 			// 当暂定为0，亲子区分为子商品时,更新
 			var selectResult = db.change(
@@ -222,7 +222,7 @@ masterinfo_save.fire = function (params) {
 
 		}
 
-		if (flg == "1" && preproduct == '親商品') {
+		if (flg > 0 && preproduct == '親商品') {
 
 			var selectResult = db.change(
 				"MASTER",
@@ -399,7 +399,7 @@ masterinfo_save.fire = function (params) {
 
 		}
 
-		if (flg == "1" && preproduct == '子商品') {
+		if (flg > 0 && preproduct == '子商品') {
 
 			// 当暂定为1,亲子区分为子商品时，更新
 			var selectResult1 = db.change(

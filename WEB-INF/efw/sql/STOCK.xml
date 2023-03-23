@@ -34,46 +34,7 @@
 			"更新日時"=now()
 		WHERE 
 			"店舗ID" =!shopid
-		<if exists="productno"> AND (	
-			"商品管理番号" = !productno
-			)
-			</if>
-		<if notexists="productno"> AND (	
-			"商品管理番号" is NULL
-			)
-		</if> 
-			<if exists="preproduct"> AND (	
-			"親子区分" = !preproduct
-			)
-			</if>
-		<if notexists="preproduct"> AND (	
-			"親子区分" is NULL
-			)
-		</if>
-			<if exists="producttype"> AND (	
-			"商品種別" = !producttype
-			)
-			</if>
-		<if notexists="producttype"> AND (	
-			"商品種別" is NULL
-			)
-		</if>
-		<if exists="productsub1"> AND (	
-			"分類１" = !productsub1
-			)
-			</if>
-		<if notexists="productsub1"> AND (	
-			"分類１" is NULL
-			)
-		</if>
-		<if exists="productsub2"> AND (	
-			"分類２" = !productsub2
-			)
-		</if>
-		<if notexists="productsub2"> AND (	
-			"分類２" is NULL
-			)
-		</if>
+		and "暫定フラグ" = !flg
 	</sql>
 
 	<sql id="updatelocalstockflg1_put" paramPrefix="!">
@@ -82,46 +43,7 @@
 			"更新日時"=now()
 		WHERE 
 			"店舗ID" =!shopid
-		<if exists="productno"> AND (	
-			"商品管理番号" = !productno
-			)
-			</if>
-		<if notexists="productno"> AND (	
-			"商品管理番号" is NULL
-			)
-		</if> 
-			<if exists="preproduct"> AND (	
-			"親子区分" = !preproduct
-			)
-			</if>
-		<if notexists="preproduct"> AND (	
-			"親子区分" is NULL
-			)
-		</if>
-			<if exists="producttype"> AND (	
-			"商品種別" = !producttype
-			)
-			</if>
-		<if notexists="producttype"> AND (	
-			"商品種別" is NULL
-			)
-		</if>
-		<if exists="productsub1"> AND (	
-			"分類１" = !productsub1
-			)
-			</if>
-		<if notexists="productsub1"> AND (	
-			"分類１" is NULL
-			)
-		</if>
-		<if exists="productsub2"> AND (	
-			"分類２" = !productsub2
-			)
-		</if>
-		<if notexists="productsub2"> AND (	
-			"分類２" is NULL
-			)
-		</if>
+		and "暫定フラグ" = !flg
 	</sql>
 
 	<sql id="updatelocalstockflg1_purchase" paramPrefix="!">
@@ -130,46 +52,7 @@
 			"更新日時"=now()
 		WHERE 
 			"店舗ID" =!shopid
-		<if exists="productno"> AND (	
-			"商品管理番号" = !productno
-			)
-			</if>
-		<if notexists="productno"> AND (	
-			"商品管理番号" is NULL
-			)
-		</if> 
-			<if exists="preproduct"> AND (	
-			"親子区分" = !preproduct
-			)
-			</if>
-		<if notexists="preproduct"> AND (	
-			"親子区分" is NULL
-			)
-		</if>
-			<if exists="producttype"> AND (	
-			"商品種別" = !producttype
-			)
-			</if>
-		<if notexists="producttype"> AND (	
-			"商品種別" is NULL
-			)
-		</if>
-		<if exists="productsub1"> AND (	
-			"分類１" = !productsub1
-			)
-			</if>
-		<if notexists="productsub1"> AND (	
-			"分類１" is NULL
-			)
-		</if>
-		<if exists="productsub2"> AND (	
-			"分類２" = !productsub2
-			)
-		</if>
-		<if notexists="productsub2"> AND (	
-			"分類２" is NULL
-			)
-		</if>
+		and "暫定フラグ" = !flg
 	</sql>
 
 	<sql id="updatelocalstockflg0" paramPrefix="!">
@@ -335,7 +218,7 @@
 			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
 			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
 		where
-			a."暫定フラグ" = '0'
+			a."暫定フラグ" = 0
 			and
 			a."店舗ID" = :shopid
 			and 
@@ -399,7 +282,7 @@
 			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
 			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
 		where
-			a."暫定フラグ" = '1'
+			a."暫定フラグ" > 0
 			and
 			a."店舗ID" = :shopid
 			and 
@@ -493,7 +376,7 @@
 					left join "MST_入庫仕入推奨数量情報" c on a."ASIN番号"=c."ASIN番号" and a."SKU番号"=c."SKU番号" and a."店舗ID" = c."店舗ID"
 					left join "MST_在庫情報"  d on a."ASIN番号"=d."ASIN番号" and a."SKU番号"=d."SKU番号" and a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
 				where
-					a."暫定フラグ" = '0'
+					a."暫定フラグ" = 0
 					and
 					a."店舗ID" = :shopid
 				
@@ -535,15 +418,11 @@
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_在庫情報" d on 
-						a."商品管理番号"=d."商品管理番号" and 
-						a."親子区分"=d."親子区分" and 
-						a."商品種別"=d."商品種別" and 
-						a."分類１"=d."分類１" and 
-						a."分類２"=d."分類２" and 
+
 						a."暫定フラグ" = d."暫定フラグ" and 
 						a."店舗ID" = d."店舗ID" 
 				where
-					a."暫定フラグ" = '1'
+					a."暫定フラグ" > 0
 					and
 					a."店舗ID" = :shopid
 			) T
@@ -614,7 +493,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST1."ASIN番号"
 			and
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST1."店舗ID"
 			and
@@ -624,7 +503,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
 			and
-			MST2."暫定フラグ" = '0'
+			MST2."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
 			and
@@ -674,7 +553,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST1."ASIN番号"
 			and
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST1."店舗ID"
 			and
@@ -684,7 +563,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
 			and
-			MST2."暫定フラグ" = '0'
+			MST2."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
 			and

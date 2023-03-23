@@ -17,7 +17,7 @@ stockinfo_update.fire = function (params) {
 
 		var localinfo = alllocalArr[i];
 
-		var flg = localinfo[0];
+		var flg =parseInt(localinfo[0]);
 		var sku = localinfo[1];
 		var asin = localinfo[2];
 		var local = localinfo[3];
@@ -30,16 +30,17 @@ stockinfo_update.fire = function (params) {
 		var purchase = localinfo[10];
 	 
 		// 暫定データ
-		if (flg == "1"){
+		if (flg > 0){
 			var updateResult = db.change(
 				"STOCK",
 				"updatelocalstockflg1_local",
 				{
-					producttype: producttype,
-					productno: productno,
-					preproduct: preproduct,
-					productsub1: productsub1,
-					productsub2: productsub2,
+					// producttype: producttype,
+					// productno: productno,
+					// preproduct: preproduct,
+					// productsub1: productsub1,
+					// productsub2: productsub2,
+					flg:flg,
 					local: parseInt(local),
 					shopid: getShopId(),
 				}
@@ -49,11 +50,12 @@ stockinfo_update.fire = function (params) {
 					"STOCK",
 					"updatelocalstockflg1_put",
 					{
-						producttype: producttype,
-						productno: productno,
-						preproduct: preproduct,
-						productsub1: productsub1,
-						productsub2: productsub2,
+						// producttype: producttype,
+						// productno: productno,
+						// preproduct: preproduct,
+						// productsub1: productsub1,
+						// productsub2: productsub2,
+						flg:flg,
 						put: parseInt(put),
 						shopid: getShopId(),
 					}
@@ -64,11 +66,12 @@ stockinfo_update.fire = function (params) {
 					"STOCK",
 					"updatelocalstockflg1_purchase",
 					{
-						producttype: producttype,
-						productno: productno,
-						preproduct: preproduct,
-						productsub1: productsub1,
-						productsub2: productsub2,
+						// producttype: producttype,
+						// productno: productno,
+						// preproduct: preproduct,
+						// productsub1: productsub1,
+						// productsub2: productsub2,
+						flg:flg,
 						purchase: parseInt(purchase),
 						shopid: getShopId(),
 					}
@@ -76,7 +79,7 @@ stockinfo_update.fire = function (params) {
 			}
 	
 		// 非暫定データ
-		}else if(flg == "0"){
+		}else if(flg == 0){
 
 			var updateResult2 = db.change(
 				"STOCK",

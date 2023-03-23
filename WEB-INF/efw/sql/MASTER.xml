@@ -269,7 +269,7 @@
 
 			"商品名称" = !productname,
 
-			"暫定フラグ" = '0',
+			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -368,7 +368,7 @@
 			"ASIN番号" = !asin,
 			"LABEL番号" = !label,
 
-			"暫定フラグ" = '0',
+			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -421,7 +421,7 @@
 			"ASIN番号" = !asin,
 			"LABEL番号" = !label,
 
-			"暫定フラグ" = '0',
+			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -474,7 +474,7 @@
 			"ASIN番号" = !asin,
 			"LABEL番号" = !label,
 
-			"暫定フラグ" = '0',
+			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -697,7 +697,7 @@
 	FROM
 		"MST_出品マスタ情報" 
 	WHERE
-		"暫定フラグ" = '0'
+		"暫定フラグ" = 0
 		and
 		(
 			"商品管理番号" = :productno
@@ -715,7 +715,7 @@
 		FROM
 			"MST_出品マスタ情報" 
 		WHERE
-			"暫定フラグ" = '0'
+			"暫定フラグ" = 0
 			and
 			"ASIN番号" = :asin
 			and
@@ -726,7 +726,7 @@
 	<sql id="deleteByAsinSku" >
 		DELETE FROM "MST_出品マスタ情報" 
 		WHERE
-			"暫定フラグ" = '0'
+			"暫定フラグ" = 0
 			and
 			"ASIN番号" = :asin
 			and
@@ -738,7 +738,7 @@
 	<sql id="deleteByAsinSkuForStock" >
 		DELETE FROM "MST_在庫情報" 
 		WHERE
-			"暫定フラグ" = '0'
+			"暫定フラグ" = 0
 			and
 			"ASIN番号" = :asin
 			and
@@ -751,7 +751,7 @@
 	<sql id="deleteByAsinSkuForPurchase" >
 		DELETE FROM "TRN_仕入明細" 
 		WHERE
-			"暫定フラグ" = '0'
+			"暫定フラグ" = 0
 			and
 			"ASIN番号" = :asin
 			and
