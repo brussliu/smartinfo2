@@ -109,7 +109,7 @@ masterinfo_save.fire = function (params) {
 	// 既存更新の場合
 	if (opt == "update") {
 
-		var flg = parentInt(params["#zt_flg"]);
+		var flg = parseInt(params["#zt_flg"]);
 
 		var asin = params["#asinselect"];
 		var sku = params["#skuselect"];
