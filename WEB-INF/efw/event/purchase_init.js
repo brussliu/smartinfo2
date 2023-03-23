@@ -24,7 +24,7 @@ purchase_init.fire = function (params) {
 
 		}
 	).getArray();
-
+ 
 	ret.runat("#purchasetable").remove("tr");
 
 	// 検索結果をループする
@@ -32,6 +32,12 @@ purchase_init.fire = function (params) {
 
 		// 仕入NO
 		var purchaseno = selectResult[i]["no"];
+	
+		var deteil =''
+		// 仕入内容
+		if(selectResult[i]["deteil"] !=null && selectResult[i]["deteil"] !=''){
+			  deteil = selectResult[i]["deteil"].replaceAll(',','<br>');	
+		}
 
 		// 資料名称検索
 		var selectResult2 = db.select(
@@ -61,7 +67,7 @@ purchase_init.fire = function (params) {
 			'<td style="width: 155px" rowspan="2" class="l"><span class="l5 a" onclick="outputFile(this)">{no}</span></td>' +
 			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{name}</span></td>' +
 
-			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">{no}</span></td>' +
+			'<td style="width: 200px;" rowspan="2" class="l"><span class="l5">'+deteil+'</span></td>' +
 			'<td style="width: 100px;" rowspan="2" class="c">{type}</td>' +
 			'<td style="width: 50px;" rowspan="2" class="r"><span class="r5">{number}</span></td>' +
 			'<td style="width: 100px;" rowspan="2" class="r"><span class="r5">{money}</span></td>' +

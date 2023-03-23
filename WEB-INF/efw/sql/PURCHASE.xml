@@ -8,6 +8,7 @@
 	"仕入NO" AS no,
 	"仕入名称" AS name,
 	"仕入区分" AS type,
+	"仕入内容" AS deteil,
 	"数量" AS number,
 	"金額" AS money,
 	"ステータス" AS state,
@@ -130,12 +131,6 @@
 		MST."SKU番号",
 		MST."ASIN番号",
 		
-		MST."商品管理番号",
-		MST."親子区分",
-		MST."商品種別",
-		MST."分類１",
-		MST."分類２",
-		
 		MST."仕入価格",
 		!num,
 		MST."仕入価格" * !num as "金額",
@@ -151,7 +146,7 @@
 		and
 		MST."ASIN番号" = !asin
 		and
-		MST."暫定フラグ" = '0'
+		MST."暫定フラグ" = 0
 		and
 		MST."店舗ID" = !shopid
 </sql>
@@ -162,12 +157,6 @@
 		!purchaseno,
 		MST."SKU番号",
 		MST."ASIN番号",
-		
-		MST."商品管理番号",
-		MST."親子区分",
-		MST."商品種別",
-		MST."分類１",
-		MST."分類２",
 		
 		MST."仕入価格",
 		!num,
@@ -186,7 +175,7 @@
 		and
 		MST."分類２" = !sub2
 		and
-		MST."暫定フラグ" = '1'
+		MST."暫定フラグ" > 0
 		and
 		MST."店舗ID" = !shopid
 </sql>
@@ -429,8 +418,8 @@
 		"TRN_仕入明細" C
 		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
 		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
-		LEFT JOIN "MST_ソート情報" S1 on C."商品種別" = S1."商品種別" and S1."分類" = '分類１' and C."分類１" = S1."内容" and C."店舗ID" = S1."店舗ID"
-		LEFT JOIN "MST_ソート情報" S2 on C."商品種別" = S2."商品種別" and S2."分類" = '分類２' and C."分類２" = S2."内容" and C."店舗ID" = S2."店舗ID"
+		LEFT JOIN "MST_ソート情報" S1 on A."商品種別" = S1."商品種別" and S1."分類" = '分類１' and A."分類１" = S1."内容" and A."店舗ID" = S1."店舗ID"
+		LEFT JOIN "MST_ソート情報" S2 on A."商品種別" = S2."商品種別" and S2."分類" = '分類２' and A."分類２" = S2."内容" and A."店舗ID" = S2."店舗ID"
 		
  WHERE
 		C."店舗ID" = !shopid 
@@ -565,7 +554,7 @@
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" = 	TRN."SKU番号"
+	and	MST."SKU番号" = TRN."SKU番号"
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -576,7 +565,7 @@
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" = 	TRN."SKU番号"
+	and	MST."SKU番号" = TRN."SKU番号"
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -598,7 +587,7 @@
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" = 	TRN."SKU番号"
+	and	MST."SKU番号" =  TRN."SKU番号"
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -686,7 +675,7 @@
 			left join "MST_ソート情報" S1 on m."商品種別" = S1."商品種別" and S1."分類" = '分類１' and m."分類１" = S1."内容" and m."店舗ID" = S1."店舗ID"
 			left join "MST_ソート情報" S2 on m."商品種別" = S2."商品種別" and S2."分類" = '分類２' and m."分類２" = S2."内容" and m."店舗ID" = S2."店舗ID"
 		where
-			m."暫定フラグ" = '0'
+			m."暫定フラグ" = 0
 			and
 			m."店舗ID" = :shopid
 			and 
@@ -737,26 +726,16 @@
 	from
 		"MST_出品マスタ情報" m
 		left join "TRN_仕入明細" a on 
-			m."商品管理番号" = a."商品管理番号" and 
-			m."親子区分" = a."親子区分" and 
-			m."商品種別" = a."商品種別" and 
-			m."分類１" = a."分類１" and 
-			m."分類２" = a."分類２" and 
 			m."暫定フラグ" = a."暫定フラグ" and 
 			m."店舗ID" = a."店舗ID" and 
 			a."仕入NO" = :no
 		left join "MST_在庫情報" d on 
-			m."商品管理番号" = d."商品管理番号" and 
-			m."親子区分" = d."親子区分" and 
-			m."商品種別" = d."商品種別" and 
-			m."分類１" = d."分類１" and 
-			m."分類２" = d."分類２" and 
 			m."暫定フラグ" = d."暫定フラグ" and 
 			m."店舗ID" = d."店舗ID" 
 		left join "MST_ソート情報" S1 on m."商品種別" = S1."商品種別" and S1."分類" = '分類１' and m."分類１" = S1."内容" and m."店舗ID" = S1."店舗ID"
 		left join "MST_ソート情報" S2 on m."商品種別" = S2."商品種別" and S2."分類" = '分類２' and m."分類２" = S2."内容" and m."店舗ID" = S2."店舗ID"
 	where
-		m."暫定フラグ" = '1'
+		m."暫定フラグ" > 0
 		and
 		m."店舗ID" = :shopid
 		and 
@@ -797,6 +776,36 @@
 	"資料名称" = !filename
 		and
 	"拡張子" = !suffix
+
+</sql>
+
+
+<!-- sl:仕入内容-->
+<sql id="querypurchasedetail" paramPrefix="!">
+	SELECT DISTINCT 
+		A."商品管理番号" as no
+	FROM
+		"MST_出品マスタ情報" A,
+		( SELECT T."ASIN番号", T."SKU番号", T."店舗ID", T."暫定フラグ" 
+		FROM "TRN_仕入明細" T 
+		WHERE T."仕入NO" = !purchaseno and T."店舗ID" = !shopid	 ) B 
+	WHERE
+		A."ASIN番号" = B."ASIN番号" 
+		AND A."SKU番号" = B."SKU番号" 
+		AND A."店舗ID" = B."店舗ID" 
+		AND A."暫定フラグ" = B."暫定フラグ" 
+	ORDER BY
+		A."商品管理番号"
+</sql>
+
+
+<!-- sl: 新规TRN_仕入資料-->
+<sql id="updatepurchasedetail" paramPrefix="!">
+	UPDATE "TRN_仕入管理" 
+	SET "仕入内容" = !deteil
+	WHERE
+		"仕入NO" = !purchaseno
+	and "店舗ID" = !shopid
 
 </sql>
  </sqls>

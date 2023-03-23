@@ -147,7 +147,35 @@ purchase_save.fire = function (params) {
 			}
 		);
 
-		// 仕入内容
+			// 仕入内容
+			var selectResult = db.select(
+				"PURCHASE",
+				"querypurchasedetail",
+				{
+					purchaseno: newpurchaseno,
+					shopid: getShopId()
+				}
+			).getArray();
+
+
+			var deteil=''
+			for(var i =0; i < selectResult.length; i++){
+				if(i != selectResult.length-1){
+					deteil = deteil + selectResult[i]['no'] + ','
+				}else{
+					deteil = deteil + selectResult[i]['no'] 
+				}
+			}
+
+			var updateResult = db.change(
+				"PURCHASE",
+				"updatepurchasedetail",
+				{
+					deteil:deteil,
+					purchaseno: purchaseno,
+					shopid: getShopId()
+				}
+			);
 
 	// 更新の場合 
 	}else if (opt == 'update') {
@@ -275,7 +303,34 @@ purchase_save.fire = function (params) {
 			);
 
 			// 仕入内容
+			var selectResult = db.select(
+				"PURCHASE",
+				"querypurchasedetail",
+				{
+					purchaseno: purchaseno,
+					shopid: getShopId()
+				}
+				).getArray();
+	 
+			var deteil=''
+			for(var i =0; i < selectResult.length; i++){
+				if(i != selectResult.length-1){
+					deteil = deteil + selectResult[i]['no'] + ','
+				}else{
+					deteil = deteil + selectResult[i]['no'] 
+				}
+			
+			}
 
+			var updateResult = db.change(
+				"PURCHASE",
+				"updatepurchasedetail",
+				{
+					deteil:deteil,
+					purchaseno: purchaseno,
+					shopid: getShopId()
+				}
+			);
 		}
 
 
