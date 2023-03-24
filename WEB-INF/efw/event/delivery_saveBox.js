@@ -58,6 +58,28 @@ delivery_saveBox.fire=function(params){
 
 	}
 
+	// 納品内容更新
+	var updateResult = db.change(
+		"DELIVERY",
+		"queryDeliveryContent",
+		{
+			no: deliveryno,
+			shopid: getShopId()
+		}
+	).getSingle();
+
+	var content = selectResult["no"];
+
+	var updateResult = db.change(
+		"DELIVERY",
+		"updateDeliveryContent",
+		{
+			no: deliveryno,
+			content: content,
+			shopid: getShopId()
+		}
+	);
+
 	ret.eval("delivery_box_inputdialog.dialog('close');");
 	return ret;
 

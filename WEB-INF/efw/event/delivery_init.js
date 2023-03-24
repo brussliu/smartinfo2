@@ -29,7 +29,7 @@ delivery_init.fire = function (params) {
 	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice" value="{no}"></input></td>' +
 	' <td style="width: 155px" class="l a"><span class="l5" onclick="outputFile(this)">{no}</span> </td>' +
 			' <td style="width: 300px;" class="l"><span class="l5">{name}</span></td>' +
-			' <td style="width: 500px;" class="l"><span class="l5">{no}</span></td>' +
+			' <td style="width: 500px;" class="l"><span class="l5">{content}</span></td>' +
 			' <td style="width: 80px;" class="r"><span class="r5">{number}</span></td>' +
 			' <td style="width: 120px;" class="c">{state}</td>' +
 

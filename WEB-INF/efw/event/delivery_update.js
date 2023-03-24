@@ -49,6 +49,28 @@ delivery_update.fire = function (params) {
 		}
 	);
 	
+	// 納品内容更新
+	var updateResult = db.change(
+		"DELIVERY",
+		"queryDeliveryContent",
+		{
+			no: deliveryno,
+			shopid: getShopId()
+		}
+	).getSingle();
+
+	var content = selectResult["no"];
+
+	var updateResult = db.change(
+		"DELIVERY",
+		"updateDeliveryContent",
+		{
+			no: deliveryno,
+			content: content,
+			shopid: getShopId()
+		}
+	);
+
 	ret.eval("$('#text_name').val('');");
 	ret.eval("$('#file_deliveryfile').val('');");
 	// ret.eval("choice('');");

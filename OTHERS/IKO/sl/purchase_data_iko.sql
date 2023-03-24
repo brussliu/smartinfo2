@@ -38,7 +38,6 @@ current_timestamp
 from
 "ZZZ_仕入管理" T;
 
-
 update "TRN_仕入管理" K
 set "仕入内容" = F."no"
 from 

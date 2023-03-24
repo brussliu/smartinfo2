@@ -13,6 +13,7 @@
 			when "ステータス" = '3.受領中' then "受領数量"
 			when "ステータス" = '4.納品済' then "最終納品数量"
 		end as number,
+		"納品内容" as content,
 		"ステータス" AS state,
 		to_char("登録日",'YYYY/MM/DD') AS logindate,
 		to_char("発送日",'YYYY/MM/DD') AS senddate,
@@ -91,6 +92,30 @@
 		 "店舗ID" = :shopid 
 	AND
 		 "納品NO" = :no
+</sql>
+
+<!-- 納品内容更新-->
+<sql id="updateDeliveryContent">
+	UPDATE "TRN_納品管理" 
+	SET "納品内容" = !content
+	WHERE
+		"納品NO" = !no
+	and "店舗ID" = !shopid
+
+</sql>
+
+<sql id="queryDeliveryContent">
+	SELECT DISTINCT 
+		string_agg(distinct A."商品管理番号", '、' order by "商品管理番号" ) as no
+	FROM
+		"TRN_納品明細" T,
+		"MST_出品マスタ情報" A
+	WHERE
+		A."ASIN番号" = T."ASIN番号" 
+		AND A."SKU番号" = T."SKU番号" 
+		AND A."店舗ID" = T."店舗ID" 
+		AND T."納品NO" = !no 
+		AND T."店舗ID" = !shopid
 </sql>
 
 <!-- 納品名称検索 -->
