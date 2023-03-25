@@ -100,7 +100,7 @@
 			, now()
 		from
 			"IPT_FBA未出荷情報" IPT 
-			LEFT JOIN "MST_出品マスタ情報" MST ON IPT."sku" = MST."SKU番号" and IPT."店舗ID" = MST."店舗ID" and MST."暫定フラグ" = '0'
+			LEFT JOIN "MST_出品マスタ情報" MST ON IPT."sku" = MST."SKU番号" and IPT."店舗ID" = MST."店舗ID" and MST."暫定フラグ" = 0
 		where
 			not exists ( 
 				select
@@ -450,8 +450,10 @@
 				where
 					MST1."SKU番号" = MST2."SKU番号" 
 					and MST1."ASIN番号" = MST2."ASIN番号" 
+					and MST1."暫定フラグ" = MST2."暫定フラグ" 
 					and MST1."店舗ID" = MST2."店舗ID"
 			) 
+			and MST1."暫定フラグ" = 0
 			and MST1."店舗ID" = :shopId
 	</sql>
 
@@ -550,7 +552,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -608,7 +610,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -665,7 +667,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -722,7 +724,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -779,7 +781,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -836,7 +838,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -893,7 +895,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and 
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -921,7 +923,7 @@
 			and
 			MST."親子区分" = '子商品'
 			and
-			MST."暫定フラグ" = '0'
+			MST."暫定フラグ" = 0
 			and
 			"MST_販売数量情報"."店舗ID" = :shopId
 	</sql>
@@ -944,7 +946,7 @@
 		from
 			"MST_出品マスタ情報" MST1
 		where
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			not exists ( 
 				select
@@ -992,7 +994,7 @@
 		from
 			"MST_出品マスタ情報" MST1
 		where
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			not exists ( 
 				select
@@ -1002,7 +1004,6 @@
 				where
 					MST1."SKU番号" = MST2."SKU番号" 
 					and MST1."ASIN番号" = MST2."ASIN番号" 
-					and MST1."暫定フラグ" = '0'
 					and MST1."店舗ID" = MST2."店舗ID"
 			) 
 			and MST1."店舗ID" = :shopId
@@ -1057,7 +1058,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST1."ASIN番号"
 			and
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST1."店舗ID"
 			and
@@ -1067,7 +1068,7 @@
 			and
 			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
 			and
-			MST2."暫定フラグ" = '0'
+			MST2."暫定フラグ" = 0
 			and
 			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
 			and
@@ -1094,6 +1095,8 @@
 			and
 			IPT."Warehouse-Condition-code" = 'SELLABLE'
 			and
+			"MST_在庫情報"."暫定フラグ" = 0
+			and
 			"MST_在庫情報"."店舗ID" = :shopId
 	</sql>
 
@@ -1110,6 +1113,8 @@
 			and
 			"MST_在庫情報"."店舗ID" = IPT."店舗ID"
 			and
+			"MST_在庫情報"."暫定フラグ" = 0
+			and
 			"MST_在庫情報"."店舗ID" = :shopId
 	</sql>
 
@@ -1117,11 +1122,6 @@
 		insert into "MST_在庫情報" (
 			  "SKU番号"
 			, "ASIN番号"
-			, "商品管理番号"
-			, "親子区分"
-			, "商品種別"
-			, "分類１"
-			, "分類２"
 			, "暫定フラグ"
 			, "店舗ID"
 			, "登録日時"
@@ -1130,11 +1130,6 @@
 		select
 			  "SKU番号"
 			, "ASIN番号"
-			, "商品管理番号"
-			, "親子区分"
-			, "商品種別"
-			, "分類１"
-			, "分類２"
 			, "暫定フラグ"
 			, "店舗ID"
 			, now()
@@ -1142,7 +1137,7 @@
 		from
 			"MST_出品マスタ情報" MST1
 		where
-			MST1."暫定フラグ" = '0'
+			MST1."暫定フラグ" = 0
 			and
 			not exists ( 
 				select
@@ -1161,7 +1156,7 @@
 	<sql id="excute_m1_m2_02">
 		delete from "MST_在庫情報"
 		where
-		    "MST_在庫情報"."暫定フラグ" = '0'
+		    "MST_在庫情報"."暫定フラグ" = 0
 			and
 			not exists ( 
 				select
@@ -1172,6 +1167,7 @@
 					"MST_在庫情報"."SKU番号" = MST."SKU番号" 
 					and "MST_在庫情報"."ASIN番号" = MST."ASIN番号" 
 					and "MST_在庫情報"."暫定フラグ" = MST."暫定フラグ"
+					and "MST_在庫情報"."暫定フラグ" = 0
 					and "MST_在庫情報"."店舗ID" = MST."店舗ID"
 			) 
 			and "MST_在庫情報"."店舗ID" = :shopId
@@ -1180,7 +1176,7 @@
 	<sql id="excute_m1_m2_03">
 		delete from "MST_在庫情報"
 		where
-		    "MST_在庫情報"."暫定フラグ" = '1'
+		    "MST_在庫情報"."暫定フラグ" > 0
 			and
 			not exists ( 
 				select
@@ -1188,11 +1184,8 @@
 				from
 					"MST_出品マスタ情報" MST
 				where
-					"MST_在庫情報"."商品管理番号" = MST."商品管理番号" 
-					and "MST_在庫情報"."親子区分" = MST."親子区分" 
-					and "MST_在庫情報"."商品種別" = MST."商品種別" 
-					and "MST_在庫情報"."分類１" = MST."分類１" 
-					and "MST_在庫情報"."分類２" = MST."分類２" 
+					"MST_在庫情報"."SKU番号" = MST."SKU番号" 
+					and "MST_在庫情報"."ASIN番号" = MST."ASIN番号" 
 					and "MST_在庫情報"."暫定フラグ" = MST."暫定フラグ"
 					and "MST_在庫情報"."店舗ID" = MST."店舗ID"
 			) 
@@ -1240,7 +1233,7 @@
 			"商品名" as "商品名称",
 			null as "仕入申報価格（元）",
 			null as "仕入申報価格（ドル）",
-			'0' as "暫定フラグ",
+			0 as "暫定フラグ",
 			"店舗ID" as "店舗ID",
 			now(),
 			now()
@@ -1272,7 +1265,7 @@
 			and
 			"MST_出品マスタ情報"."店舗ID" = BK."店舗ID"
 			and
-			"MST_出品マスタ情報"."暫定フラグ" = '0'
+			"MST_出品マスタ情報"."暫定フラグ" = 0
 			and
 			BK."店舗ID" = :shopId
 			and
@@ -1314,7 +1307,7 @@
 		from  
 			"MST_出品マスタ情報_BACKUP" BK
 		where
-			BK."暫定フラグ" = '1'
+			BK."暫定フラグ" > 0
 			and
 			BK."店舗ID" = :shopId
 			and
