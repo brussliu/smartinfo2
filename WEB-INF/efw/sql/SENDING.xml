@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+
+	<sql id="searchproducno">
+	SELECT DISTINCT
+		"商品管理番号" AS value,
+		"商品管理番号" AS text 
+	FROM
+		"MST_出品マスタ情報" 
+	WHERE
+		"length" ( 商品管理番号 ) > 0 
+		AND "店舗ID" = :shopid  
+	ORDER BY
+		"商品管理番号"
+	</sql>
+
+	<sql id="searchsub1">
+	SELECT DISTINCT
+		"分類１" AS sub1
+	FROM
+		"MST_出品マスタ情報" 
+	WHERE
+	 	 "店舗ID" = :shopid  
+	  	 and "商品管理番号" = :product
+		 and "分類１" != ''
+		 and "分類１" is not null
+	</sql>
+
+	<sql id="searchsub2">
+	SELECT DISTINCT
+		"分類２" AS sub2 
+	FROM
+		"MST_出品マスタ情報" 
+	WHERE
+	  	"店舗ID" = :shopid  
+	  	 and "商品管理番号" = :product
+		 and "分類２" != ''
+		 and "分類２" is not null
+	</sql>
+
+	<sql id="searchsending">
+		SELECT  
+			"orderno" as orderno,
+			"区分" as type,
+			"ステータス" as state,
+			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')
+			||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'') as no,
+
+			"受注日時" as orderdate,
+			"商品名称" as productname,
+			"数量" as num,
+			'' as money,
+			"お届け先-郵便番号" as mail,
+			"お届け先-都道府県" as prefectures,
+			"お届け先-市区町村" as city,
+			"お届け先-住所1" as address1,
+			"お届け先-住所2" as address2,
+			"お届け先-住所3" as address3,
+			"お届け先-住所全部" as addressall,
+			"お届け先-名前" as name,
+			"購入者電話番号" as phone,
+			"発送方法" as send,
+			"備考" as remark
+		FROM
+			"TRN_発送情報" 
+		WHERE
+			"店舗ID" = :shopid 
+		ORDER BY
+			"区分"
+	</sql>
+ 
+ 	<sql id="searchbyorderno">
+	SELECT  
+			"区分" as type,
+			"ステータス" as state,
+			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')
+			||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'') as no,
+
+			"受注日時" as orderdate,
+			"商品管理番号" as productno,
+			"分類１" as sub1,
+			"分類２" as sub2,
+
+			"数量" as num,
+			'' as money,
+			"お届け先-郵便番号" as mail,
+			"お届け先-都道府県" as prefectures,
+			"お届け先-市区町村" as city,
+			"お届け先-住所1" as address1,
+			"お届け先-住所2" as address2,
+			"お届け先-住所3" as address3,
+			"お届け先-住所全部" as addressall,
+			"お届け先-名前" as name,
+			"購入者電話番号" as phone,
+			"発送方法" as send,
+			"備考" as remark
+
+	FROM
+		"TRN_発送情報" 
+	WHERE
+	  	"店舗ID" = :shopid  
+	  	 and "orderno" = :orderno
+
+	</sql>
+
+
+<!-- sl:削除 -->
+<sql id="delbyorderno"  >
+		delete
+		from
+			"TRN_発送情報"
+		where
+			"orderno" = :orderno
+			and
+			"店舗ID"= :shopid	 
+</sql>
+
+
+
+
+<!-- sl:新规TRN_発送情報 -->
+<sql id="insertsending" >
+	insert into "TRN_発送情報"
+	 (
+	 "Amazon注文番号",
+	 "Qoo10注文番号",
+	 "代行発送管理番号",
+	 "自行発送管理番号",
+	 "受注日時",
+	 "ステータス",
+
+	"区分" ,
+	"発送方法" ,
+	 "商品管理番号",
+	 "分類１",
+	 "分類２",
+	 "商品名称",
+	 "数量",
+
+	 "お届け先-郵便番号",
+	 "お届け先-都道府県",
+	 "お届け先-市区町村",
+	 "お届け先-住所1",
+	 "お届け先-住所2",
+
+	 "お届け先-住所3",
+	 "お届け先-名前",
+	 "購入者電話番号",
+	 "備考",
+	 "店舗ID",
+	 "登録日時"
+	 ) VALUES(
+		 case   when :type = 'A' then :no else '' end ,
+		 case   when :type = 'B' then :no else '' end ,
+		 case   when :type = 'C' then :no else '' end ,
+		 case   when :type = 'D' then :no else '' end ,
+		 now(),
+		 '1.未発送',
+		 
+		:type,
+		:send,
+		 :product,
+		 :sub1,
+		 :sub2,
+		 :productname,
+		 :num,
+	
+		 :mail,
+		 :address1,
+		 :address2,
+		 split_part( :address3,' ',1),
+		 coalesce(split_part( :address3,' ',2),''),
+
+		 coalesce(split_part( :address3,' ',3),''),
+		 :name,
+		 :phone,
+		 :remark,
+		 :shopid,
+
+		 now()
+
+	 )
+</sql>
+
+
+<!-- sl：更新-暂定1-親商品 -->
+<sql id="updatesending"  >
+		UPDATE "TRN_発送情報" 
+		SET
+				"Amazon注文番号" =	  case   when :type = 'A' then :no else '' end ,
+				"Qoo10注文番号" = 	 case   when :type = 'B' then :no else '' end ,
+				"代行発送管理番号" = case   when :type = 'C' then :no else '' end ,
+				"自行発送管理番号" = case   when :type = 'D' then :no else '' end ,
+				"区分" = :type,
+				"発送方法" = :send,
+				"商品管理番号" = :product,
+				"分類１" = :sub1,
+				"分類２" = :sub2,
+				"商品名称" = :productname,
+				"数量" = :num,
+
+				"お届け先-郵便番号" = :mail,
+				"お届け先-都道府県" =  :address1,
+				"お届け先-市区町村" = :address2,
+				"お届け先-住所1" = split_part( :address3,' ',1),
+				"お届け先-住所2" = coalesce(split_part( :address3,' ',2),''),
+
+				"お届け先-住所3" = coalesce(split_part( :address3,' ',3),''),
+				"お届け先-名前" = :name,
+				"購入者電話番号" = :phone,
+				"備考" = :remark,
+				"更新日時"=now()
+ 		 WHERE 
+		    "店舗ID" =:shopid
+			and "orderno" = :orderno
+ 
+		   
+</sql>
+</sqls>
+

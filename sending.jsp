@@ -15,42 +15,139 @@
 
                 }
 
+                function init() {
+                    Efw('sending_init');
+                }
 
+                // 子画面が閉じる
+                function cel() {
+                    sending_inputdialog.dialog('close');
+                }
+
+                function add() {
+                    $('#opt').val('new')
+
+                    $('#select_type').get(0).selectedIndex = 0;
+                    $('#select_send').get(0).selectedIndex = 0;
+                    $('#text_no').val('')
+                    $('#select_product').get(0).selectedIndex = 0;
+                    $('#select_sub1').get(0).selectedIndex = 0;
+                    $('#select_sub2').get(0).selectedIndex = 0;
+                    $('#text_productname').val('')
+                    $('#text_num').val('')
+                    $('#text_money').val('')
+                    $('#text_mail').val('')
+
+                    $('#text_address1').val('')
+                    $('#text_address2').val('')
+                    $('#text_address3').val('')
+
+                    $('#text_name').val('')
+                    $('#text_phone').val('')
+                    $('#text_remark').val('')
+                    sending_inputdialog.dialog('open');
+                }
+
+                // 根据番号查询分类
+                function changeProduct(val) {
+                    // 番号
+                    var product = $(val).val();
+
+                    $('#text_productname').val(product + ' ')
+                    Efw('sending_queryproductsub', { product: product });
+                }
+                // 改变商品名
+                function changeSub() {
+
+                    var product = $('#select_product').val();
+                    var sub1 = $('#select_sub1').val()==null?' ':$('#select_sub1').val();
+                    var sub2 = $('#select_sub2').val()==null?' ':$('#select_sub2').val();
+
+                    $('#text_productname').val(product + ' ' + sub1 + ' ' + sub2)
+
+                }
+
+                // 更新
+                function update() {
+
+                    var arr = new Array();
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        arr.push($(this).next().val());
+                    });
+
+                    if (arr.length == 1) {
+                        $('#opt').val('update');
+                        Efw('sending_update', { "orderno": arr[0] });
+                    } else {
+
+                    }
+                }
+
+                // 削除
+                function del() {
+                    var arr = new Array();
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        arr.push($(this).next().val());
+                    });
+
+                    if (arr.length == 1) {
+                        Efw('sending_del', { "orderno": arr[0] });
+                    } else {
+
+                    }
+                }
+
+                // 追跡番号更新
+                function trackingUpdate() {
+                    var arr = new Map();
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        var orderno = $(this).next().val();
+                        var trackno = $(this).parent().next().next().children().val();
+                        arr.set(orderno, trackno);
+                    });
+                    if(arr.length >0){
+                        // Efw('sending_trackingupdate', { "arr": arr });
+                    }else{
+
+                    }
+                   
+                }
+
+                // ラベル出力
+                function upload() {
+                    var arr = new Map();
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        var orderno = $(this).next().val();
+                        var trackno = $(this).parent().next().next().children().val();
+                        arr.set(orderno, trackno);
+                    });
+                    if(arr.length >0){
+                           // Efw('sending_trackingupdate', { "arr": arr });
+                    }else{
+                        
+                    }
+              
+                }
+                // 保存
+                function save(){
+                          Efw('sending_save');
+                }
             </script>
             <style>
-                .table_btn td button{
+                .table_btn td button {
                     width: 150px;
                 }
-                /* .table_btn td{
-                    width: 10%;
+
+                .lh {
+                    line-height: 20px;
                 }
-                .btn {
-                    float: right;
-                    width: 170px;
-                    height: 40px;
-                    background: rgb(240, 240, 240);
-                    font-size: 16px;
-                    border: 1px solid rgb(206, 205, 205);
-                    box-shadow: 2px 2px 2px #888888;
-                    cursor: pointer;
-                }
-                .l span{
-                    margin-left: 5px;
-                }
-                .r span{
-                    margin-right: 5px;
-                }
-                .table_detail_content td input[type="text"]{
-                    width: 150px;
-                    height: 30px;
-                } */
             </style>
         </head>
 
-        <body>
+        <body onload="init();">
             <efw:Part path="sending_inputdialog.jsp" />
             <efw:Part path="sending_list_inputdialog.jsp" />
-        
+
             <div>
                 <div class="head">
                     <div class="hleft">
@@ -67,10 +164,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;padding-right: 20px;">
-                                    店舗ID：<span id="shopid">未选择</span>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    UserID：<span id="userid">XXXX</span>
+                                <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                                    店舗ID：<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    UserID：<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
                                 </td>
                             </tr>
                         </table>
@@ -88,12 +185,14 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 170px;" onclick="sending_list_inputdialog.dialog('open');"><button >商品集計</button></td>
-                                    <td style="width: 170px;" onclick="sending_inputdialog.dialog('open');"><button >新規</button></td>
-                                    <td style="width: 170px;" onclick="sending_inputdialog.dialog('open');"><button>更新</button></td>
-                                    <td style="width: 170px;"><button >追跡番号更新</button></td>
-                                    <td style="width: 170px;"><button >ラベル出力</button></td>
-                                    <td style="width: 170px;"><button >削除</button></td>
+                                    <td style="width: 170px;" onclick="sending_list_inputdialog.dialog('open');">
+                                        <button>商品集計</button>
+                                    </td>
+                                    <td style="width: 170px;" onclick="add()"><button>新規</button></td>
+                                    <td style="width: 170px;" onclick="update()"><button>更新</button></td>
+                                    <td style="width: 170px;"><button onclick="trackingUpdate()">追跡番号更新</button></td>
+                                    <td style="width: 170px;"><button onclick="upload()">ラベル出力</button></td>
+                                    <td style="width: 170px;"><button onclick="del()">削除</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -128,657 +227,63 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2656px;table-layout: fixed;">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 220px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                    <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                    <td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>
-                                    <td style="width: 120px;" class="c">発送済</td>
-                                    <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                    <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                    <td style="width: 300px;" class="l">
-                                        <span class="l5">W001</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                        <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                    </td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                    <td style="width: 100px;" class="c">999-9999</td>
-                                    <td style="width: 400px;" class="l">
-                                        <span class="l5">神奈川県</span><br>
-                                        <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                        <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                    <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                    <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                </tr>
-                            </tbody>
+                        <table class="table_detail_content" style="width: 2656px;table-layout: fixed;"
+                            id="sendingtable">
+
+                            <tr>
+                                <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
+                                <td style="width: 130px;" class="l"><span class="l5"></span></td>
+                                <td style="width: 180px;" class="c"><input type="text"
+                                        style="width: 170px;height: 30px;"></td>
+                                <td style="width: 120px;" class="c"></td>
+                                <td style="width: 220px;" class="c"></td>
+                                <td style="width: 140px;" class="c"></td>
+                                <td style="width: 300px;" class="l">
+                                    <span class="l5"></span><br>
+                                    <span class="l5"></span><br>
+                                    <span class="l5"></span>
+                                </td>
+                                <td style="width: 100px;" class="r"><span class="r5"></span></td>
+                                <td style="width: 100px;" class="r"><span class="r5"> 円</span></td>
+                                <td style="width: 100px;" class="c"></td>
+                                <td style="width: 400px;" class="l">
+                                    <span class="l5"></span><br>
+                                    <span class="l5"></span><br>
+                                    <span class="l5"></span>
+                                </td>
+                                <td style="width: 120px;" class="l"><span class="l5"></span></td>
+                                <td style="width: 150px;" class="l"><span class="l5"></span></td>
+                                <td style="width: 200px;" class="l"><span class="l5"></span></td>
+                                <td style="width: 300px;" class="l"><span class="l5"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
+                                <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
+                                <td style="width: 180px;" class="c"><input type="text"
+                                        style="width: 170px;height: 30px;"></td>
+                                <td style="width: 120px;" class="c">発送済</td>
+                                <td style="width: 250px;" class="c">250-1217803-6504627</td>
+                                <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
+                                <td style="width: 300px;" class="l">
+                                    <span class="l5">W001</span><br>
+                                    <span class="l5">xxxxxxxxxxxxxxxx</span><br>
+                                    <span class="l5">xxxxxxxxxxxxxxxx</span>
+                                </td>
+                                <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
+                                <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
+                                <td style="width: 100px;" class="c">999-9999</td>
+                                <td style="width: 400px;" class="l">
+                                    <span class="l5">神奈川県</span><br>
+                                    <span class="l5">横浜市泉区緑園4-1-2</span><br>
+                                    <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span>
+                                </td>
+                                <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
+                                <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
+                                <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
+                                <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
+                            </tr>
+
+
                         </table>
                     </div>
                 </div>
