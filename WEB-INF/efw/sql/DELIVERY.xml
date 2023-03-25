@@ -95,7 +95,7 @@
 </sql>
 
 <!-- 納品内容更新-->
-<sql id="updateDeliveryContent">
+<sql id="updateDeliveryContent" paramPrefix="!">
 	UPDATE "TRN_納品管理" 
 	SET "納品内容" = !content
 	WHERE
@@ -104,7 +104,7 @@
 
 </sql>
 
-<sql id="queryDeliveryContent">
+<sql id="queryDeliveryContent" paramPrefix="!">
 	SELECT DISTINCT 
 		string_agg(distinct A."商品管理番号", '、' order by "商品管理番号" ) as no
 	FROM

@@ -3,7 +3,7 @@ delivery_saveBox.name="箱詰め情報保存";
 
 delivery_saveBox.paramsFormat={
 
-	"deliveryno":"required:true;display-name:仕入No;",
+	"deliveryno":null,
 	"#delivery_box_inputdialog":{
 		"skuArr":null,
 		"asinArr":null,
@@ -59,7 +59,7 @@ delivery_saveBox.fire=function(params){
 	}
 
 	// 納品内容更新
-	var updateResult = db.change(
+	var selectResult = db.select(
 		"DELIVERY",
 		"queryDeliveryContent",
 		{

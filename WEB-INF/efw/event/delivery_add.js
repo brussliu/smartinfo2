@@ -46,7 +46,7 @@ delivery_add.fire = function (params) {
 	);
 
 	// 納品内容更新
-	var updateResult = db.change(
+	var selectResult = db.select(
 		"DELIVERY",
 		"queryDeliveryContent",
 		{
@@ -66,7 +66,7 @@ delivery_add.fire = function (params) {
 			shopid: getShopId()
 		}
 	);
-	
+
 	ret.eval("$('#text_name').val('');");
 	ret.eval("$('#file_deliveryfile').val('');");
 	

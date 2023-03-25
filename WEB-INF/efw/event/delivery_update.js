@@ -50,7 +50,7 @@ delivery_update.fire = function (params) {
 	);
 	
 	// 納品内容更新
-	var updateResult = db.change(
+	var selectResult = db.select(
 		"DELIVERY",
 		"queryDeliveryContent",
 		{

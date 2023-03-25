@@ -245,7 +245,7 @@
 
             // 保存
             function savebox() {
-                var no = $('#temp').data("temp");
+                var deliveryno = $('input:radio[name="choice"]:checked').val();
 
                 var skuArr = new Array();
                 var asinArr = new Array();
@@ -269,7 +269,7 @@
 
                 //alert(skuArr);alert(asinArr);alert(qArr);
 
-                Efw('delivery_saveBox', { "skuArr": skuArr, "asinArr": asinArr, "qArr": qArr, "deliveryno": no });
+                Efw('delivery_saveBox', { "skuArr": skuArr, "asinArr": asinArr, "qArr": qArr, "deliveryno": deliveryno });
             }
 
         </script>

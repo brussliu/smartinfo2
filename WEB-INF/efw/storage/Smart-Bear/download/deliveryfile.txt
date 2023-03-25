@@ -1,0 +1,14 @@
+このシートに記入する前にExampleタブを確認してください										
+								
+Default prep owner	Seller									
+Default labeling owner	Seller									
+										
+										
+		任意			任意：メーカー梱包のSKUにのみ使用					
+Merchant SKU	Quantity	Prep owner	Labeling owner	Expiration date (MM/DD/YYYY)	Units per box 	Number of boxes	Box length (cm)	Box width (cm)	Box height (cm)	Box weight (kg)
+1T-DNJW-2ZEQ	1
+8Q-VTYS-YQ5Z	14
+97-W48L-K89A	4
+JQ-MLRE-AH9L	15
+L5-KRB8-08ZT	1
+R9-SF7M-ULZR	1
