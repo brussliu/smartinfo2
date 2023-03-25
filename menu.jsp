@@ -188,7 +188,7 @@
                                             onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn"
+                                    <td><button class="btn" disabled="disabled"
                                         onclick="Efw('common_menu_goto',{page:'cost.jsp'})">コスト情報管理</button></td>
                                 </tr>
                                 <tr>
@@ -211,31 +211,31 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn"
+                                    <td> <button class="btn" disabled="disabled"
                                             onclick="Efw('common_menu_goto',{page:'shipactingmaster.jsp'})">代行発送商品管理</button>
                                     </td>
-                                    <td> <button class="btn"
+                                    <td> <button class="btn" disabled="disabled"
                                             onclick="Efw('common_menu_goto',{page:'shipacting.jsp'})">代行発送情報管理</button>
                                     </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn"
+                                    <td><button class="btn" disabled="disabled"
                                             onclick="Efw('common_menu_goto',{page:'sending.jsp'})">発送情報管理</button>
                                     </td>
                                     <td></td>
-                                    <td> <button class="btn"
+                                    <td> <button class="btn" disabled="disabled"
                                             onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td> <button class="btn"
+                                    <td> <button class="btn" disabled="disabled"
                                             onclick="Efw('common_menu_goto',{page:'scan.jsp'})">商品スキャン</button>
                                     </td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn">TODO管理</button></td>
+                                    <td><button class="btn" disabled="disabled">TODO管理</button></td>
                                 </tr>
                             </tbody>
                         </table>

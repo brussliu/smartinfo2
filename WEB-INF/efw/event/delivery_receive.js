@@ -79,7 +79,40 @@ function loadAcceptanceFile(receiverfile, flg){
 	var fa = receiverfile.split("\\");
 	var f = fa[fa.length - 1];
 
-	var csvReader = new CSVReader(getShopId() + "/upload/" + f, ",", "\"", "MS932");
+	// if(opt != null || breakcode != "\r\n"){
+			
+	// 	var txt = null;
+
+	// 	if(encoding == "S-JIS"){
+	// 		txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, "MS932");
+	// 	}else{
+	// 		txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename);
+	// 	}
+		
+	// 	if(opt != null){
+	// 		txt = txt.substring(opt);
+	// 	}
+	// 	if(breakcode != "\r\n"){
+	// 		txt = txt.replaceAll(breakcode,"\r\n");
+	// 	}
+
+	// 	// if(encoding == "S-JIS"){
+	// 		file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, txt, "MS932");
+	// 	// }else{
+	// 	// 	file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + filename, txt);
+	// 	// }
+		
+	// }
+
+	var txt = file.readAllLines(getShopId() + "/upload/" + f);
+	txt = txt.replaceAll("\n","\r\n");
+	file.writeAllLines(getShopId() + "/upload/" + f, txt, "MS932");
+
+	var csvReader = new CSVReader(getShopId() + "/upload/" + f, "\t", "\"", "MS932");
+
+
+	// var csvReader = new CSVReader(getShopId() + "/upload/" + f, "\t");
+
 	if(flg == 1){
 		// データ全件導入
 		csvReader.loopAllLines(importAcceptance1);

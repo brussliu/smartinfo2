@@ -41,7 +41,7 @@ delivery_init.fire = function (params) {
 			' <td style="width: 140px;" class="c">{amz1}</td>' +
 			' <td style="width: 300px;" class="l"><span class="l5">{amz2}</span></td>' +
 			' <td style="width: 160px;" class="c">{amz3}</td>' +
-			' <td style="width: 400px;" class="l"><span class="l5">{amz4}</span></td>' +
+			' <td style="width: 140px;" class="l"><span class="l5">{amz4}</span></td>' +
 			' <td style="width: 140px;" class="r"><span class="r5">{amz5}</span></td>' +
 			' <td style="width: 140px;" class="r"><span class="r5">{amz6}</span></td>' +
 			' </tr>'

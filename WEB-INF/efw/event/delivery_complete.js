@@ -84,7 +84,12 @@ function loadAcceptanceFile(receiverfile, flg){
 	var fa = receiverfile.split("\\");
 	var f = fa[fa.length - 1];
 
-	var csvReader = new CSVReader(getShopId() + "/upload/" + f, ",", "\"", "MS932");
+	var txt = file.readAllLines(getShopId() + "/upload/" + f);
+	txt = txt.replaceAll("\n","\r\n");
+	file.writeAllLines(getShopId() + "/upload/" + f, txt, "MS932");
+
+	var csvReader = new CSVReader(getShopId() + "/upload/" + f, "\t", "\"", "MS932");
+
 	if(flg == 1){
 		// データ全件導入
 		csvReader.loopAllLines(importAcceptance01);
@@ -133,7 +138,7 @@ function importAcceptance02(aryField, index) {
 
 		// TODO 納品明細の数量と受領数量を検索する v
 		var selectResult = db.select(	"DELIVERY",	"queryCount",
-		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()}).getSingle();
+		{"asin": asin,	"sku": sku,	"deliveryno": deliveryno,"shopid": getShopId()});
 
 		
 		var selectResultObj = selectResult.getSingle();

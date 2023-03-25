@@ -264,7 +264,7 @@
                                     <th style="width: 140px;">AMZ納品番号</th>
                                     <th style="width: 300px;">AMZ納品名</th>
                                     <th style="width: 160px">AMZ-納品プラン番号</th>
-                                    <th style="width: 400px;">AMZ-納品先</th>
+                                    <th style="width: 140px;">AMZ-納品先</th>
                                     <th style="width: 140px;">AMZ-SKU合計</th>
                                     <th style="width: 157px;">AMZ-商品合計数</th>
                                 </tr>
