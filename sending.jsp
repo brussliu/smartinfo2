@@ -15,127 +15,246 @@
 
                 }
 
+                // 画面初期化
                 function init() {
                     Efw('sending_init');
                 }
 
                 // 子画面が閉じる
-                function cel() {
+                function cancel() {
                     sending_inputdialog.dialog('close');
                 }
 
+                // 新規ボタン押下
                 function add() {
-                    $('#opt').val('new')
 
-                    $('#select_type').get(0).selectedIndex = 0;
+                    // 操作区分
+                    $('#opt').val('new');
+                    // 区分
+                    $('#select_type').get(0).selectedIndex = 4;
+                    // 発送方法
                     $('#select_send').get(0).selectedIndex = 0;
-                    $('#text_no').val('')
+                    // 注文番号
+                    $('#text_no').val('');
+                    // 商品管理番号
                     $('#select_product').get(0).selectedIndex = 0;
+                    // 分類１
+                    $("#select_sub1 option").remove();
+                    $("#select_sub1").append("<option value='' ></option>");
                     $('#select_sub1').get(0).selectedIndex = 0;
+                    // 分類２
+                    $("#select_sub2 option").remove();
+                    $("#select_sub2").append("<option value='' ></option>");
                     $('#select_sub2').get(0).selectedIndex = 0;
-                    $('#text_productname').val('')
-                    $('#text_num').val('')
-                    $('#text_money').val('')
-                    $('#text_mail').val('')
+                    // 商品名称
+                    $('#text_productname').val('');
+                    // 数量
+                    $('#text_num').val('');
+                    // 金額
+                    $('#text_money').val('');
+                    // 郵便番号
+                    $('#text_mail').val('');
+                    // 都道府県
+                    $('#text_prefecture').val('');
+                    // 市区町村
+                    $('#text_city').val('');
+                    // 住所１
+                    $('#text_address1').val('');
+                    // 住所２
+                    $('#text_address2').val('');
+                    // 住所３
+                    $('#text_address3').val('');
+                    // 住所全部
+                    $('#td_addressall').html('');
+                    $('#td_addressall').css('border', '0px');
+                    // 宛先
+                    $('#text_name').val('');
+                    // 電話番号
+                    $('#text_phone').val('');
+                    // 備考
+                    $('#text_remark').val('');
+                    // 発送内容
+                    $('#text_sendcontent').val('');
 
-                    $('#text_address1').val('')
-                    $('#text_address2').val('')
-                    $('#text_address3').val('')
-
-                    $('#text_name').val('')
-                    $('#text_phone').val('')
-                    $('#text_remark').val('')
                     sending_inputdialog.dialog('open');
+
                 }
 
-                // 根据番号查询分类
+                // 削除ボタン押下
+                function del() {
+
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        // arr.push($(this).next().val());
+                        Efw('sending_del', { "orderno": $(this).next().val() });
+                        return;
+                    });
+
+                }
+
+                // 商品管理番号、分類１、分類２変更
                 function changeProduct(val) {
-                    // 番号
-                    var product = $(val).val();
 
-                    $('#text_productname').val(product + ' ')
-                    Efw('sending_queryproductsub', { product: product });
-                }
-                // 改变商品名
-                function changeSub() {
-
-                    var product = $('#select_product').val();
-                    var sub1 = $('#select_sub1').val()==null?' ':$('#select_sub1').val();
-                    var sub2 = $('#select_sub2').val()==null?' ':$('#select_sub2').val();
-
-                    $('#text_productname').val(product + ' ' + sub1 + ' ' + sub2)
+                    Efw('sending_queryproductsub',{'opt':val} );
 
                 }
 
                 // 更新
                 function update() {
 
-                    var arr = new Array();
                     $('#sendingtable input:checkbox:checked').each(function (index, item) {
-                        arr.push($(this).next().val());
-                    });
-
-                    if (arr.length == 1) {
+                        
                         $('#opt').val('update');
-                        Efw('sending_update', { "orderno": arr[0] });
-                    } else {
+                        $('#td_addressall').css('border', '1px solid black');
+                        Efw('sending_update', { "orderno": $(this).next().val() });
 
-                    }
-                }
-
-                // 削除
-                function del() {
-                    var arr = new Array();
-                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
-                        arr.push($(this).next().val());
+                        return;
                     });
 
-                    if (arr.length == 1) {
-                        Efw('sending_del', { "orderno": arr[0] });
-                    } else {
-
-                    }
                 }
 
                 // 追跡番号更新
                 function trackingUpdate() {
-                    var arr = new Map();
+
+                    var arr = new Array();
+
                     $('#sendingtable input:checkbox:checked').each(function (index, item) {
                         var orderno = $(this).next().val();
-                        var trackno = $(this).parent().next().next().children().val();
-                        arr.set(orderno, trackno);
-                    });
-                    if(arr.length >0){
-                        // Efw('sending_trackingupdate', { "arr": arr });
-                    }else{
+                        arr.push(orderno);
 
+                        var trackno = $(this).parent().next().next().children().next().val();
+                        arr.push(trackno);
+
+                    });
+
+                    if (arr.length > 0) {
+                        Efw('sending_trackingupdate', { "arr": arr });
                     }
-                   
+
+                }
+
+                // 保存
+                function save() {
+
+                    var arr = new Array();
+                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                        arr.push($(this).next().val());
+                    });
+
+                    if (arr.length > 0) {
+                        Efw('sending_save', { "orderno": arr[0] });
+                    }else{
+                        Efw('sending_save', { "orderno": "" });
+                    }
+
+                }
+
+                // CSVファイル出力
+                function outputcsv() {
+
+                    // var arr = new Map();
+                    // $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                    //     var orderno = $(this).next().val();
+                    //     var trackno = $(this).parent().next().next().children().val();
+                    //     arr.set(orderno, trackno);
+                    // });
+                    // if (arr.length > 0) {
+                    //     // Efw('sending_trackingupdate', { "arr": arr });
+                    // } else {
+
+                    // }
+
+                    Efw('sending_outputcsv');
+
                 }
 
                 // ラベル出力
-                function upload() {
-                    var arr = new Map();
-                    $('#sendingtable input:checkbox:checked').each(function (index, item) {
-                        var orderno = $(this).next().val();
-                        var trackno = $(this).parent().next().next().children().val();
-                        arr.set(orderno, trackno);
-                    });
-                    if(arr.length >0){
-                           // Efw('sending_trackingupdate', { "arr": arr });
-                    }else{
-                        
+                function outputlabel() {
+
+                    Efw('sending_outputlabel');
+                
+                }
+
+                // 商品集計
+                function productlist() {
+                    Efw('sending_productlist');
+                }
+
+
+
+                function choice(val) {
+                    if (val == '1') {
+                        var arr = new Array();
+                        $('#sendingtable input:checkbox:checked').each(function (index, item) {
+                            arr.push($(this).next().val());
+                            var span_trackno = $(this).parent().next().next().children();
+
+                            span_trackno.css("display", "none");
+                            span_trackno.parent().append('<input type="text" value="' + span_trackno.html() + '"style="width:170px;height: 30px;"></input>')
+
+                        });
+                        $('#sendingtable input:checkbox:not(:checked)').each(function (index, item) {
+                            var span_trackno = $(this).parent().next().next().children();
+                            span_trackno.css("display", "inline");
+                            span_trackno.next().remove()
+
+                        });
+
+
+                        if (arr.length == 0) {
+                            $('#btn_update').attr('disabled', true);
+                            $('#btn_del').attr('disabled', true);
+                            $('#btn_tracking').attr('disabled', true);
+                        } else if (arr.length == 1) {
+                            $('#btn_update').attr('disabled', false);
+                            $('#btn_del').attr('disabled', false);
+                            $('#btn_tracking').attr('disabled', false);
+                        } else if (arr.length > 1) {
+                            $('#btn_update').attr('disabled', true);
+                            $('#btn_del').attr('disabled', true);
+                            $('#btn_tracking').attr('disabled', false);
+                        }
+
                     }
-              
+                    if (val == '0') {
+                        $('#btn_update').attr('disabled', true);
+                        $('#btn_del').attr('disabled', true);
+                        $('#btn_tracking').attr('disabled', true);
+                    }
+
                 }
-                // 保存
-                function save(){
-                          Efw('sending_save');
+
+
+                function changeColor() {
+
+                    $("#sendingtable").find("tr").each(function () {
+                        var tdArr = $(this).children();
+                        // 情報整備フラグ
+                        var info = tdArr.eq(0).children().next().next().val();
+
+                        if (info != '1') {
+                            $(this).css({ "background": "#e66565" });
+                        }
+                        // ステータス
+                        var state = tdArr.eq(2).html();
+                        if (state == '2.発送済') {
+                            $(this).css({ "background": "#e6e6e6" });
+                        }
+
+                    });
+
                 }
+
+                // 情報整備
+                function formatInfo() {
+
+                    Efw('sending_format');
+
+                }
+
             </script>
             <style>
                 .table_btn td button {
-                    width: 150px;
+                    width: 130px;
                 }
 
                 .lh {
@@ -185,20 +304,20 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 170px;" onclick="sending_list_inputdialog.dialog('open');">
-                                        <button>商品集計</button>
-                                    </td>
-                                    <td style="width: 170px;" onclick="add()"><button>新規</button></td>
-                                    <td style="width: 170px;" onclick="update()"><button>更新</button></td>
-                                    <td style="width: 170px;"><button onclick="trackingUpdate()">追跡番号更新</button></td>
-                                    <td style="width: 170px;"><button onclick="upload()">ラベル出力</button></td>
-                                    <td style="width: 170px;"><button onclick="del()">削除</button></td>
+                                    <td style="width: 140px;"><button onclick="productlist()">商品集計</button></td>
+                                    <td style="width: 140px;"><button onclick="add()">新規</button></td>
+                                    <td style="width: 140px;"><button onclick="update()" id="btn_update" disabled>更新</button></td>
+                                    <td style="width: 140px;"><button onclick="del()" id="btn_del" disabled>削除</button></td>
+                                    <td style="width: 140px;"><button onclick="formatInfo()">情報整備</button></td>
+                                    <td style="width: 300px;"><button onclick="outputcsv()" style="width:280px;">クリックポスト作成用CSV出力</button></td>
+                                    <td style="width: 200px;"><button onclick="outputlabel()" style="width:180px;">普通便用ラベル出力</button></td>
+                                    <td style="width: 220px;"><button onclick="trackingUpdate()" style="width:200px;" id="btn_tracking" disabled>発送（追跡番号更新）</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 2673px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 3253px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
@@ -206,82 +325,29 @@
                                     <th style="width: 180px;">追跡番号</th>
 
                                     <th style="width: 120px;">ステータス</th>
-                                    <th style="width: 220px;">注文番号</th>
-                                    <th style="width: 140px;">注文日時</th>
+                                    <th style="width: 200px;">注文番号</th>
+                                    <th style="width: 240px;">注文日時</th>
 
-                                    <th style="width: 300px;">商品</th>
+                                    <th style="width: 600px;">商品</th>
                                     <th style="width: 100px;">数量合計</th>
-                                    <th style="width: 100px">金額合計</th>
+                                    <!-- <th style="width: 100px">金額合計</th> -->
 
                                     <th style="width: 100px;">郵便番号</th>
                                     <th style="width: 400px;">届け先住所</th>
                                     <th style="width: 120px;">届け先宛先</th>
 
-                                    <th style="width: 150px">電話番号</th>
+                                    <th style="width: 160px">電話番号</th>
                                     <th style="width: 200px;">発送方法</th>
-                                    <th style="width: 317px;">備考</th>
-
+                                    <th style="width: 300px;">備考</th>
+                                    <th style="width: 217px;">発送内容</th>
                                 </tr>
 
                             </thead>
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2656px;table-layout: fixed;"
+                        <table class="table_detail_content" style="width: 3236px;table-layout: fixed;"
                             id="sendingtable">
-
-                            <tr>
-                                <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                <td style="width: 130px;" class="l"><span class="l5"></span></td>
-                                <td style="width: 180px;" class="c"><input type="text"
-                                        style="width: 170px;height: 30px;"></td>
-                                <td style="width: 120px;" class="c"></td>
-                                <td style="width: 220px;" class="c"></td>
-                                <td style="width: 140px;" class="c"></td>
-                                <td style="width: 300px;" class="l">
-                                    <span class="l5"></span><br>
-                                    <span class="l5"></span><br>
-                                    <span class="l5"></span>
-                                </td>
-                                <td style="width: 100px;" class="r"><span class="r5"></span></td>
-                                <td style="width: 100px;" class="r"><span class="r5"> 円</span></td>
-                                <td style="width: 100px;" class="c"></td>
-                                <td style="width: 400px;" class="l">
-                                    <span class="l5"></span><br>
-                                    <span class="l5"></span><br>
-                                    <span class="l5"></span>
-                                </td>
-                                <td style="width: 120px;" class="l"><span class="l5"></span></td>
-                                <td style="width: 150px;" class="l"><span class="l5"></span></td>
-                                <td style="width: 200px;" class="l"><span class="l5"></span></td>
-                                <td style="width: 300px;" class="l"><span class="l5"></span></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input></td>
-                                <td style="width: 130px;" class="l"><span class="l5">Paypayフリマ</span></td>
-                                <td style="width: 180px;" class="c"><input type="text"
-                                        style="width: 170px;height: 30px;"></td>
-                                <td style="width: 120px;" class="c">発送済</td>
-                                <td style="width: 250px;" class="c">250-1217803-6504627</td>
-                                <td style="width: 140px;" class="c">2021/12/12 12:12:12</td>
-                                <td style="width: 300px;" class="l">
-                                    <span class="l5">W001</span><br>
-                                    <span class="l5">xxxxxxxxxxxxxxxx</span><br>
-                                    <span class="l5">xxxxxxxxxxxxxxxx</span>
-                                </td>
-                                <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                <td style="width: 100px;" class="r"><span class="r5">999999 円</span></td>
-                                <td style="width: 100px;" class="c">999-9999</td>
-                                <td style="width: 400px;" class="l">
-                                    <span class="l5">神奈川県</span><br>
-                                    <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                    <span class="l5">緑園都市耳鼻咽喉科 酒井医院緑園都市耳鼻咽喉科</span>
-                                </td>
-                                <td style="width: 120px;" class="l"><span class="l5">田中 一郎</span></td>
-                                <td style="width: 150px;" class="l"><span class="l5">080-9999-9999</span></td>
-                                <td style="width: 200px;" class="l"><span class="l5">XXXXXXX</span></td>
-                                <td style="width: 300px;" class="l"><span class="l5">XXXXXXX</span></td>
-                            </tr>
 
 
                         </table>

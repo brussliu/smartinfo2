@@ -5,16 +5,17 @@
 	<sql id="searchCostInfo" paramPrefix="!">
 		select 
 			  "登録日" as registrationdate
+			, "区分" as type
 			, "発生日" as accrualdate
 			, "ステータス" as status
 			, "分類" as classification
 			, "タイトル" as title
-			, cast("金額（元）" as varchar) as amountcny
-			, cast("金額（円）" as varchar) as amountjpy
-			, cast("為替レート" as varchar) as exchangerate
+			, cast("金額（元）" as numeric(10,2)) as amountcny
+			, cast("金額（円）" as numeric(10,2)) as amountjpy
+			, cast("為替レート" as numeric(6,2)) as exchangerate
 			, "備考" as remarks
 		from
-			"RES_コスト情報"
+			"RES_収入支出情報"
 		where 
 			"店舗ID" = !shopid
 		order by
@@ -23,18 +24,19 @@
 	<sql id="selectCostInfo" paramPrefix="!">
 		select
 
-		      "登録日"
-			, "発生日" 
-			, "ステータス" 
-			, "分類" 
-			, "タイトル"
-			, "金額（元）"
-			, "金額（円）"  
-			, "為替レート" 
-			, "備考" 
+		      "登録日" as registrationdate
+			, "区分" as type
+			, "発生日"  as accrualdate
+			, "ステータス"  as status
+			, "分類"  as classification
+			, "タイトル" as title
+			, "金額（元）" as amountcny
+			, "金額（円）"  as amountjpy
+			, "為替レート"  as exchangerate
+			, "備考" as remarks
 			
 		from
-			"RES_コスト情報"
+			"RES_収入支出情報"
 		where
 			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !updateKey
 			and
@@ -42,16 +44,17 @@
 	</sql>
 
 	<sql id="updateCostInfo" paramPrefix="!">
-			update "RES_コスト情報" 															
+			update "RES_収入支出情報" 															
 		set 
-			"登録日" = now()
+			  "登録日" = now()
+			, "区分" = !col1
 			, "発生日" = !col2		 			
 			, "ステータス" = !col3
 			, "分類" = !col4
 			, "タイトル" = !col5
-			, "金額（元）" = !col6
-			, "金額（円）" = !col7
-			, "為替レート" = !col8
+			, "金額（元）" = cast( !col6 as numeric )
+			, "金額（円）" = cast( !col7 as numeric )
+			, "為替レート" = cast( !col8 as numeric )
 			, "備考" = !col9	
 		where
 			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !updateKey
@@ -62,26 +65,46 @@
 	</sql>
 	
 	<sql id="insertCostInfo" >
-		INSERT INTO "RES_コスト情報"
+		INSERT INTO "RES_収入支出情報"
+				(
+					"登録日",
+					"区分",
+					"発生日",
+
+					"ステータス",
+					"分類",
+					"タイトル",
+					
+					"金額（元）",
+					"金額（円）",
+					"為替レート",
+					"備考",
+					"店舗ID",
+					"登録日時"
+				)
 		VALUES (
 			now(),
+			:col1,
 			:col2,
+
 			:col3,
 			:col4,
 			:col5,
-			:col6,
-			:col7,
-			:col8,
+
+			cast ( :col6 as numeric) ,
+			 cast( :col7 as numeric) ,
+			 cast( :col8 as numeric),
+
 			:col9,
 			:col10,
-			now(),
-			now()			 
+			now()
+		 			 
 		)
 	</sql>
 	<sql id="deleteCostInfo" paramPrefix="!">
 		delete
 		from
-			"RES_コスト情報"
+			"RES_収入支出情報"
 		where
 			to_char("登録日",'YYYY/MM/DD HH24:MI:SS')= !delKey
 			and

@@ -13,6 +13,7 @@ cost_save.paramsFormat={
 	"#txt_remarks":null,
 	"#opt":null,
 	"updateKey":null,
+	"type":null
 };
 
  
@@ -22,98 +23,101 @@ cost_save.fire=function(params){
 
 	// セッションチェック
 	if (sessionCheck(ret) == false) { return ret };
+	// 区分
+	var type = params["type"];
+	// ステータス
+	var status=params["#opt_status"];
+	// 発生日
+	var newDate = new Date(params["#txt_accrualdate"]);	
+	// 分類
+	var classification=params["#txt_classification"];
+	// タイトル
+	var title=params["#txt_title"];
+	// 金額
+	var account = parseFloat(params["#txt_account"])==null?0.00:params["#txt_account"];
+	// 円or元
+	var currency = params["#opt_currency"];
+	// 為替レート
+	var exchangerate= parseFloat(params["#txt_exchangerate"])==null?0.00:params["#txt_exchangerate"];
+	// 備考
+	var remarks=params["#txt_remarks"];
 
-	if(params["#opt"] == "NEW"){
+	var opt=params["#opt"];
+
+	if(opt == "NEW"){
 
 		var jpy = null;
 		var cny = null;
-
-		
-	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
-
-		jpy = parseFloat(params["#txt_account"]);
-		cny = jpy * parseFloat(params["#txt_exchangerate"]) / 100;
-
-	}
-
-	if(params["#opt_currency"] == "CNY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
-
-		cny = parseFloat(params["#txt_account"]);
-		jpy = cny / parseFloat(params["#txt_exchangerate"]) * 100;
-
-	}
-
-	// var arys = new Array();
-	// arys = params["#txt_accrualdate"].split('/');
 	
-	var newDate = new Date(params["#txt_accrualdate"]);
-	
+		if(currency == "JPY" && exchangerate != null && exchangerate != '' && account != null){
 
-	var selectResult = db.change(
-		"COST",
-		"insertCostInfo",
-		{
-			col2 : newDate,
-			col3 : params["#opt_status"],
-			col4 : params["#txt_classification"],
-			col5 : params["#txt_title"],
-			col6 : cny,
-			col7 : jpy,
-			col8 : parseFloat(params["#txt_exchangerate"]),
-			col9 : params["#txt_remarks"],
-			col10 :getShopId(),	
-			
+			jpy =  account;
+			cny = jpy * parseFloat(exchangerate) / 100;
+
 		}
-	);
-	}
-	if(params["#opt"] == "UPDATE"){
 
-		var jpy = null;
-		var cny = null;
-	
-	if(params["#opt_currency"] == "JPY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
+		if(currency == "CNY" && exchangerate != null && exchangerate != ''  && account != null){
 
-		jpy = parseFloat(params["#txt_account"]);
-		cny = jpy * parseFloat(params["#txt_exchangerate"]) / 100;
-	}
+			cny =  account;
+			jpy = cny / parseFloat(exchangerate) * 100;
 
-	if(params["#opt_currency"] == "CNY" && params["#txt_exchangerate"] != null && params["#txt_account"] != null){
-		
-		cny = parseFloat(params["#txt_account"]);
-		jpy = cny / parseFloat(params["#txt_exchangerate"]) * 100;
-	}
+		}
 
-	var newDate = new Date(params["#txt_accrualdate"]);
-
-		var updateResult = db.change(
+		var selectResult = db.change(
 			"COST",
-			"updateCostInfo",
+			"insertCostInfo",
 			{
+				col1 : type,
 				col2 : newDate,
-				col3 : params["#opt_status"],
-				col4 : params["#txt_classification"],
-				col5 : params["#txt_title"],
+				col3 : status,
+				col4 : classification,
+				col5 : title,
 				col6 : cny,
 				col7 : jpy,
-				col8 : parseFloat(params["#txt_exchangerate"]),
-				col9 : params["#txt_remarks"],
-				updateKey : params["updateKey"],
-				shopid : getShopId(),
+				col8 : exchangerate,
+				col9 : remarks,
+				col10 :getShopId(),	
+				
 			}
 		);
+	 
 	}
 
+	if(opt == "UPDATE"){
+		var updateKey= params["updateKey"];
+		var jpy = null;
+		var cny = null;
 	
+		if(currency == "JPY" && exchangerate != null && exchangerate != ''  && account != null){
 
- 
-	
+			jpy = account;
+			cny = jpy * parseFloat(exchangerate) / 100;
+		}
 
-	
+		if(currency == "CNY" && exchangerate != null && exchangerate != ''  && account != null){
+			cny = account;
+			jpy = cny / parseFloat(exchangerate) * 100;
+		}
 
-	// ret.runat("#stocktable").remove("tr").append(resultHTML).withdata(selectResult);
-
-	// var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
-	// ret.eval(script);
+			var updateResult = db.change(
+				"COST",
+				"updateCostInfo",
+				{	
+					col1 : type,
+					col2 : newDate,
+					col3 : status,
+					col4 : classification,
+					col5 : title,
+					col6 : cny,
+					col7 : jpy,
+					col8 : exchangerate,
+					col9 : remarks,
+					updateKey : updateKey,
+					shopid : getShopId(),
+				}
+			);
+			updateResult.debug('----updateCostInfo---')
+	}
 
 	// 画面へ結果を返す
 	ret.eval("cost_inputdialog.dialog('close');");

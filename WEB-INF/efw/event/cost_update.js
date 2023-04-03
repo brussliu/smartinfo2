@@ -1,15 +1,7 @@
 var cost_update = {};
 cost_update.name = "更新情報画面表示";
 cost_update.paramsFormat = {
-	// "#td_registrationdate":null,
-	// "#opt_status":null,
-	// "#txt_accrualdate":null,
-	// "#txt_classification":null,
-	// "#txt_title":null,
-	// "#txt_account":null,
-	// "#opt_currency":null,
-	// "#txt_exchangerate":null,
-	// "#txt_remarks":null,
+
 	"updateKey":null,
 
 };
@@ -22,33 +14,6 @@ cost_update.fire = function (params) {
 	if (sessionCheck(ret) == false) { return ret };
 
 
-	// var selectResult = db.change(
-	// 	"COST",
-	// 	"updateCostInfo",
-	// 	{
-	// 		col2 : newDate,
-	// 		col3 : params["#opt_status"],
-	// 		col4 : params["#txt_classification"],
-	// 		col5 : params["#txt_title"],
-	// 		col6 : cny,
-	// 		col7 : jpy,
-	// 		col8 : parseFloat(params["#txt_exchangerate"]),
-	// 		col9 : params["#txt_remarks"],
-	// 		col10 :getShopId(),
-		
-	// 	}
-	// );
-    
-	// var selectResult = db.change(
-	// 	"COST",
-	// 	"selectCostInfo",
-	// 	{
-	// 		updateKey : params["updateKey"],
-	// 		shopid : getShopId(),
-		
-	// 	}
-	// );
-
 	var selectResult = db.select(
 		"COST",
 		"selectCostInfo",
@@ -59,22 +24,33 @@ cost_update.fire = function (params) {
 		}
 	).getSingle();
 
+		var type = selectResult['type'];
+
+	if(type == '支出'){
+		ret.eval('changetype("支出");')
+		ret.eval("	$('input[name=type]').removeAttr('checked');")
+		ret.eval('$("#radio_type1").attr("checked","true");')
+	}else{
+		ret.eval('changetype("収入");')
+		ret.eval("	$('input[name=type]').removeAttr('checked');")
+		ret.eval('$("#radio_type2").attr("checked","true");')
+	}
+ 
 	ret.runat("#cost_inputdialog")
 	.withdata(
 		{ 
-			"#td_registrationdate":selectResult["登録日"].format("yyyy/MM/dd HH:mm:ss"),
-			"#txt_title":selectResult["タイトル"],
-			"#txt_remarks":selectResult["備考"],
-			"#txt_accrualdate":(selectResult["発生日"]).format("yyyy/MM/dd"),
-			"#opt_status":selectResult["ステータス"],
-			"#txt_classification":selectResult["分類"],
-			"#txt_account":selectResult["金額（元）"],
-			"#td_num":selectResult["金額（円）"] + "円",
-			"#txt_exchangerate":selectResult["為替レート"],
+			"#td_registrationdate":selectResult["registrationdate"].format("yyyy/MM/dd HH:mm:ss"),
+			"#txt_title":selectResult["title"],
+			"#txt_remarks":selectResult["remarks"],
+			"#txt_accrualdate":(selectResult["accrualdate"]).format("yyyy/MM/dd"),
+			"#txt_account":isNULLs(selectResult["amountcny"] , 1),
+			"#td_num":isNULLs(selectResult["amountjpy"] , 2) ,
+			"#txt_exchangerate":isNULLs(selectResult["exchangerate"] , 1),
 		}
 	);
-	// [{"登録日":"2023-02-10T12:36:48.154Z","発生日":"2021-12-31T15:00:00.000Z","ステータス":"未支払","分類":"美工","タイトル":"2222","為替レート":5,"備考":"afa"}]
-	//  {"登録日":"2023-02-10T12:36:22.405Z","発生日":"2022-12-01T15:00:00.000Z","ステータス":"未支払","分類":"資材","タイトル":"2023","為替レート":5,"備考":"sssss"}
+
+	ret.eval("$('#opt_status').val('" + selectResult["status"] + "');");
+	ret.eval("$('#txt_classification').val('" + selectResult["classification"] + "');");
 	// 画面へ結果を返す
 	return ret.eval("cost_inputdialog.dialog('open');");
 
@@ -82,3 +58,21 @@ cost_update.fire = function (params) {
 
 
 
+function isNULLs(val,opt){
+	if(val == null){
+		return '';
+	}else{
+		if(opt==1){
+		}
+		if(opt==2){
+			val = val +'円';
+		}
+		if(opt==3){
+			val = val +'元';
+		}
+		if(opt==4){
+			val = val.format('yyyy/MM/dd');
+		}
+	}
+	return val;
+}

@@ -188,8 +188,8 @@
                                             onclick="Efw('common_menu_goto',{page:'import.jsp'})">データ導入</button></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn" disabled="disabled"
-                                        onclick="Efw('common_menu_goto',{page:'cost.jsp'})">コスト情報管理</button></td>
+                                    <td><button class="btn"  
+                                        onclick="Efw('common_menu_goto',{page:'cost.jsp'})">収入支出情報管理</button></td>
                                 </tr>
                                 <tr>
                                     <td><button class="btn"

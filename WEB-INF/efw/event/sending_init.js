@@ -5,6 +5,7 @@ sending_init.paramsFormat = {
 };
  
 sending_init.fire = function (params) {
+
 	var ret = new Result();
 
 	// セッションチェック
@@ -22,28 +23,28 @@ sending_init.fire = function (params) {
 	).getArray();
  
 	var resultHTML ='<tr>' +
-		'<td style="width: 50px;" class="c"><input type="checkbox" name="choice"></input><input type="hidden" id="orderno" value="{orderno}"></input></td>' +
+		'<td style="width: 50px;" class="c"><input type="checkbox" name="choice" onchange="choice(1)"></input><input type="hidden" id="orderno" value="{orderno}"><input type="hidden" value="{flg}"></td>' +
 		'<td style="width: 130px;" class="l"><span class="l5">{type}</span></td>' +
-		'<td style="width: 180px;" class="c"><input type="text" style="width: 170px;height: 30px;"></td>' +
+		'<td style="width: 180px;" class="c"><span>{traceno}</span></td>' +
 		'<td style="width: 120px;" class="c">{state}</td>' +
-		'<td style="width: 220px;" class="c">{no}</td>' +
-		'<td style="width: 140px;" class="c">{orderdate}</td>' +
-		'<td style="width: 300px;" class="l">' +
-		'	<span class="l5 lh">{productname}</span><br>' +
-		'	<span class="l5 lh"></span><br>' +
-		'	<span class="l5 lh"></span>' +
+		'<td style="width: 200px;" class="c">{no}</td>' +
+		'<td style="width: 240px;" class="c">{orderdate}</td>' +
+		'<td style="width: 600px;" class="l">' +
+		'	<span class="l5 lh">{asin}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="l5 lh">{sku}</span><br>' +
+		'	<span class="l5 lh">{productname}</span>' +
 		'</td>' +
 		'<td style="width: 100px;" class="r"><span class="r5">{num}</span></td>' +
-		'<td style="width: 100px;" class="r"><span class="r5">{money} 円</span></td>' +
+		// '<td style="width: 100px;" class="r"><span class="r5">{money} 円</span></td>' +
 		'<td style="width: 100px;" class="c">{mail}</td>' +
 		'<td style="width: 400px;" class="l">' +
-		'	<span class="l5 lh">{prefectures}{addressall}</span><br>' +
-		'	<span class="l5 lh">{city}</span><br>' +
-		'	<span class="l5 lh">{address1}'+' '+'{address2}'+' '+'{address3}</span></td>' +
+		'	<span class="l5 lh">{prefectures}&nbsp;&nbsp;&nbsp;&nbsp;{city}</span><br>' +
+		'	<span class="l5 lh">{address1}</span><br>' +
+		'	<span class="l5 lh">{address2}&nbsp;&nbsp;&nbsp;&nbsp;{address3}</span></td>' +
 		'<td style="width: 120px;" class="l"><span class="l5">{name}</span></td>' +
-		'<td style="width: 150px;" class="l"><span class="l5">{phone}</span></td>' +
-		'<td style="width: 200px;" class="l"><span class="l5">{send}</span></td>' +
+		'<td style="width: 160px;" class="l"><span class="l5">{phone}</span></td>' +
+		'<td style="width: 200px;" class="l"><span class="l5">{send}</span></input></td>' +
 		'<td style="width: 300px;" class="l"><span class="l5">{remark}</span></td>' +
+		'<td style="width: 200px;" class="l"><span class="l5">{sendcontent}</span></td>' +
     '</tr>'
 	ret.runat("#sendingtable").remove("tr").append(resultHTML).withdata(selectResult);
 	 
@@ -61,5 +62,7 @@ sending_init.fire = function (params) {
 
 	ret.runat("#select_product").remove("option .option").append(resultHTML1).withdata(selectResult1);
 
+ 
+	ret.eval("changeColor();");
 	return ret;
 };

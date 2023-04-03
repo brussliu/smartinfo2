@@ -1,7 +1,8 @@
-drop table public."RES_コスト情報";
+drop table public."RES_収入支出情報";
 
-create table public."RES_コスト情報" (
-    "登録日" timestamp(6) without time zone
+create table public."RES_収入支出情報" (
+	"区分" character varying(20)
+  , "登録日" timestamp(6) without time zone
   , "発生日" timestamp(6) without time zone
   , "ステータス" character varying(20)
   , "分類" character varying(50)

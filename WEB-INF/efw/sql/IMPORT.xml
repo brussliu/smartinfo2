@@ -48,9 +48,14 @@
 			, "お届け先-住所全部"
 			, "お届け先-名前"
 
+			, "情報整備フラグ"
 			, "区分" 
 			, "発送方法" 
 			, "ステータス" 
+
+			, "備考"
+			, "追跡番号"
+			, "発送内容"
 
 			, "店舗ID" 
 			, "登録日時" 
@@ -88,12 +93,22 @@
 			, "ship-address-1" as "お届け先-住所1"
 			, "ship-address-2" as "お届け先-住所2"
 			, "ship-address-3" as "お届け先-住所3"
-			, null as "お届け先-住所全部"
+			, COALESCE ("ship-postal-code" ,'') || ' ' || 
+			  COALESCE ("ship-state" ,'') || ' ' || 
+			  COALESCE ("ship-city" ,'') || ' ' || 
+			  COALESCE ("ship-address-1" ,'') || ' ' || 
+			  COALESCE ("ship-address-2" ,'') || ' ' || 
+			  COALESCE ("ship-address-3" ,'') as "お届け先-住所全部"
 			, "recipient-name" as "お届け先-名前"
 
+			, '0' as "情報整備フラグ"
 			, 'A.AmazonFBM' as "区分" 
 			, MST."FBM発送方式" as "発送方法" 
 			, '1.未発送' as "ステータス" 
+
+			, null as "備考"
+			, null as "追跡番号"
+			, case when substr(MST."商品種別",4) = 'その他' then null else substr(MST."商品種別",4) end as "発送内容"
 
 			, IPT."店舗ID" 
 			, now()
@@ -153,9 +168,14 @@
 			, "お届け先-住所全部"
 			, "お届け先-名前"
 
+			, "情報整備フラグ"
 			, "区分" 
 			, "発送方法" 
 			, "ステータス" 
+
+			, "備考"
+			, "追跡番号"
+			, "発送内容"
 
 			, "店舗ID" 
 			, "登録日時" 
@@ -174,7 +194,7 @@
 
 			, null as "ASIN番号"
 			, null as "SKU番号" 
-			, null as "商品管理番号" 
+			, "販売者商品コード" as "商品管理番号" 
 			, null as "商品種別"
 			, null as "分類１"
 			, null as "分類２"
@@ -193,12 +213,16 @@
 			, null as "お届け先-住所1"
 			, null as "お届け先-住所2"
 			, null as "お届け先-住所3"
-			, "お届け先" as "お届け先-住所全部"
+			, COALESCE ("郵便番号" ,'') || ' ' ||COALESCE ("お届け先" ,'') as "お届け先-住所全部"
 			, "受取人名" as "お届け先-名前"
-
+			, 0 as "情報整備フラグ"
 			, 'B.Qoo10発送' as "区分" 
 			, null as "発送方法" 
 			, '1.未発送' as "ステータス" 
+
+			, null as "備考"
+			, null as "追跡番号"
+			, null as "発送内容"
 
 			, "店舗ID" 
 			, now()

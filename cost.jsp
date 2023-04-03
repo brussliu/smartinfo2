@@ -4,7 +4,7 @@
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>コスト情報管理</title>
+            <title>収入支出情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <style>
@@ -88,9 +88,11 @@
                     cost_inputdialog.dialog('open');
                     
                 }
-                function cel(){
+                
+                function cancel(){
                     cost_inputdialog.dialog('close');
                 }
+
                 function cal(){
                     //金額の取得
                     var account = $("#txt_account").val();
@@ -112,7 +114,29 @@
                     }
 
                 }
-            </script>
+          
+                function changetype(type){
+             
+                    if(type == '支出'){
+                        $('#opt_status option').remove();
+                        $('#opt_status').append('<option value="未支払" >未支払</option> <option value="支払済">支払済</option>')
+                       
+                        $('#txt_classification option').remove();
+                        $('#txt_classification').append('<option value="" ></option> <option value="操作">操作</option>'+
+                                                          ' <option value="資材">資材</option> <option value="美工">美工</option>' +
+                                                          '<option value="現状">現状</option> <option value="その他">その他</option>');
+                    }
+
+                    if(type == '収入'){
+                        $('#opt_status option').remove();
+                        $('#opt_status').append('<option value="未受領" >未受領</option> <option value="受領済">受領済</option>')
+                    
+                        $('#txt_classification option').remove();
+                        $('#txt_classification').append('<option value="" ></option> <option value="代行納品">代行納品</option><option value="その他">その他</option>');
+                                     
+                    }
+                }
+          </script>
             
         </head>
 
@@ -143,7 +167,7 @@
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="menu.jsp">メニュー</a> > コスト情報管理</p>
+                    <p><a href="menu.jsp">メニュー</a> > 収入支出情報管理</p>
                 </div>
                 <div class="content"  >
                     <div class="c_btn" style="border-bottom: 1px solid black;">
@@ -167,11 +191,12 @@
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
                                     <th style="width: 200px">登録日時</th>
-                                    <th style="width: 200px;">発生日</th>
+                                    <th style="width: 150px">区分</th>
+                                    <th style="width: 150px;">発生日</th>
 
                                     <th style="width: 120px;">ステータス</th>
                                     <th style="width: 200px;">分類</th>
-                                    <th style="width: 350px;">タイトル</th>
+                                    <th style="width: 250px;">タイトル</th>
 
                                     <th style="width: 120px;">金額（元）</th>
                                     <th style="width: 120px;">金額（円）</th>
@@ -184,7 +209,7 @@
                         </table>
                     </div>
 
-                    <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 627px;margin-left:48px;">
+                    <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 777px;margin-left:48px;">
                         <table class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
                                 

@@ -1,7 +1,8 @@
 drop table public."TRN_発送情報";
 
 create table public."TRN_発送情報" (
-    "Amazon注文番号" character varying(50)
+    "orderno" serial primary key
+  , "Amazon注文番号" character varying(50)
   , "Qoo10注文番号" character varying(50)
   , "代行発送管理番号" character varying(20)
   , "自行発送管理番号" character varying(20)
@@ -34,10 +35,14 @@ create table public."TRN_発送情報" (
   , "お届け先-住所3" character varying(200)
   , "お届け先-住所全部" character varying(400)
   , "お届け先-名前" character varying(50)
+  , "情報整備フラグ" character varying(1)
 
   , "区分" character varying(50)
   , "発送方法" character varying(50)
   , "ステータス" character varying(20)
+  , "備考" character varying(400)
+  , "追跡番号" character varying(20)
+  , "発送内容" character varying(100)
 
   , "店舗ID" character varying(20)
   , "登録日時" timestamp(6) without time zone
