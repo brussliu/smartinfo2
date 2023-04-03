@@ -1,5 +1,5 @@
 var cost_init = {};
-cost_init.name = "コスト情報画面初期表示";
+cost_init.name = "収入支出情報画面初期表示";
 cost_init.paramsFormat = {
 
 };
@@ -26,6 +26,7 @@ cost_init.fire = function (params) {
 	)).map(
 		{
 			"registrationdate" : ["registrationdate",'yyyy/MM/dd HH:mm:ss'],
+			"type" : "type",
 			"accrualdate" : ["accrualdate",'yyyy/MM/dd'],
 			"status" : "status",
 			"classification" : "classification",
@@ -41,10 +42,11 @@ cost_init.fire = function (params) {
 	"<tr>" +
 		"<td style='width: 50px;' class='c'><input type='radio' name='choice' value='{registrationdate}' onclick='chooseItem();'></input></td>" +
 		"<td style='width: 200px;' class='c'>{registrationdate}</td>" +
-		"<td style='width: 200px;' class='c'>{accrualdate}</td>" +		
+		"<td style='width: 150px;' class='c'>{type}</td>" +	
+		"<td style='width: 150px;' class='c'>{accrualdate}</td>" +		
 		"<td style='width: 120px;' class='c'>{status}</td>" +
 		"<td style='width: 200px;' class='l'><span class='l5'>{classification}</span></td>" +
-		"<td style='width: 350px;' class='l'><span class='l5'>{title}</span></td>" +		
+		"<td style='width: 250px;' class='l'><span class='l5'>{title}</span></td>" +		
 		"<td style='width: 120px;' class='r'><span class='r5'>{amountcny}</span></td>" +
 		"<td style='width: 120px;' class='r'><span class='r5'>{amountjpy}</span></td>" +
 		"<td style='width: 100px;' class='r'><span class='r5'>{exchangerate}</span></td>" +
