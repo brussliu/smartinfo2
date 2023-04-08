@@ -80,18 +80,18 @@ delivery_update.fire = function (params) {
 
 };
 
-function deleteProContent(deliveryno){
+// function deleteProContent(deliveryno){
 
-	// 納品明細削除
-	var deleteResult = db.change(
-		"DELIVERY",
-		"deleteDeliveryContent",
-		{
-			no: deliveryno,
-			shopid: getShopId()
-		}
-	);
-}
+// 	// 納品明細削除
+// 	var deleteResult = db.change(
+// 		"DELIVERY",
+// 		"deleteDeliveryContent",
+// 		{
+// 			no: deliveryno,
+// 			shopid: getShopId()
+// 		}
+// 	);
+// }
 
 // // 納品内容導入
 // function importProContent(proContent, deliveryno) {
