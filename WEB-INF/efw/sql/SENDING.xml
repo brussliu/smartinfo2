@@ -93,13 +93,13 @@
 		 </if>
 </sql>
 <!-- sl:检索所有发送订单-->
-	<sql id="searchsending">
+	<sql id="searchsending" paramPrefix="!">
 		SELECT  
 			"orderno" as orderno,
 			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')
 			||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'') as no,
 
-			"受注日時" as orderdate,
+			to_char("受注日時",'yyyy-MM-dd hh24:mi:ss') as orderdate,
 
 			"ASIN番号" as asin,
 			"SKU番号" as sku,
@@ -118,7 +118,8 @@
 
 			"情報整備フラグ" as flg,
 			"区分" as type,
-			"発送方法" as send,		
+			to_char("発送日時",'yyyy-MM-dd hh24:mi:ss') as senddate,
+			"発送方法" as send,
 			"ステータス" as state,
 			"備考" as remark,
 			"追跡番号" as traceno,
@@ -127,9 +128,12 @@
 		FROM
 			"TRN_発送情報" 
 		WHERE
-			"店舗ID" = :shopid 
+			"店舗ID" = !shopid 
 		ORDER BY
-			"ステータス","区分","受注日時"
+			"ステータス",
+			"発送日時" desc,
+			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'')
+		LIMIT 100
 	</sql>
  
  <!-- sl：通过订单号查询 -->
@@ -334,12 +338,14 @@
 <sql id="updatetrackno"  >
 		UPDATE "TRN_発送情報" 
 		SET
-				"追跡番号" = :value,
+				"追跡番号" = :trackno,
 				"ステータス" = '2.発送済',
+				"発送日時" = now(),
 				"更新日時"=now()
  		 WHERE 
 		    "店舗ID" =:shopid
-			and "orderno" = :key	   
+			and "orderno" = :orderno	
+			and "発送日時" is null   
 </sql>
 
 <!-- sl:商品集计 -->
@@ -380,70 +386,65 @@
 	</sql>
 
 	<!-- sl:通过orderno查询番号 -->
-	<sql id="queryproductno">
+	<sql id="queryAsinSku">
 		SELECT   
-			 "商品管理番号" as no,
-			 "分類１" AS sub1 ,
-			 "分類２" AS sub2 ,
-			 "数量" AS num
+			 "ASIN番号" as asin,
+			 "SKU番号" AS sku 
 		FROM
 			 "TRN_発送情報"  
 		WHERE
 			 "店舗ID" = :shopid  
-			AND  "orderno" :orderno
+			AND  "orderno" = :orderno
+	</sql>
+		<!-- sl:查询商品状态 -->
+	<sql id="quertstatus">
+		SELECT   
+			 "ステータス" as status
+		FROM
+			 "TRN_発送情報"  
+		WHERE
+			 "店舗ID" = :shopid  
+			AND  "orderno"= :orderno
 	</sql>
 
 	<!-- sl:返回在库数量 -->
 	<sql id="reverseLocal">
 		UPDATE "MST_在庫情報" 
-		SET "LOCAL在庫" = "LOCAL在庫" + : num
+		SET "LOCAL在庫" = "LOCAL在庫" + :num
 		FROM
-			(SELECT 
-				"SKU番号" AS sku,
-				"ASIN番号" AS asin,
-				"店舗ID" AS shopid 
-			FROM
-				"MST_出品マスタ情報" 
-			WHERE
-				"商品管理番号" = :productno
-			AND "親子区分" = '子商品'
-			AND "店舗ID" = :shopid 
-				<if exists="sub1"> AND (	"分類１"  = :sub1) </if>
-				<if notexists="sub1"> AND ( "分類１" is null ) </if>
-				<if exists="sub2"> AND (	"分類２"  = :sub2 ) </if>
-				<if notexists="sub2"> AND (	"分類２" is null ) </if> 
-			) mt	
+			( SELECT "ASIN番号" AS asin, "SKU番号" AS sku , "店舗ID" as shop FROM "TRN_発送情報" 
+				WHERE orderno = :orderno and "店舗ID" = :shopid ) trn 
 		WHERE
-					mt.asin = "MST_在庫情報"."ASIN番号" 
-				AND mt.sku = "MST_在庫情報"."SKU番号" 
-				AND mt.shopid = "MST_在庫情報"."店舗ID"
+			"MST_在庫情報"."ASIN番号" = trn.asin 
+			AND "MST_在庫情報"."SKU番号" = trn.sku 
+			AND "MST_在庫情報"."店舗ID" = trn.shop
 	</sql>
 
 		<!-- sl:减少在库数量 -->
 	<sql id="minusLocal">
 		UPDATE "MST_在庫情報" 
-		SET "LOCAL在庫" = "LOCAL在庫" - : num
+		SET "LOCAL在庫" = "LOCAL在庫" - :num
 		FROM
-			(SELECT 
-				"SKU番号" AS sku,
-				"ASIN番号" AS asin,
-				"店舗ID" AS shopid 
-			FROM
-				"MST_出品マスタ情報" 
-			WHERE
-				"商品管理番号" = :productno
-			AND "親子区分" = '子商品'
-			AND "店舗ID" = :shopid 
-				<if exists="sub1"> AND (	"分類１"  = :sub1) </if>
-				<if notexists="sub1"> AND ( "分類１" is null ) </if>
-				<if exists="sub2"> AND (	"分類２"  = :sub2 ) </if>
-				<if notexists="sub2"> AND (	"分類２" is null ) </if> 
-			) mt	
+			( SELECT "ASIN番号" AS asin, "SKU番号" AS sku , "店舗ID" as shop FROM "TRN_発送情報" 
+				WHERE orderno = :orderno and "店舗ID" = :shopid ) trn 
 		WHERE
-					mt.asin = "MST_在庫情報"."ASIN番号" 
-				AND mt.sku = "MST_在庫情報"."SKU番号" 
-				AND mt.shopid = "MST_在庫情報"."店舗ID"
+			"MST_在庫情報"."ASIN番号" = trn.asin 
+			AND "MST_在庫情報"."SKU番号" = trn.sku 
+			AND "MST_在庫情報"."店舗ID" = trn.shop
 	</sql>
+		<!-- sl:减少在库数量 -->
+	<sql id="minusLocal2">
+		UPDATE "MST_在庫情報" 
+		SET "LOCAL在庫" = "LOCAL在庫" - trn.num
+		FROM
+			( SELECT "ASIN番号" AS asin, "SKU番号" AS sku ,"数量" AS num, "店舗ID" as shop FROM "TRN_発送情報" 
+				WHERE orderno = :orderno and "店舗ID" = :shopid ) trn 
+		WHERE
+			"MST_在庫情報"."ASIN番号" = trn.asin 
+			AND "MST_在庫情報"."SKU番号" = trn.sku 
+			AND "MST_在庫情報"."店舗ID" = trn.shop
+	</sql>
+
 
 	<sql id="selectClickpostInfo">
 		SELECT
@@ -491,44 +492,96 @@
 		ORDER BY
 			A."ステータス",A."区分",A."受注日時"
 	</sql>
-
+<!-- sl: Label情報を挿入する -->
 	<sql id="insertLabelInfo">
-		insert into (
+		insert into `ipt_発送情報` (
 			`ORDERNO`,
-			`届け先-郵便番号`,
-			`届け先-都道府県市区町村`,
-			`届け先-住所１`,
-			`届け先-住所２`,
-			`届け先-住所３`,
-			`届け先-宛先`,
+			`届け先_郵便番号`,
+			`届け先_都道府県市区町村`,
+			`届け先_住所１`,
+			`届け先_住所２`,
+			`届け先_住所３`,
+			`届け先_宛先`,
 			`発送内容`,
-			`発送元-郵便番号`,
-			`発送元-都道府県市区町村`,
-			`発送元-住所`,
-			`発送元-宛先`,
+			`発送元_郵便番号`,
+			`発送元_都道府県市区町村`,
+			`発送元_住所`,
+			`発送元_宛先`,
 			`区分`,
 			`店舗ID`,
-			`登録日時`,
-			`更新日時`,
+			`登録日時` 
 		) values (
-			--`ORDERNO` int NOT NULL,
-			--`届け先-郵便番号` varchar(10) DEFAULT NULL,
-			--`届け先-都道府県市区町村` varchar(50) DEFAULT NULL,
-			--`届け先-住所１` varchar(100) DEFAULT NULL,
-			--`届け先-住所２` varchar(100) DEFAULT NULL,
-			--`届け先-住所３` varchar(100) DEFAULT NULL,
-			--`届け先-宛先` varchar(50) DEFAULT NULL,
-			--`発送内容` varchar(50) DEFAULT NULL,
-			--`発送元-郵便番号` varchar(10) DEFAULT NULL,
-			--`発送元-都道府県市区町村` varchar(50) DEFAULT NULL,
-			--`発送元-住所` varchar(100) DEFAULT NULL,
-			--`発送元-宛先` varchar(50) DEFAULT NULL,
-			--`区分` varchar(50) DEFAULT NULL,
+			:orderno  --`ORDERNO` int NOT NULL,
+			,:postno  --`届け先-郵便番号` varchar(10) DEFAULT NULL,
+			,:address1  --`届け先-都道府県市区町村` varchar(50) DEFAULT NULL,
+			,:address2  --`届け先-住所１` varchar(100) DEFAULT NULL,
+			,:address3  --`届け先-住所２` varchar(100) DEFAULT NULL,
+			,:address4  --`届け先-住所３` varchar(100) DEFAULT NULL,
+			,:name  --`届け先-宛先` varchar(50) DEFAULT NULL,
+			,:shipcontent  --`発送内容` varchar(50) DEFAULT NULL,
+			,:senderPostno  --`発送元-郵便番号` varchar(10) DEFAULT NULL,
+			,:senderAddress1  --`発送元-都道府県市区町村` varchar(50) DEFAULT NULL,
+			,:senderAddress2  --`発送元-住所` varchar(100) DEFAULT NULL,
+			,:senderName  --`発送元-宛先` varchar(50) DEFAULT NULL,
+			,:type  --`区分` varchar(50) DEFAULT NULL,
 			,:shopid  --`店舗ID` varchar(20) NOT NULL,
 			,now()    --`登録日時` datetime DEFAULT NULL,
-			,now()    --`更新日時` datetime DEFAULT NULL,
-
 		);
+	</sql>
+<!-- sl:ipt_発送情報 ⇒ res_発送情報 -->
+		<sql id="insertResSendInfo">
+			insert into `res_発送情報`
+			select
+				ipt.`ORDERNO`
+				, ipt.`届け先_郵便番号`
+				, ipt.`届け先_都道府県市区町村`
+				, ipt.`届け先_住所１`
+				, ipt.`届け先_住所２`
+				, ipt.`届け先_住所３`
+				, ipt.`届け先_宛先`
+				, ipt.`発送内容`
+				, ipt.`発送元_郵便番号`
+				, ipt.`発送元_都道府県市区町村`
+				, ipt.`発送元_住所`
+				, ipt.`発送元_宛先`
+				, ipt.`区分`
+				, ipt.`店舗ID`
+				, now()
+				, now() 
+			from
+				`ipt_発送情報` ipt 
+			where
+				ipt.`店舗ID` = :shopid
+	</sql>
+
+<!-- sl:ipt_発送情報 を　全件削除する -->
+	<sql id="delIptSend">
+		delete from `ipt_発送情報` where `店舗ID` = :shopid
+	</sql>
+<!-- sl:処理対象検索（未発送、普通便とゆうパケット） -->
+	<sql id="selectUnsentInfo">
+		SELECT
+			A."orderno" as orderno,
+			A."お届け先-郵便番号" as postno,
+			A."お届け先-名前" as name,
+			A."お届け先-都道府県" || ' ' || A."お届け先-市区町村" as address1,
+			A."お届け先-住所1" as address2,
+			COALESCE(A."お届け先-住所2", '') as address3,
+			COALESCE(A."お届け先-住所3", '') as address4,
+			A."発送内容" as shipcontent,
+			A."区分" as type
+		FROM
+			"TRN_発送情報" A
+		WHERE
+			A."発送方法" in ('02.普通便','03.ゆうパケット')
+			AND
+			A."ステータス" = '1.未発送'
+			AND
+			A."情報整備フラグ" = '1'
+			AND 
+			A."店舗ID" = :shopid 
+		ORDER BY
+			A."お届け先-郵便番号"
 	</sql>
 </sqls>
 

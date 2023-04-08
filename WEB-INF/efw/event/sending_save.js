@@ -150,7 +150,47 @@ sending_save.fire = function (params) {
 	if(opt == 'update'){
 
 		var orderno = parseInt(params["orderno"]);
+		// TODO
+ 
+		if(product != null && product !=''){
+			// 查询商品状态
+			var selectResult = db.select(
+				"SENDING",
+				"quertstatus",
+				{	
+					"orderno":orderno,
+					"shopid": getShopId(),
+				}
+			).getSingle();
 
+			var status = selectResult["status"];
+
+			if(status == '2.発送済'){
+					
+					// 返回在库数量
+					var updateCount = db.change(
+						"SENDING",
+						"reverseLocal",
+						{
+							orderno:orderno,
+							num: num,
+							shopid: getShopId()
+						}
+					)
+
+					// 减少在库数量
+					var updateCount = db.change(
+						"SENDING",
+						"minusLocal",
+						{
+							orderno:orderno,
+							num: num,
+							shopid: getShopId()
+						}
+					)
+			}
+		}
+		
 		var updateResult = db.change(
 			"SENDING",
 			"updatesending",

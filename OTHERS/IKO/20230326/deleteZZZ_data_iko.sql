@@ -1,0 +1,7 @@
+DROP TABLE "ZZZ_INPUT_注文情報";
+DROP TABLE "ZZZ_NEW_在庫情報";
+DROP TABLE "ZZZ_仕入明細";
+DROP TABLE "ZZZ_仕入管理";
+DROP TABLE "ZZZ_納品明細";
+DROP TABLE "ZZZ_納品管理";
+ 

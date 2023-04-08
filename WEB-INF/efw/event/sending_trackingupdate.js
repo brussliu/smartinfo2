@@ -11,23 +11,61 @@ sending_trackingupdate.fire = function (params) {
 	if (sessionCheck(ret) == false) { return ret };
 
 	var arr = params["arr"];
-
- 
  
 	for(var i=0;i<arr.length;i++){
-		var key = parseInt(arr[i]);
-		var value = arr[i+1];
- 
+
+		var orderno = parseInt(arr[i]);
+		var trackno = arr[i+1];
+
+		// 発送情報のステータス
+		var selectResult = db.select(
+			"SENDING",
+			"quertstatus",
+			{	
+				"orderno":orderno,
+				"shopid": getShopId(),
+			}
+		).getSingle();
+
+		var status = selectResult["status"];
+
+		if(status == '1.未発送'){
+
+			// 检索是否存在ASIN,SKU
+			var select = db.select(
+				"SENDING",
+				"queryAsinSku",
+				{
+					orderno:orderno,
+					shopid: getShopId()
+				}
+			).getArray();
+
+			if(select.length > 0){
+
+				// 在庫数量減らす
+				var updateResult = db.change(
+					"SENDING",
+					"minusLocal2",
+					{
+						orderno:orderno,
+						shopid: getShopId()
+					}
+				);
+			}
+
+		}
 
 		var updateResult = db.change(
 			"SENDING",
 			"updatetrackno",
 			{
-				key:key,
-				value: value,
+				orderno:orderno,
+				trackno: trackno,
 				shopid: getShopId()
 			}
 		);
+
 		i++;
 	}
 

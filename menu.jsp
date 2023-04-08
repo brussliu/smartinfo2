@@ -221,7 +221,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><button class="btn" disabled="disabled"
+                                    <td><button class="btn"
                                             onclick="Efw('common_menu_goto',{page:'sending.jsp'})">発送情報管理</button>
                                     </td>
                                     <td></td>

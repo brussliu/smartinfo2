@@ -1,0 +1,23 @@
+drop table public."ZZZ_納品管理";
+
+create table public."ZZZ_納品管理" (
+  "店舗名" character varying(20)
+  , "納品NO" character varying(20)
+  , "納品名称" character varying(100)
+  , "確定数量" character varying(10)
+  , "受領数量" character varying(10)
+  , "最終納品数量" character varying(10)
+  , "ステータス" character varying(20)
+  , "新規登録日" character varying(20)
+  , "納品確定日" character varying(20)
+  , "発送日" character varying(20)
+  , "受領日" character varying(20)
+  , "完了日" character varying(20)
+  , "AMZ-納品番号" character varying(20)
+  , "AMZ-納品名" character varying(100)
+  , "AMZ-納品プラン番号" character varying(20)
+  , "AMZ-納品先" character varying(200)
+  , "AMZ-SKU合計" character varying(10)
+  , "AMZ-商品合計数" character varying(10)
+  , "AMZ-輸送箱のリスト" character varying(20)
+);

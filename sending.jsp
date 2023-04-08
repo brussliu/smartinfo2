@@ -235,7 +235,7 @@
                             $(this).css({ "background": "#e66565" });
                         }
                         // ステータス
-                        var state = tdArr.eq(2).html();
+                        var state = tdArr.eq(3).html();
                         if (state == '2.発送済') {
                             $(this).css({ "background": "#e6e6e6" });
                         }
@@ -317,7 +317,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 3253px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 3389px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">選択</th>
@@ -336,7 +336,8 @@
                                     <th style="width: 400px;">届け先住所</th>
                                     <th style="width: 120px;">届け先宛先</th>
 
-                                    <th style="width: 160px">電話番号</th>
+                                    <th style="width: 160px">電話番号</th>                        
+                                    <th style="width: 240px;">発送日時</th>
                                     <th style="width: 200px;">発送方法</th>
                                     <th style="width: 300px;">備考</th>
                                     <th style="width: 217px;">発送内容</th>
@@ -346,7 +347,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 3236px;table-layout: fixed;"
+                        <table class="table_detail_content" style="width: 3372px;table-layout: fixed;"
                             id="sendingtable">
 
 

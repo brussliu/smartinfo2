@@ -42,6 +42,7 @@ sending_init.fire = function (params) {
 		'	<span class="l5 lh">{address2}&nbsp;&nbsp;&nbsp;&nbsp;{address3}</span></td>' +
 		'<td style="width: 120px;" class="l"><span class="l5">{name}</span></td>' +
 		'<td style="width: 160px;" class="l"><span class="l5">{phone}</span></td>' +
+		'<td style="width: 240px;" class="c">{senddate}</td>' +
 		'<td style="width: 200px;" class="l"><span class="l5">{send}</span></input></td>' +
 		'<td style="width: 300px;" class="l"><span class="l5">{remark}</span></td>' +
 		'<td style="width: 200px;" class="l"><span class="l5">{sendcontent}</span></td>' +
