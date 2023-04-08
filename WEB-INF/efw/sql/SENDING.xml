@@ -132,6 +132,7 @@
 		ORDER BY
 			"ステータス",
 			"発送日時" desc,
+			"受注日時" desc,
 			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'')
 		LIMIT 100
 	</sql>
