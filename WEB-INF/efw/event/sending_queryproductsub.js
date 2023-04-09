@@ -75,7 +75,7 @@ sending_queryproductsub.fire = function (params) {
 						if(selectResult2.length == 1){
 
 							//sub2 = selectResult2[0]["sub2"];
-							sub2 = selectResult1[0]["sub2"] == '‐‐‐‐' ? null : selectResult1[0]["sub2"];
+							sub2 = selectResult2[0]["sub2"] == '‐‐‐‐' ? null : selectResult2[0]["sub2"];
 
 							ret.eval("$('#select_sub2').get(0).selectedIndex = 1;");
 							//ret.eval("$('#select_sub2').find(\"option:contains('" + sub2 + "')\").attr('selected',true);");
@@ -108,6 +108,8 @@ sending_queryproductsub.fire = function (params) {
 	
 		ret.runat("#select_sub2").remove(".option");
 
+		sub1 = sub1 == '‐‐‐‐' ? null : sub1;
+
 		var selectResult2 = db.select(
 			"SENDING",
 			"searchsub2Bysub1",
@@ -125,7 +127,8 @@ sending_queryproductsub.fire = function (params) {
 
 			if(selectResult2.length == 1){
 
-				sub2 = selectResult2[0]["sub2"];
+				// sub2 = selectResult2[0]["sub2"];
+				sub2 = selectResult2[0]["sub2"] == '‐‐‐‐' ? null : selectResult2[0]["sub2"];
 
 				ret.eval("$('#select_sub2').get(0).selectedIndex = 1;");
 				//ret.eval("$('#select_sub2').find(\"option:contains('" + sub2 + "')\").attr('selected',true);");
@@ -166,6 +169,9 @@ sending_queryproductsub.fire = function (params) {
 	if(opt == '2'){
 
 		ret.runat("#sending_inputdialog").withdata( {"#text_productname":null});
+		
+		sub1 = sub1 == '‐‐‐‐' ? null : sub1;
+		sub2 = sub2 == '‐‐‐‐' ? null : sub2;
 		
 		var selectResult = db.select(
 			"SENDING",

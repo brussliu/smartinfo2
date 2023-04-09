@@ -44,14 +44,14 @@ sending_outputcsv.fire = function (params) {
 
 		var ary = new Array(1);
 
-		var line = selectResult[i]["postno"] + "," +
-		selectResult[i]["name"] + "," +
-		selectResult[i]["sama"] + "," +
-		selectResult[i]["address1"] + "," +
-		selectResult[i]["address2"] + "," +
-		selectResult[i]["address3"] + "," +
-		selectResult[i]["address4"] + "," +
-		selectResult[i]["shipcontent"];
+		var line = 	selectResult[i]["postno"].replaceAll(",","、") + "," +
+					selectResult[i]["name"].replaceAll(",","、") + "," +
+					selectResult[i]["sama"].replaceAll(",","、") + "," +
+					selectResult[i]["address1"].replaceAll(",","、") + "," +
+					selectResult[i]["address2"].replaceAll(",","、") + "," +
+					selectResult[i]["address3"].replaceAll(",","、") + "," +
+					selectResult[i]["address4"].replaceAll(",","、") + "," +
+					selectResult[i]["shipcontent"].replaceAll(",","、");
 
 		ary[0] = line;
 

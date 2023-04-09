@@ -123,7 +123,7 @@
     </style>
 </head>
 <body style="background-color:ghostwhite;">
-
+	写真を撮る際に、正方形を選択してください。
 	<div style="display: inline;width: 100%;height: 100%;text-align: center;" id="allpic">
 		<div id='imgPreview' class='picdiv'>
 			<div id='prompt' style='text-align: center;'>

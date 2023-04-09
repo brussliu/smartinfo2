@@ -84,5 +84,5 @@ sending_outputlabel.fire = function (params) {
 	}
 
 
-	return ret;
+	return ret.alert("ラベル出力完了しました。Dlabelでラベルを印刷してください。");
 };

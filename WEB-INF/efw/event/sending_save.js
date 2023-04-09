@@ -94,13 +94,6 @@ sending_save.fire = function (params) {
 		flg = '0';
 	}
 
-	// COALESCE ("ship-postal-code" ,'') || ' ' || 
-	// COALESCE ("ship-state" ,'') || ' ' || 
-	// COALESCE ("ship-city" ,'') || ' ' || 
-	// COALESCE ("ship-address-1" ,'') || ' ' || 
-	// COALESCE ("ship-address-2" ,'') || ' ' || 
-	// COALESCE ("ship-address-3" ,'') as "お届け先-住所全部"
-
 	var addressall = 	(mail == null ? '' : mail) + ' ' + 
 						(prefecture == null ? '' : prefecture) + ' ' + 
 						(city == null ? '' : city) + ' ' + 
@@ -109,6 +102,13 @@ sending_save.fire = function (params) {
 						(address3 == null ? '' : address3);
 
 	addressall.debug("==============================================================");
+
+	if(sub1 == '‐‐‐‐'){
+		sub1 = null;
+	}
+	if(sub2 == '‐‐‐‐'){
+		sub2 = null;
+	}
 
 	// 新規
 	if(opt == 'new'){
@@ -150,46 +150,7 @@ sending_save.fire = function (params) {
 	if(opt == 'update'){
 
 		var orderno = parseInt(params["orderno"]);
-		// TODO
- 
-		if(product != null && product !=''){
-			// 查询商品状态
-			var selectResult = db.select(
-				"SENDING",
-				"quertstatus",
-				{	
-					"orderno":orderno,
-					"shopid": getShopId(),
-				}
-			).getSingle();
 
-			var status = selectResult["status"];
-
-			if(status == '2.発送済'){
-					
-					// 返回在库数量
-					var updateCount = db.change(
-						"SENDING",
-						"reverseLocal",
-						{
-							orderno:orderno,
-							num: num,
-							shopid: getShopId()
-						}
-					)
-
-					// 减少在库数量
-					var updateCount = db.change(
-						"SENDING",
-						"minusLocal",
-						{
-							orderno:orderno,
-							num: num,
-							shopid: getShopId()
-						}
-					)
-			}
-		}
 		
 		var updateResult = db.change(
 			"SENDING",
@@ -221,44 +182,6 @@ sending_save.fire = function (params) {
 				shopid: getShopId()
 			}
 		);
-
-
-		// TODO
-		// // 查询番号
-		// var select = db.select(
-		// 	"SENDING",
-		// 	"queryproductno",
-		// 	{
-		// 		orderno:orderno,
-		// 		shopid: getShopId()
-		// 	}
-		// ).getSingle();
-
-		// 	// 返回在库数量
-		// 	var updateCount = db.change(
-		// 		"SENDING",
-		// 		"reverseLocal",
-		// 		{
-		// 			productno: select['no'],
-		// 			sub1: select['sub1'],
-		// 			sub2: select['sub2'],
-		// 			num: select['num'],
-		// 			shopid: getShopId()
-		// 		}
-		// 	)
-		// // 减少在库数量
-		// var updateCount = db.change(
-		// 	"SENDING",
-		// 	"minusLocal",
-		// 	{
-		// 		productno: product,
-		// 		sub1: sub1,
-		// 		sub2: sub2,
-		// 		num: num,
-		// 		shopid: getShopId()
-		// 	}
-		// )
-
 
 
 	}
