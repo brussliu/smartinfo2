@@ -2098,7 +2098,7 @@
 
 	<sql id="insertFile_02_h1">
 		insert into "HIS_注文情報" ( 
-			"amazon-order-id"
+			  "amazon-order-id"
 			, "merchant-order-id"
 			, "purchase-date"
 			, "last-updated-date"
@@ -2106,14 +2106,17 @@
 			, "fulfillment-channel"
 			, "sales-channel"
 			, "order-channel"
-			, url
+			, "url"
 			, "ship-service-level"
-			, "product-name" 
-			, sku
-			, asin
+			, "product-name"
+			, "sku"
+			, "asin"
+			, "number-of-items"
 			, "item-status"
-			, quantity
-			, currency
+			, "tax-collection-model"
+			, "tax-collection-responsible-party"
+			, "quantity"
+			, "currency"
 			, "item-price"
 			, "item-tax"
 			, "shipping-price"
@@ -2126,13 +2129,55 @@
 			, "ship-state"
 			, "ship-postal-code"
 			, "ship-country"
-			, "promotion-ids" 
-			, "店舗ID" 
-			, "登録日時" 
-			, "更新日時" 
+			, "promotion-ids"
+			, "payment-method-details"
+			, "item-extensions-data"
+			, "points-granted"
+			, "is-business-order"
+			, "purchase-order-number"
+			, "price-designation"
+			, "buyer-company-name"
+			, "customized-url"
+			, "customized-page"
+			, "is-replacement-order"
+			, "is-exchange-order"
+			, "original-order-id"
+			, "licensee-name"
+			, "license-number"
+			, "license-state"
+			, "license-expiration-date"
+			, "is-transparency"
+			, "default-ship-from-address-name"
+			, "default-ship-from-address-field-1"
+			, "default-ship-from-address-field-2"
+			, "default-ship-from-address-field-3"
+			, "default-ship-from-city"
+			, "default-ship-from-state"
+			, "default-ship-from-country"
+			, "default-ship-from-postal-code"
+			, "actual-ship-from-address-name"
+			, "actual-ship-from-address-field-1"
+			, "actual-ship-from-address-field-2"
+			, "actual-ship-from-address-field-3"
+			, "actual-ship-from-city"
+			, "actual-ship-from-state"
+			, "actual-ship-from-country"
+			, "actual-ship-from-postal-code"
+			, "is-ispu-order"
+			, "store-chain-store-id"
+			, "is-buyer-requested-cancellation"
+			, "buyer-requested-cancel-reason"
+			, "ioss-number"
+			, "serial-numbers"
+			, "is-shipping-settings-automation-enabled"
+			, "ssa-carrier"
+			, "ssa-ship-method"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
 		) 
 		select
-			"amazon-order-id"
+			  "amazon-order-id"
 			, "merchant-order-id"
 			, "purchase-date"
 			, "last-updated-date"
@@ -2140,14 +2185,17 @@
 			, "fulfillment-channel"
 			, "sales-channel"
 			, "order-channel"
-			, url
+			, "url"
 			, "ship-service-level"
-			, "product-name" 
-			, sku
-			, asin
+			, "product-name"
+			, "sku"
+			, "asin"
+			, "number-of-items"
 			, "item-status"
-			, quantity
-			, currency
+			, "tax-collection-model"
+			, "tax-collection-responsible-party"
+			, "quantity"
+			, "currency"
 			, "item-price"
 			, "item-tax"
 			, "shipping-price"
@@ -2160,7 +2208,49 @@
 			, "ship-state"
 			, "ship-postal-code"
 			, "ship-country"
-			, "promotion-ids" 
+			, "promotion-ids"
+			, "payment-method-details"
+			, "item-extensions-data"
+			, "points-granted"
+			, "is-business-order"
+			, "purchase-order-number"
+			, "price-designation"
+			, "buyer-company-name"
+			, "customized-url"
+			, "customized-page"
+			, "is-replacement-order"
+			, "is-exchange-order"
+			, "original-order-id"
+			, "licensee-name"
+			, "license-number"
+			, "license-state"
+			, "license-expiration-date"
+			, "is-transparency"
+			, "default-ship-from-address-name"
+			, "default-ship-from-address-field-1"
+			, "default-ship-from-address-field-2"
+			, "default-ship-from-address-field-3"
+			, "default-ship-from-city"
+			, "default-ship-from-state"
+			, "default-ship-from-country"
+			, "default-ship-from-postal-code"
+			, "actual-ship-from-address-name"
+			, "actual-ship-from-address-field-1"
+			, "actual-ship-from-address-field-2"
+			, "actual-ship-from-address-field-3"
+			, "actual-ship-from-city"
+			, "actual-ship-from-state"
+			, "actual-ship-from-country"
+			, "actual-ship-from-postal-code"
+			, "is-ispu-order"
+			, "store-chain-store-id"
+			, "is-buyer-requested-cancellation"
+			, "buyer-requested-cancel-reason"
+			, "ioss-number"
+			, "serial-numbers"
+			, "is-shipping-settings-automation-enabled"
+			, "ssa-carrier"
+			, "ssa-ship-method"
 			, :shopId
 			, :nowTime 
 			, :nowTime
@@ -2502,7 +2592,52 @@
 			:col28,
 			:col29,
 			:col30,
-			:col31			 
+			:col31,
+			:col32,
+			:col33,
+			:col34,
+			:col35,
+			:col36,
+			:col37,
+			:col38,
+			:col39,
+			:col40,
+			:col41,
+			:col42,
+			:col43,
+			:col44,
+			:col45,
+			:col46,
+			:col47,
+			:col48,
+			:col49,
+			:col50,
+			:col51,
+			:col52,
+			:col53,
+			:col54,
+			:col55,
+			:col56,
+			:col57,
+			:col58,
+			:col59,
+			:col60,
+			:col61,
+			:col62,
+			:col63,
+			:col64,
+			:col65,
+			:col66,
+			:col67,
+			:col68,
+			:col69,
+			:col70,
+			:col71,
+			:col72,
+			:col73,
+			:col74,
+			:col75,
+			:col76
 		)
 	</sql>
 	<sql id="delAllFile03">

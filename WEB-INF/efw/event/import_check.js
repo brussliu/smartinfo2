@@ -28,10 +28,10 @@ var FILE17_NAME = "17.返送推奨レポート";
 var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
 
 var HEADER01_LENGTH = 341;
-var HEADER02_LENGTH = 393;
+var HEADER02_LENGTH = 1426;
 var HEADER03_LENGTH = 98;
 var HEADER04_LENGTH = 56;
-var HEADER05_LENGTH = 1314;
+var HEADER05_LENGTH = 1328;
 var HEADER07_LENGTH = 201;
 var HEADER08_LENGTH = 139;
 var HEADER09_LENGTH = 215;
@@ -289,6 +289,8 @@ function checkFileTitleSize(fileno, filenamewithpath){
 
 	var headerlength = 0;
 	eval('headerlength = HEADER' + fileno + '_LENGTH;');
+
+	header.length.debug("LLLLLLLLLLLLLLLLLL");
 
 	if(header.length != headerlength){
 
