@@ -62,6 +62,7 @@ create table public."IPT_FBA–¢o‰×î•ñ" (
   , "default-ship-from-state" character varying(50)
   , "default-ship-from-country" character varying(50)
   , "default-ship-from-postal-code" character varying(50)
+  , "is-ispu-order" character varying(50)
   , "store-chain-store-id" character varying(50)
   , "is-buyer-requested-cancellation" character varying(50)
   , "buyer-requested-cancel-reason" character varying(50)
