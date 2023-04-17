@@ -33,6 +33,111 @@ function setTitleInfoForShopList(ret){
 
 }
 
+function setAuthorityInfo(ret, pageid){
+
+	for (var i = 0; i < 9999; i++) {
+
+		var sessionname = "authority" + i;
+
+		var sessioncontent = session.get(sessionname);
+
+		if(sessioncontent == null){
+			return;
+		}
+		// btn-0201_01-normal
+
+		var sessioncontentArr = sessioncontent.split("-");
+
+		var authority_type = sessioncontentArr[0];
+		var authority_id = sessioncontentArr[1];
+		var authority_div = sessioncontentArr[2];
+
+		if(authority_id.startsWith(pageid)){
+
+			var script = "";
+
+			var classname = authority_type + "-" + authority_id;
+
+			if(authority_div == "normal"){
+
+				if(authority_type == "btn"){
+					script = 
+							"$('." + classname + "').show();" + 
+							"$('." + classname + "').attr('disabled', false);";
+				}else if(authority_type == "div"){
+					script = "$('." + classname + "').show();";
+				}
+				
+			}else if(authority_div == "disable"){
+
+				if(authority_type == "btn"){
+					script = 
+							"$('." + classname + "').show();" + 
+							"$('." + classname + "').attr('disabled', true);" +
+							"$('." + classname + "').off('click');";
+
+				}else if(authority_type == "div"){
+					script = "$('." + classname + "').show();";
+				}
+				
+			}else if(authority_div == "hidden"){
+
+				if(authority_type == "btn"){
+					script = 
+						"$('." + classname + "').hide();" + 
+						"$('." + classname + "').attr('disabled', true);" +
+						"$('." + classname + "').off('click');";
+
+				}else if(authority_type == "div"){
+
+					script = "$('." + classname + "').hide();";
+				}
+
+			}
+			ret.eval(script);
+
+		}
+
+	}
+
+
+}
+
+function getAuthorityInfo(shopid,btnid){
+	
+	if(shopid == 'Smart-Bear'){
+	 	return	true;
+	}
+	if(shopid == 'zhixun'){
+
+		for (var i = 0; i < 9999; i++) {
+
+			var sessionname = "authority" + i;
+
+			var sessioncontent = session.get(sessionname);
+
+			if(sessioncontent == null){
+				return false;
+			}
+
+			var sessioncontentArr = sessioncontent.split("-");
+
+			// var authority_type = sessioncontentArr[0];
+			var authority_id = sessioncontentArr[1];
+			var authority_div = sessioncontentArr[2];
+
+			if(authority_id == btnid){
+				if(authority_div == "normal"){
+					return true;
+				}else{
+					return false;	
+				}
+			}
+		}
+		
+	}
+}
+
 function sessionCheck(ret){
 
 	var smartId = getSmartId();

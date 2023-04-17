@@ -1,0 +1,1 @@
+COPY "TRN_”­‘—î•ñ" to 'D:\\678.csv' with csv header;

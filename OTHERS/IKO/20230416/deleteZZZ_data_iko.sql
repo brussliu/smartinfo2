@@ -1,0 +1,3 @@
+DROP TABLE "ZZZ_MASTER_発送商品マスタ情報5";
+DROP TABLE "ZZZ_TEMP_発送情報";
+ 

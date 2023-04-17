@@ -13,6 +13,8 @@ common_menuinit.fire=function(params){   //
 
 	// タイトル情報設定
 	setTitleInfo(ret);
+
+	setAuthorityInfo(ret, "03");
 	
 	return ret;
 

@@ -18,17 +18,13 @@
 
 		var shopid = $.getUrlParam('shopid');
 
-		
-		 
-
-
 		function uplaodPic(obj){
 			$(obj).next().click();
 		}
 
 		function changepic(obj) {
 
-		$(obj).parent().css("display", "none");
+			$(obj).parent().css("display", "none");
 
 			var reads = new FileReader();
 
@@ -65,6 +61,10 @@
 				};
 
 			};
+		}
+
+		function upload(){
+			Efw('shipactingmaster_uploadpic');
 		}
 
 	</script>
@@ -111,6 +111,7 @@
 			margin:auto;
 		}
 		.btn {
+			margin: auto;
 			width: 400px;
 			height: 100px;
 			background: rgb(240, 240, 240);
@@ -134,7 +135,8 @@
 			<input type='hidden' id='productpicStr'>
 		</div>
 		<br/>
-		<input type='button' id='btn_upload' value="アップロード" class="btn"/>
+		<input type='button' id='btn_upload' value="アップロード" class="btn" onclick="upload()"/>
+		<input type='hidden' id='shopid'>
 	</div>
 
 	<!-- <div style="width: 800px;height: 500px;">
@@ -150,4 +152,7 @@
 	</div> -->
 
 </body>
+<script>
+	$("#shopid").val(shopid);
+</script>
 </html>

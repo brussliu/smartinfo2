@@ -50,7 +50,7 @@
 			"廃止フラグ" &lt;&gt; '1'
 	</sql>
 
-	<sql id="searchShopRoleInfo" >
+	<sql id="searchShopRole" >
 		select 
 			"ユーザーID" as userid
 		, "パスワード" as password
@@ -76,7 +76,18 @@
 			"廃止フラグ" &lt;&gt; '1'
 	</sql>
 
-
+	<sql id="searchShopRoleInfoList" >
+		select 
+			"権限ID" as authority_id
+		, "権限種別" as authority_type
+		, "権限区分" as authority_div
+		from
+			"MST_権限情報"
+		where 
+			"ロール" = :role
+			and
+			"店舗ID" = :shopid
+	</sql>
 
 
 </sqls>

@@ -584,5 +584,52 @@
 		ORDER BY
 			A."お届け先-郵便番号"
 	</sql>
+
+
+		<!-- sl:查询是否是C.代行発送 -->
+	<sql id="querycase">
+		SELECT   
+			 "区分" as dcase
+		FROM
+			 "TRN_発送情報"  
+		WHERE
+			 "店舗ID" = :shopid  
+			AND  "orderno" = :orderno
+	</sql>
+	<!-- sl:更新代行発送詳細情報追跡番号 -->
+<sql id="updateshipatingtrackno"  >
+		UPDATE "MST_代行発送情報" 
+		SET
+				"追跡番号" = :trackno,
+				"ステータス" = '3.発送済',
+				"更新日時"=now()
+		FROM "TRN_発送情報" trn
+ 		WHERE 
+		    "MST_代行発送情報"."管理番号" =trn."代行発送管理番号"
+			and trn."orderno" = :orderno	
+			
+</sql>
+	<!-- sl:在庫数量減らす -->
+<sql id="updateshipatingmasterLocal"  >
+	UPDATE "MST_代行発送商品マスタ情報" 
+		SET "数量" =  "数量" - mt.num,
+		"更新日時" = now( ) 
+		FROM 
+			(
+			SELECT
+				trn."数量" AS num,
+				mst."店舗ID" AS shopid,
+				mst."商品管理番号" AS kno 
+			FROM
+				"TRN_発送情報" trn 
+				LEFT JOIN "MST_代行発送情報" mst ON  trn."代行発送管理番号" = mst."管理番号" AND trn."店舗ID" = mst."請求先店舗ID" 
+			where
+				"orderno" = :orderno
+			) mt 
+		WHERE
+			"MST_代行発送商品マスタ情報"."管理番号" = mt.kno 
+			AND "MST_代行発送商品マスタ情報"."所有者店舗ID" = mt.shopid
+			
+</sql>
 </sqls>
 

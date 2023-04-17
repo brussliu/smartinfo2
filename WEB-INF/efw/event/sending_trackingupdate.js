@@ -30,30 +30,63 @@ sending_trackingupdate.fire = function (params) {
 		var status = selectResult["status"];
 
 		if(status == '1.未発送'){
+					// 查询是否是C.代行発送
+					var selectcase = db.select(
+						"SENDING",
+						"querycase",
+						{
+							orderno:orderno,
+							shopid: getShopId()
+						}
+					).getSingle();
 
-			// 检索是否存在ASIN,SKU
-			var select = db.select(
-				"SENDING",
-				"queryAsinSku",
-				{
-					orderno:orderno,
-					shopid: getShopId()
-				}
-			).getArray();
-
-			if(select.length > 0){
+					var dcase = selectcase["dcase"];
+			if(dcase == 'C.代行発送'){ 
+				
+				// 更新代行発送詳細情報追跡番号
+				var updateResult = db.change(
+					"SENDING",
+					"updateshipatingtrackno",
+					{
+						orderno:orderno,
+						trackno: trackno,
+						shopid: getShopId()
+					}
+				); 
 
 				// 在庫数量減らす
 				var updateResult = db.change(
 					"SENDING",
-					"minusLocal2",
+					"updateshipatingmasterLocal",
 					{
 						orderno:orderno,
 						shopid: getShopId()
 					}
 				);
-			}
 
+			}else{
+					// 检索是否存在ASIN,SKU
+					var select = db.select(
+						"SENDING",
+						"queryAsinSku",
+						{
+							orderno:orderno,
+							shopid: getShopId()
+						}
+					).getArray();
+
+					if(select.length > 0){
+						// 在庫数量減らす
+						var updateResult = db.change(
+							"SENDING",
+							"minusLocal2",
+							{
+								orderno:orderno,
+								shopid: getShopId()
+							}
+						);
+					}
+			}
 		}
 
 		var updateResult = db.change(

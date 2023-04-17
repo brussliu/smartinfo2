@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	<sql id="searchshipactingmaster">
+		SELECT 
+			"管理番号" AS no,
+			"商品分類" AS type,
+			"商品名称_CN" AS productname_cn,
+			"商品名称_JP" AS productname_jp,
+			"数量" AS num
+		FROM
+			"MST_代行発送商品マスタ情報" 
+		WHERE
+			(
+				"店舗ID" = :shopid  
+			or
+				"所有者店舗ID" = :shopid 
+			)
+			and "廃止フラグ" != '1'
+		order by 
+			"管理番号"
+	 
+	</sql>
+
+	<sql id="searchpic">
+		SELECT 
+			"PIC" AS pic
+		FROM
+			"TEMP_UPLOADPIC" 
+		WHERE
+			"店舗ID" = :shopid  
+		ORDER BY
+			"PICNO" desc
+	 
+	</sql>
+
+	<sql id="insertUploadpic">
+		INSERT INTO "TEMP_UPLOADPIC" (
+			  "PIC"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		VALUES(
+			 :pic,
+			 :shopid,
+			 now(),
+			 now()
+		)
+	</sql>
+<!-- sl:新规 -->
+ 	<sql id="saveshipactingmaster">
+		INSERT INTO "MST_代行発送商品マスタ情報"
+			(
+				"商品分類"
+				,"商品名"
+				,"分類１"
+				,"分類２"
+
+				,"商品名称_CN"
+				,"商品名称_JP"
+				,"数量"
+				,"備考"
+
+				,"PIC"
+				,"廃止フラグ"
+				,"所有者店舗ID"
+				,"店舗ID"
+				,"登録日時"
+			) VALUES (
+				:protype,
+				:product,
+				:sub1,
+				:sub2,
+
+				:cnproductname,
+				:jpproductname,
+				:num,
+				:remark,
+
+				:pic,
+				'0',
+				:possessor,
+				:shopid,
+				now()
+			)
+	</sql>
+
+<!-- sl:通过番号查询 -->
+	<sql id="queryshipactingmasterByNo">
+		SELECT 
+			"管理番号" AS no,
+			"商品分類" AS type,
+			"所有者店舗ID" AS possessor,
+			"商品名" AS productname,
+			"分類１" AS sub1,
+			"分類２" AS sub2,
+			"商品名称_CN" AS productname_cn,
+			"商品名称_JP" AS productname_jp,
+			"数量" AS num,
+			"備考" AS remark,
+			"PIC" AS pic
+		FROM
+			"MST_代行発送商品マスタ情報" 
+		WHERE
+			(
+				"店舗ID" = :shopid  
+		OR
+				"所有者店舗ID" = :shopid 
+			)  
+			and "管理番号" = :no
+	</sql>
+	
+<!-- sl:更新 -->
+ 	<sql id="updateshipactingmaster">
+		UPDATE  "MST_代行発送商品マスタ情報"
+			SET 	"商品分類" = :protype
+					,"商品名" = :product
+					,"分類１" = :sub1
+					,"分類２" = :sub2
+					,"商品名称_CN" = :cnproductname
+					,"商品名称_JP" = :jpproductname
+					,"数量" = :num
+					,"備考" = :remark				  
+					,"PIC" = :pic
+					,"所有者店舗ID" = :possessor
+					,"更新日時" = now()
+		where 
+			(
+				"店舗ID" = :shopid  
+		OR
+				"所有者店舗ID" = :shopid 
+			)
+		AND
+			"管理番号" = :no
+	</sql>
+
+<!-- sl:删除 -->
+ 	<sql id="delshipactingmaster">
+		UPDATE  "MST_代行発送商品マスタ情報"
+			SET 	"廃止フラグ" = '1'
+					,"更新日時" = now()
+		where 
+			(
+				"店舗ID" = :shopid  
+		OR
+				"所有者店舗ID" = :shopid 
+			)
+		AND
+			"管理番号" = :no
+	</sql>
+
+</sqls>
+

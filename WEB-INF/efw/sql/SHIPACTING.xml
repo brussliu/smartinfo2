@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+<sql id="searchshipacting">
+		SELECT 
+			M."管理番号" AS no,
+			M."ステータス" AS status,
+			M."支払状態" AS pay,
+				
+			M."発送費用（円）" AS jpmoney,
+			M."発送費用（元）" AS cnmoney,
+			M."お届け先-郵便番号" AS postal,
+			M."お届け先-住所1" AS address1,
+			M."お届け先-住所2" AS address2,
+			M."お届け先-住所3" AS address3,
+			M."お届け先-名前" AS name,
+			
+			M."お届け先-電話番号" AS tel,
+			(select "商品名称_CN" from "MST_代行発送商品マスタ情報" where "管理番号" = M."商品管理番号") AS sendcontent,
+			
+			M."商品数量" AS num,
+			M."発送方法" AS sendmethod,
+			M."備考" AS remarks,
+			M."追跡番号" AS track
+		FROM
+			"MST_代行発送情報" AS M
+			
+		WHERE
+			M."請求先店舗ID" = :shopid 
+			OR 
+			M."店舗ID" = :shopid
+		order by 
+			M."ステータス","支払状態",M."管理番号" desc
+</sql>
+<!-- sl:查询所有発送商品 -->
+	<sql id="queryshipactingmater">
+		SELECT 
+			"管理番号" AS no,
+			"商品名称_CN" AS productname_cn,
+			"数量" AS num
+		FROM
+			"MST_代行発送商品マスタ情報" M
+		WHERE
+			(
+			M."所有者店舗ID" = :shopid 
+			OR 
+			M."店舗ID" = :shopid
+			)
+			AND
+			"廃止フラグ" != '1'
+		order by 
+			"管理番号"
+	</sql>
+
+<!-- sl:查询発送商品图片 -->
+	<sql id="queryshipactingmaterByNo">
+		SELECT 
+			"PIC" AS pic
+		FROM
+			"MST_代行発送商品マスタ情報" 
+		WHERE
+			 "管理番号" = :no 
+	</sql>
+
+<!-- sl:新规 -->
+ 	<sql id="saveshipacting" paramPrefix="!">
+		INSERT INTO "MST_代行発送情報"
+			(	
+				"管理番号"
+				,"お届け先-郵便番号"
+				,"お届け先-住所1"
+				,"お届け先-住所2"
+				,"お届け先-住所3"
+
+				,"お届け先-名前"
+				,"お届け先-電話番号"
+				,"備考"
+				,"商品管理番号"
+
+				,"商品数量"
+				,"発送方法"
+				,"ステータス"
+				,"追跡番号"
+				,"支払状態"
+				,"発送費用（円）"
+				,"発送費用（元）"
+
+				,"請求先店舗ID"
+				,"店舗ID"
+				,"登録日時"
+				,"更新日時"
+			) VALUES (
+				to_char(now(), 'YYYYMMDD-HH24MISS'),
+				!postal,
+				!address1,
+				!address2,
+				!address3,
+
+				!name,
+				!tel,
+				!remarks,
+				!sendProduct,
+
+				!num,
+				null,
+				'1.新　規',
+				null,
+				'1.未支払',
+				null,		 
+				null,
+
+				'Smart-Bear',
+				!shopid,
+				now(),
+				now()
+			)
+	</sql>
+	<!-- sl:受入 -->
+ 	<sql id="saveshipactingmaster" paramPrefix="!">
+		INSERT INTO "TRN_発送情報"
+			(	
+				"Amazon注文番号",
+				"Qoo10注文番号",
+				"代行発送管理番号",
+				"自行発送管理番号",
+				"受注日時",
+
+				"ASIN番号",
+				"SKU番号",
+				"商品管理番号",
+				"分類１",
+				"分類２",
+				"商品名称",
+				"数量",
+
+				"購入者電話番号",
+				"お届け先-郵便番号",
+				"お届け先-都道府県",
+				"お届け先-市区町村",
+				"お届け先-住所1",
+				"お届け先-住所2",
+				"お届け先-住所3",
+				"お届け先-住所全部",
+
+				"お届け先-名前",
+				"情報整備フラグ",
+				"区分" ,
+				"発送方法" ,
+				"ステータス",
+				"備考",
+				"発送内容",
+				"追跡番号",
+ 
+				"店舗ID",
+				"登録日時"
+			) VALUES (
+				null,
+				null,
+				!no,
+				null,
+				now(),
+
+				null,
+				null,
+				null,
+				null,
+				null,
+				(select "商品名称_CN"  from "MST_代行発送商品マスタ情報" where "管理番号" = !sendProduct),
+				!num,
+
+				!tel,
+				!postal,
+				null,
+				null,
+				!address1,
+				!address2,
+				!address3,
+				COALESCE(!postal,'') ||' '|| COALESCE((select "都道府県"  from "MST_住所情報" where "郵便番号" = !postal ),'') 
+				||' '|| COALESCE((select "市区町村"  from "MST_住所情報" where "郵便番号" = !postal ),'') 
+				||' '|| COALESCE(!address1,'')||' '|| COALESCE(!address2,'')||' '|| COALESCE(!address3,''),
+
+				!name,
+				'0',
+				'C.代行発送',
+				!sendMethod,
+				'1.未発送',
+				!remarks,
+				(select "商品名称_JP"  from "MST_代行発送商品マスタ情報" where "管理番号" = !sendProduct),
+				!track,
+				
+				!shopid,
+				now()
+			)
+	</sql>
+
+	<!-- sl:通过番号查询 -->
+	<sql id="queryshipactingByNo1">
+		SELECT 
+			M."管理番号" AS no,
+			 
+			(select "PIC" from "MST_代行発送商品マスタ情報" where "管理番号" = M."商品管理番号")  AS pic,		
+			M."発送費用（円）" AS jpmoney,
+			M."発送費用（元）" AS cnmoney,
+			M."お届け先-郵便番号" AS postal,
+			M."お届け先-住所1" AS address1,
+			M."お届け先-住所2" AS address2,
+			M."お届け先-住所3" AS address3,
+			M."お届け先-名前" AS name,
+			
+			M."お届け先-電話番号" AS tel,
+			M."商品管理番号" AS kno,
+			M."商品数量" AS num,
+			M."発送方法" AS sendmethod,
+			M."備考" AS remarks,
+			M."追跡番号" AS track
+					
+		FROM
+			"MST_代行発送情報" AS M
+		WHERE
+			(
+		 	M."店舗ID" = :shopid
+			OR 
+			M."請求先店舗ID" = :shopid 
+			)
+			and 
+			M."管理番号" = :no
+	</sql>
+	<sql id="selectstatus">
+		SELECT 
+			"ステータス" AS status				
+		FROM
+			"MST_代行発送情報" 
+		WHERE
+			(
+				"請求先店舗ID" = :shopid 
+				OR
+				"店舗ID" = :shopid 
+			)
+		and "管理番号" = :no
+	</sql>
+<!-- sl:更新 -->
+ 	<sql id="updateshipacting1">
+		UPDATE  "MST_代行発送情報"
+			SET 	
+				"お届け先-郵便番号" = :postal
+				,"お届け先-住所1" = :address1
+				,"お届け先-住所2" = :address2
+				,"お届け先-住所3" = :address3
+				,"お届け先-名前" = :name
+				,"お届け先-電話番号" = :tel
+				,"備考"				= :remarks
+
+				,"商品管理番号" = :sendProduct
+
+				,"商品数量" = :num
+				,"更新日時" = now()
+		where 
+		(
+			"店舗ID" = :shopid 
+		OR 
+			"請求先店舗ID" = :shopid 
+		)
+		AND
+			"管理番号" = :no
+	</sql>
+ 	<sql id="updateshipacting2">
+		UPDATE  "MST_代行発送情報"
+			SET 	
+				"発送方法" = :sendMethod
+				,"追跡番号" = :track
+				,"発送費用（円）" = :jpMoney
+				,"発送費用（元）" = cast(:cnMoney as numeric)
+				,"更新日時" = now()
+		where 
+		(
+			"店舗ID" = :shopid
+		OR 
+			"請求先店舗ID" = :shopid 
+		) 
+		AND
+			"管理番号" = :no
+	</sql>
+ 	<sql id="updateshipacting3">
+		UPDATE  "MST_代行発送情報"
+			SET 	
+				"お届け先-郵便番号" = :postal
+				,"お届け先-住所1" = :address1
+				,"お届け先-住所2" = :address2
+				,"お届け先-住所3" = :address3
+				,"お届け先-名前" = :name
+				,"お届け先-電話番号" = :tel
+				,"備考"				= :remarks
+				,"ステータス"	     = '2.受入済'
+				,"商品管理番号" = :sendProduct
+				,"発送方法" = :sendMethod
+				,"追跡番号" = :track
+				,"発送費用（円）" = :jpMoney
+				,"発送費用（元）" = cast(:cnMoney as numeric)
+				,"商品数量" = :num
+				,"更新日時" = now()
+		where 
+		(
+			"店舗ID" = :shopid 
+		OR 
+			"請求先店舗ID" = :shopid 
+		)
+		AND
+			"管理番号" = :no
+	</sql>
+	<!-- <sql id="updateshipactingmaster" paramPrefix="!">
+		UPDATE  "TRN_発送情報"
+			SET 	
+				"商品名称" = (select "商品名称_CN"  from "MST_代行発送商品マスタ情報" where "管理番号" = !sendProduct),
+				"数量" = !num,
+				"購入者電話番号" = !tel,
+				"お届け先-郵便番号" = !postal,
+				"お届け先-住所1" = !address1,
+				"お届け先-住所2" = !address2,
+				"お届け先-住所3" = !address3,
+				"お届け先-住所全部" = COALESCE(!postal,'') ||' '|| COALESCE(!address1,'')||' '|| COALESCE(!address2,'')||' '|| COALESCE(!address3,''),
+
+				"お届け先-名前" = !name,
+				"発送方法"  = !sendMethod,
+				"発送内容"  = (select "商品名称_JP"  from "MST_代行発送商品マスタ情報" where "管理番号" = !sendProduct),
+				"追跡番号"  = !track,
+				"備考" = !remarks,
+				"更新日時" = now()
+		where 
+			"店舗ID" = !shopid 
+		AND
+			"代行発送管理番号" = !no
+	</sql> -->
+
+<!-- sl:支払 -->
+	<sql id="payshipacting">
+		UPDATE  "MST_代行発送情報"
+			SET 	
+				"支払状態" = '2.支払済'
+				,"更新日時" = now()
+		where 
+			(
+			"店舗ID" = :shopid
+		OR 
+			"請求先店舗ID" = :shopid  
+			)
+		AND
+			"管理番号" = :no
+	</sql>
+	<sql id="payshipactingmaster">
+		UPDATE  "TRN_発送情報"
+			SET 	
+				"支払日時" = now()
+				,"更新日時" = now()
+			where 
+				"店舗ID" = :shopid
+			AND
+				"代行発送管理番号" = :no
+	</sql>
+<!-- sl:删除 -->
+ 	<sql id="delshipacting">
+		delete FROM   "MST_代行発送情報"
+		where 
+		(
+			"請求先店舗ID" = :shopid 	
+		OR 
+			"店舗ID" = :shopid
+		)
+		AND
+			"管理番号" = :no
+	</sql>
+
+ 	<sql id="delshipactingmaster">
+		delete FROM   "TRN_発送情報"
+		where 
+			"店舗ID" = :shopid
+		AND
+			"管理番号" = :no
+	</sql>
+
+</sqls>
+
