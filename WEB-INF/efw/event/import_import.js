@@ -212,13 +212,13 @@ function importFile06(){
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		var txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile);
+		//var txt = file.readAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, "MS932");
 		
-		txt = txt.substring(1);
+		//txt = txt.substring(1);
 
-		file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, txt, "MS932");
+		//file.writeAllLines(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, txt, "MS932");
 
-		csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, ",", "\"", "MS932");
+		var csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, ",", "\"", "MS932");
 		// データ全件削除
 		var delResult = db.change("IMPORT",	"delAllFile06",{});
 
