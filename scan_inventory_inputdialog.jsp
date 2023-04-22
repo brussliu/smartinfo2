@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 800,
-                    width: 972,
+                    width: 1094,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -38,24 +38,23 @@
                     <tr>
                         <td>商品管理番号：</td>
                         <td>
-                            <select style="width: 100px;">
+                            <select style="width: 100px;" id="select_productno" onchange="changeProduct('0')">
                                 <option value=""></option>
                             </select>
                         </td>
-                        <td class="c">分類①：</td>
-                        <td>
-                            <select style="width: 200px;">
+                        <td class="c" style="display: none;">分類①：</td>
+                        <td style="display: none;">
+                            <select style="width: 200px;" id="select_sub1" onchange="changeProduct('1')">
                                 <option value=""></option>
                             </select>
                         </td>
-                        <td class="c">分類②：</td>
-                        <td>
-                            <select style="width: 200px;">
+                        <td class="c" style="display: none;">分類②：</td>
+                        <td style="display: none;">
+                            <select style="width: 200px;" id="select_sub2" onchange="changeProduct('2')">
                                 <option value=""></option>
                             </select>
                         </td>
-                        <td>
-                        </td>
+                        <td style="display: none;"><input type="hidden" id="subflg" value="0"></input></td>
                     </tr>
                 </tbody>
             </table>
@@ -72,6 +71,7 @@
                             <th style="width: 120px;">LABEL番号</th>
 
                             <th style="width: 80px;">数量</th>
+                            <th style="width: 100px;">棚卸数量</th>
 
                         </tr>
                     </thead>
@@ -79,79 +79,18 @@
 
             </div>
             <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
-                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
+                <table id="inventoryObjectTable" class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td style="width: 90px;">P002</td>
                             <td style="width: 160px;">XXXXXXX</td>
                             <td style="width: 160px;">XXXXXXX</td>
-
                             <td style="width: 120px;">XXXXXXX</td>
                             <td style="width: 150px;">XXXXXXX</td>
                             <td style="width: 120px;">XXXXXXX</td>
-
                             <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>   <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>   <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                       
+                        </tr> -->
+                        
                         
                     </tbody>
                 </table>
@@ -173,14 +112,14 @@
                     <tr>
                         <td>リストNO：</td>
                         <td>
-                            <select style="width:200px;">
-                                <option value="">20220101-121212</option>
+                            <select style="width:200px;" id="select_listno" disabled  onchange="changeProduct('3')">
+                                <option value=""></option>
                             </select>
                         </td>
                         <td>リスト名称：</td>
-                        <td>XXXXXXXXXXXXXX</td>
+                        <td id="td_name"></td>
                         <td>合計数量：</td>
-                        <td>999999</td>
+                        <td id="td_num"></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -205,79 +144,18 @@
 
             </div>
             <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
-                <table class=" table_detail_content" style="table-layout: fixed;text-align: center;">
+                <table  id="inventoryReturnTable"  class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td style="width: 90px;">P002</td>
                             <td style="width: 160px;">XXXXXXX</td>
                             <td style="width: 160px;">XXXXXXX</td>
-
                             <td style="width: 120px;">XXXXXXX</td>
                             <td style="width: 150px;">XXXXXXX</td>
                             <td style="width: 120px;">XXXXXXX</td>
-
                             <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                        <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>   <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>   <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-
-                            <td style="width: 80px;">XXXXXXX</td>
-
-                        </tr>
-                       
+                        </tr> -->
+                      
                         
                     </tbody>
                 </table>
@@ -288,8 +166,8 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td style="width: 200px;"><button class="btn">在庫更新</button></td>
-                        <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
+                        <td style="width: 200px;"><button class="btn" id="btn_localupdate" disabled onclick="localupdate()">在庫更新</button></td>
+                        <td style="width: 200px;"><button class="btn" onclick="cancel2()">キャンセル</button></td>
                     </tr>
                 </tbody>
             </table>

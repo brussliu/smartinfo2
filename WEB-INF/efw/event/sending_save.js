@@ -62,8 +62,8 @@ sending_save.fire = function (params) {
 	var sub1 = params["#select_sub1"];
 	var sub2 = params["#select_sub2"];
 	var productname = params["#text_productname"];
-
-	var num = parseInt( params["#text_num"]);
+	
+	var num =  params["#text_num"] == ''?null: parseInt( params["#text_num"]);
  
 	var mail = params["#text_mail"];
 

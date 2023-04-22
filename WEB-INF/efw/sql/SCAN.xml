@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+<!-- 检索商品列表 -->
+<sql id="searchProductList">
+	SELECT
+			T."リストNO" AS listno,
+			T."リスト名称" AS listname,
+			mt.CONTENT AS listcontent,
+			mt.COUNT AS num,
+			"ステータス" AS status 
+	FROM
+		"TRN_商品スキャン" T 
+		LEFT JOIN 
+				(
+					SELECT
+                        SUM (trn."数量" ) AS COUNT,
+						string_agg ( mst."商品管理番号" || '-' ||  COALESCE( mst."分類１" , '') || '-' ||COALESCE( mst."分類２" , '') , ',' ) AS CONTENT,
+						trn."リストNO",
+						trn."店舗ID"
+					FROM
+						"TRN_商品スキャン明細" trn
+						LEFT JOIN "MST_出品マスタ情報" mst ON trn."LABEL番号" = mst."LABEL番号" AND trn."店舗ID" = mst."店舗ID" 
+					GROUP BY
+						trn."リストNO",
+						trn."店舗ID" 
+				) mt 
+				ON T."リストNO" = mt."リストNO"
+				AND T."店舗ID" = mt."店舗ID"
+    WHERE
+        T."店舗ID" = :shopid
+	ORDER BY
+			T."リストNO" DESC
+</sql>
+
+<!-- del -->
+	<!-- 删除商品列表 -->
+		<sql id="delProductDetail">
+			delete from "TRN_商品スキャン明細"
+			where "リストNO" = :listno
+				and "店舗ID" = :shopid
+		</sql>
+	<!-- 删除商品列表 -->
+		<sql id="delProduct">
+			delete from "TRN_商品スキャン"
+			where "リストNO" = :listno
+				and "店舗ID" = :shopid
+		</sql>
+<!--  -->
+
+
+	<!-- 查询MST_出品マスタ情報所有商品管理番号 -->
+		<sql id="searchproducno">
+			SELECT DISTINCT
+				"商品管理番号" AS value,
+				"商品管理番号" AS text 
+			FROM
+				"MST_出品マスタ情報" 
+			WHERE
+				"length" ( 商品管理番号 ) > 0 
+				AND "店舗ID" = :shopid  
+			ORDER BY
+				"商品管理番号"
+		</sql>
+
+	<!-- 查询所有商品list番号 -->
+	<sql id="searchproduclistno">
+			SELECT DISTINCT
+				"リストNO" AS value,
+				"リストNO" AS text 
+			FROM
+				"TRN_商品スキャン" 
+			WHERE
+				"length" ( "リストNO" ) > 0 
+				AND "店舗ID" = :shopid  
+			ORDER BY
+				"リストNO" DESC
+	</sql>
+
+ 	<sql id="updateProductLocal">
+		UPDATE  "MST_在庫情報"
+			SET 	
+				"LOCAL在庫" = :inventorynum
+				,"更新日時" = now()
+		WHERE 
+				"MST_在庫情報"."ASIN番号" = :asin
+			AND	"MST_在庫情報"."SKU番号" = :sku
+			AND	"MST_在庫情報"."店舗ID" = :shopid
+	</sql>
+
+	<!-- 新规在库 -->
+	<sql id="insertProductLocal">
+			INSERT INTO "MST_在庫情報" 
+					( 
+						"SKU番号"
+					, "ASIN番号"
+					, "FBA在庫"  
+					, "FBM在庫"
+					, "LOCAL在庫"
+					, "途中在庫_入庫"
+					, "途中在庫_仕入"
+					, "暫定フラグ"
+					, "店舗ID"
+					, "登録日時"
+					, "更新日時"
+					)
+			SELECT
+						mst1."SKU番号" 
+					, mst1."ASIN番号" 
+					, 0 
+					, 0
+					, COALESCE( :inventorynum , 0)
+					, 0 
+					, 0 
+					, mst1."暫定フラグ" 
+					, :shopid
+					, now()
+					, now() 
+			FROM
+					"MST_出品マスタ情報" mst1
+			WHERE  
+					mst1."商品管理番号" = :productno
+				<if exists="sub1"> AND (	 mst1."分類１"  = :sub1 ) </if>
+				<if notexists="sub1"> AND (  mst1."分類１" is null ) </if>
+				<if exists="sub2"> AND (	 mst1."分類２"  = :sub2 ) </if>
+				<if notexists="sub2"> AND (  mst1."分類２" is null ) </if>
+				<if exists="label"> AND (	 mst1."LABEL番号"  = :label ) </if>
+				<if notexists="label"> AND (  mst1."LABEL番号" is null ) </if>
+				and mst1."店舗ID" = :shopid
+	</sql>
+
+ 	<sql id="updateProductDetailStatus">
+		UPDATE  "TRN_商品スキャン"
+			SET 	
+				"ステータス" = '2.棚卸済'
+				,"更新日時" = now()
+		WHERE 
+				"TRN_商品スキャン"."リストNO" = :listno
+			AND	"TRN_商品スキャン"."店舗ID" = :shopid
+	</sql>
+
+
+
+<!-- queryproduct -->
+	<!-- listno != null 检索指定商品管理番号信息 棚改结果  -->
+	<sql id="queryProductDetailByListno_2">
+			SELECT  mst1."商品管理番号" as productno,
+					mst1."分類１" as sub1,
+					mst1."分類２" as sub2,
+					mst1."ASIN番号" as asin,
+					mst1."SKU番号" as sku,
+					mst1."LABEL番号" as label,
+					COALESCE( trn."数量" , 0) as num
+			FROM
+					"TRN_商品スキャン明細"   trn , "MST_出品マスタ情報" mst1 
+			where 
+					trn."リストNO" = :listno
+				AND trn."店舗ID" = :shopid
+				AND	trn."LABEL番号" = mst1."LABEL番号" 
+				AND trn."店舗ID" = mst1."店舗ID"
+			ORDER BY 
+					mst1."商品管理番号" 
+	</sql>
+
+	<!-- sl:检索某一类商品信息-棚卸対象 -->
+	<sql id="searchProduct_0">
+		SELECT
+			mst1."商品管理番号" AS productno,
+			mst1."分類１" AS sub1,
+			mst1."分類２" AS sub2,
+			mst1."ASIN番号" AS asin,
+			mst1."SKU番号" AS sku,
+			mst1."LABEL番号" AS label,
+			COALESCE ( mst2."LOCAL在庫", 0 ) AS num,
+			'' AS inventorynum 
+		FROM
+			"MST_出品マスタ情報" mst1
+
+			INNER JOIN "MST_在庫情報" mst2 
+					ON mst1."親子区分" = '子商品' 
+					AND mst1."商品管理番号" = :product
+					AND mst1."店舗ID" = :shopid  
+					AND mst1."店舗ID" = mst2."店舗ID" 
+					AND mst1."ASIN番号" = mst2."ASIN番号" 
+					AND mst1."SKU番号" = mst2."SKU番号" 
+					AND mst1."暫定フラグ" = mst2."暫定フラグ"
+
+			ORDER BY mst1."商品管理番号"
+	</sql>
+
+	<!-- sl:listno != null 检索指定商品管理番号信息-棚卸対象 -->
+	<sql id="searchProduct_0_1">
+		SELECT
+			mst1."商品管理番号" AS productno,
+			mst1."分類１" AS sub1,
+			mst1."分類２" AS sub2,
+			mst1."ASIN番号" AS asin,
+			mst1."SKU番号" AS sku,
+			mst1."LABEL番号" AS label,
+			COALESCE ( mst2."LOCAL在庫", 0 ) AS num,
+			0 AS inventorynum 
+		FROM
+			"MST_出品マスタ情報" mst1
+
+			INNER JOIN "MST_在庫情報" mst2 
+					ON mst1."親子区分" = '子商品' 
+					AND mst1."商品管理番号" = :product
+					AND mst1."店舗ID" = :shopid  
+					AND mst1."店舗ID" = mst2."店舗ID" 
+					AND mst1."ASIN番号" = mst2."ASIN番号" 
+					AND mst1."SKU番号" = mst2."SKU番号" 
+					AND mst1."暫定フラグ" = mst2."暫定フラグ"
+	
+			ORDER BY mst1."商品管理番号"
+	</sql>
+
+	<!-- 查询リスト名称 -->
+	<sql id="searchProductNameByListno">
+		SELECT DISTINCT
+			"リスト名称" AS name
+		FROM
+			"TRN_商品スキャン" 
+		WHERE
+				"リストNO" = :listno
+			AND "店舗ID" = :shopid  
+	</sql>
+
+	<!-- 统计TRN_商品スキャン明細数量 -->
+	<sql id="searchProductNumByListno">
+			SELECT DISTINCT
+				COALESCE( sum("数量") , 0) AS num
+			FROM
+				"TRN_商品スキャン明細" 
+			WHERE
+					"リストNO" = :listno
+				AND "店舗ID" = :shopid  
+	</sql>
+
+<!--  -->
+
+<!-- save -->
+	<!-- 新规商品明细 -->
+	<sql id="insertProductDetail1">
+			INSERT INTO "TRN_商品スキャン明細" 
+					( "リストNO", "LABEL番号", "数量", "店舗ID", "登録日時" )
+			VALUES
+					( :listno , :label , :num , :shopid , now())
+	</sql>
+
+	<!-- 新规商品列表 -->
+	<sql id="insertProduct">
+			INSERT INTO "TRN_商品スキャン" 
+					( "リストNO", "リスト名称", "ステータス"  ,"店舗ID", "登録日時" )
+			VALUES
+					( :listno , :name ,  '1.未棚卸' , :shopid , now())
+	</sql>
+
+	<!--  更新商品列表信息-->
+ 	<sql id="updateProductByListno">
+		UPDATE  "TRN_商品スキャン"
+			SET 	
+				"リスト名称" = :name
+				,"ステータス" = '1.未棚卸'
+				,"更新日時" = now()
+		where "リストNO" = :listno
+			and "店舗ID" = :shopid
+	</sql>
+
+<!--  -->
+
+<!-- searchProductInfoByLabel -->
+	<!-- 查询MST_出品マスタ情報商品信息 -->
+	<sql id="searchProductInfo">
+		select 
+				"商品管理番号" AS pno,
+				"分類１" AS sub1,
+				"分類２" AS sub2,
+				"ASIN番号" AS asin,
+				"SKU番号" AS sku,
+				"LABEL番号" AS label
+		from
+				"MST_出品マスタ情報" 
+		where
+				"LABEL番号" = :labelno
+		and
+				"店舗ID" = :shopid
+	</sql>
+<!--  -->
+	
+<!-- update -->
+	<!-- 通过列表号查商品名 -->
+	<sql id="queryProductNameByListno">
+			SELECT  
+				"リスト名称" as name	
+			FROM
+				"TRN_商品スキャン"
+			WHERE 
+				"リストNO" = :listno 
+			AND 
+				"店舗ID" = :shopid
+	</sql>
+
+	<!-- 通过列表号查商品list明细 -->
+	<sql id="queryProductDetailByListno">
+			SELECT  mst1."商品管理番号" as productno,
+					mst1."分類１" as sub1,
+					mst1."分類２" as sub2,
+					mst1."ASIN番号" as asin,
+					mst1."SKU番号" as sku,
+					mst1."LABEL番号" as label,
+					trn."数量" as num
+			FROM
+					"TRN_商品スキャン明細" trn left join "MST_出品マスタ情報" mst1 
+					ON trn."LABEL番号" = mst1."LABEL番号" AND mst1."暫定フラグ" = 0 AND trn."店舗ID" = mst1."店舗ID"
+			where 
+					trn."リストNO" = :listno
+				AND trn."店舗ID" = :shopid
+			ORDER BY mst1."商品管理番号"
+	</sql>
+
+
+</sqls>
