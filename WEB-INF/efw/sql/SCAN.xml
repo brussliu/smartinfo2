@@ -73,6 +73,7 @@
 			WHERE
 				"length" ( "リストNO" ) > 0 
 				AND "店舗ID" = :shopid  
+				AND "ステータス" != '2.棚卸済'
 			ORDER BY
 				"リストNO" DESC
 	</sql>

@@ -34,14 +34,15 @@
                             $('#btn_del').attr('disabled', false);
                             
                         }else{
-                            $('#btn_update').attr('disabled', true);
+                       
                             $('#btn_del').attr('disabled', true);  
-                                                    
+                            Efw('shipacting_choice',{"opt":'update'});                 
                         }
+                       
+                        
                         if(pay == '1.未支払'){
-                            // $('#btn_pay').attr('disabled', false);
-
-                            Efw('shipacting_choice');
+                             
+                            Efw('shipacting_choice',{"opt":'pay'});
 
                         }else{
                             $('#btn_pay').attr('disabled', true); 

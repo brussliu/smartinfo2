@@ -213,8 +213,7 @@
                 }
 
                 function changeColor() {
-                    $("#scantable tr:first").css("background-color", "#99d9ea").siblings().css("background-color","#f0ffff");
-                    $("#scantable").find("tr").each(function () {
+                     $("#scantable").find("tr").each(function () {
                   
                         var tdArr = $(this).children();
 

@@ -14,7 +14,7 @@ create table public."IPT_FBA–¢o‰×î•ñ" (
   , "buyer-phone-number" character varying(50)
   , sku character varying(50)
   , "number-of-items" character varying(50)
-  , "product-name" character varying(200)
+  , "product-name" character varying(500)
   , "quantity-purchased" character varying(50)
   , "quantity-shipped" character varying(50)
   , "quantity-to-ship" character varying(50)

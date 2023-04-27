@@ -24,18 +24,21 @@ scan_save.fire=function(params){
 	 
 			var jsons = JSON.parse(tableArr[i]);
 			var label = jsons.label;
-			var num = jsons.num;
+			var num = parseInt(jsons.num);
 		 
-			var insertResult = db.change(
-				"SCAN",
-				"insertProductDetail1",
-				{
-					"listno":dates,
-					"label":label,
-					"num":parseInt(num),
-					"shopid": getShopId()
-				}
-			);
+			if(num >0){
+		
+				var insertResult = db.change(
+					"SCAN",
+					"insertProductDetail1",
+					{
+						"listno":dates,
+						"label":label,
+						"num":num,
+						"shopid": getShopId()
+					}
+				); 	
+			}
 		 
 		}
 			var insertResult = db.change(
@@ -68,18 +71,20 @@ scan_save.fire=function(params){
 	 
 			var jsons = JSON.parse(tableArr[i]);
 			var label = jsons.label;
-			var num = jsons.num;
+			var num =  parseInt(jsons.num);
 		 
-			var insertResult = db.change(
-				"SCAN",
-				"insertProductDetail1",
-				{
-					"listno":listno,
-					"label":label,
-					"num":parseInt(num),
-					"shopid": getShopId()
-				}
-			);
+			if(num >0){
+				var insertResult = db.change(
+					"SCAN",
+					"insertProductDetail1",
+					{
+						"listno":listno,
+						"label":label,
+						"num":num,
+						"shopid": getShopId()
+					}
+				); 
+			}
  
 		}
 
