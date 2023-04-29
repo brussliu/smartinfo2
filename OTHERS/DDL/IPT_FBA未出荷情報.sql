@@ -72,6 +72,8 @@ create table public."IPT_FBA–¢o‰×î•ñ" (
   , "ssa-ship-method" character varying(50)
   , "tax-collection-model" character varying(50)
   , "tax-collection-responsible-party" character varying(50)
+  , "verge-of-cancellation" character varying(50)
+  , "verge-of-lateShipment" character varying(50)
   , "“X•ÜID" character varying(50)
   , "“o˜^“ú" character varying(50)
   , "XV“ú" character varying(50)

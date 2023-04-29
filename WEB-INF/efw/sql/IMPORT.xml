@@ -2776,7 +2776,9 @@
 			:col70,
 			:col71,
 			:col72,
-			:col73
+			:col73,
+			:col74,
+			:col75
 		)
 	</sql>
 
