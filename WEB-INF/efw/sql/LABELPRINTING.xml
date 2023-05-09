@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	
+	<sql id="searchproducno">
+			SELECT DISTINCT
+				"商品管理番号" AS value,
+				"商品管理番号" AS text 
+			FROM
+				"MST_出品マスタ情報" 
+			WHERE
+				"length" ( 商品管理番号 ) > 0 
+				AND "店舗ID" = :shopid  
+			ORDER BY
+				"商品管理番号"
+	</sql>
+
+	<sql id="searchlabelprinting">
+		SELECT 
+			"商品区分" as type
+			,"商品管理番号" as productno
+			,"分類１" as sub1
+			,"分類２" as sub2
+			,"LABEL番号" as label
+			,"備考" as remark
+			,"店舗ID" as shopid
+		FROM
+			"MST_LABEL情報"
+		WHERE  
+		    "店舗ID" = :shopid
+	</sql>
+
+	<sql id="searchAliLabelprinting1">
+		SELECT 
+			 *
+		FROM
+			`mst_label情報` mst
+		WHERE 
+			 mst.`LABEL番号` = :label
+			AND
+			 mst.`店舗ID` = :shopid
+			AND
+			 mst.`商品区分` = '代納商品'
+	</sql>
+
+	<sql id="searchAliLabelprinting2">
+		SELECT 
+			*
+			 <!-- mst.`商品区分` as type
+			, mst.`商品管理番号` as productno
+			, mst.`分類１` as sub1
+			, mst.`分類２` as sub2
+			, mst.`LABEL番号` as label 
+			, mst.`数量` as count -->
+		FROM
+			`mst_label情報`  mst
+		WHERE  
+			 mst.`店舗ID` = :shopid
+			AND
+			 mst.`商品区分` = '自納商品'
+	</sql>
+
+	<!-- 查询MST_出品マスタ情報分類１ -->
+	<sql id="searchsub1">
+		SELECT DISTINCT sub1 FROM
+		(
+			SELECT
+				CASE WHEN "分類１" IS NULL THEN '‐‐‐‐' ELSE "分類１" END AS sub1
+			FROM
+				"MST_出品マスタ情報" 
+			WHERE
+				"店舗ID" = :shopid  
+				and "商品管理番号" = :product
+				and "親子区分" = '子商品'
+		) TEMP
+		ORDER BY
+			sub1
+	</sql>
+
+	<!-- sl:通过分类1查分类2 -->
+	<sql id="searchsub2Bysub1">
+		SELECT DISTINCT sub2 FROM
+		(
+		SELECT
+			CASE WHEN "分類２" IS NULL THEN '‐‐‐‐' ELSE "分類２" END AS sub2
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"店舗ID" = :shopid  
+			and "商品管理番号" = :product
+			and "親子区分" = '子商品'
+			<if exists="sub1"> AND ( "分類１"  = :sub1 ) </if>
+			<if notexists="sub1"> AND (	 "分類１" is null ) </if>
+		) TEMP
+		ORDER BY
+			sub2
+	</sql>
+
+	<!-- sl:通过分类1，分类2查商品名 -->
+	<sql id="searchProductByAsinSku">
+		SELECT 
+			"商品名称" AS productname
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"店舗ID" = :shopid  
+			and "商品管理番号" = :product
+			and "親子区分" = '子商品'
+			<if exists="sub1"> AND (	
+			"分類１"  = :sub1
+			)
+			</if>
+			<if notexists="sub1"> AND (	
+			"分類１" is null
+			)
+			</if>
+			<if exists="sub2"> AND (	
+			"分類２"  = :sub2
+			)
+			</if>
+			<if notexists="sub2"> AND (	
+			"分類２" is null
+			)
+			</if>
+	</sql>
+
+	<sql id="searchLabel">
+		SELECT 
+			"LABEL番号" AS label
+			
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"店舗ID" = :shopid  
+			and "商品管理番号" = :productno
+			and "親子区分" = '子商品'
+			<if exists="sub1"> AND (	
+			"分類１"  = :sub1
+			)
+			</if>
+			<if notexists="sub1"> AND (	
+			"分類１" is null
+			)
+			</if>
+			<if exists="sub2"> AND (	
+			"分類２"  = :sub2
+			)
+			</if>
+			<if notexists="sub2"> AND (	
+			"分類２" is null
+			)
+			</if>
+	</sql>
+
+	<sql id="insertLabelprinting">
+		INSERT INTO "MST_LABEL情報" (
+				"商品区分",
+				"商品管理番号",
+				"分類１",
+				"分類２",
+				"LABEL番号",
+				"備考",
+				"店舗ID",
+				"登録日時",
+				"更新日時"
+		)VALUES (
+				'代納商品',
+				:productno,
+				:sub1,
+				:sub2,
+				:label,
+				:remark,
+				:shopid,
+				now(),
+				now()
+		)
+	 
+	</sql>
+
+	<sql id="deletelabelprinting" paramPrefix="!">
+		delete
+		from
+			"MST_LABEL情報"
+		where
+			"店舗ID"= !shopid
+			and
+			"商品区分"= '代納商品' 
+			and
+			"商品管理番号"= !productno
+			<if exists="sub1"> AND ("分類１"  = !sub1 ) </if>
+			<if notexists="sub1"> AND ( "分類１" is null )  </if>
+			<if exists="sub2"> AND (  "分類２"  = !sub2 ) </if>
+			<if notexists="sub2"> AND ( "分類２" is null )  </if> 
+			and
+			"LABEL番号"= !label 
+	</sql>
+
+	<sql id="delAliLabel" >
+		delete
+		from
+			`mst_label情報`
+		where
+			`店舗ID`= :shopid
+		 
+	</sql>
+	
+	<sql id="delAliSmart_bear" >
+		delete
+		from
+			`label_smart_bear`
+		 
+	</sql>
+
+	<sql id="insertAliLabel">
+		insert into `mst_label情報` 
+		<!-- (
+			"仕入NO",
+			"枝番",
+			"ファイル名称",
+			"資料名称",
+			"拡張子",
+			"店舗ID",
+			"登録日時",
+			"更新日時" ) -->
+			 values (
+			:type,
+			:productno,
+			:sub1,
+			:sub2,
+			:label,
+			:count,
+			:shopid,
+			now(),
+			now()
+		)
+	</sql>
+
+		<sql id="insertAliSmart_bear">
+		insert into `label_smart_bear` 
+			 values ( 
+			:productno,
+			:sub1,
+			:sub2,
+			:label
+		)
+	</sql>
+</sqls>
+

@@ -233,7 +233,9 @@
                                     <td> <button class="btn btn-0301_12" style="display: none;"
                                             onclick="Efw('common_menu_goto',{page:'scan.jsp'})">商品スキャン</button>
                                     </td>
-                                    <td></td>
+                                    <td><button class="btn btn-0301_16" style="display: none;" 
+                                        onclick="Efw('common_menu_goto',{page:'labelprinting.jsp'})">LABEL印刷</button>
+                                    </td>
                                     <td></td>
                                     <td><button class="btn btn-0301_13" style="display: none;">TODO管理</button></td>
                                 </tr>
