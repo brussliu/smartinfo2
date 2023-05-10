@@ -7,7 +7,7 @@
                     title: "LABEL詳細情報",
                     autoOpen: false,
                     resizable: true,
-                    height: 430,
+                    height: 500,
                     width: 1200,
                     modal: true,
                     open: function () {
@@ -99,10 +99,20 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td>商品管理番号：</td>
-                        <td><input type="text" style="width: 200px;" id="text_productno" disabled></input></td>
+                        <td>店舗名：</td>
+                        <td><input type="text" style="width: 200px;" id="text_shopid" disabled></input></td>
                         <td colspan="2" style="text-align: right;">LABEL番号： </td> 
                         <td colspan="2" style="text-align: center;"><input type="text"  disabled style="width: 200px;" id="text_label"></input></td>
+                         
+                        <td></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>商品管理番号：</td>
+                        <td><input type="text" style="width: 200px;" id="text_productno" disabled></input></td>
+                        <td></td> 
+                        <td></td>
                          
                         <td></td>
                         

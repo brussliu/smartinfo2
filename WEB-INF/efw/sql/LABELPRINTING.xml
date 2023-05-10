@@ -23,6 +23,7 @@
 			,"分類２" as sub2
 			,"LABEL番号" as label
 			,"備考" as remark
+			,"店舗名" as shopname
 			,"店舗ID" as shopid
 		FROM
 			"MST_LABEL情報"
@@ -126,6 +127,10 @@
 
 	<sql id="searchLabel">
 		SELECT 
+			"商品管理番号" as productno,
+			"分類１" as sub1,
+			"分類２" as sub2,
+			"店舗ID" as shopname,
 			"LABEL番号" AS label
 			
 		FROM
@@ -160,6 +165,7 @@
 				"分類２",
 				"LABEL番号",
 				"備考",
+				"店舗名",
 				"店舗ID",
 				"登録日時",
 				"更新日時"
@@ -170,6 +176,7 @@
 				:sub2,
 				:label,
 				:remark,
+				:shopname,
 				:shopid,
 				now(),
 				now()
@@ -229,6 +236,7 @@
 			:sub2,
 			:label,
 			:count,
+			:shopname,
 			:shopid,
 			now(),
 			now()
@@ -241,7 +249,8 @@
 			:productno,
 			:sub1,
 			:sub2,
-			:label
+			:label,
+			:shopname
 		)
 	</sql>
 </sqls>

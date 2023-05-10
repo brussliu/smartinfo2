@@ -11,6 +11,7 @@ labelprinting_save.paramsFormat = {
 	"#text_sub2": null,
 	"#text_label": null,
 	"#text_remark": null,
+	"#text_shopid": null,
  
 	"choice": null,
 
@@ -48,12 +49,14 @@ labelprinting_save.fire = function (params) {
 		var resultHTML = '<tr>' +
 		'<td style="width: 70px;" class="c"><input type="checkbox" name="label"  value="{label}"  onchange="check(this)"></input></td>' +
 		'<td style="width: 140px;" class="l"><span class="l5">自納商品</span></td>' +
-		'<td style="width: 100px;" class="c">'+productno+'</td>' +
-		'<td style="width: 160px;" class="l"><span class="l5">'+sub1+'</span></td>' +
-		'<td style="width: 160px;" class="l"><span class="l5">'+sub2+'</span></td> ' + 
+		'<td style="width: 100px;" class="c">{productno}</td>' +
+		'<td style="width: 160px;" class="l"><span class="l5">{sub1}</span></td>' +
+		'<td style="width: 160px;" class="l"><span class="l5">{sub2}</span></td> ' + 
 		'<td style="width: 150px;" class="r"><span class="r5">{label}</span></td>' +
 		'<td style="width: 300px;" class="c"></td>' + 
-		'<td style="width: 127px;" class="l"><span class="l5"></span></td>   ' +                
+		'<td style="width: 100px;" class="l"><span class="l5"></span></td>   ' + 
+		'<td style="width: 127px;" class="l"><span class="l5">{shopname}</span></td>   ' +  
+               
 		'</tr>' ;
 		ret.runat("#labeltable").append(resultHTML).withdata(selectResult1);
 	 
@@ -65,7 +68,8 @@ labelprinting_save.fire = function (params) {
 		var sub1 = params["#text_sub1"];
 		var sub2 = params["#text_sub2"];
 		var remark = params["#text_remark"];
-		 
+		var shopname = params["#text_shopid"];
+
 		var insertResult = db.change(
 			"LABELPRINTING",
 			"insertLabelprinting",
@@ -75,20 +79,22 @@ labelprinting_save.fire = function (params) {
 				"sub2": sub2,
 				"label": label,
 				"remark": remark,
+				"shopname": shopname,
 				"shopid": getShopId(),
 			}
 		);
 	 
 	//  添加至页面
-		var resultHTML2 = '<tr>' +
-		'<td style="width: 70px;" class="c"><input type="checkbox" name="label"  value="'+label+'"  onchange="check(this)"></input></td>' +
+		var resultHTML2 = '<tr class="bg_ye" >' +
+		'<td style="width: 70px;" class="c"><input type="checkbox" name="label"    value="'+label+'"  onchange="check(this)"></input></td>' +
 		'<td style="width: 140px;" class="l"><span class="l5">代納商品</span></td>' +
 		'<td style="width: 100px;" class="c">'+productno+'</td>' +
 		'<td style="width: 160px;" class="l"><span class="l5">'+sub1+'</span></td>' +
 		'<td style="width: 160px;" class="l"><span class="l5">'+sub2+'</span></td> ' + 
 		'<td style="width: 150px;" class="r"><span class="r5">'+label+'</span></td>' +
 		'<td style="width: 300px;" class="c">'+remark+'</td>' + 
-		'<td style="width: 127px;" class="l"><span class="l5"></span></td>   ' +                
+		'<td style="width: 100px;" class="l"><span class="l5"></span></td>   ' + 
+		'<td style="width: 127px;" class="l"><span class="l5">'+shopname+'</span></td>   ' +                               
 		'</tr>' ;
 
 		var arr = new Record([{'a':'1'}]).getArray();

@@ -34,6 +34,8 @@
                     $('#select_sub2').get(0).selectedIndex = 0;
                     $('#select_sub2').attr('disabled', false);
 
+                    $('#text_shopid').val('');
+                    $('#text_shopid').attr('disabled', true);
                     $('#text_productno').val('');
                     $('#text_productno').attr('disabled', true);
                     $('#text_sub1').val('');
@@ -59,6 +61,8 @@
                         $('#select_sub2').get(0).selectedIndex = 0;
                         $('#select_sub2').attr('disabled', false);
 
+                        $('#text_shopid').val('');
+                        $('#text_shopid').attr('disabled', true);
                         $('#text_productno').val('');
                         $('#text_productno').attr('disabled', true);
                         $('#text_sub1').val('');
@@ -78,6 +82,8 @@
                         $('#select_sub2').get(0).selectedIndex = 0;
                         $('#select_sub2').attr('disabled', true);
 
+                        $('#text_shopid').val('');
+                        $('#text_shopid').attr('disabled', false);
                         $('#text_productno').val('');
                         $('#text_productno').attr('disabled', false);
                         $('#text_sub1').val('');
@@ -180,16 +186,7 @@
 
                 // 削除
                 function del(){
-                    // 多个删除
-                    // var allArr = new Array();
-                    // $("#labeltable").find("tr").each(function () {
-                    //     var tdArr = $(this).children();
-                    //     var checkbox = tdArr.eq(0).children().val();
-                    //     if (checkbox != '' && checkbox.checked) {
-
-                    //     }
-                    // })
-
+                
                     // 单个删除
                     
                     var s= $("input:checkbox:checked");
@@ -231,21 +228,27 @@
                             var sub2 = $(this).parent().next().next().next().next().children().html();
                             var label = $(this).parent().next().next().next().next().next().children().html();
                             var count =parseInt( $(this).parent().next().next().next().next().next().next().next().children().next().val());
+                            var shopname = $(this).parent().next().next().next().next().next().next().next().next().children().html();
+                        console.log(shopname)
                             if(count > 0){
-                            var jsons = JSON.stringify( { "type": type, "productno": productno , "sub1": sub1 , "sub2": sub2 ,  "label": label , "count": count });
+                            var jsons = JSON.stringify( { "type": type, "productno": productno , "sub1": sub1 , "sub2": sub2 ,  "label": label , "count": count , "shopname": shopname==undefined?'':shopname });
                              tableArr.push(jsons);
                             }
                         });
+                        
                         console.log(tableArr)
                         if(tableArr.length > 0)
                         Efw('labelprinting_reserve',{'tableArr':tableArr} );
                         else
                         alter('印刷 IS NULL')
                 }
-          </script>
+         
+         </script>
 
             <style>
-
+              .bg_ye{
+                  background-color: #fffff0;
+              }
             </style>
         </head>
  
@@ -299,7 +302,7 @@
                
                     <div class="c_detail_header" style="overflow: hidden;">
                         <table class="table_detail_header" id="stocktablehead"
-                            style="width: 1253px;table-layout: fixed;"> 
+                            style="width: 1353px;table-layout: fixed;"> 
                             <thead>
                                 <tr class="header">
                                     <th style="width: 70px;"><input type="checkbox"name="alllabel" onclick="alllabel(this)"></input> 選択</th>
@@ -309,13 +312,14 @@
                                     <th style="width: 160px;">分類②</th> 
                                     <th style="width: 150px;">LABEL番号</th>
                                     <th style="width: 300px;" >備考</th> 
-                                    <th style="width: 127px;">数量</th> 
+                                    <th style="width: 100px;">数量</th> 
+                                    <th style="width: 127px;">店舗名</th> 
                                 </tr>
                             </thead>
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                        <table id="labeltable" class="table_detail_content" style="width: 1253px;table-layout: fixed;" id="stocktable">
+                        <table id="labeltable" class="table_detail_content" style="width: 1353px;table-layout: fixed;" id="stocktable">
 
                             <!-- <tr>
                                 <td style="width: 70px;" class="c"><input type="checkbox" name="label"></input></td>

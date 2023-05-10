@@ -44,6 +44,7 @@ labelprinting_reserve.fire = function (params) {
 			var sub2 = jsons.sub2; 
 			var label = jsons.label;
 			var count = parseInt(jsons.count);
+			var shopname = jsons.shopname;
 
 
 			// 新规Ali mst_label情報表数据
@@ -57,6 +58,7 @@ labelprinting_reserve.fire = function (params) {
 					"sub2":sub2,
 					"label":label,
 					"count":count,
+					"shopname":shopname,
 					"shopid": getShopId(),
 				},
 				"jdbc/efw2" 
@@ -75,6 +77,7 @@ labelprinting_reserve.fire = function (params) {
 							"sub1":sub1,
 							"sub2":sub2,
 							"label":label, 
+							"shopname":shopname,
 						},
 						"jdbc/efw2" 
 					)
@@ -91,7 +94,9 @@ labelprinting_reserve.fire = function (params) {
 		ret.eval("$('#btn_del').attr('disabled',true);")
 		ret.eval("$('#btn_reserve').attr('disabled',true);")
 		ret.eval('$("input:checkbox[name=alllabel]").prop( "checked" ,false);')
+		
 		ret.eval('init();')
+	
 	return ret;
 
 };

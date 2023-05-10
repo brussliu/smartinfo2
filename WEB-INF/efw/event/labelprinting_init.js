@@ -51,15 +51,16 @@ labelprinting_init.fire = function (params) {
 				 ).getSingle();
 				 
 				 var count = selectResult3["数量"] == null? '':selectResult3["数量"] ;
-				 var resultHTML2 = '<tr>' +
-				 '<td style="width: 70px;" class="c"><input type="checkbox" name="label"  value="{label}" onchange="check(this)"></input></td>' +
+				 var resultHTML2 = '<tr class="bg_ye" >' +
+				 '<td style="width: 70px;" class="c"><input type="checkbox" name="label"   value="{label}" onchange="check(this)"></input></td>' +
 				 '<td style="width: 140px;" class="l"><span class="l5">{type}</span></td>' +
 				 '<td style="width: 100px;" class="c">{productno}</td>' +
 				 '<td style="width: 160px;" class="l"><span class="l5">{sub1}</span></td>' +
 				 '<td style="width: 160px;" class="l"><span class="l5">{sub2}</span></td> ' + 
 				 '<td style="width: 150px;" class="r"><span class="r5">{label}</span></td>' +
 				 '<td style="width: 300px;" class="c">{remark}</td>' + 
-				 '<td style="width: 127px;" class="l"><span class="l5">'+count+'</span></td>   ' +                
+				 '<td style="width: 100px;" class="l"><span class="l5">'+count+'</span></td>   ' +                
+				 '<td style="width: 127px;" class="l"><span class="l5">{shopname}</span></td>   ' +                
 				 '</tr>' ;
 				 
 			ret.runat("#labeltable").append(resultHTML2).withdata(record);
@@ -78,17 +79,18 @@ labelprinting_init.fire = function (params) {
 		 ).getArray();
 
 		 var resultHTML3 = '<tr>' +
-		 '<td style="width: 70px;" class="c"><input type="checkbox" name="label"  value="{label番号}"  onchange="check(this)"></input></td>' +
+		 '<td style="width: 70px;" class="c"><input type="checkbox" name="label" value="{label番号}"  onchange="check(this)"></input></td>' +
 		 '<td style="width: 140px;" class="l"><span class="l5">{商品区分}</span></td>' +
 		 '<td style="width: 100px;" class="c">{商品管理番号}</td>' +
 		 '<td style="width: 160px;" class="l"><span class="l5">{分類１}</span></td>' +
 		 '<td style="width: 160px;" class="l"><span class="l5">{分類２}</span></td> ' + 
 		 '<td style="width: 150px;" class="r"><span class="r5">{label番号}</span></td>' +
 		 '<td style="width: 300px;" class="c"></td>' + 
-		 '<td style="width: 127px;" class="l"><span class="l5">{数量}</span></td>   ' +                
+		 '<td style="width: 100px;" class="l"><span class="l5">{数量}</span></td>   ' +  
+		 '<td style="width: 127px;" class="l"></td>   ' +              
 		 '</tr>' ;
 		 ret.runat("#labeltable").append(resultHTML3).withdata(selectResult4);
 
-		  
+ 
 	return ret;
 };

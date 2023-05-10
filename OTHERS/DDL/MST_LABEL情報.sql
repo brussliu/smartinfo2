@@ -7,7 +7,7 @@ create table public."MST_LABELî•ñ" (
   , "•ª—Ş‚Q" character varying(100)
   , "LABEL”Ô†" character varying(20)
   , "”õl" character varying(500)  
-  , "”—Ê" int
+  , "“X•Ü–¼" character varying(20)
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone

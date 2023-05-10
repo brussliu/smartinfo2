@@ -7,6 +7,7 @@ create table MST_LABELî•ñ (
   , •ª—Ş‚Q varchar(100)
   , LABEL”Ô† varchar(20)
   , ”—Ê int
+  , “X•Ü–¼ varchar(20)
   , “X•ÜID varchar(20)
   , “o˜^“ú datetime  
   , XV“ú datetime  
