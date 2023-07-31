@@ -1,7 +1,7 @@
 drop table public."RES_’•¶î•ñ";
 
 create table public."RES_’•¶î•ñ" (
-  "Amazon’•¶”Ô†" character varying(19)
+  "Amazon’•¶”Ô†" character varying(50)
   , "SKU”Ô†" character varying(12)
   , "ORDER_’•¶“ú" timestamp(6) without time zone
   , "ORDER_ÅIXV“ú" timestamp(6) without time zone

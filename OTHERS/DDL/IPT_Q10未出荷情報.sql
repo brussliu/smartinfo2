@@ -2,7 +2,7 @@ drop table public."IPT_Q10未出荷情報";
 
 create table public."IPT_Q10未出荷情報" (
     "配送状態" character varying(20)
-  , "注文番号" character varying(20)
+  , "注文番号" character varying(50)
   , "カート番号" character varying(20)
   , "配送会社" character varying(50)
   , "送り状番号" character varying(50)
