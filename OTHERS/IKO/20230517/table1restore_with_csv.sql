@@ -1,0 +1,1 @@
+COPY "ZZZ_INPUT_”„ãÚ×î•ñ" from 'D:\\411.csv' with csv header;
