@@ -187,8 +187,7 @@
                     </div>
                     <p ><span >納品物流費用：</span><span  id="span_allfbaDel">-99999円</span></p>
                 </div>
-            </div>
-            <div class="div_tab"><!-- 2 -->
+            </div><div class="div_tab"><!-- 2 -->
                 <div>
                     <p  style="background-color: #00b0f0;"><span >FBA保管</span></p>
                     <div style="height:78px;overflow-y: hidden;">
@@ -345,14 +344,14 @@
 
 
             <!-- 下部 -->
-            <div class="div_tab" style="border-left: 1px solid black;width: 647px;height: 245px;margin-top: 5px;"> 
+            <div class="div_tab" style="border-left: 1px solid black;width: 641px;height: 245px;margin-top: 5px;"> 
                 <div>
                     <p  style="background-color:#ff6464;"><span>仕入NO</span></p>
                     <div style="height: 160px;overflow-y: auto;">
-                        <table id="tab_purchase">
+                        <table id="tab_purchase" style="font-size:12px">
                             <tbody>
                                 <tr>
-                                    <td><span >2023/1/23</span></td>
+                                    <td ><span>2023/1/23</span></td>
                                     <td ><span>XXXXXXXXXXXXXX</span></td>
                                     <td ><span>-99999円/-9999円/-9999円</span></td>
                                 </tr>

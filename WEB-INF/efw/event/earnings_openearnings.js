@@ -202,9 +202,9 @@ earnings_openearnings.fire=function(params){
 	).getArray();
 
 	var html ='<tr>' +
-			'<td style="width:32%"><span class="a" onclick="openPurchase(this)">{purchasedate}</span></td>' +
-			'<td><span>{purchasecontent}</span></td>' +
-			'<td><span>{total}円</span></td>' +
+			'<td style="width:160px;line-height:20px;"><span class="a" onclick="openPurchase(this)">{purchasedate}</span></td>' +
+			'<td style="width:370px;line-height:20px;"><span>{purchasecontent}</span></td>' +
+			'<td style="line-height:20px;"><span>{total}円</span></td>' +
 			'</tr>'
 
 	ret.runat("#tab_purchase").remove("tr").append(html).withdata(selectResult6);

@@ -34,7 +34,7 @@
                             , CASE  WHEN "ステータス" = '支払済'  	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
                                             THEN 0 - SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
                                 END AS "その他支払"
-                            ,	CASE  WHEN "ステータス" = '受領済' 	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
+                            , CASE  WHEN "ステータス" = '受領済' 	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
                                                 THEN SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
                                 END AS "その他受領" 
                     FROM
@@ -46,7 +46,7 @@
                         
                     UNION ALL
                     SELECT
-                        to_char( "発送日①", 'YYYY年MM月' ) AS "年月"
+						substr( "仕入NO", 1, 4 ) || '年'|| substr( "仕入NO", 5, 2 )|| '月' AS "年月"
                             , 0 as "注文数量"
                             , 0 as "注文粗利益"
                             , 0 as "月額登録料"
@@ -78,8 +78,8 @@
                             SUM ( CASE WHEN "トランザクションの種類" = '注文外料金' AND "説明" = '広告費用' THEN "合計" ELSE 0 END ) AS "広告費用",
                             SUM ( CASE WHEN "トランザクションの種類" &lt;&gt; '注文' AND "説明" = '注文' THEN "合計" ELSE 0 END ) AS "返品損失金額",
                             SUM ( CASE WHEN "トランザクションの種類" = 'FBA 在庫関連の手数料' AND substr( "説明", 1, 16 ) = 'FBAパートナーキャリアの配送料' THEN "合計" ELSE 0	END ) AS "FBA入庫料金",
-                            SUM ( CASE WHEN "トランザクションの種類" = 'FBA 在庫関連の手数料'  	AND ( substr( "説明", 1, 8 ) = 'FBA保管手数料' 
-                                        OR "説明" = 'FBA長期在庫保管手数料' OR "説明" = 'FBA在庫の廃棄手数料' ) THEN "合計" ELSE 0  	END ) AS "FBA保管料金",
+                            SUM ( CASE WHEN "トランザクションの種類" = 'FBA 在庫関連の手数料'  	AND ( 
+								substr( "説明", 1, 8 ) = 'FBA保管手数料' OR "説明" = 'FBA長期在庫保管手数料' ) THEN "合計" ELSE 0  	END ) AS "FBA保管料金",
                             SUM ( CASE WHEN "トランザクションの種類" = '振込み' THEN "合計" ELSE 0 END ) AS "振込金額",
                                "FBA作業料金",
 							    0 AS "仕入金額",
@@ -233,7 +233,7 @@
                 "店舗ID" = :shopid  
 		group by
 			"トランザクションの種類"
-	</sql>
+</sql>
 
     <sql id="searchearningsdetail4" paramPrefix="!">
 		select
@@ -329,8 +329,8 @@
 			"分類" as div,
             "区分" AS type,
 			"タイトル" as title,
-			0-round(cast("金額（元）" as numeric),0) as amount,
-			0-round(cast("金額（円）" as numeric),0) as amountjp,
+			case when "区分" = '収入' then round(cast("金額（元）" as numeric),0) else 0-round(cast("金額（元）" as numeric),0) end as amount,
+			case when "区分" = '収入' then round(cast("金額（円）" as numeric),0)  else  0-round(cast("金額（円）" as numeric),0) end as amountjp,
 			"ステータス" as status
 		from
 		(
