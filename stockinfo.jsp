@@ -47,16 +47,19 @@
                     if ($(val).is(':checked')) {
                         if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
                             span_put.css("display", "none");
-                            put.append('<input type="text" class="text_put"value="' + span_put.html() + '"style="width:60px;height: 30px;"></input>')
+                            var sp = span_put.html() =="null"?"":span_put.html()
+                            put.append('<input type="text" class="text_put"value="' + sp + '"style="width:60px;height: 30px;"></input>')
                             put.data("text", "1");
                         }
                         if (span_purchase.html() != "" && span_purchase.html() != null && span_purchase.html() != '0') {
                             span_purchase.css("display", "none");
-                            purchase.append('<input type="text" class="text_purchase"value="' + span_purchase.html() + '"style="width:60px;height: 30px;"></input>')
+                            var sp2 = span_purchase.html() =="null"?"":span_purchase.html() 
+                            purchase.append('<input type="text" class="text_purchase"value="' + sp2  + '"style="width:60px;height: 30px;"></input>')
                             purchase.data("text", "1");
                         }
                         span_local.css("display", "none");
-                        local.append('<input type="text" class="text_local"value="' + span_local.html() + '"style="width:60px;height: 30px;"></input>')
+                        var sp3 = span_local.html() =="null"?"":span_local.html() 
+                        local.append('<input type="text" class="text_local"value="' + sp3 + '"style="width:60px;height: 30px;"></input>')
 
                     } else {
                         span_put.css("display", "block");
@@ -102,10 +105,10 @@
 
                             var localArr = new Array();
 
-                            localArr.push(flg);
+                            localArr.push(parseInt(flg));
                             localArr.push(sku);
                             localArr.push(asin);
-                            localArr.push(local);
+                            localArr.push(parseInt(local == 'null'?0:local));
                             localArr.push(producttype);
                             localArr.push(productno);
                             localArr.push(preproduct);
@@ -116,7 +119,8 @@
                             var put = tdArr.eq(12);
                             if (put.data("text") != "undefined") {
                                 var putval = tdArr.eq(12).children().next().val();
-                                localArr.push(putval);
+                                
+                                localArr.push(parseInt(putval == 'null'?0:putval));
                             }else{
                                 localArr.push(null);
                             }
@@ -125,7 +129,7 @@
                             var purchase = tdArr.eq(14);
                             if (purchase.data("text") != "undefined") {
                                 var purchaseval = tdArr.eq(14).children().next().val();
-                                localArr.push(purchaseval);
+                                localArr.push(parseInt(purchaseval == 'null'?0:purchaseval));
                             }else{
                                 localArr.push(null);
                             }
@@ -312,8 +316,32 @@
                                     <td style="width: 150px;">
                                         <input type="checkbox" id="checkbox_recommend" value="1" onchange="changeRecommend(this)"> 推奨数量入り
                                     </td>
-                                    <td style="width: 350px;">
+                                    <td style="width: 150px;">
                                         日数 <input type="text" style="width: 50px;height: 30px;" id="text_date" value="" disabled></input>
+                                    </td>
+                                    <td style="width: 550px;font-weight: bold;">
+                                        数量範囲： <select id="select_item" style="width: 200px;height: 30px;">
+                                        <option value=""></option>
+                                        <option value="FBA在庫">FBA在庫</option>
+                                        <option value="FBM在庫">FBM在庫</option>
+                                        <option value="途中在庫_入庫">途中（入庫）</option>
+                                        <option value="LOCAL在庫">LOCAL在庫</option>
+                                        <option value="途中在庫_仕入">途中（仕入）</option>
+                                        <option value="販売数量（直近３日間）">販売数量（直近３日間）</option>
+                                        <option value="販売数量（直近７日間）">販売数量（直近７日間）</option>
+                                        <option value="販売数量（直近３０日間）">販売数量（直近３０日間）</option>
+                                        <option value="販売数量（直近６０日間）">販売数量（直近６０日間）</option>
+                                        <option value="販売数量（直近９０日間）">販売数量（直近９０日間）</option>
+                                        <option value="販売数量（直近１８０日間）">販売数量（直近１８０日間）</option>
+                                        <option value="販売数量（直近３６０日間）">販売数量（直近３６０日間）</option>
+                                        <option value="販売可能期間（販売中）">販売可能期間（販売中）</option>
+                                        <option value="販売可能期間（全体）">販売可能期間（全体）</option>
+                                        <option value="推奨納品数量">推奨納品数量</option>
+                                        <option value="推奨仕入数量">推奨仕入数量</option>
+                                         
+                                    </select>
+                                        <input id="text_minNum" type="text" style="width: 60px;height: 30px;margin-left: 10px;"></input><span style="text-align: center;margin: 0 5px;"> ~ </span>
+                                        <input id="text_maxNum" type="text" style="width: 60px;height: 30px;"></input>
                                     </td>
                                 </tr>
                             </tbody>

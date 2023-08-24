@@ -55,6 +55,8 @@
                     $("#"+objectname + "_reorganizetime").html(reorganizetime);
                     $("#"+objectname + "_reorganizecount").html(reorganizecount);
                 }
+
+              
             </script>
             <style>
 
@@ -150,7 +152,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="tr1">
                                 <td class="td1">1</td>
                                 <td class="td2">すべての出品商品のレポート</td>
                                 <td class="td3">1回／日</td>
@@ -160,7 +162,7 @@
                                 <td class="td6" id="file01_importtime">-</td>
                                 <td class="td6" id="file01_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr tr2">
                                 <td class="td1">2</td>
                                 <td class="td2">全注文レポート</td>
                                 <td class="td3">1回／日</td>
@@ -170,7 +172,8 @@
                                 <td class="td6" id="file02_importtime">-</td>
                                 <td class="td6" id="file02_importcount">-</td>
                             </tr>
-                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
+                            <tr class="datatr tr3" >
+                                <!-- style="background-color: rgb(230, 101, 101);" -->
                                 <td class="td1">3</td>
                                 <td class="td2">FBA在庫レポート</td>
                                 <td class="td3">1回／日</td>
@@ -180,10 +183,11 @@
                                 <td class="td6" id="file03_importtime">-</td>
                                 <td class="td6" id="file03_importcount">-</td>
                             </tr>
-                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
+                            <tr class="datatr tr4" >
+                                <!-- style="background-color: rgb(230, 101, 101);" -->
                                 <td class="td1">4</td>
                                 <td class="td2">ペイメントレポート</td>
-                                <td class="td3">1回／日</td>
+                                <td class="td3">1回／月</td>
                                 <td class="td4" id="file04_filename"></td>
                                 <td class="td5" id="file04_reorganizetime">-</td>
                                 <td class="td6" id="file04_reorganizecount">-</td>

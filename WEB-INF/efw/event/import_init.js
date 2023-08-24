@@ -74,7 +74,94 @@ import_init.fire = function (params) {
 
 	}
 
+
+	// 定义四个表示改变颜色的符号
+	var f1 = false;
+	var f2 = false;
+	var f3 = false;
+	var f4 = false;
+
+
+	f1 = changeColorForDay(FILE01_NAME);
+	f2 = changeColorForDay(FILE02_NAME);
+	f3 = changeColorForDay(FILE03_NAME);
+	f4 = changeColorForMonth(FILE04_NAME);
+ 
+	if(f1)
+	ret.eval('$(".tr1").css("background","rgb(230, 101, 101)")')
+	if(f2)
+	ret.eval('$(".tr2").css("background","rgb(230, 101, 101)")')
+	if(f3)
+	ret.eval('$(".tr3").css("background","rgb(230, 101, 101)")')
+	if(f4)
+	ret.eval('$(".tr4").css("background","rgb(230, 101, 101)")')
+	
+
 	return ret.eval(script);
 
 };
 
+function changeColorForDay(files){
+	// 获取目录下的文件夹
+	var filelistUploadbk = file.list(UPLOADBK_FILE_PATH );
+			// 获取当天时间
+			var datas = new Date();
+			// 当天
+			var nday = parseInt(new Date(datas.setDate(datas.getDate())).format("yyyyMMdd"));
+			// 前一天
+			var yday = parseInt(new Date(datas.setDate(datas.getDate() - 1)).format("yyyyMMdd"));
+
+			// 判断有无导入文件存在
+			if(filelistUploadbk.length > 0){ 
+				// 与当天数字比较，并查询是否已经上传
+				for(var e=filelistUploadbk.length-1; e >=0; e--){
+					// 将文件名中日期转成数字
+					var oldDay = parseInt(filelistUploadbk[e]['name'].substring(0,8));				
+					// 今天或昨天已上传
+					if(oldDay == nday || oldDay == yday){
+						// 判断当前文件是否存在
+						var fe = file.list(UPLOADBK_FILE_PATH  + "\\" + filelistUploadbk[e]['name']+ "\\" + files);
+						
+						if (fe.length >0){
+							return  false;
+						}
+					} 
+				}
+					
+			}
+			return true;
+	}
+
+
+	function changeColorForMonth(files){
+		// 获取目录下的文件夹
+		var filelistUploadbk = file.list(UPLOADBK_FILE_PATH );
+				// 获取当天时间
+				var datas = new Date();
+				// 月
+				var newMonth =  parseInt(new Date(datas.setMonth(datas.getMonth() )).format("yyyyMM"));
+				var oldMonth =  parseInt(new Date(datas.setMonth(datas.getMonth() -1)).format("yyyyMM"));
+	
+				// 判断有无导入文件存在
+				if(filelistUploadbk.length > 0){ 
+				  
+					for(var e=filelistUploadbk.length-1; e >=0; e--){
+						// 获取年月
+						var oldFile = parseInt(filelistUploadbk[e]['name'].substring(0,6));
+						// 获取天
+						var oldFileForDay = parseInt(filelistUploadbk[e]['name'].substring(6,8));
+						 
+						// 判断上个月2号或这个月2号有没有上传文件
+						if(oldFile == newMonth || oldFile == oldMonth && 0 < oldFileForDay <=2){
+							// 判断当前文件是否存在
+							var fe = file.list(UPLOADBK_FILE_PATH  + "\\" + filelistUploadbk[e]['name']+ "\\" + files);
+							 
+							if (fe.length >0){
+								return  false; 
+							}
+						}
+					}
+						
+				}
+				return true;
+		}

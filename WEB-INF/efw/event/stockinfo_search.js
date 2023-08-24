@@ -8,6 +8,9 @@ stockinfo_search.paramsFormat={
 	// "send":null,
 	"#shippingway_fba":null,
 	"#shippingway_fbm":null,
+	"#select_item":null,
+	"#text_minNum":null,
+	"#text_maxNum":null,
 
 };
 
@@ -51,6 +54,11 @@ stockinfo_search.fire=function(params){
 		}
 	}
 
+	// 数量範囲
+	var item = params["#select_item"]
+	var minNum =parseInt(params["#text_minNum"])
+	var maxNum = parseInt(params["#text_maxNum"])
+
 	var selectResult = db.select(
 		"STOCK",
 		"selectstockinfo",
@@ -59,7 +67,10 @@ stockinfo_search.fire=function(params){
 			ptype : type,
 			opt_productno : opt_productno,
 			text_keyword : text_keyword,
-			shippingway :shippingway
+			shippingway :shippingway,
+			item :item,
+			minNum :minNum,
+			maxNum :maxNum
 		
 		}
 	).getArray();
@@ -80,7 +91,7 @@ stockinfo_search.fire=function(params){
 			'<td style="width: 80px;" class="r"><span class="r5">{fba}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fbm}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{put}</span></td>' +
-			'<td style="width: 80px;" class="c"><span>{local}</span> </td>' +
+			'<td style="width: 80px;" class="r"><span>{local}</span> </td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{purchase}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5"><span>{stockonsell}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5"><span>{stockprepare}</span></td>' +

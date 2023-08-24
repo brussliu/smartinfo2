@@ -105,12 +105,12 @@
 
                     if(currency == "CNY" && exchange != null && exchange != ""){
                         
-                        $("#td_num").html(account/exchange*100 + " 円");
+                        $("#td_num").html(parseInt( account/exchange*100) + " 円");
                         
                     }
                     if(currency == "JPY" && exchange != null && exchange != ""){
                        
-                        $("#td_num").html(account*exchange/100  + " 元");
+                        $("#td_num").html( Math.floor((account*exchange/100) * 100) / 100  + " 元");
                     }
 
                 }
