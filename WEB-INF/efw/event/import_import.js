@@ -390,10 +390,9 @@ function updateImortFileInfo(fileno, filename, recordCount) {
 		{
 			"col0": today,
 			"col1": recordCount,
-			"col2": "取込済み",
-			"col3": getShopId(),
-			"col4": "file" + fileno,
-			"col5": filename
+			"col2": getShopId(),
+			"col3": "file" + fileno,
+			"col4": filename
 		}
 	);
 }

@@ -218,8 +218,7 @@ function deleteImortFileInfo(fileno) {
 		"deleteImportFileInfo",
 		{
 			"col0": getShopId(),
-			"col1": "file" + fileno,
-			"col2": "識別済み"
+			"col1": "file" + fileno
 		}
 	);
 }
@@ -234,8 +233,7 @@ function saveImortFileInfo(fileno, filename_old, today, recordCount) {
 			"col1": "file" + fileno,
 			"col2": filename_old,
 			"col3": today,
-			"col4": recordCount,
-			"col5": "識別済み"
+			"col4": recordCount
 		}
 	);
 }
