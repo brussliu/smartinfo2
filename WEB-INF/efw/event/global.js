@@ -305,20 +305,23 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					if(flg_r1){
 						excute_r1_m3();	flg_m3 = true;
 					}
-					
 					if(flg_m1){
 						excute_m1_m4();	flg_m4 = true;
 					}
 					if(flg_m2 || flg_m3){
 						excute_m2_m4();	flg_m4 = true;
 					}
-
+					if(flg_file13){
+						excute_13_m5();	flg_m5 = true;
+					}
+					if(flg_m1){
+						excute_m1_m5();	flg_m5 = true;
+					}
 					// --------------------------------↑↑↑確認済↑↑↑--------------------------------
 
 					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
 
-					// excute_m1_m5();
-					// excute_13_m5();
+
 
 
 							
@@ -350,17 +353,21 @@ function excute_14_r4() {
 
 }
 
-function excute_m1_m5() {
-
-	var updateResult = db.change("IMPORT", "excute_m1_m5", {"shopId": getShopId()});
-
-}
-
 function excute_13_m5() {
 
-	var updateResult = db.change("IMPORT", "excute_13_m5", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_13_m5_01", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_13_m5_02", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_13_m5_03", {"shopId": getShopId()});
 
 }
+
+function excute_m1_m5() {
+
+	var updateResult = db.change("IMPORT", "excute_m1_m5_01", {"shopId": getShopId()});
+	var updateResult = db.change("IMPORT", "excute_m1_m5_02", {"shopId": getShopId()});
+
+}
+
 
 function excute_m1_m3() {
 
@@ -441,11 +448,12 @@ function excute_15_r3() {
 
 }
 
-function excute_14_r2() {
 
-	var updateResult = db.change("IMPORT", "update_14_r2", {"shopId": getShopId()});
-	var insertResult = db.change("IMPORT", "insert_14_r2", {"shopId": getShopId()});
-}
+//function excute_14_r2() {
+//
+//	var updateResult = db.change("IMPORT", "update_14_r2", {"shopId": getShopId()});
+//	var insertResult = db.change("IMPORT", "insert_14_r2", {"shopId": getShopId()});
+//}
 
 
 function excute_04_r2() {

@@ -254,21 +254,21 @@
 			, "Median side" = to_number(IPT."Median side", '9999999.99')
 			, "Shortest side" = to_number(IPT."Shortest side", '9999999.99')
 			, "Measurement units" = IPT."Measurement units" 
-			, "weight" = IPT."weight"
+			, "weight" = to_number(IPT."weight", '9999999.99')
 			, "Weight units" = IPT."Weight units"
-			, "Item volume" = IPT."Item volume"
+			, "Item volume" = to_number(IPT."Item volume", '9999999.9999')
 			, "Volume units" = IPT."Volume units"
 			, "Product size tier" = IPT."Product size tier"
 			, "Average quantity on hand" = to_number(IPT."Average quantity on hand", '9999999.99')
 			, "Average quantity pending removal" = to_number(IPT."Average quantity pending removal", '9999999.99')
-			, "Total item volume (est.)" = IPT."Total item volume (est.)"			 
+			, "Total item volume (est.)" = to_number(IPT."Total item volume (est.)", '9999999.9999')
 			, "Storage rate" = to_number(IPT."Storage rate", '9999999.99')
 			, "通貨" = IPT."通貨"
-			, "Monthly storage fee (est.)" = to_number(IPT."Monthly storage fee (est.)", '9999999.99')
+			, "Monthly storage fee (est.)" = to_number(IPT."Monthly storage fee (est.)", '9999999.9999')
 			, "category" = IPT."category"
 			, "Total Incentive Amount" = to_number(IPT."Total Incentive Amount", '9999999.99')
 			, "breakdown_incentive_fee_amount" = IPT."breakdown_incentive_fee_amount"
-			, "average_quantity_customer_orders" =	to_number(IPT."average_quantity_customer_orders", '9999999.99')		
+			, "average_quantity_customer_orders" =	to_number(IPT."average_quantity_customer_orders", '9999999.99')
 			, "更新日時" = now()
 		from
 			"IPT_在庫保管手数料情報" IPT 
@@ -321,18 +321,18 @@
 			, to_number(IPT."Median side", '9999999.99')
 			, to_number(IPT."Shortest side", '9999999.99')
 			, "Measurement units"
-			, "weight" 
+			, to_number(IPT."weight", '9999999.99')
 			, "Weight units" 
-			, "Item volume" 
+			, to_number(IPT."Item volume", '9999999.9999')
 			, "Volume units" 
 			, "Product size tier" 
 			, to_number(IPT."Average quantity on hand", '9999999.99')
 			, to_number(IPT."Average quantity pending removal", '9999999.99')
-			, "Total item volume (est.)" 
+			, to_number(IPT."Total item volume (est.)", '9999999.9999')
 			, "Month of charge"
 			, to_number(IPT."Storage rate", '9999999.99')
 			, "通貨" 
-			, to_number(IPT."Monthly storage fee (est.)", '9999999.99')
+			, to_number(IPT."Monthly storage fee (est.)", '9999999.9999')
 			, "category" 
 			, to_number(IPT."Total Incentive Amount", '9999999.99')
 			, "breakdown_incentive_fee_amount" 
@@ -448,18 +448,98 @@
 			
 	</sql>
 
+	<sql id="excute_13_m5_01">
+		insert into "MST_手数料見積り額情報_BACKUP"
+		select now(), * from "MST_手数料見積り額情報" where "店舗ID" = :shopId
+	</sql>
 
-	<sql id="excute_m1_m5">
+	<sql id="excute_13_m5_02">
+		delete from "MST_手数料見積り額情報" where "店舗ID" = :shopId
+	</sql>
+
+	<sql id="excute_13_m5_03">
 		insert into "MST_手数料見積り額情報" (
 			  "sku"
+			, "fnsku"
 			, "asin"
+			, "商品名"
+			, "商品グループ"
+			, "ブランド"
+			, "フルフィルメント"
+			, "一番長い辺"
+			, "中間の辺"
+			, "一番短い辺"
+			, "長さと周囲の寸法"
+			, "商品の寸法"
+			, "商品パッケージの重量"
+			, "商品重量"
+			, "通貨"
+			, "手数料見積り額"
+			, "販売手数料見積り額(個数あたり)"
+			, "カテゴリー別成約料見積り額"
+			, "出荷作業手数料見積り額（個数あたり）"
+			, "発送重量手数料の見積り額（個数あたり）"
+			, "配送代行手数料見積り額（個数あたり）"
+			, "今後の手数料見積り額（現在のAmazon出品サービ"
+			, "今後の出荷作業手数料の見積り額（個数あたり"
+			, "今後の発送重量手数料見積り額（個数あたり）"
+			, "今後の配送代行手数料（個数あたり）"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
+		)
+		select
+			  "sku"
+			, "fnsku"
+			, "asin"
+			, "商品名"
+			, "商品グループ"
+			, "ブランド"
+			, "フルフィルメント"
+			, to_number("一番長い辺", '99999.99')
+			, to_number("中間の辺", '99999.99')
+			, to_number("一番短い辺", '99999.99')
+			, to_number("長さと周囲の寸法", '99999.99')
+			, "商品の寸法"
+			, to_number("商品パッケージの重量", '99999.99')
+			, "商品重量"
+			, "通貨"
+			, to_number("手数料見積り額", '999999999.99')
+			, to_number("販売手数料見積り額(個数あたり)", '999999999.99')
+			, to_number("カテゴリー別成約料見積り額", '999999999.99')
+			, "出荷作業手数料見積り額（個数あたり）"
+			, "発送重量手数料の見積り額（個数あたり）"
+			, to_number("配送代行手数料見積り額（個数あたり）", '999999999.99')
+			, "今後の手数料見積り額（現在のAmazon出品サービ"
+			, "今後の出荷作業手数料の見積り額（個数あたり"
+			, "今後の発送重量手数料見積り額（個数あたり）"
+			, "今後の配送代行手数料（個数あたり）"
+			, "店舗ID"
+			, now()
+			, now()
+		from
+			"IPT_手数料見積り額情報" IPT
+		where
+			IPT."店舗ID" = :shopId
+	</sql>
+
+
+
+	<sql id="excute_m1_m5_01">
+		insert into "MST_手数料見積り額情報" (
+			  "sku"
+			, "fnsku"
+			, "asin"
+			, "商品名"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"
 		)
 		select
 			  "SKU番号"
+			, "LABEL番号"
 			, "ASIN番号"
+			, "商品名称"
 			, "店舗ID"
 			, now()
 			, now()
@@ -470,58 +550,33 @@
 				select
 					1 
 				from
-					"MST_販売数量情報" MST2
+					"MST_手数料見積り額情報" MST2
 				where
-					MST1."SKU番号" = MST2."SKU番号" 
-					and MST1."ASIN番号" = MST2."ASIN番号" 
-					and MST1."暫定フラグ" = MST2."暫定フラグ" 
+					MST1."sku" = MST2."SKU番号" 
+					and MST1."asin" = MST2."ASIN番号" 
 					and MST1."店舗ID" = MST2."店舗ID"
+					and MST2."暫定フラグ" = 0
 			) 
 			and MST1."暫定フラグ" = 0
 			and MST1."店舗ID" = :shopId
 	</sql>
 
-	<sql id="excute_13_m5">
-		update "MST_手数料見積り額情報"
-			set 
-			, "fnsku"  = IPT."fnsku"
-			, "商品名"  = IPT."商品名"
-			, "商品グループ"  = IPT."商品グループ"
-			, "ブランド" = IPT."ブランド"
-			, "フルフィルメント" = IPT."フルフィルメント"
-			, "一番長い辺" = to_number(IPT."一番長い辺",'99999.99')
-			, "中間の辺" = to_number(IPT."中間の辺",'99999.99')
-			, "一番短い辺" = to_number(IPT."一番短い辺",'99999.99')
-			, "長さと周囲の寸法" = to_number(IPT."長さと周囲の寸法",'99999.99')
-			, "商品の寸法" = IPT."商品の寸法"
-			, "商品パッケージの重量" = to_number(IPT."商品パッケージの重量",'99999.99')
-			, "商品重量" = IPT."商品重量"
-			, "通貨" = IPT."通貨"
-			, "手数料見積り額" = to_number(IPT."手数料見積り額",'99999.99')
-			, "販売手数料見積り額(個数あたり)" = to_number(IPT."販売手数料見積り額(個数あたり)",'99999.99')
-			, "カテゴリー別成約料見積り額" = to_number(IPT."カテゴリー別成約料見積り額",'99999.99')
-			, "出荷作業手数料見積り額（個数あたり）" = IPT."出荷作業手数料見積り額（個数あたり）"
-			, "発送重量手数料の見積り額（個数あたり）" = IPT."発送重量手数料の見積り額（個数あたり）"
-			, "配送代行手数料見積り額（個数あたり）" = to_number(IPT."配送代行手数料見積り額（個数あたり）",'99999.99')
-			, "今後の手数料見積り額（現在のAmazon出品サービ" = IPT."今後の手数料見積り額（現在のAmazon出品サービ"
-			, "今後の出荷作業手数料の見積り額（個数あたり" = IPT."今後の出荷作業手数料の見積り額（個数あたり"
-			, "今後の発送重量手数料見積り額（個数あたり）" = IPT."今後の発送重量手数料見積り額（個数あたり）"
-			, "今後の配送代行手数料（個数あたり）" = IPT."今後の配送代行手数料（個数あたり）"
-			, "更新日時" = now()
-		from 
-			"IPT_手数料見積り額情報" IPT
+	<sql id="excute_m1_m5_02">
+		delete from "MST_手数料見積り額情報"
 		where
-			"MST_手数料見積り額情報"."sku" = IPT."sku"
-			and
-			"MST_手数料見積り額情報"."asin" = IPT."asin"
-			and
-			"MST_手数料見積り額情報"."店舗ID" = IPT."店舗ID"
-			and
-			"MST_手数料見積り額情報"."店舗ID" = :shopId
-
+			not exists ( 
+				select
+					1 
+				from
+					"MST_出品マスタ情報" MST
+				where
+					"MST_手数料見積り額情報"."sku" = MST."SKU番号" 
+					and "MST_手数料見積り額情報"."asin" = MST."ASIN番号" 
+					and "MST_手数料見積り額情報"."店舗ID" = MST."店舗ID"
+					and MST."暫定フラグ" = 0
+			) 
+			and "MST_手数料見積り額情報"."店舗ID" = :shopId
 	</sql>
-
-
 
 	<sql id="excute_r1_m3_01">
 		update "MST_販売数量情報" 
@@ -1390,6 +1445,7 @@
 
 	</sql>
 
+<!--
 	<sql id="update_14_r2" paramPrefix="!">
 		update "RES_在庫保管手数料情報" RES 
 		set
@@ -1423,7 +1479,7 @@
 			and IPT."店舗ID" = !shopId
 
 	</sql>
-
+-->
 
 	<sql id="update_02_r1" paramPrefix="!">
 		update "RES_注文情報" RES 
@@ -1626,6 +1682,8 @@
 			) 
 			and IPT."店舗ID" = :shopId
 	</sql>
+
+<!--
 	<sql id="insert_14_r2" paramPrefix="!">
 		insert into "RES_在庫保管手数料情報" ( 
 			"Amazon注文番号"
@@ -1695,6 +1753,8 @@
 			) 
 			and IPT."店舗ID" = !shopId
 	</sql>
+-->
+
 	<sql id="insert_02_r1" paramPrefix="!">
 		insert into "RES_注文情報" ( 
 			"Amazon注文番号"
@@ -2501,7 +2561,7 @@
 	</sql>
 
 	<sql id="delAllFile01">
-		DELETE FROM "IPT_全出品情報"
+		DELETE FROM "IPT_全出品情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile01">
 		INSERT INTO "IPT_全出品情報"
@@ -2556,7 +2616,7 @@
 		)
 	</sql>
 	<sql id="delAllFile02">
-		DELETE FROM "IPT_全注文情報"
+		DELETE FROM "IPT_全注文情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile02">
 		INSERT INTO "IPT_全注文情報"
@@ -2641,7 +2701,7 @@
 		)
 	</sql>
 	<sql id="delAllFile03">
-		DELETE FROM "IPT_FBA在庫情報"
+		DELETE FROM "IPT_FBA在庫情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile03">
 		INSERT INTO "IPT_FBA在庫情報"
@@ -2658,7 +2718,7 @@
 		)
 	</sql>
 	<sql id="delAllFile04">
-		DELETE FROM "IPT_ペイメント情報"
+		DELETE FROM "IPT_ペイメント情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile04">
 		INSERT INTO "IPT_ペイメント情報" 
@@ -2698,7 +2758,7 @@
 		)
 	</sql>
 	<sql id="delAllFile05">
-		DELETE FROM "IPT_FBA未出荷情報"
+		DELETE FROM "IPT_FBA未出荷情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile05">
 		INSERT INTO "IPT_FBA未出荷情報"
@@ -2783,7 +2843,7 @@
 	</sql>
 
 	<sql id="delAllFile06">	
-		DELETE FROM "IPT_Q10未出荷情報"
+		DELETE FROM "IPT_Q10未出荷情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile06">	
 		INSERT INTO "IPT_Q10未出荷情報"
@@ -2830,7 +2890,7 @@
 			"注文番号" = :orderno
 	</sql>
 	<sql id="delAllFile07">
-		DELETE FROM "IPT_ビジネスレポート-1"
+		DELETE FROM "IPT_ビジネスレポート-1" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile07">
 		INSERT INTO "IPT_ビジネスレポート-1"
@@ -2859,7 +2919,7 @@
 		)
 	</sql>
 	<sql id="delAllFile08">
-		DELETE FROM "IPT_ビジネスレポート-2"
+		DELETE FROM "IPT_ビジネスレポート-2" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile08">
 		INSERT INTO "IPT_ビジネスレポート-2"
@@ -2884,7 +2944,7 @@
 		)
 	</sql>
 	<sql id="delAllFile09">
-		DELETE FROM "IPT_ビジネスレポート-3"
+		DELETE FROM "IPT_ビジネスレポート-3" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile09">
 		INSERT INTO "IPT_ビジネスレポート-3"
@@ -2913,7 +2973,7 @@
 		)
 	</sql>
 	<sql id="delAllFile10">
-		DELETE FROM "IPT_ビジネスレポート-4"
+		DELETE FROM "IPT_ビジネスレポート-4" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile10">
 		INSERT INTO "IPT_ビジネスレポート-4"
@@ -2946,7 +3006,7 @@
 		)
 	</sql>
 	<sql id="delAllFile11">
-		DELETE FROM "IPT_FBA在庫出荷情報"
+		DELETE FROM "IPT_FBA在庫出荷情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile11">
 		INSERT INTO "IPT_FBA在庫出荷情報"
@@ -3007,7 +3067,7 @@
 		)
 	</sql>
 	<sql id="delAllFile12">
-		DELETE FROM "IPT_出荷情報"
+		DELETE FROM "IPT_出荷情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile12">
 		INSERT INTO "IPT_出荷情報"
@@ -3033,7 +3093,7 @@
 		)
 	</sql>
 	<sql id="delAllFile13">
-		DELETE FROM "IPT_手数料見積り額情報"
+		DELETE FROM "IPT_手数料見積り額情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile13">
 		INSERT INTO "IPT_手数料見積り額情報"
@@ -3061,17 +3121,17 @@
 			:col20,
 			:col21,
 			:col22,
+			null,
+			null,
+			null,
+			null,
 			:col23,
 			:col24,
-			:col25,
-			:col26,
-			:col27,
-			:col28,
-			:col29   
+			:col25   
 		)
 	</sql>
 	<sql id="delAllFile14">
-		DELETE FROM "IPT_在庫保管手数料情報"
+		DELETE FROM "IPT_在庫保管手数料情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile14">
 		INSERT INTO "IPT_在庫保管手数料情報"
@@ -3107,7 +3167,7 @@
 		)
 	</sql>
 	<sql id="delAllFile15">
-		DELETE FROM "IPT_長期在庫保管手数料請求額情報"
+		DELETE FROM "IPT_長期在庫保管手数料請求額情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile15">
 		INSERT INTO "IPT_長期在庫保管手数料請求額情報"
@@ -3133,7 +3193,7 @@
 		)
 	</sql>
 	<sql id="delAllFile16">
-		DELETE FROM "IPT_返品情報"
+		DELETE FROM "IPT_返品情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile16">
 		INSERT INTO "IPT_返品情報"
@@ -3156,7 +3216,7 @@
 		)
 	</sql>
 	<sql id="delAllFile17">
-		DELETE FROM "IPT_返送推奨情報"
+		DELETE FROM "IPT_返送推奨情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile17">
 		INSERT INTO "IPT_返送推奨情報"
@@ -3183,7 +3243,7 @@
 		)
 	</sql>
 	<sql id="delAllFile18">
-		DELETE FROM "IPT_返送所有権放棄依頼詳細情報"
+		DELETE FROM "IPT_返送所有権放棄依頼詳細情報" where "店舗ID" = :shopId
 	</sql>
 	<sql id="insertFile18">
 		INSERT INTO "IPT_返送所有権放棄依頼詳細情報"

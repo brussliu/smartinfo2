@@ -64,8 +64,8 @@ import_import.fire = function (params) {   //
 	var flg_file11 = importFile("11",	"UTF-8(BOM)",	",",	"\r\n",		1);
 	var flg_file12 = importFile("12",	"UTF-8(BOM)",	",",	"\r\n",		1);
 
-	var flg_file13 = importFile("13",	"S-JIS",		",",	"\r\n",		null);
-	var flg_file14 = importFile("14",	"S-JIS",		",",	"\r\n",		null);
+	var flg_file13 = importFile("13",	"S-JIS",		",",	"\n",		null);
+	var flg_file14 = importFile("14",	"S-JIS",		",",	"\n",		null);
 
 	var flg_file15 = importFile("15",	"S-JIS",		",",	"\r\n",		null);
 
@@ -365,7 +365,7 @@ function importFile(fileno, encoding, separator, breakcode, opt){
 		}
 		
 		// データ全件削除
-		var delResult = db.change("IMPORT",	"delAllFile" + fileno,{});
+		var delResult = db.change("IMPORT",	"delAllFile" + fileno, {"shopId": getShopId()});
 
 		//データ全件導入
 		num = 0;
