@@ -67,7 +67,7 @@ import_import.fire = function (params) {   //
 	var flg_file13 = importFile("13",	"S-JIS",		",",	"\n",		null);
 	var flg_file14 = importFile("14",	"S-JIS",		",",	"\n",		null);
 
-	var flg_file15 = importFile("15",	"S-JIS",		",",	"\r\n",		null);
+	var flg_file15 = importFile("15",	"S-JIS",		",",	"\n",		null);
 
 	var flg_file16 = importFile("16",	"S-JIS",		",",	"\r\n",		null);
 	var flg_file17 = importFile("17",	"S-JIS",		",",	"\r\n",		null);

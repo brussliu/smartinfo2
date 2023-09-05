@@ -8,6 +8,10 @@
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <script>
+                 function scrollHead(obj) {
+                    var p = $(obj).get(0).scrollLeft;
+                    $(".c_detail_header").get(0).scrollLeft = p;
+                }
                  function init(){
 
                     Efw('earnings_init');
@@ -77,35 +81,36 @@
                         </table>
                     </div>
  
-                    <div class="c_detail_header" style="overflow: hidden;">
+                    <div class="c_detail_header" style="overflow: hidden;" onscroll="scrollHead(this);">
                         <table class="table_detail_header" style="table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 120px;">年月</th>
-                                    <th style="width: 120px">注文数量</th>
-                                    <th style="width: 138px;">注文粗利益</th>
+                                    <th style="width: 100px">注文数量</th>
+                                    <th style="width: 130px;">注文粗利益</th>
 
-                                    <th style="width: 138px;">月額登録料</th>
-                                    <th style="width: 110px;">広告費用</th>
+                                    <th style="width: 100px;">月額登録料</th>
+                                    <th style="width: 100px;">広告費用</th>
 
-                                    <th style="width: 138px;">FBA入庫料金</th>
-                                    <th style="width: 138px;">FBA保管料金</th>
-                                    <th style="width: 138px;">FBA作業料金</th>
-
-                                    <th style="width: 138px;">返品損失金額</th>
+                                    <th style="width: 100px;">FBA入庫料金</th>
+                                    <th style="width: 100px;">FBA保管料金</th>
+                                    <th style="width: 100px;">FBA作業料金</th>
+                                    <th style="width: 100px;">返品損失金額</th>
 
                                     <th style="width: 110px">振込金額</th>
                                     <th style="width: 110px;">仕入金額</th>
                                     <th style="width: 100px;">その他支払</th>
                                     <th style="width: 100px;">その他受領</th>
 
-                                    <th style="width: 143px">純利益</th>
+                                    <th style="width: 128px">純利益</th>
+                                    <th style="width: 130px">売上累計</th>
+                                    <th style="width: 130px">利益累計</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
  
-                    <div class="c_detail_content" style="overflow: auto;height: 673px;">
+                    <div class="c_detail_content" style="overflow: auto;height: 673px;"onscroll="scrollHead(this);">
                         <table id="earningstable" class="table_detail_content" style="table-layout: fixed;">
                             <tbody>
                                 <!-- <tr>

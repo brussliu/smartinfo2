@@ -266,6 +266,9 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					if(flg_file04){
 						excute_04_r3();	flg_r3 = true;
 					}
+					if(flg_file13){
+						excute_13_m5();	flg_m5 = true;
+					}
 					if(flg_file14){
 						excute_14_r4();	flg_r4 = true;
 					}
@@ -311,9 +314,7 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 					if(flg_m2 || flg_m3){
 						excute_m2_m4();	flg_m4 = true;
 					}
-					if(flg_file13){
-						excute_13_m5();	flg_m5 = true;
-					}
+
 					if(flg_m1){
 						excute_m1_m5();	flg_m5 = true;
 					}

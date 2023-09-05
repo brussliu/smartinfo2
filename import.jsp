@@ -40,24 +40,161 @@
                 }
 
                 function setInit1(objectname,importdate,importcount){
+
                     $("#"+objectname + "_importtime").html(importdate);
-                    $("#"+objectname + "_importcount").html(importcount);
+                    $("#"+objectname + "_importcount").html(importcount); 
+
+                    switch(objectname){
+                        case 'file01': changeColorForDay(objectname, importdate);  break;
+                        case 'file02': changeColorForDay(objectname, importdate);  break;
+                        case 'file03': changeColorForDay(objectname, importdate);  break;
+                        case 'file04': changeColorForMonthBegin(objectname, importdate);  break;
+                        // case 'file05': changeColorForDay(objectname, importdate);  break;
+                        // case 'file06': changeColorForDay(objectname, importdate);  break;
+                        // case 'file07': changeColorForDay(objectname, importdate);  break;
+                        // case 'file08': changeColorForDay(objectname, importdate);  break;
+                        // case 'file09': changeColorForDay(objectname, importdate);  break;
+                        // case 'file10': changeColorForDay(objectname, importdate);  break;
+                        // case 'file11': changeColorForWeek(objectname, importdate);  break;
+                        // case 'file12': changeColorForWeek(objectname, importdate);  break;
+                        case 'file13': changeColorForMonthBegin(objectname, importdate);  break;
+                        // case 'file14': changeColorForDay(objectname, importdate);  break;
+                        // case 'file15': changeColorForDay(objectname, importdate);  break;
+                        // case 'file16': changeColorForDay(objectname, importdate);  break;
+                        // case 'file17': changeColorForDay(objectname, importdate);  break;
+                        // case 'file18': changeColorForDay(objectname, importdate);  break;
+                        default : break;
+                    }
+                 
                 }
 
                 function setInit2(objectname,importfilename,reorganizetime,reorganizecount){
 
-                    // <td class="td5" id="file02_reorganizetime">2023-01-12 18:32:17 </td>
-                    //             <td class="td6" id="file02_reorganizecount">999件</td>
-                    //             <td class="td6" id="file02_importtime">2023-01-12 18:32:17 </td>
-                    //             <td class="td6" id="file02_importcount">999件</td>
-
                     $("#"+objectname + "_filename").html(importfilename);
                     $("#"+objectname + "_reorganizetime").html(reorganizetime);
-                    $("#"+objectname + "_reorganizecount").html(reorganizecount);
+                    $("#"+objectname + "_reorganizecount").html(reorganizecount); 
+
                 }
 
-              
-            </script>
+                function getDate(dateStr) {
+                    return new Date(Date.parse(dateStr.replace(/-/g, "/")));
+                }
+
+                //   每日
+                function changeColorForDay(objectname, importdate){
+
+                    // 日期判断 
+                    var today = new Date()
+                    var yesterday =  new Date(today.getFullYear(),today.getMonth(),today.getDate())
+                    //  yesterday = Date.parse(yesterday.setDate(yesterday.getDate()-1)) 前一天   
+
+                    yesterday = Date.parse(yesterday);
+
+                    //  上传日期
+                    var impDate =Date.parse(getDate(importdate))
+                      
+                    //  当前tr
+                    var cur_tr = $("#"+objectname + "_filename").parent();
+
+                    //  今天未导入                   
+                    if(impDate < yesterday){
+                        cur_tr.css("background-color", "rgb(230, 101, 101)")
+                    }
+                    // 今天已导入
+                    if(impDate >= yesterday){
+                        cur_tr.css("background-color", "#f0ffff")
+                    } 
+                }
+
+                //   每周
+                function changeColorForWeek(objectname, importdate){
+                   
+                    //  上传日期
+                    var impWeek =getDate(importdate)
+                     
+                    var weekDay = impWeek.getDay();
+                    impWeek =  Date.parse(impWeek)
+                     
+                       // 日期判断 
+                    var today = new Date()
+                    var yesterweek =  new Date(today.getFullYear(),today.getMonth(),today.getDate())                  
+                       
+                    if(weekDay == 0){ 
+                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-7 + 1)); 
+                    }else{
+                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()- weekDay + 1))
+                         
+                    } 
+                    //  当前tr 
+                    var cur_tr = $("#"+objectname + "_filename").parent();
+
+                    //  最近七天未导入                   
+                    if(impWeek < yesterweek){
+                        cur_tr.css("background-color", "rgb(230, 101, 101)")
+                    }
+                    // 最近七天已导入
+                    if(impWeek >= yesterweek){
+                        cur_tr.css("background-color", "#f0ffff")
+                    } 
+                }
+
+                //   每月
+                function changeColorForMonth(objectname, importdate){ 
+                   //  上传日期
+                   var impWeek =getDate(importdate)
+                       impWeek =  Date.parse(impWeek) 
+                   
+                      // 日期判断 
+                   var today = new Date()
+                   var yesterMonth =  new Date(today.getFullYear(),today.getMonth(),1)                  
+                       yesterMonth = Date.parse(yesterMonth) 
+
+                   //  当前tr 
+                   var cur_tr = $("#"+objectname + "_filename").parent();
+
+                   //  本月未导入                   
+                   if(impWeek < yesterMonth){
+                       cur_tr.css("background-color", "rgb(230, 101, 101)")
+                   }
+                   // 本月已导入
+                   if(impWeek >= yesterMonth){
+                       cur_tr.css("background-color", "#f0ffff")
+                   } 
+                }
+           
+                //   月初-3号
+                function changeColorForMonthBegin(objectname, importdate){ 
+                    //  上传日期
+                    var impWeek = Date.parse(getDate(importdate));
+                    
+                        // 日期判断 
+                    var today = new Date();
+                    var startMonth =  new Date(today.getFullYear(),today.getMonth(),1);
+                    startMonth = Date.parse(startMonth);
+
+                    var endMonth =  new Date(today.getFullYear(),today.getMonth(),3);
+                    endMonth = Date.parse(endMonth);
+
+                    var yesterday =  new Date(today.getFullYear(),today.getMonth(),today.getDate())
+                    yesterday = Date.parse(yesterday);
+
+                   //  当前tr 
+                   var cur_tr = $("#"+objectname + "_filename").parent();
+
+                //    alert(impWeek);
+                //    alert(startMonth);
+                //    alert(endMonth);
+
+                   //  本月未导入                   
+                   if(impWeek < startMonth &&  yesterday > endMonth){
+                       cur_tr.css("background-color", "rgb(230, 101, 101)")
+                   }
+                   // 本月已导入
+                   if(impWeek >= startMonth){
+                       cur_tr.css("background-color", "#f0ffff")
+                   } 
+                }
+           </script>
             <style>
 
                 /* table */
@@ -187,7 +324,7 @@
                                 <!-- style="background-color: rgb(230, 101, 101);" -->
                                 <td class="td1">4</td>
                                 <td class="td2">ペイメントレポート</td>
-                                <td class="td3">1回／月</td>
+                                <td class="td3">月初</td>
                                 <td class="td4" id="file04_filename"></td>
                                 <td class="td5" id="file04_reorganizetime">-</td>
                                 <td class="td6" id="file04_reorganizecount">-</td>
@@ -224,7 +361,7 @@
                                 <td class="td6" id="file06_2_importtime">-</td>
                                 <td class="td6" id="file06_2_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">7</td>
                                 <td class="td2">日付別_売上およびトラフィック</td>
                                 <td class="td3">？？？</td>
@@ -234,7 +371,7 @@
                                 <td class="td6" id="file07_importtime">-</td>
                                 <td class="td6" id="file07_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">8</td>
                                 <td class="td2">日付別_詳細ページ 売上・トラフィック</td>
                                 <td class="td3">？？？</td>
@@ -244,7 +381,7 @@
                                 <td class="td6" id="file08_importtime">-</td>
                                 <td class="td6" id="file08_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">9</td>
                                 <td class="td2">日付別_パフォーマンス</td>
                                 <td class="td3">？？？</td>
@@ -254,7 +391,7 @@
                                 <td class="td6" id="file09_importtime">-</td>
                                 <td class="td6" id="file09_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">10</td>
                                 <td class="td2">ASIN別_詳細ページ 売上・トラフィック</td>
                                 <td class="td3">？？？</td>
@@ -264,7 +401,7 @@
                                 <td class="td6" id="file10_importtime">-</td>
                                 <td class="td6" id="file10_importcount">-</td>
                             </tr>
-                            <tr class="datatr" style="background-color: rgb(230, 101, 101);">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">11</td>
                                 <td class="td2">FBA在庫出荷レポート</td>
                                 <td class="td3">1回／週</td>
@@ -274,7 +411,7 @@
                                 <td class="td6" id="file11_importtime">-</td>
                                 <td class="td6" id="file11_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">12</td>
                                 <td class="td2">出荷レポート</td>
                                 <td class="td3">1回／週</td>
@@ -287,7 +424,7 @@
                             <tr class="datatr">
                                 <td class="td1">13</td>
                                 <td class="td2">手数料見積り額レポート</td>
-                                <td class="td3">1回／週</td>
+                                <td class="td3">月初</td>
                                 <td class="td4" id="file13_filename"></td>
                                 <td class="td5" id="file13_reorganizetime">-</td>
                                 <td class="td6" id="file13_reorganizecount">-</td>
@@ -297,7 +434,7 @@
                             <tr class="datatr">
                                 <td class="td1">14</td>
                                 <td class="td2">在庫保管手数料レポート</td>
-                                <td class="td3">月初</td>
+                                <td class="td3">1回／月</td>
                                 <td class="td4" id="file14_filename"></td>
                                 <td class="td5" id="file14_reorganizetime">-</td>
                                 <td class="td6" id="file14_reorganizecount">-</td>
@@ -307,14 +444,14 @@
                             <tr class="datatr">
                                 <td class="td1">15</td>
                                 <td class="td2">長期在庫保管手数料請求額レポート</td>
-                                <td class="td3">月初</td>
+                                <td class="td3">1回／月</td>
                                 <td class="td4" id="file15_filename"></td>
                                 <td class="td5" id="file15_reorganizetime">-</td>
                                 <td class="td6" id="file15_reorganizecount">-</td>
                                 <td class="td6" id="file15_importtime">-</td>
                                 <td class="td6" id="file15_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">16</td>
                                 <td class="td2">返品レポート</td>
                                 <td class="td3">1回／月</td>
@@ -324,7 +461,7 @@
                                 <td class="td6" id="file16_importtime">-</td>
                                 <td class="td6" id="file16_importcount">-</td>
                             </tr>
-                            <tr class="datatr">
+                            <tr class="datatr" style="background-color: lightgray;">
                                 <td class="td1">17</td>
                                 <td class="td2">返送推奨レポート</td>
                                 <td class="td3">1回／月</td>
@@ -334,7 +471,7 @@
                                 <td class="td6" id="file17_importtime">-</td>
                                 <td class="td6" id="file17_importcount">-</td>
                             </tr>
-                            <tr class="datatr" style="border-bottom: 1px solid black;">
+                            <tr class="datatr" style="border-bottom: 1px solid black;background-color: lightgray;">
                                 <td class="td1">18</td>
                                 <td class="td2">返送所有権の放棄依頼の詳細レポート</td>
                                 <td class="td3">1回／月</td>

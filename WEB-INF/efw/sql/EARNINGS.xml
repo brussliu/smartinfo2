@@ -2,7 +2,7 @@
 <!DOCTYPE sqls>
 <sqls>
 	
-    <sql id="searchearningslist">
+<sql id="searchearningslist">
     select
                 "年月" as yearmonth
                 , sum("注文数量") as ordercount
@@ -136,8 +136,125 @@
     
     group by "年月"
     order by "年月" desc
-    </sql>
+</sql>
 
+ <sql id="searchearningslistCount">
+    SELECT  years, sum(orderprofit) as orderprofitNum , sum(profit) as  profitNum 
+	from(
+	select
+                "年月" as yearmonth
+				,"年" as years
+                , sum("注文粗利益") as orderprofit
+                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領") as profit
+    from (  
+                    SELECT
+                                to_char( "発生日", 'YYYY' ) || '年' || to_char( "発生日", 'MM' ) || '月' AS "年月"  
+                                ,to_char( "発生日", 'YYYY' )   AS "年"  
+                                , 0 as "注文粗利益"
+                                , 0 as "振込金額"						
+                                , 0 AS 仕入費用
+                            , CASE  WHEN "ステータス" = '支払済'  	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
+                                            THEN 0 - SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
+                                END AS "その他支払"
+                            , CASE  WHEN "ステータス" = '受領済' 	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
+                                                THEN SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
+                                END AS "その他受領" 
+                    FROM
+                        "RES_収入支出情報" 
+                    WHERE
+                        ステータス IN ( '支払済', '受領済' ) 
+  						AND "店舗ID" = :shopid
+                    GROUP BY
+                        "年月","年","ステータス" 
+                        
+                    UNION ALL
+                    SELECT
+							substr( "仕入NO", 1, 4 ) || '年'|| substr( "仕入NO", 5, 2 )|| '月' AS "年月"
+                           ,substr( "仕入NO", 1, 4 )  AS "年" 
+                            , 0 as "注文粗利益"
+                            , 0 as "振込金額"
+                            ,CASE WHEN SUM ( CAST ( "合計（円）" AS FLOAT ) ) IS NOT NULL 
+                                        THEN 	0 - SUM ( CAST ( "合計（円）" AS FLOAT ) ) ELSE 0 
+                                        END AS 仕入費用
+                            ,0 AS "その他支払"
+                            ,0 AS "その他受領" 
+                    FROM
+                        "TRN_仕入管理" 
+                    WHERE
+                        ステータス IN ( '2.発送済', '3.仕入済' ) 
+   						AND "店舗ID" = :shopid
+                    GROUP BY
+                        "年月" , "年" 
+
+                    union all 
+                        
+                    SELECT
+                            "年月",
+							"年",
+                            SUM ( CASE WHEN "トランザクションの種類" = '注文' THEN "合計" ELSE 0 END ) AS "注文粗利益",
+                            SUM ( CASE WHEN "トランザクションの種類" = '振込み' THEN "合計" ELSE 0 END ) AS "振込金額",0 AS "仕入金額",
+                            0 AS "その他支払",
+                            0 AS "その他受領" 
+        
+                    FROM (
+                            SELECT
+                                    "年月",
+									"年",
+                                    "トランザクションの種類",
+                                    "説明",
+									SUM( "FBA在庫の返送手数料" +  "FBA在庫の廃棄手数料" ) as "FBA作業料金",
+                                    SUM ( "注文数量" ) AS "注文数量",
+                                    SUM ( "合計" ) AS "合計" 
+                            FROM 	(  
+                                       
+										SELECT
+												to_char( "日付/時間", 'YYYY年MM月' ) AS "年月"
+												,to_char( "日付/時間", 'YYYY' ) AS "年"
+												,"日付/時間"
+												,"トランザクションの種類"
+												,"注文番号"
+												,"SKU"
+												,0 as "FBA在庫の返送手数料"
+												,0 as "FBA在庫の廃棄手数料"
+												,CASE  WHEN LENGTH ( TRIM ( "注文番号" ) ) > 10 THEN '注文' ELSE "説明"  END AS "説明" 
+												,CAST ( "数量" AS int ) AS "注文数量"
+												,CAST ( "合計" AS numeric ) AS "合計"
+										FROM
+												"RES_注文ペイメント情報" 
+   										where  "店舗ID" = :shopid 
+
+											UNION ALL
+											
+										SELECT
+												to_char( "日付/時間", 'YYYY年MM月' ) AS "年月"
+												,to_char( "日付/時間", 'YYYY' ) AS "年"
+												,"日付/時間"
+												,"トランザクションの種類"
+												,"注文番号"
+												,"SKU"
+												,CASE  WHEN "説明" = 'FBA在庫の返送手数料'  THEN cast("合計" as numeric) ELSE 0 END AS "FBA在庫の返送手数料" 
+												,CASE  WHEN "説明" = 'FBA在庫の廃棄手数料'  THEN cast("合計" as numeric) ELSE 0  END AS  "FBA在庫の廃棄手数料"
+												,CASE  WHEN LENGTH ( TRIM ( "注文番号" ) ) > 10 THEN '注文' ELSE "説明"  END AS "説明" 
+												,0 AS "注文数量"
+												,CAST ( "合計" AS numeric ) AS "合計"
+										FROM
+												"RES_非注文ペイメント情報" 
+ 										where  "店舗ID" = :shopid 
+                                    ) TEMP1  
+                                            
+                            GROUP BY 	"年月" ,"年" ,"トランザクションの種類" ,  "説明" 
+                        ) TEMP2 
+                    group by "年月" ,"年" , "FBA作業料金"
+        ) DATA  
+    
+    group by "年月","年" 
+    order by "年月" desc 
+		
+		) cou
+		group by years 
+		order by years desc 
+		
+    </sql>
 <sql id="searchearningsdetail1">
 		select
 				"年月" as yearmonth,

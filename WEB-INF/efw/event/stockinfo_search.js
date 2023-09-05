@@ -56,8 +56,8 @@ stockinfo_search.fire=function(params){
 
 	// 数量範囲
 	var item = params["#select_item"]
-	var minNum =parseInt(params["#text_minNum"])
-	var maxNum = parseInt(params["#text_maxNum"])
+	var minNum =params["#text_minNum"] == ''? null : params["#text_minNum"]
+	var maxNum =params["#text_maxNum"] == ''? null : params["#text_maxNum"]
 
 	var selectResult = db.select(
 		"STOCK",

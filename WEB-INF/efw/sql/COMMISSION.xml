@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+
+	<sql id="searchproducttype">
+		SELECT DISTINCT
+			"商品種別" as value,
+			substr("商品種別",4) as text
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品種別 ) > 0 
+			AND "店舗ID" = :shopId 
+		ORDER BY
+			"商品種別"
+	</sql>
+
+	<sql id="searchproducno">
+		SELECT DISTINCT
+			"商品管理番号" AS value,
+			"商品管理番号" AS text 
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品管理番号 ) > 0 
+			AND "店舗ID" = :shopId  
+		ORDER BY
+			"商品管理番号"
+	</sql>
+
+
+</sqls>
+

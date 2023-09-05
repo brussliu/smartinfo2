@@ -108,13 +108,13 @@
                             localArr.push(parseInt(flg));
                             localArr.push(sku);
                             localArr.push(asin);
-                            localArr.push(parseInt(local == 'null'?0:local));
+                            localArr.push(parseInt(local == null?0:local));
                             localArr.push(producttype);
                             localArr.push(productno);
                             localArr.push(preproduct);
                             localArr.push(productsub1);
                             localArr.push(productsub2);
-
+                            
                             //途中（入庫）
                             var put = tdArr.eq(12);
                             if (put.data("text") != "undefined") {
@@ -124,7 +124,7 @@
                             }else{
                                 localArr.push(null);
                             }
-
+                            
                             // 途中（仕入）
                             var purchase = tdArr.eq(14);
                             if (purchase.data("text") != "undefined") {
@@ -133,7 +133,7 @@
                             }else{
                                 localArr.push(null);
                             }
-
+                             
                             alllocalArr.push(localArr);
 
                         }

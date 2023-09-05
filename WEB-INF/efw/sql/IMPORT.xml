@@ -365,67 +365,64 @@
 			, "FNSKU" = IPT."FNSKU"
 			, "ASIN" = IPT."ASIN"
 			, "商品名" = IPT."商品名"
-			, "コンディション" = IPT."コンディション"			
-			, "qty-charged-long-time-range-long-term-storage-fee" = to_number(IPT."qty-charged-long-time-range-long-term-storage-fee", '999999999')
-			, "商品サイズ" = IPT."商品サイズ"
+			, "コンディション" = IPT."コンディション"
+			, "商品サイズ" = to_number(IPT."商品サイズ", '999.9999')
 			, "通貨" = IPT."通貨"
-			, "long-time-range-long-term-storage-fee" = to_number(IPT."long-time-range-long-term-storage-fee", '9999999.99')
-			, "qty-charged-short-time-range-long-term-storage-fee" = to_number(IPT."qty-charged-short-time-range-long-term-storage-fee", '999999999')
-			, "short-time-range-long-term-storage-fee" = to_number(IPT."short-time-range-long-term-storage-fee", '9999999.99')
 			, "volume-unit" = IPT."volume-unit"
 			, "国" = IPT."国"
-			, "enrolled-in-small-and-light" = IPT."enrolled-in-small-and-light"
+			, "請求対象の在庫数" = to_number(IPT."請求対象の在庫数", '9999999')
+			, "請求金額" = to_number(IPT."請求金額", '99999.99')
+			, "追加手数料の対象期間" = IPT."追加手数料の対象期間"
+			, "追加手数料率" = to_number(IPT."追加手数料率", '9999999')
 			, "更新日時" = now()
 		from
 			"IPT_長期在庫保管手数料請求額情報" IPT 
 		where
-				to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ') = RES."日付" 
-				and IPT."出品者SKU" = RES."出品者SKU" 
-				and IPT."ASIN" = RES."ASIN" 
-				and IPT."コンディション" = RES."コンディション" 
-				and IPT."国" = RES."国" 
-				and IPT."店舗ID" = RES."店舗ID" 
-				and IPT."店舗ID" = !shopId 
+			to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ') = RES."日付" 
+			and IPT."出品者SKU" = RES."出品者SKU" 
+			and IPT."ASIN" = RES."ASIN" 
+			and IPT."コンディション" = RES."コンディション" 
+			and IPT."国" = RES."国" 
+			and IPT."店舗ID" = RES."店舗ID" 
+			and IPT."店舗ID" = !shopId 
 
 	</sql>
 	<sql id="insert_15_r5" paramPrefix="!">
 		insert into "RES_長期在庫保管手数料請求額情報" ( 
-			  "日付" 
-			, "出品者SKU" 
-			, "FNSKU" 
-			, "ASIN" 
-			, "商品名" 
-			, "コンディション" 
-			, "qty-charged-long-time-range-long-term-storage-fee" 
-			, "商品サイズ" 
-			, "通貨" 
-			, "long-time-range-long-term-storage-fee" 
-			, "qty-charged-short-time-range-long-term-storage-fee" 
-			, "short-time-range-long-term-storage-fee" 
-			, "volume-unit" 
-			, "国" 
-			, "enrolled-in-small-and-light" 
-			, "店舗ID" 
-			, "登録日時" 
+			  "日付"
+			, "出品者SKU"
+			, "FNSKU"
+			, "ASIN"
+			, "商品名"
+			, "コンディション"
+			, "商品サイズ"
+			, "通貨"
+			, "volume-unit"
+			, "国"
+			, "請求対象の在庫数"
+			, "請求金額"
+			, "追加手数料の対象期間"
+			, "追加手数料率"
+			, "店舗ID"
+			, "登録日時"
 			, "更新日時"
 		) 
 		select
-			to_timestamp(IPT."日付", 'YYYY-MM-DD HH24:MI:SS+09:00') 
+			  to_timestamp(IPT."日付", 'YYYY/MM/DD HH24:MI:SS    ')
 			, IPT."出品者SKU"
 			, IPT."FNSKU"
 			, IPT."ASIN"
 			, IPT."商品名"
-			, IPT."コンディション"			
-			, to_number(IPT."qty-charged-long-time-range-long-term-storage-fee", '999999999.99')
-			, IPT."商品サイズ"
+			, IPT."コンディション"
+			, to_number(IPT."商品サイズ", '999.9999')
 			, IPT."通貨"
-			, to_number(IPT."long-time-range-long-term-storage-fee", '999999999.99')
-			, to_number(IPT."qty-charged-short-time-range-long-term-storage-fee", '999999999.99')
-			, to_number(IPT."short-time-range-long-term-storage-fee", '999999999.99')
 			, IPT."volume-unit"
 			, IPT."国"
-			, IPT."enrolled-in-small-and-light"
-			, "店舗ID"
+			, to_number(IPT."請求対象の在庫数", '9999999')
+			, to_number(IPT."請求金額", '99999.99')
+			, IPT."追加手数料の対象期間"
+			, to_number(IPT."追加手数料率", '9999999')
+			, IPT."店舗ID"
 			, now()
 			, now()
 		from
@@ -442,7 +439,8 @@
 					and IPT."ASIN" = RES."ASIN" 
 					and IPT."コンディション" = RES."コンディション" 
 					and IPT."国" = RES."国" 
-					and IPT."店舗ID" = RES."店舗ID" 					
+					and IPT."店舗ID" = RES."店舗ID"
+					and IPT."店舗ID" = !shopId
 			) 
 			and IPT."店舗ID" = !shopId 
 			
@@ -2316,7 +2314,8 @@
 			, :nowTime
 		from
 			"IPT_全注文情報"
-
+		where
+			"店舗ID" = :shopId
 		
 
 	</sql>
@@ -2388,6 +2387,8 @@
 			, :nowTime
 		from 
 			"IPT_ペイメント情報"
+		where
+			"店舗ID" = :shopId
 
 	</sql>
 	<sql id="insertFile_14_h3">
@@ -2447,56 +2448,58 @@
 			, "Total Incentive Amount" 
 			, "breakdown_incentive_fee_amount" 
 			, "average_quantity_customer_orders"  
-			, :shopId 
+			, "店舗ID"
 			, :nowTime 
 			, :nowTime  
 		from
 			"IPT_在庫保管手数料情報"
+		where
+			"店舗ID" = :shopId
 
 	</sql>
 	<sql id="insertFile_15_h4">
 		
 		insert into "HIS_長期在庫保管手数料請求額情報" ( 
-			  "日付" 
-			, "出品者SKU" 
-			, "FNSKU" 
-			, "ASIN" 
-			, "商品名" 
-			, "コンディション" 
-			, "qty-charged-long-time-range-long-term-storage-fee" 
-			, "商品サイズ" 
-			, "通貨" 
-			, "long-time-range-long-term-storage-fee" 
-			, "qty-charged-short-time-range-long-term-storage-fee" 
-			, "short-time-range-long-term-storage-fee" 
-			, "volume-unit" 
-			, "国" 
-			, "enrolled-in-small-and-light" 
-			, "店舗ID" 
-			, "登録日時" 
-			, "更新日時" 
+			  "日付"
+			, "出品者SKU"
+			, "FNSKU"
+			, "ASIN"
+			, "商品名"
+			, "コンディション"
+			, "商品サイズ"
+			, "通貨"
+			, "volume-unit"
+			, "国"
+			, "請求対象の在庫数"
+			, "請求金額"
+			, "追加手数料の対象期間"
+			, "追加手数料率"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
 		) 
 		select
-			  "日付" 
-			, "出品者SKU" 
-			, "FNSKU" 
-			, "ASIN" 
-			, "商品名" 
-			, "コンディション" 
-			, "qty-charged-long-time-range-long-term-storage-fee" 
-			, "商品サイズ" 
-			, "通貨" 
-			, "long-time-range-long-term-storage-fee" 
-			, "qty-charged-short-time-range-long-term-storage-fee" 
-			, "short-time-range-long-term-storage-fee" 
-			, "volume-unit" 
-			, "国" 
-			, "enrolled-in-small-and-light"  
-			, :shopId 
+			  "日付"
+			, "出品者SKU"
+			, "FNSKU"
+			, "ASIN"
+			, "商品名"
+			, "コンディション"
+			, "商品サイズ"
+			, "通貨"
+			, "volume-unit"
+			, "国"
+			, "請求対象の在庫数"
+			, "請求金額"
+			, "追加手数料の対象期間"
+			, "追加手数料率"
+			, "店舗ID"
 			, :nowTime 
 			, :nowTime
 		from
 			"IPT_長期在庫保管手数料請求額情報"
+		where
+			"店舗ID" = :shopId
 
 	</sql>
 
@@ -3188,8 +3191,7 @@
 			:col13,
 			:col14,
 			:col15,
-			:col16,
-			:col17   
+			:col16
 		)
 	</sql>
 	<sql id="delAllFile16">
@@ -3307,7 +3309,3 @@
 			"ステータス" = '識別済み'
 	</sql>
 </sqls>
-
-
-
-

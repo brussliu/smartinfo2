@@ -311,9 +311,9 @@
 			<!-- T.put,
 			T.local,
 			T.purchase, -->
-			case when cast(T.put as varchar)  = '0' or cast(T.put as varchar)  = '' then cast('null'as varchar)  else cast(T.put as varchar) end,
-			case when cast(T.local as varchar)  = '0' or cast(T.local as varchar)  = '' then cast('null'as varchar)  else cast(T.local as varchar) end,
-			case when cast(T.purchase as varchar)  = '0' or cast(T.purchase as varchar)  = '' then cast('null'as varchar)  else cast(T.purchase as varchar) end,
+			case when cast(T.put as varchar)  = '0' or cast(T.put as varchar)  = '' then ''  else cast(T.put as varchar) end,
+			case when cast(T.local as varchar)  = '0' or cast(T.local as varchar)  = '' then ''  else cast(T.local as varchar) end,
+			case when cast(T.purchase as varchar)  = '0' or cast(T.purchase as varchar)  = '' then ''  else cast(T.purchase as varchar) end,
 			T.stockonsell,
 			T.stockprepare,
 			T.stockall,
@@ -382,24 +382,72 @@
 					a."暫定フラグ" = 0
 					and
 					a."店舗ID" = :shopid
-					<if exists="item"> and (
-						<if istrue="item == 'FBA在庫' ">  d."FBA在庫" &gt;= :minNum AND d."FBA在庫" &lt;= :maxNum </if>
-						<if istrue="item == 'FBM在庫' ">  d."FBM在庫" &gt;= :minNum AND d."FBM在庫"&lt;= :maxNum </if>
-						<if istrue="item == '途中在庫_入庫' ">  d."途中在庫_入庫" &gt;= :minNum AND d."途中在庫_入庫"&lt;= :maxNum </if>
-						<if istrue="item == '途中在庫_仕入' ">  d."途中在庫_仕入" &gt;= :minNum AND d."途中在庫_仕入"&lt;= :maxNum </if>
-						<if istrue="item == 'LOCAL在庫' ">  d."LOCAL在庫" &gt;= :minNum AND d."LOCAL在庫"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近３日間）' ">  b."販売数量（直近３日間）" &gt;= :minNum AND b."販売数量（直近３日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近７日間）' ">  b."販売数量（直近７日間）" &gt;= :minNum AND b."販売数量（直近７日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近３０日間）' ">  b."販売数量（直近３０日間）" &gt;= :minNum AND b."販売数量（直近３０日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近６０日間）' ">  b."販売数量（直近６０日間）" &gt;= :minNum AND b."販売数量（直近６０日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近９０日間）' ">  b."販売数量（直近９０日間）" &gt;= :minNum AND b."販売数量（直近９０日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近１８０日間）' ">  b."販売数量（直近１８０日間）" &gt;= :minNum AND b."販売数量（直近１８０日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売数量（直近３６０日間）' ">  b."販売数量（直近３６０日間）" &gt;= :minNum AND b."販売数量（直近３６０日間）"&lt;= :maxNum </if>
-						<if istrue="item == '販売可能期間（販売中）' ">  c."在庫販売可能日数" &gt;= :minNum  AND c."在庫販売可能日数" &lt;= :maxNum </if>
-						<if istrue="item == '販売可能期間（全体）' ">  c."保有数量販売可能日数" &gt;= :minNum AND c."保有数量販売可能日数" &lt;= :maxNum </if>
-						<if istrue="item == '推奨納品数量' ">  c."推奨納品数量" &gt;= :minNum AND c."推奨納品数量"&lt;= :maxNum </if>
-						<if istrue="item == '推奨仕入数量' ">  c."推奨仕入数量" &gt;= :minNum AND c."推奨仕入数量"&lt;= :maxNum </if>
-					 )
+					<if exists="item"> 
+						<if istrue="item == 'FBA在庫' ">  
+							<if exists="minNum"> and (  d."FBA在庫" &gt;= CAST( :minNum as numeric(10,2)) ) </if>
+							<if exists="maxNum"> and (  d."FBA在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>				 
+						</if>
+						<if istrue="item == 'FBM在庫' "> 
+							<if exists="minNum"> and ( d."FBM在庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."FBM在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '途中在庫_入庫' ">	
+							<if exists="minNum"> and ( d."途中在庫_入庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."途中在庫_入庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '途中在庫_仕入' ">	
+							<if exists="minNum"> and ( d."途中在庫_仕入" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."途中在庫_仕入" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == 'LOCAL在庫' ">	
+							<if exists="minNum"> and ( d."LOCAL在庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."LOCAL在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近３日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近３日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近３日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近７日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近７日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近７日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近３０日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近３０日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近３０日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近６０日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近６０日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近６０日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近９０日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近９０日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近９０日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近１８０日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近１８０日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近１８０日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売数量（直近３６０日間）' ">  
+							<if exists="minNum"> and ( b."販売数量（直近３６０日間）" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( b."販売数量（直近３６０日間）" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売可能期間（販売中）' "> 
+							<if exists="minNum"> and ( c."在庫販売可能日数" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( c."在庫販売可能日数" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '販売可能期間（全体）' "> 
+							<if exists="minNum"> and ( c."保有数量販売可能日数" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( c."保有数量販売可能日数" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '推奨納品数量' ">  
+							<if exists="minNum"> and ( c."推奨納品数量" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and (  c."推奨納品数量" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '推奨仕入数量' "> 
+							<if exists="minNum"> and ( c."推奨仕入数量" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( c."推奨仕入数量" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						
 					</if>
 				union all
 				

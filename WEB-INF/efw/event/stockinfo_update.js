@@ -20,14 +20,14 @@ stockinfo_update.fire = function (params) {
 		var flg =parseInt(localinfo[0]);
 		var sku = localinfo[1];
 		var asin = localinfo[2];
-		var local = localinfo[3];
+		var local = localinfo[3] == null?0:localinfo[3];
 		var producttype = localinfo[4];
 		var productno = localinfo[5];
 		var preproduct = localinfo[6];
 		var productsub1 = localinfo[7];
 		var productsub2 = localinfo[8];
-		var put = localinfo[9];
-		var purchase = localinfo[10];
+		var put = localinfo[9] == null?0:localinfo[9];
+		var purchase = localinfo[10] == null?0:localinfo[10];
 	 
 		// 暫定データ
 		if (flg > 0){
