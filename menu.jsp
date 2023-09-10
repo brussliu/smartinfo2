@@ -198,8 +198,10 @@
                                     <td><button class="btn btn-0301_04" style="display: none;"
                                             onclick="Efw('common_menu_goto',{page:'stockinfo.jsp'})">在庫情報管理</button>
                                     </td>
-                                    <td> <button class="btn btn-0301_05" style="display: none;" disabled>販売情報管理</button></td>
-                                    <td></td>
+                                    <td> <button class="btn btn-0301_17" style="display: none;" 
+                                             onclick="Efw('common_menu_goto',{page:'commission.jsp'})">手数料見積情報管理</button></td>
+                                    <td> <button class="btn btn-0301_18" style="display: none;" 
+                                        onclick="Efw('common_menu_goto',{page:'stockcommission.jsp'})">在庫保管手数料管理</button></td>
                                 </tr>
                                 <tr>
                                     <td> <button class="btn btn-0301_06" style="display: none;"

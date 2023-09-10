@@ -550,10 +550,10 @@
 				from
 					"MST_手数料見積り額情報" MST2
 				where
-					MST1."sku" = MST2."SKU番号" 
-					and MST1."asin" = MST2."ASIN番号" 
-					and MST1."店舗ID" = MST2."店舗ID"
-					and MST2."暫定フラグ" = 0
+					MST2."sku" = MST1."SKU番号" 
+					and MST2."asin" = MST1."ASIN番号" 
+					and MST2."店舗ID" = MST1."店舗ID"
+					and MST1."暫定フラグ" = 0
 			) 
 			and MST1."暫定フラグ" = 0
 			and MST1."店舗ID" = :shopId

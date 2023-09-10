@@ -18,7 +18,7 @@ commission_init.fire = function (params) {
 		"COMMISSION",
 		"searchproducno",
 		{
-			"shopId": getShopId(),
+			"shopid": getShopId(),
 		}
 	).getArray();
 
@@ -31,7 +31,7 @@ commission_init.fire = function (params) {
 		"COMMISSION",
 		"searchproducttype",
 		{
-			"shopId": getShopId(),
+			"shopid": getShopId(),
 		}
 	).getArray();
 
@@ -39,5 +39,44 @@ commission_init.fire = function (params) {
 
 	ret.runat("#checkbox_producttype").remove("*").append(resultHTML2).withdata(selectResult2);
 
+	// sl:列表初始化
+	var selectResult3 = db.select(
+		"COMMISSION",
+		"searchcommission",
+		{
+			"shopid": getShopId(),
+		}
+	).getArray();
+ 
+	var html1=' <tr>' +
+	'<td style="width: 50px;" class="c">{ids}</td>' +
+	'<td style="width: 140px" class="l"><span class="l5">{type}</span></td>' +
+	'<td style="width: 75px;" class="c">{pno}</td> 	' +
+
+	'<td style="width: 150px;" class="l"><span class="l5">{sub1}</span></td>' +
+	'<td style="width: 150px;" class="l"><span class="l5">{sub2}</span></td>' +
+
+	'<td style="width: 140px;" class="c">{asin}<br>{sku}<br>{label}</td>' +
+
+	'<td style="width: 75px;" class="r"><span class="r5">{long}</span></td>' +
+	'<td style="width: 75px;" class="r"><span class="r5">{middle}</span></td>' +
+	'<td style="width: 75px;" class="r"><span class="r5">{short}</span></td>' +
+	'<td style="width: 75px;" class="r"><span class="r5">{weight}</span></td>' +
+
+	'<td style="width: 75px;"  class="r"><span class="r5">{price}</span></td>' +
+	'<td style="width: 100px;" class="r"><span class="r5">{salesrate}</span></td>' +
+	'<td style="width: 100px;" class="r"><span class="r5">{estimated}</span></td>' +
+
+	'<td style="width: 100px;" class="r"><span class="r5">{agencyfees}</span></td>' +
+	'<td style="width: 100px;" class="r"><span class="r5">{deliverycommission}</span></td>' +
+	'<td style="width: 100px;" class="r"><span class="r5">{commissiontotal}</span></td> ' + 
+
+	'<td style="width: 75px;" class="r"><span class="r5">{purchaseprice}</span></td> ' +                          
+	'<td style="width: 95px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                             
+	'</tr> '
+	if(selectResult3.length > 0){
+		ret.runat("#commissiontable").remove("*").append(html1).withdata(selectResult3);
+
+	}
 	return ret;
 };

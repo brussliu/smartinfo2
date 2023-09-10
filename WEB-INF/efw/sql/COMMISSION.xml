@@ -10,7 +10,7 @@
 			"MST_出品マスタ情報" 
 		WHERE
 			"length" ( 商品種別 ) > 0 
-			AND "店舗ID" = :shopId 
+			AND "店舗ID" = :shopid 
 		ORDER BY
 			"商品種別"
 	</sql>
@@ -23,11 +23,126 @@
 			"MST_出品マスタ情報" 
 		WHERE
 			"length" ( 商品管理番号 ) > 0 
-			AND "店舗ID" = :shopId  
+			AND "店舗ID" = :shopid  
 		ORDER BY
 			"商品管理番号"
 	</sql>
 
+	<sql id="searchcommission">
+		
+	SELECT 
+		ROW_NUMBER () OVER (ORDER BY 1 ASC) AS ids,
+		*
+	FROM 
+	( 	SELECT 
+					mst1."商品種別" as type,
+					mst1."商品管理番号" as pno,
+					mst1."分類１" as sub1,
+					mst1."分類２" as sub2,
+					
+					mst1."ASIN番号" as asin,
+					mst1."SKU番号" as sku,
+					mst1."LABEL番号" as label,
+					
+					(mst2."一番長い辺" || case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as long,
+					(mst2."中間の辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as middle ,
+					(mst2."一番短い辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as short ,
+					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
+					e."価格" || '円' as price,
+					cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%' as salesrate ,
+					(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as estimated ,
+					''  as agencyfees,<!--			配送代行手数料区分 -->
+					(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as deliverycommission ,
+					(cast(mst2."手数料見積り額"as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as commissiontotal,
+					cast((mst1."仕入価格" / 5.00 * 100) as numeric(10,0)) || '円'  as purchaseprice,
+					cast (e."価格" as numeric) - cast((mst1."仕入価格" / 5.00 * 100) as numeric(10,0)) - cast(mst2."手数料見積り額"as numeric) || '円' as grossprofit
+		FROM "MST_出品マスタ情報" mst1 
+					LEFT JOIN "MST_手数料見積り額情報" mst2 on mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID" 
+					LEFT JOIN "IPT_全出品情報" e on mst1."ASIN番号" = e."ASIN 1" and mst1."SKU番号" = e."出品者SKU" and mst1."店舗ID" = e."店舗ID" 
+					LEFT JOIN "MST_ソート情報" S1 on mst1."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst1."分類１" = S1."内容" and mst1."店舗ID" = S1."店舗ID"
+					LEFT JOIN "MST_ソート情報" S2 on mst1."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst1."分類２" = S2."内容" and mst1."店舗ID" = S2."店舗ID"
+		where 
+					mst1."店舗ID" = :shopid
+					AND mst1."親子区分"= '子商品'
+		order by
+					mst1."商品種別",
+					mst1."商品管理番号",
+					COALESCE(cast(S1."ソート" as varchar), mst1."分類１"),
+					COALESCE(cast(S2."ソート" as varchar), mst1."分類２"),
+					mst1."ASIN番号"
+	) s
+	</sql>
 
+
+
+<sql id="selectcommission">
+		
+	SELECT 
+		ROW_NUMBER () OVER (ORDER BY 1 ASC) AS ids,
+		*
+	FROM 
+	( 	
+		SELECT 
+					mst1."商品種別" as type,
+					mst1."商品管理番号" as pno,
+					mst1."分類１" as sub1,
+					mst1."分類２" as sub2,
+					
+					mst1."ASIN番号" as asin,
+					mst1."SKU番号" as sku,
+					mst1."LABEL番号" as label,
+					
+					(mst2."一番長い辺" || case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as long,
+					(mst2."中間の辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as middle ,
+					(mst2."一番短い辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as short ,
+					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
+					e."価格" || '円' as price,
+					cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%' as salesrate ,
+					(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as estimated ,
+					''  as agencyfees,<!--			配送代行手数料区分 -->
+					(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as deliverycommission ,
+					(cast(mst2."手数料見積り額"as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as commissiontotal,
+					cast((mst1."仕入価格" / cast(:exchange as numeric(10,2)) * 100) as numeric(10,0)) || '円'  as purchaseprice,
+					cast (e."価格" as numeric) - cast((mst1."仕入価格" / cast(:exchange as numeric(10,2)) * 100) as numeric(10,0)) - cast(mst2."手数料見積り額"as numeric) || '円' as grossprofit
+		
+		FROM 		"MST_出品マスタ情報" mst1 
+					LEFT JOIN "MST_手数料見積り額情報" mst2 on mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID" 
+					LEFT JOIN "IPT_全出品情報" e on mst1."ASIN番号" = e."ASIN 1" and mst1."SKU番号" = e."出品者SKU" and mst1."店舗ID" = e."店舗ID" 
+					LEFT JOIN "MST_ソート情報" S1 on mst1."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst1."分類１" = S1."内容" and mst1."店舗ID" = S1."店舗ID"
+					LEFT JOIN "MST_ソート情報" S2 on mst1."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst1."分類２" = S2."内容" and mst1."店舗ID" = S2."店舗ID"
+		where 
+					mst1."店舗ID" = :shopid
+					AND mst1."親子区分"= '子商品'
+		order by
+					mst1."商品種別",
+					mst1."商品管理番号",
+					COALESCE(cast(S1."ソート" as varchar), mst1."分類１"),
+					COALESCE(cast(S2."ソート" as varchar), mst1."分類２"),
+					mst1."ASIN番号"
+	) T
+	where
+			1=1
+			<if exists="opt_productno"> and (
+				<if istrue="opt_productno == 'マスタ未登録'"> T."pno" is null </if>
+				<if istrue="opt_productno != 'マスタ未登録'"> T."pno" = :opt_productno </if>
+				)
+			</if>
+
+			<if exists="text_keyword"> and (
+				UPPER(T."type") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."pno") LIKE concat('%', :text_keyword ,'%') OR 
+				UPPER(T."sub1") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."sub2") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."sku") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."asin") LIKE concat('%', :text_keyword ,'%') OR
+				UPPER(T."label") LIKE concat('%', :text_keyword ,'%') 
+				)
+			</if>
+
+			<if exists="ptype"> and (	
+				T."type" IN (@ptype)
+				)
+			</if>
+	</sql>
 </sqls>
 

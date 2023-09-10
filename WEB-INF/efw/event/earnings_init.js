@@ -33,7 +33,9 @@ earnings_init.fire=function(params){
 		var orderprofitNum = -99999999;
 	// 定义一个字符计算纯利益
 		var profitNum = -99999999;
-
+	var line1 = ' <tr style="border-top: 1px solid black;">' 
+	var line2 = ' <tr >' 
+	var line = 0
 			// 统计利润
 	var selectResult2 = db.select(
 		"EARNINGS",
@@ -64,9 +66,8 @@ earnings_init.fire=function(params){
 						}
 					} 
 				}
-
-				var resultHTML2 = ' <tr>' +
-					' <td style="width: 120px;"  class="c a"  onclick="opendetail(this)">{yearmonth}</td>' +
+			
+				var resultHTML2 =  ' <td style="width: 120px;"  class="c a"  onclick="opendetail(this)">{yearmonth}</td>' +
 					' <td style="width: 100px" class="r">{ordercount}個</td>' +
 					' <td style="width: 130px;" class="r">{orderprofit}円</td>' +
 
@@ -94,7 +95,12 @@ earnings_init.fire=function(params){
 						record['orderprofitnum'] = orderprofitNum
 						record['profitnum'] = profitNum
 						var record2 = new Record([record]).getArray();
-
+						
+						if(line == 0){
+							resultHTML2 = line2+resultHTML2
+						}else{
+							resultHTML2 = line1+resultHTML2
+						}
 						ret.runat("#earningstable").append(resultHTML2).withdata(record2);
 					}
 					if(yearCount == 2){
@@ -103,19 +109,28 @@ earnings_init.fire=function(params){
 						record['orderprofitnum'] = orderprofitNum
 						record['profitnum'] = profitNum
 						var record2 = new Record([record]).getArray();
-					
+						
+						if(line == 0){
+							resultHTML2 = line2+resultHTML2
+						}else{
+							resultHTML2 = line1+resultHTML2
+						}
 						ret.runat("#earningstable").append(resultHTML2).withdata(record2);
-					}
+						}
+					line = 0
 				}
 				if(yearNum != cutYear){//不同年份，数据初始化
+					 
 					yearCount = 0
 					orderprofitNum = -99999999
 					profitNum = -99999999
+					line = 1
 				}
 				
-				}
-			
+			 
 			}
+			
+		}
 
 	// 画面へ結果を返す
 	return ret;

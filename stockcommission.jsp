@@ -19,111 +19,24 @@
                 }
 
                 // 检索
-                function searchcommission() {
+                function searchstockcommission() {
                     var producttypeArr = new Array();
                     $('#checkbox_producttype input:checkbox:checked').each(function (index, item) {
                         producttypeArr.push($(this).val());
                     });
 
                    
-                    Efw('commission_search', { 'producttypeArr': producttypeArr});
+                    Efw('stockcommission_search', { 'producttypeArr': producttypeArr});
                 }
-
-                // 选中当前数据，编辑LOCAL在庫
-                function check(val) {
-                    // 途中（納品）
-                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next();
-                    // 途中（LOCAL）
-                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
-                    // 途中（仕入）
-                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
-
-                    if ($(val).is(':checked')) {
-                        if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
-                            span_put.css("display", "none");
-                            var sp = span_put.html() =="null"?"":span_put.html()
-                            put.append('<input type="text" class="text_put"value="' + sp + '"style="width:60px;height: 30px;"></input>')
-                            put.data("text", "1");
-                        }
-                        if (span_purchase.html() != "" && span_purchase.html() != null && span_purchase.html() != '0') {
-                            span_purchase.css("display", "none");
-                            var sp2 = span_purchase.html() =="null"?"":span_purchase.html() 
-                            purchase.append('<input type="text" class="text_purchase"value="' + sp2  + '"style="width:60px;height: 30px;"></input>')
-                            purchase.data("text", "1");
-                        }
-                        span_local.css("display", "none");
-                        var sp3 = span_local.html() =="null"?"":span_local.html() 
-                        local.append('<input type="text" class="text_local"value="' + sp3 + '"style="width:60px;height: 30px;"></input>')
-
-                    } else {
-                        span_put.css("display", "block");
-                        span_local.css("display", "block");
-                        span_purchase.css("display", "block");
-                        $(".text_put").remove();
-                        $(".text_local").remove();
-                        $(".text_purchase").remove();
-                    }
-                }
-
-             
-
-              
-                
-                function changeColor() {
-
-                    var oyflg = false;
-                    var oldproductno = "";
-
-                    $("#stocktable").find("tr").each(function () {
-
-                        var tdArr = $(this).children();
-
-                        // 商品管理番号
-                        var newproductno = tdArr.eq(2).html();
-                        // 親子区分
-                        var productkinds = tdArr.eq(3).html();
-
-                        var flg = false;
-                        if (newproductno != oldproductno) {
-                            flg = true;
-                        }
-                        // 商品管理番号変わる
-                        if (flg) {
-                            oyflg = false;
-                        }
-
-                        if (productkinds == "親商品") {
-                            // sl：清空操作格
-                            tdArr.eq(0).html('');
-                            // 行の色を変更
-                            $(this).css({ "background": "rgb(153,217,234)" });
-                            oyflg = true;
-                        }
-
-                        if (productkinds == "子商品") {
-
-                            // チェックボックス列の色を変更
-                            if (oyflg) {
-                                $(this).css({ "background": "rgb(210,255,255)" });
-                                tdArr.eq(0).css({ "background": "rgb(153,217,234)" });
-                            } else {
-                                $(this).css({ "background": "rgb(255,255,240)" });
-                            }
-                        }
-                        oldproductno = newproductno;
-
-
-                    });
-                }
-           
  
-           
            </script>
             <style>
-
+                .parents{
+                    height: 40px;
+                }
+                .parents th{
+                    border:0px
+                }
             </style>
         </head>
 
@@ -171,7 +84,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                     <td style="width: 200px;"><button onclick="searchcommission()">検索</button></td>
+                                     <td style="width: 200px;"><button onclick="searchstockcommission()">検索</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -203,8 +116,9 @@
                                     </td>
                                     <td style="width: 80px;font-weight: bold;">年月：</td>
                                     <td style="width: 220px;">
-                                        <select style="width: 130px;height:30px;border-style: solid;">
-                                        <option value=""></option>
+                                        <select  id="opt_yearmonth" style="width: 130px;height:30px;border-style: solid;">
+                                            <option value=""></option>
+                                            <option value="マスタ未登録">マスタ未登録</option>
                                     </select>
                                     </td>
                                     <td></td>
@@ -217,11 +131,55 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;">
-                        <table class="table_detail_header" style="width: 2105px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2644px;table-layout: fixed;">
                             <thead>
+                                <tr class="parents" >
+                                    <th style="width: 51px;"></th>
+                                    <th style="width: 140px"></th>
+                                    <th style="width: 141px"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 161px;"></th>
+                                    <th style="width: 161px;"></th>
+
+                                    <th style="width: 121px;"></th>
+                                    <th style="width: 150px;"></th>
+                                    <th style="width: 121px"></th>
+
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 81px;"></th>
+                                    <th style="width: 80px;"></th>
+                                    <!-- <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th> -->
+                                    <th colspan="4"  style="width: 460px; border: 1px solid black;">通常在庫</th>
+                                    <th colspan="4" style=" width: 440px;border: 1px solid black;">長期在庫</th>
+                                </tr>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
                                     <th style="width: 140px">年月</th>
+                                    <th style="width: 140px">商品種別</th>
+                                    <th style="width: 80px;">商品<br>管理番号</th>
+                                    <th style="width: 160px;">分類①</th>
+                                    <th style="width: 160px;">分類②</th>
 
                                     <th style="width: 120px;">ASIN番号</th>
                                     <th style="width: 150px;">SKU番号</th>
@@ -243,22 +201,25 @@
                                     <th style="width: 120px;">対象期間</th>
                                     <th style="width: 120px;">請求手数料率</th>
                                     <th style="width: 120px;">請求対象在庫数</th>
-                                    <th style="width: 97px;">請求金額</th>
-
+                                    <th style="width: 80px;">請求金額</th>
+                                    
                                     </tr>
                             </thead>
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: display;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2088px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2628px;table-layout: fixed;" id="stockcommissiontable">
                             <tbody>
                                 
                                 <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this)"
-                                            name="choice"></input></td>
+                                    <td style="width: 50px;" class="c"></td>
                                     <td style="width: 140px" class="c">2023/09/09</td>
-                                    
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
+                                    <td style="width: 139px" class="l"><span class="l5">01:レインコート</span></td>
+                                    <td style="width: 80px;" class="c">number(W001)</td>
+                                    <td style="width: 161px;" class="l"><span class="l5">イエローライオン</span></td>
+                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
+
+                                    <td style="width: 121px;" class="c">B089WGVH9V</td>
                                     <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
                                     <td style="width: 120px;" class="c">X000UXRHRV</td>
                                     
@@ -267,19 +228,18 @@
                                     <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
                                     <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
                                     <td style="width: 80px;" class="c"><span>999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 81px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 78px;" class="r"><span class="r5">999999</span></td>
 
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 140px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 120px;" class="r">999999</td>
+                                    <td style="width: 114px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 113px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 114px;" class="r">999999</td>
+                                    <td style="width: 112px;" class="r"><span class="r5">999999</span></td>
 
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 97px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 108px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 108px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 109px;" class="r"><span class="r5">999999</span></td>
+                                    <td style="width: 106px;" class="r"><span class="r5">999999</span></td>
 
                                 </tr> 
                                 <tr>
