@@ -442,12 +442,12 @@ function excute_01_m1() {
 }
 
 
-function excute_15_r3() {
+// function excute_15_r3() {
 
-	var updateResult = db.change("IMPORT", "update_15_r3", {"shopId": getShopId()});
-	var insertResult = db.change("IMPORT", "insert_15_r3", {"shopId": getShopId()});
+// 	var updateResult = db.change("IMPORT", "update_15_r3", {"shopId": getShopId()});
+// 	var insertResult = db.change("IMPORT", "insert_15_r3", {"shopId": getShopId()});
 
-}
+// }
 
 
 //function excute_14_r2() {

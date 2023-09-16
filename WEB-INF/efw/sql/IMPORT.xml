@@ -256,7 +256,7 @@
 			, "Measurement units" = IPT."Measurement units" 
 			, "weight" = to_number(IPT."weight", '9999999.99')
 			, "Weight units" = IPT."Weight units"
-			, "Item volume" = to_number(IPT."Item volume", '9999999.9999')
+			, "Item volume" = IPT."Item volume"::numeric
 			, "Volume units" = IPT."Volume units"
 			, "Product size tier" = IPT."Product size tier"
 			, "Average quantity on hand" = to_number(IPT."Average quantity on hand", '9999999.99')
@@ -323,7 +323,7 @@
 			, "Measurement units"
 			, to_number(IPT."weight", '9999999.99')
 			, "Weight units" 
-			, to_number(IPT."Item volume", '9999999.9999')
+			, IPT."Item volume"::numeric
 			, "Volume units" 
 			, "Product size tier" 
 			, to_number(IPT."Average quantity on hand", '9999999.99')
@@ -366,7 +366,7 @@
 			, "ASIN" = IPT."ASIN"
 			, "商品名" = IPT."商品名"
 			, "コンディション" = IPT."コンディション"
-			, "商品サイズ" = to_number(IPT."商品サイズ", '999.9999')
+			, "商品サイズ" = IPT."商品サイズ"::numeric
 			, "通貨" = IPT."通貨"
 			, "volume-unit" = IPT."volume-unit"
 			, "国" = IPT."国"
@@ -414,7 +414,7 @@
 			, IPT."ASIN"
 			, IPT."商品名"
 			, IPT."コンディション"
-			, to_number(IPT."商品サイズ", '999.9999')
+			, IPT."商品サイズ"::numeric
 			, IPT."通貨"
 			, IPT."volume-unit"
 			, IPT."国"
@@ -1409,7 +1409,7 @@
 	</sql>
 
 
-	<sql id="update_15_r3" paramPrefix="!">
+	<!-- <sql id="update_15_r3" paramPrefix="!">
 		update "RES_長期在庫保管手数料請求額情報" RES 
 		set
 			"ORDER_最終更新日時" = to_timestamp(IPT."last-updated-date", 'YYYY-MM-DD HH24:MI:SS+09:00') 
@@ -1441,7 +1441,7 @@
 			and IPT."店舗ID" = RES."店舗ID" 
 			and IPT."店舗ID" = !shopId
 
-	</sql>
+	</sql> -->
 
 <!--
 	<sql id="update_14_r2" paramPrefix="!">
@@ -1611,7 +1611,7 @@
 
 	</sql>
 	
-	<sql id="insert_15_r3" paramPrefix="!">
+	<!-- <sql id="insert_15_r3" paramPrefix="!">
 		insert into "RES_長期在庫保管手数料請求額情報" ( 
 			"Amazon注文番号"
 			, "SKU番号"
@@ -1679,7 +1679,7 @@
 					and IPT."店舗ID" = RES."店舗ID"
 			) 
 			and IPT."店舗ID" = :shopId
-	</sql>
+	</sql> -->
 
 <!--
 	<sql id="insert_14_r2" paramPrefix="!">
