@@ -53,17 +53,16 @@ commission_init.fire = function (params) {
 	'<td style="width: 140px" class="l"><span class="l5">{type}</span></td>' +
 	'<td style="width: 75px;" class="c">{pno}</td> 	' +
 
-	'<td style="width: 150px;" class="l"><span class="l5">{sub1}</span></td>' +
-	'<td style="width: 150px;" class="l"><span class="l5">{sub2}</span></td>' +
+	'<td style="width: 200px;" class="l"><span class="l5">{sub1}</span><br><span class="r5" style="float:right;">{sub2}</span></td>' +
 
 	'<td style="width: 140px;" class="c">{asin}<br>{sku}<br>{label}</td>' +
 
-	'<td style="width: 75px;" class="r"><span class="r5">{long}</span></td>' +
-	'<td style="width: 75px;" class="r"><span class="r5">{middle}</span></td>' +
-	'<td style="width: 75px;" class="r"><span class="r5">{short}</span></td>' +
-	'<td style="width: 75px;" class="r"><span class="r5">{weight}</span></td>' +
+	'<td style="width: 90px;" class="r"><span class="r5">{long}</span></td>' +
+	'<td style="width: 90px;" class="r"><span class="r5">{middle}</span></td>' +
+	'<td style="width: 90px;" class="r"><span class="r5">{short}</span></td>' +
+	'<td style="width: 90px;" class="r"><span class="r5">{weight}</span></td>' +
 
-	'<td style="width: 75px;"  class="r"><span class="r5">{price}</span></td>' +
+	'<td style="width: 90px;"  class="r"><span class="r5">{price}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{salesrate}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{estimated}</span></td>' +
 
@@ -71,8 +70,8 @@ commission_init.fire = function (params) {
 	'<td style="width: 100px;" class="r"><span class="r5">{deliverycommission}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{commissiontotal}</span></td> ' + 
 
-	'<td style="width: 75px;" class="r"><span class="r5">{purchaseprice}</span></td> ' +                          
-	'<td style="width: 95px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                             
+	'<td style="width: 90px;" class="r"><span class="r5">{purchaseprice}</span></td> ' +                          
+	'<td style="width: 105px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                             
 	'</tr> '
 	if(selectResult3.length > 0){
 		ret.runat("#commissiontable").remove("*").append(html1).withdata(selectResult3);

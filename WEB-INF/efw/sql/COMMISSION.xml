@@ -42,7 +42,7 @@
 					
 					mst1."ASIN番号" as asin,
 					mst1."SKU番号" as sku,
-					mst1."LABEL番号" as label,
+					COALESCE(mst1."LABEL番号",'　') as label,
 					
 					(mst2."一番長い辺" || case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as long,
 					(mst2."中間の辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as middle ,
@@ -90,7 +90,7 @@
 					
 					mst1."ASIN番号" as asin,
 					mst1."SKU番号" as sku,
-					mst1."LABEL番号" as label,
+					COALESCE(mst1."LABEL番号",'　') as label,
 					
 					(mst2."一番長い辺" || case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as long,
 					(mst2."中間の辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as middle ,

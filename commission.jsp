@@ -103,7 +103,6 @@
                                         <select id="opt_productno"
                                             style="width: 130px;height:30px;border-style: solid;">
                                             <option value=""></option>
-                                            <option value="マスタ未登録">マスタ未登録</option>
                                         </select>
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">キーワード：</td>
@@ -131,17 +130,16 @@
                                     <th style="width: 140px">商品種別</th>
                                     <th style="width: 75px;">商品<br>管理番号</th>
 
-                                    <th style="width: 150px;">分類①</th>
-                                    <th style="width: 150px;">分類②</th>
+                                    <th style="width: 200px;">分類</th>
 
                                     <th style="width: 140px;">ASIN番号<br>SKU番号<br>LABEL番号</th>
 
-                                    <th style="width: 75px;">長さ</th>
-                                    <th style="width: 75px;">幅</th>
-                                    <th style="width: 75px;">高さ</th>
-                                    <th style="width: 75px;">重量</th>
+                                    <th style="width: 90px;">長さ</th>
+                                    <th style="width: 90px;">幅</th>
+                                    <th style="width: 90px;">高さ</th>
+                                    <th style="width: 90px;">重量</th>
 
-                                    <th style="width: 75px;">販売価格</th>
+                                    <th style="width: 90px;">販売価格</th>
                                     <th style="width: 100px;">販売手数料率</th>
                                     <th style="width: 100px;">販売手数料<br>見積額</th>
 
@@ -149,8 +147,8 @@
                                     <th style="width: 100px;">配送代行<br>手数料見積額 </th>
                                     <th style="width: 100px;">手数料<br>見積合計</th>
                                     
-                                    <th style="width: 75px;">仕入価格</th>
-                                    <th style="width: 95px;">粗利益<br>見積合計</th>
+                                    <th style="width: 90px;">仕入価格</th>
+                                    <th style="width: 105px;">粗利益<br>見積合計</th>
 
                                     </tr>
                             </thead>
