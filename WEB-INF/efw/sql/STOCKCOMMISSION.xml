@@ -53,9 +53,9 @@
 					mst."分類１" as sub1,
 					mst."分類２" as sub2,
 					
-					mst."ASIN番号" as asin,
+					res1."ASIN" as asin,
 					mst."SKU番号" as sku,
-					mst."LABEL番号" as label,
+					res1.fnsku as label,
 					
 					res1."Country code" as country,
 					res1."Fulfillment center" as fulfillment,
@@ -76,16 +76,17 @@
 					res2."請求金額" || '円' as amountrequested
 					 
 		FROM 
-					"MST_出品マスタ情報" mst LEFT JOIN "RES_在庫保管手数料情報" res1 
+					"MST_出品マスタ情報" mst RIGHT JOIN "RES_在庫保管手数料情報" res1 
 							on mst."ASIN番号" = res1."ASIN" AND mst."LABEL番号" = res1.fnsku AND mst."店舗ID" = res1."店舗ID"
 					LEFT JOIN "RES_長期在庫保管手数料請求額情報" res2 
-							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID"
+							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID" AND res1."Month of charge" = substr( cast( res2."日付" as varchar),0, 8 ) 
 					LEFT JOIN "MST_ソート情報" S1 on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
 					LEFT JOIN "MST_ソート情報" S2 on mst."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst."分類２" = S2."内容" and mst."店舗ID" = S2."店舗ID"
 		where 
 					mst."店舗ID" = :shopid
 					AND mst."親子区分"= '子商品'
 		order by
+					res1."Month of charge" desc,
 					mst."商品種別",
 					mst."商品管理番号",
 					COALESCE(cast(S1."ソート" as varchar), mst."分類１"),
@@ -109,9 +110,9 @@
 					mst."分類１" as sub1,
 					mst."分類２" as sub2,
 					
-					mst."ASIN番号" as asin,
+					res1."ASIN" as asin,
 					mst."SKU番号" as sku,
-					mst."LABEL番号" as label,
+					res1.fnsku as label,
 					
 					res1."Country code" as country,
 					res1."Fulfillment center" as fulfillment,
@@ -132,16 +133,20 @@
 					res2."請求金額" || '円' as amountrequested
 					 
 			FROM 
-					"MST_出品マスタ情報" mst LEFT JOIN "RES_在庫保管手数料情報" res1 
-							on mst."ASIN番号" = res1."ASIN" AND mst."LABEL番号" = res1.fnsku AND mst."店舗ID" = res1."店舗ID"
+					"MST_出品マスタ情報" mst right JOIN "RES_在庫保管手数料情報" res1 
+							on mst."ASIN番号" = res1."ASIN" AND mst."LABEL番号" = res1.fnsku AND mst."店舗ID" = res1."店舗ID" 
 					LEFT JOIN "RES_長期在庫保管手数料請求額情報" res2 
-							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID"
-					LEFT JOIN "MST_ソート情報" S1 on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
-					LEFT JOIN "MST_ソート情報" S2 on mst."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst."分類２" = S2."内容" and mst."店舗ID" = S2."店舗ID"
+							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID" AND res1."Month of charge" = substr( cast( res2."日付" as varchar),0, 8 ) 
+					LEFT JOIN "MST_ソート情報" S1 
+							on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
+					LEFT JOIN "MST_ソート情報" S2 
+							on mst."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst."分類２" = S2."内容" and mst."店舗ID" = S2."店舗ID"
 			where 
 					mst."店舗ID" = :shopid
 					AND mst."親子区分"= '子商品'
+					
 			order by
+					res1."Month of charge" desc,
 					mst."商品種別",
 					mst."商品管理番号",
 					COALESCE(cast(S1."ソート" as varchar), mst."分類１"),
