@@ -54,7 +54,7 @@ shipactingmaster_save.fire = function (params) {
 				"product":product,
 				"sub1":sub1,
 				"sub2":sub2,
-				"cnproductname" :product + '/' +sub1 + '/' +sub2,
+				"cnproductname" :product  + (sub1 == ""?"":'/' +sub1) + (sub2 == ""?"":'/' +sub2),
 				"jpproductname":jpproductname,
 				"num":num == ''?null:parseInt(num),
 				"remark":remark,
@@ -79,7 +79,7 @@ shipactingmaster_save.fire = function (params) {
 				"product":product,
 				"sub1":sub1,
 				"sub2":sub2,
-				"cnproductname" :product + '/' +sub1 + '/' +sub2,
+				"cnproductname" :product  + (sub1 == ""?"":'/' +sub1) + (sub2 == ""?"":'/' +sub2),
 				"jpproductname":jpproductname,
 				"num":num == ''?null:parseInt(num),
 				"remark":remark,
@@ -92,7 +92,7 @@ shipactingmaster_save.fire = function (params) {
  
  
  	ret.eval("init();")
-	//ret.eval("choice('init');");
+ 
 	ret.eval(" shipactingmaster_inputdialog.dialog('close');");
 	return ret;
 };

@@ -25,18 +25,19 @@ earnings_init.fire=function(params){
 
 	// 定义一个字符存年份
 		var yearNum = 0;
-	// 记录年份第一个
-		var yearCount = 0;
 	// 切换年份
-		var cutYear = 0;
+		var cutYear = -1;
 	// 定义一个字符计算注文粗利益
 		var orderprofitNum = -99999999;
 	// 定义一个字符计算纯利益
 		var profitNum = -99999999;
+	// 每年第一行数据
+		var q=0;
+		
 	var line1 = ' <tr style="border-top: 1px solid black;">' 
 	var line2 = ' <tr >' 
-	var line = 0
-			// 统计利润
+ 
+	// 统计利润
 	var selectResult2 = db.select(
 		"EARNINGS",
 		"searchearningslistCount",
@@ -44,26 +45,22 @@ earnings_init.fire=function(params){
 			"shopid" : getShopId()
 		}
 	).getArray();
- 
+
 		if(selectResult.length>0){	
 			for(var i = 0; i<selectResult.length ;i++){
 				var record = new Record([selectResult[i]]).getSingle();
 				yearNum = parseInt(record["yearmonth"].substring(0,4))
 			
 				// 取得该年份的总利润
-				for(var j=0 ; j<selectResult2.length ; j++){
+				for(var j=q ; j<selectResult2.length ; j++){
 					if(yearNum == parseInt( selectResult2[j]["years"] )){
-						if(yearCount == 0){
-							orderprofitNum =parseInt( selectResult2[j]["orderprofitnum"])
-							profitNum = parseInt(selectResult2[j]["profitnum"])
-							yearCount = 1
-							cutYear = yearNum
-							break
-						}
-						if(yearCount == 1){
-							yearCount = 2
-							break
-						}
+						// 判断年份是否相同？同：不做处理  不同：合计总利润
+						if(yearNum != cutYear){
+								orderprofitNum =parseInt( selectResult2[j]["orderprofitnum"])
+								profitNum = parseInt(selectResult2[j]["profitnum"])
+								break;
+							}
+					
 					} 
 				}
 			
@@ -88,45 +85,33 @@ earnings_init.fire=function(params){
 					' <td style="width: 130px;font-weight: bold;" class="r">{orderprofitnum}円</td>' +
 					' <td style="width: 130px;font-weight: bold;" class="r">{profitnum}円</td>' +
 					' </tr>'
-
-				// 遍历列表
-				if(yearNum == cutYear){
-					if(yearCount == 1){
-						record['orderprofitnum'] = orderprofitNum
-						record['profitnum'] = profitNum
-						var record2 = new Record([record]).getArray();
-						
-						if(line == 0){
-							resultHTML2 = line2+resultHTML2
-						}else{
-							resultHTML2 = line1+resultHTML2
-						}
-						ret.runat("#earningstable").append(resultHTML2).withdata(record2);
-					}
-					if(yearCount == 2){
-						orderprofitNum = orderprofitNum - parseInt(selectResult[i-1]["orderprofit"])
-						profitNum = profitNum - parseInt(selectResult[i-1]["profit"])
-						record['orderprofitnum'] = orderprofitNum
-						record['profitnum'] = profitNum
-						var record2 = new Record([record]).getArray();
-						
-						if(line == 0){
-							resultHTML2 = line2+resultHTML2
-						}else{
-							resultHTML2 = line1+resultHTML2
-						}
-						ret.runat("#earningstable").append(resultHTML2).withdata(record2);
-						}
-					line = 0
-				}
-				if(yearNum != cutYear){//不同年份，数据初始化
-					 
-					yearCount = 0
-					orderprofitNum = -99999999
-					profitNum = -99999999
-					line = 1
-				}
 				
+				// 遍历列表
+					//  判断年份相同？同：减去下个月的利润  
+								// 	不同：就是十二月，第一条数据，是两者年份相等，变为实线，新增第一条数据，q+1
+				if(yearNum == cutYear){
+					orderprofitNum = orderprofitNum - parseInt(selectResult[i-1]["orderprofit"])
+					profitNum = profitNum - parseInt(selectResult[i-1]["profit"])
+					record['orderprofitnum'] = orderprofitNum
+					record['profitnum'] = profitNum
+					var record2 = new Record([record]).getArray();
+					 
+					resultHTML2 = line2+resultHTML2
+			 
+					ret.runat("#earningstable").append(resultHTML2).withdata(record2);
+
+				}
+				if(yearNum != cutYear){
+					cutYear = yearNum
+					record['orderprofitnum'] = orderprofitNum
+					record['profitnum'] = profitNum
+					var record2 = new Record([record]).getArray();
+					resultHTML2 = line1+resultHTML2
+					q += 1 
+					ret.runat("#earningstable").append(resultHTML2).withdata(record2);
+
+
+				} 
 			 
 			}
 			

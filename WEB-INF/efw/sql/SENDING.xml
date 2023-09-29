@@ -123,7 +123,7 @@
 			"ステータス" as state,
 			"備考" as remark,
 			"追跡番号" as traceno,
-		    "発送内容"  as sendcontent
+			"発送内容"  as sendcontent
 			
 		FROM
 			"TRN_発送情報" 
@@ -131,7 +131,7 @@
 			"店舗ID" = !shopid 
 		ORDER BY
 			"ステータス",
-			"発送日時" desc,
+			case when "発送日時" is null then '2023-04-19 00:00:00' else to_char("発送日時",'yyyy-MM-dd hh24:mi:ss') end desc,
 			"受注日時" desc,
 			COALESCE ("Amazon注文番号" ,'')||COALESCE ("Qoo10注文番号" ,'')||COALESCE ("代行発送管理番号" ,'') ||COALESCE ("自行発送管理番号" ,'')
 		LIMIT 100
@@ -219,7 +219,8 @@
 	 "備考",
 	 "発送内容",
 	 "店舗ID",
-	 "登録日時"
+	 "登録日時",
+	 "更新日時"
 	 ) VALUES(
 		 case   when :type = 'A.AmazonFBM' then :no else null end ,				 --Amazon注文番号
 		 case   when :type = 'B.Qoo10発送' then :no else null end ,				 --Qoo10注文番号
@@ -274,7 +275,8 @@
 		 :remark,		--備考
 		 :sendcontent,	--発送内容
 		 :shopid,		--店舗ID
-		 now()			--登録日時
+		 now(),			--登録日時
+		 now()			--更新日時
 	 )
 </sql>
 
