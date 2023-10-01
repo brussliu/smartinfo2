@@ -57,9 +57,9 @@
                         // case 'file10': changeColorForDay(objectname, importdate);  break;
                         // case 'file11': changeColorForWeek(objectname, importdate);  break;
                         // case 'file12': changeColorForWeek(objectname, importdate);  break;
-                        case 'file13': changeColorForMonthBegin(objectname, importdate);  break;
-                        // case 'file14': changeColorForDay(objectname, importdate);  break;
-                        // case 'file15': changeColorForDay(objectname, importdate);  break;
+                        case 'file13': changeColorForWeek(objectname, importdate);  break;
+                        case 'file14': changeColorForMonth(objectname, importdate);  break;
+                        case 'file15': changeColorForMonth(objectname, importdate);  break;
                         // case 'file16': changeColorForDay(objectname, importdate);  break;
                         // case 'file17': changeColorForDay(objectname, importdate);  break;
                         // case 'file18': changeColorForDay(objectname, importdate);  break;
@@ -115,7 +115,7 @@
                     var weekDay = impWeek.getDay();
                     impWeek =  Date.parse(impWeek)
                      
-                       // 日期判断 
+                    // 日期判断 
                     var today = new Date()
                     var yesterweek =  new Date(today.getFullYear(),today.getMonth(),today.getDate())                  
                        
@@ -139,27 +139,36 @@
                 }
 
                 //   每月
-                function changeColorForMonth(objectname, importdate){ 
-                   //  上传日期
-                   var impWeek =getDate(importdate)
-                       impWeek =  Date.parse(impWeek) 
-                   
-                      // 日期判断 
-                   var today = new Date()
-                   var yesterMonth =  new Date(today.getFullYear(),today.getMonth(),1)                  
-                       yesterMonth = Date.parse(yesterMonth) 
+                function changeColorForMonth(objectname, importdate){
 
-                   //  当前tr 
-                   var cur_tr = $("#"+objectname + "_filename").parent();
+                    //  上传日期
+                    var impWeek =getDate(importdate)
+                     
+                    var weekDay = impWeek.getDay();
+                    impWeek =  Date.parse(impWeek)
+                     
+                    // 日期判断 
+                    var today = new Date()
+                    var yesterweek =  new Date(today.getFullYear(),today.getMonth(),today.getDate())                  
+                       
+                    if(weekDay == 0){ 
+                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-31 + 1)); 
+                    }else{
+                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()- weekDay + 1))
+                         
+                    } 
+                    //  当前tr 
+                    var cur_tr = $("#"+objectname + "_filename").parent();
 
-                   //  本月未导入                   
-                   if(impWeek < yesterMonth){
-                       cur_tr.css("background-color", "rgb(230, 101, 101)")
-                   }
-                   // 本月已导入
-                   if(impWeek >= yesterMonth){
-                       cur_tr.css("background-color", "#f0ffff")
-                   } 
+                    //  最近31天未导入                   
+                    if(impWeek < yesterweek){
+                        cur_tr.css("background-color", "rgb(230, 101, 101)")
+                    }
+                    // 最近31天已导入
+                    if(impWeek >= yesterweek){
+                        cur_tr.css("background-color", "#f0ffff")
+                    } 
+
                 }
            
                 //   月初-3号
@@ -424,7 +433,7 @@
                             <tr class="datatr">
                                 <td class="td1">13</td>
                                 <td class="td2">手数料見積り額レポート</td>
-                                <td class="td3">月初</td>
+                                <td class="td3">1回／週</td>
                                 <td class="td4" id="file13_filename"></td>
                                 <td class="td5" id="file13_reorganizetime">-</td>
                                 <td class="td6" id="file13_reorganizecount">-</td>
