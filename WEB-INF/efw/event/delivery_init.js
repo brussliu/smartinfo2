@@ -52,7 +52,7 @@ delivery_init.fire = function (params) {
 
 	var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
 	ret.eval(script);
- 
+	ret.eval(" changeColor();");  
 	// 画面へ結果を返す
 	return ret;
 

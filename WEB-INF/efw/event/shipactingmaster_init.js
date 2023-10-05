@@ -36,6 +36,6 @@ shipactingmaster_init.fire = function (params) {
 
 	ret.eval("$('#btn_update').attr('disabled', true);");
 	ret.eval("$('#btn_del').attr('disabled', true);");
-
+	ret.eval(" changeColor();"); 
 	return ret;
 };

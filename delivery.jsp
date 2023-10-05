@@ -147,6 +147,18 @@
                 }
 
 
+                function changeColor(){
+                 
+                 $("#deliverytable").find("tr").each(function () {
+                     var tdArr = $(this).children();
+                       
+                       var state = tdArr.eq(5).html(); 
+                       if(state == '4.納品済'){ 
+                         $(this).css({ "background": "#e6e6e6" });
+                       }
+
+                 })
+             }
 
             </script>
         </head>

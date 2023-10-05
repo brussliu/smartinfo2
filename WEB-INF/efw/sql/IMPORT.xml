@@ -1114,18 +1114,36 @@
 					COALESCE(MST2."途中在庫_入庫", 0) + 
 					COALESCE(MST2."LOCAL在庫", 0) + 
 					COALESCE(MST2."途中在庫_仕入", 0) / MST3."販売数量（日平均値）" end,
-		"推奨納品数量" = 
-			COALESCE(MST3."販売数量（日平均値）", 0) * 30 - 
+		"推奨納品数量" = case when 
+				COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0) = 0
+				and
+				cast(COALESCE(MST3."販売数量（日平均値）", 0) * 30 - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) as int) = 0
+				then 1
+				else
+				COALESCE(MST3."販売数量（日平均値）", 0) * 30 - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) end,
+		"推奨仕入数量" = case when 
+			COALESCE(MST2."FBA在庫", 0) + 
+				COALESCE(MST2."FBM在庫", 0) + 
+				COALESCE(MST2."途中在庫_入庫", 0) + 
+				COALESCE(MST2."LOCAL在庫", 0) + 
+				COALESCE(MST2."途中在庫_仕入", 0) = 0
+			and 
+			cast(
+			COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
 			(	COALESCE(MST2."FBA在庫", 0) + 
 				COALESCE(MST2."FBM在庫", 0) + 
-				COALESCE(MST2."途中在庫_入庫", 0)),
-		"推奨仕入数量" = 
+				COALESCE(MST2."途中在庫_入庫", 0) + 
+				COALESCE(MST2."LOCAL在庫", 0) + 
+				COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
+			then 1
+			else
 			COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
 			(	COALESCE(MST2."FBA在庫", 0) + 
 				COALESCE(MST2."FBM在庫", 0) + 
 				COALESCE(MST2."途中在庫_入庫", 0) + 
 				COALESCE(MST2."LOCAL在庫", 0) + 
 				COALESCE(MST2."途中在庫_仕入", 0))
+			end
 		from 
 			"MST_出品マスタ情報" MST1,
 			"MST_在庫情報" MST2,

@@ -94,8 +94,20 @@
                     var no = $('input:radio[name="choice"]:checked').val();
 
                     Efw('shipactingmaster_delete',{ "no": no});
-                }
+                } 
           
+                function changeColor(){
+                 
+                    $("#shipactingmastertable").find("tr").each(function () {
+                        var tdArr = $(this).children();
+                          // 数量
+                          var num = tdArr.eq(5).children().html();
+                          if(num == 0 || num == ''){
+                            $(this).css({ "background": "#e6e6e6" });
+                          }
+
+                    })
+                }
           </script>
             <style>
 
