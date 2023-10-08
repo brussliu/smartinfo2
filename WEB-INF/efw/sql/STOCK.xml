@@ -547,11 +547,13 @@
 <!-- sl:推奨数量入り-推奨納品数量 -->
 	<sql id="updatedeliverynumber">
 		update "MST_入庫仕入推奨数量情報" set
-			"推奨納品数量" = 
-				COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - 
-				(	COALESCE(MST2."FBA在庫", 0) + 
-					COALESCE(MST2."FBM在庫", 0) + 
-					COALESCE(MST2."途中在庫_入庫", 0)),
+		"推奨納品数量" = case when 
+				COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0) = 0
+				and
+				cast(COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) as int) = 0
+				then 1
+				else
+				COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) end,
 			"更新日時" = now()
 		from 
 			"MST_出品マスタ情報" MST1,
@@ -605,13 +607,29 @@
 <!-- sl:推奨数量入り-推奨仕入数量  -->
 	<sql id="updatepurchasenumber">
 		update "MST_入庫仕入推奨数量情報" set
-			"推奨仕入数量" = 
-					COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - 
-					(	COALESCE(MST2."FBA在庫", 0) + 
-						COALESCE(MST2."FBM在庫", 0) + 
-						COALESCE(MST2."途中在庫_入庫", 0) + 
-						COALESCE(MST2."LOCAL在庫", 0) + 
-						COALESCE(MST2."途中在庫_仕入", 0)),
+			"推奨仕入数量" = case when 
+				COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) + 
+					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."途中在庫_仕入", 0) = 0
+				and 
+				cast(
+				COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - 
+				(	COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) + 
+					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
+				then 1
+				else
+				COALESCE(MST3."販売数量（日平均値）", 0) * :daycount - 
+				(	COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) + 
+					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."途中在庫_仕入", 0))
+				end,
 			"更新日時" = now()
 		from 
 			"MST_出品マスタ情報" MST1,
