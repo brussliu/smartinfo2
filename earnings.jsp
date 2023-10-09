@@ -86,8 +86,8 @@
                             <thead>
                                 <tr class="header">
                                     <th style="width: 120px;">年月</th>
-                                    <th style="width: 100px">注文数量</th>
-                                    <th style="width: 130px;">注文粗利益</th>
+                                    <th style="width: 80px">注文数量</th>
+                                    <th style="width: 110px;">注文粗利益</th>
 
                                     <th style="width: 100px;">月額登録料</th>
                                     <th style="width: 100px;">広告費用</th>
@@ -97,14 +97,15 @@
                                     <th style="width: 100px;">FBA作業料金</th>
                                     <th style="width: 100px;">返品損失金額</th>
 
-                                    <th style="width: 110px">振込金額</th>
+                                    <th style="width: 100px">振込金額</th>
                                     <th style="width: 110px;">仕入金額</th>
                                     <th style="width: 100px;">その他支払</th>
-                                    <th style="width: 100px;">その他受領</th>
+                                    <th style="width: 90px;">その他受領</th>
 
-                                    <th style="width: 128px">純利益</th>
-                                    <th style="width: 130px">売上累計</th>
-                                    <th style="width: 130px">利益累計</th>
+                                    <th style="width: 90px;">代行発送</th>
+                                    <th style="width: 110px">純利益</th>
+                                    <th style="width: 120px">売上累計</th>
+                                    <th style="width: 120px">利益累計</th>
                                 </tr>
                             </thead>
                         </table>

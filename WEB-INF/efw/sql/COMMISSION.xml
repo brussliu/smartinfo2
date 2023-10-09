@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqls>
 <sqls>
+	<sql id="searchTime">
+		SELECT   max(to_char("更新日時", 'YYYY年MM月DD日')) as endtime
+		from "MST_手数料見積り額情報"
+		where "店舗ID" = :shopid
+	</sql>
 
 	<sql id="searchproducttype">
 		SELECT DISTINCT
@@ -49,16 +54,81 @@
 					(mst2."一番短い辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as short ,
 					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
 					e."価格" || '円' as price,
-					cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%' as salesrate ,
-					(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as estimated ,
-					''  as agencyfees,<!--			配送代行手数料区分 -->
-					(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as deliverycommission ,
+
+
+					case when mst2."販売手数料見積り額(個数あたり)" is not null then 
+						cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%'
+                    else 
+                    (
+						select 
+							cast(cast((0 - cast(res."手数料" as numeric)) / res."数量" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%'
+						from "RES_注文ペイメント情報" res
+						where 
+							cast(res."プロモーション割引額" as numeric) = 0 and mst1."SKU番号" = res."SKU" and mst1."店舗ID" = res."店舗ID"
+						order by res."日付/時間" asc
+						limit 1
+
+					) end as salesrate ,
+
+					case when mst2."販売手数料見積り額(個数あたり)" is not null then cast(mst2."販売手数料見積り額(個数あたり)" as numeric) || '円'
+                    else 
+                    (
+						select 
+							cast(0 - cast(res."手数料" as numeric) / res."数量" as int) || '円'
+						from "RES_注文ペイメント情報" res
+						where 
+							cast(res."プロモーション割引額" as numeric) = 0 and mst1."SKU番号" = res."SKU" and mst1."店舗ID" = res."店舗ID"
+						order by res."日付/時間" asc
+						limit 1
+
+					) end as estimated ,
+					case when  mst2."sku" is not null THEN 
+						case  	when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 288 THEN 'FBA-小型'
+							    when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 318 THEN 'FBA-標準1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 434 THEN 'FBA-標準2A'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 465 THEN 'FBA-標準2B'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 485 THEN 'FBA-標準2C'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 514 THEN 'FBA-標準3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 603 THEN 'FBA-標準4'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 589 THEN 'FBA-大型1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 712 THEN 'FBA-大型2'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 815 THEN 'FBA-大型3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 975 THEN 'FBA-大型4'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1020 THEN 'FBA-大型5'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1100 THEN 'FBA-大型6'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1532 THEN 'FBA-大型7'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1756 THEN 'FBA-大型8'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 2755 THEN 'FBA-特大1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 3573 THEN 'FBA-特大2'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 4496 THEN 'FBA-特大3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 5625 THEN 'FBA-特大4' 
+						else ''
+						END 
+					when  mst2."sku" is null then  
+						case   when mst1."FBM発送方式" = '01.クリックポスト' then 'FBM-01'
+							   when mst1."FBM発送方式" = '02.普通便' then 'FBM-02'
+							   when mst1."FBM発送方式" = '03.ゆうパケット' then 'FBM-03' end 
+					end  as agencyfees, 
+						  
+				case when  mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID"  THEN 
+					 	(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END)
+								
+					 
+					 when  mst1."SKU番号" is not  null and  mst2."sku" is null  AND mst1."ASIN番号" is not  null  and  mst2."asin" is null
+						 then  
+						 case when mst1."FBM発送方式" = '01.クリックポスト' then '185円'
+									 when mst1."FBM発送方式" = '02.普通便' then ''
+									 when mst1."FBM発送方式" = '03.ゆうパケット' then '' end 
+					 end
+					as deliverycommission ,
+
 					(cast(mst2."手数料見積り額"as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as commissiontotal,
 					cast((mst1."仕入価格" / 5.00 * 100) as numeric(10,0)) || '円'  as purchaseprice,
 					cast (e."価格" as numeric) - cast((mst1."仕入価格" / 5.00 * 100) as numeric(10,0)) - cast(mst2."手数料見積り額"as numeric) || '円' as grossprofit
-		FROM "MST_出品マスタ情報" mst1 
+		FROM		 "MST_出品マスタ情報" mst1 
 					LEFT JOIN "MST_手数料見積り額情報" mst2 on mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID" 
 					LEFT JOIN "IPT_全出品情報" e on mst1."ASIN番号" = e."ASIN 1" and mst1."SKU番号" = e."出品者SKU" and mst1."店舗ID" = e."店舗ID" 
+
 					LEFT JOIN "MST_ソート情報" S1 on mst1."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst1."分類１" = S1."内容" and mst1."店舗ID" = S1."店舗ID"
 					LEFT JOIN "MST_ソート情報" S2 on mst1."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst1."分類２" = S2."内容" and mst1."店舗ID" = S2."店舗ID"
 		where 
@@ -98,9 +168,46 @@
 					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
 					e."価格" || '円' as price,
 					cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%' as salesrate ,
-					(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as estimated ,
-					''  as agencyfees,<!--			配送代行手数料区分 -->
-					(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as deliverycommission ,
+					
+					case when cast(res."手数料" as numeric) = 0.00 THEN '' ELSE 	cast(res."手数料"  as numeric) ||   '円' END as estimated ,
+					case when  mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID"  THEN 
+						 case   when  cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) &lt;= 288 THEN 'FBA-小型'
+							    when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 318 THEN 'FBA-標準1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 434 THEN 'FBA-標準2A'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 465 THEN 'FBA-標準2B'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 485 THEN 'FBA-標準2C'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 514 THEN 'FBA-標準3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 603 THEN 'FBA-標準4'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 589 THEN 'FBA-大型1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 712 THEN 'FBA-大型2'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 815 THEN 'FBA-大型3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 975 THEN 'FBA-大型4'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1020 THEN 'FBA-大型5'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1100 THEN 'FBA-大型6'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1532 THEN 'FBA-大型7'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 1756 THEN 'FBA-大型8'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 2755 THEN 'FBA-特大1'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 3573 THEN 'FBA-特大2'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 4496 THEN 'FBA-特大3'
+								when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 5625 THEN 'FBA-特大4' 
+								END 
+					 	when  mst1."SKU番号" is not  null and  mst2."sku" is null  AND mst1."ASIN番号" is not  null  and  mst2."asin" is null then  
+						case   when mst1."FBM発送方式" = '01.クリックポスト' then 'FBM-01'
+							   when mst1."FBM発送方式" = '02.普通便' then 'FBM-02'
+							   when mst1."FBM発送方式" = '03.ゆうパケット' then 'FBM-03' end 
+						 end  as agencyfees, 
+						  
+					case when  mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID"  THEN 
+					 	(cast(mst2."配送代行手数料見積り額（個数あたり）" as numeric)  ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END)
+								
+					 
+					 when  mst1."SKU番号" is not  null and  mst2."sku" is null  AND mst1."ASIN番号" is not  null  and  mst2."asin" is null
+						 then  
+						 case when mst1."FBM発送方式" = '01.クリックポスト' then '185円'
+									 when mst1."FBM発送方式" = '02.普通便' then ''
+									 when mst1."FBM発送方式" = '03.ゆうパケット' then '' end 
+					 end
+					as deliverycommission ,
 					(cast(mst2."手数料見積り額"as numeric) ||  case when mst2."通貨" = 'JPY' THEN '円' else mst2."通貨" END) as commissiontotal,
 					cast((mst1."仕入価格" / cast(:exchange as numeric(10,2)) * 100) as numeric(10,0)) || '円'  as purchaseprice,
 					cast (e."価格" as numeric) - cast((mst1."仕入価格" / cast(:exchange as numeric(10,2)) * 100) as numeric(10,0)) - cast(mst2."手数料見積り額"as numeric) || '円' as grossprofit
@@ -108,6 +215,7 @@
 		FROM 		"MST_出品マスタ情報" mst1 
 					LEFT JOIN "MST_手数料見積り額情報" mst2 on mst1."SKU番号" = mst2."sku" AND mst1."ASIN番号" = mst2.asin AND mst1."店舗ID" = mst2."店舗ID" 
 					LEFT JOIN "IPT_全出品情報" e on mst1."ASIN番号" = e."ASIN 1" and mst1."SKU番号" = e."出品者SKU" and mst1."店舗ID" = e."店舗ID" 
+					LEFT JOIN "RES_注文ペイメント情報" res on mst1."SKU番号" = res."SKU" and mst1."店舗ID" = res."店舗ID" 
 					LEFT JOIN "MST_ソート情報" S1 on mst1."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst1."分類１" = S1."内容" and mst1."店舗ID" = S1."店舗ID"
 					LEFT JOIN "MST_ソート情報" S2 on mst1."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst1."分類２" = S2."内容" and mst1."店舗ID" = S2."店舗ID"
 		where 

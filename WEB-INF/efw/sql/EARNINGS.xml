@@ -17,10 +17,11 @@
                 , sum(cast("仕入費用" as int)) as purchase
                 , sum("その他支払") as earining
                 , sum("その他受領") as disburse
-                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領") as profit
+                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" - fm) as profit
+				, sum(fm) as sendingcost
     from (  
                     SELECT
-                                to_char( "発生日", 'YYYY' ) || '年' || to_char( "発生日", 'MM' ) || '月' AS "年月"  
+                               	to_char("発生日" ,'YYYY年MM月')  as "年月"  
                                 , 0 as "注文数量"
                                 , 0 as "注文粗利益"
                                 , 0 as "月額登録料"
@@ -36,7 +37,8 @@
                                 END AS "その他支払"
                             , CASE  WHEN "ステータス" = '受領済' 	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
                                                 THEN SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
-                                END AS "その他受領" 
+                                END AS "その他受領"
+							,0 as fm 
                     FROM
                         "RES_収入支出情報" 
                     WHERE
@@ -60,7 +62,8 @@
                                         THEN 	0 - SUM ( CAST ( "合計（円）" AS FLOAT ) ) ELSE 0 
                                         END AS 仕入費用
                             ,0 AS "その他支払"
-                            ,0 AS "その他受領" 
+                            ,0 AS "その他受領"
+							,0 as fm    
                     FROM
                         "TRN_仕入管理" 
                     WHERE
@@ -84,7 +87,8 @@
                                "FBA作業料金",
 							    0 AS "仕入金額",
                                 0 AS "その他支払",
-                                0 AS "その他受領" 
+                                0 AS "その他受領"
+								,0 as fm   
         
                     FROM (
                             SELECT
@@ -130,8 +134,30 @@
                                     ) TEMP1  
                                             
                             GROUP BY 	"年月" ,"トランザクションの種類" ,  "説明" 
-                        ) TEMP2 
-                    group by "年月" , "FBA作業料金"
+                        ) TEMP2
+						 group by "年月" , "FBA作業料金"
+					union all 
+					SELECT
+							to_char(mst3."登録日時" ,'YYYY年MM月')  as "年月" 
+							, 0 as "注文数量"
+							, 0 as "注文粗利益"
+							, 0 as "月額登録料"
+							, 0 as "広告費用"
+							, 0 as "返品損失金額"
+							, 0 as "FBA入庫料金"
+							, 0 as "FBA保管料金"
+							, 0 as "振込金額"
+							, 0 as "FBA作業料金"
+							, 0 AS "仕入費用" 
+							, 0 AS "その他支払" 
+							, 0 AS "その他受領" 
+							,cast((sum(mst3."発送費用（元）") * 100 / 5) - sum(mst3."発送費用（円）") as numeric(10,2)) as fm  
+					FROM "MST_代行発送情報" mst3 
+					WHERE mst3."支払状態" = '2.支払済'
+ 							AND "請求先店舗ID" = :shopid
+					GROUP BY
+							"年月"  
+                   
         ) DATA  
     
     group by "年月"
@@ -145,7 +171,7 @@
                 "年月" as yearmonth
 				,"年" as years
                 , sum("注文粗利益") as orderprofit
-                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領") as profit
+                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" - fm) as profit
     from (  
                     SELECT
                                 to_char( "発生日", 'YYYY' ) || '年' || to_char( "発生日", 'MM' ) || '月' AS "年月"  
@@ -159,6 +185,7 @@
                             , CASE  WHEN "ステータス" = '受領済' 	AND SUM ( CAST ( "金額（円）" AS FLOAT ) ) IS NOT NULL 
                                                 THEN SUM ( CAST ( "金額（円）" AS FLOAT ) ) ELSE 0 
                                 END AS "その他受領" 
+							,0 as fm
                     FROM
                         "RES_収入支出情報" 
                     WHERE
@@ -177,7 +204,8 @@
                                         THEN 	0 - SUM ( CAST ( "合計（円）" AS FLOAT ) ) ELSE 0 
                                         END AS 仕入費用
                             ,0 AS "その他支払"
-                            ,0 AS "その他受領" 
+                            ,0 AS "その他受領"
+							,0 as fm 
                     FROM
                         "TRN_仕入管理" 
                     WHERE
@@ -195,7 +223,7 @@
                             SUM ( CASE WHEN "トランザクションの種類" = '振込み' THEN "合計" ELSE 0 END ) AS "振込金額",0 AS "仕入金額",
                             0 AS "その他支払",
                             0 AS "その他受領" 
-        
+							,0 as fm
                     FROM (
                             SELECT
                                     "年月",
@@ -245,6 +273,21 @@
                             GROUP BY 	"年月" ,"年" ,"トランザクションの種類" ,  "説明" 
                         ) TEMP2 
                     group by "年月" ,"年" , "FBA作業料金"
+					union all 
+					SELECT
+							to_char(mst3."登録日時" ,'YYYY年MM月')  as "年月" 
+							,to_char(mst3."登録日時" ,'YYYY')  as "年" 
+							, 0 as "注文粗利益" 
+							, 0 as "振込金額" 
+							,0 AS "仕入金額"
+							, 0 AS "その他支払" 
+							, 0 AS "その他受領" 
+							,cast((sum(mst3."発送費用（元）") * 100 / 5) - sum(mst3."発送費用（円）") as numeric(10,2)) as fm  
+					FROM "MST_代行発送情報" mst3 
+					WHERE mst3."支払状態" = '2.支払済'
+ 							AND "請求先店舗ID" = :shopid
+					GROUP BY
+							"年月","年"
         ) DATA  
     
     group by "年月","年" 

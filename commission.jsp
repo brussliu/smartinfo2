@@ -111,12 +111,12 @@
                                     </td>
                                     <td style="width: 120px;font-weight: bold;">為替レート：</td>
                                     <td style="width: 220px;">
-                                        <input type="number" style="width: 150px;height: 30px;" id="text_exchange" placeholder="5.00"></input>
+                                        <input type="number" style="width: 150px;height: 30px;" id="text_exchange"  value="5.00"></input>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="width: 120px;"></td>
+                                    <td style="width: 420px;"></td>
+                                    <td style="width: 140px;font-weight: bold;color: #ff0000;">最終更新日：</td>
+                                    <td id="td_time" style="color :#ff0000;"></td>
                                 
                                 </tr>
                             </tbody>

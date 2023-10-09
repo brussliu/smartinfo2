@@ -13,6 +13,16 @@ commission_init.fire = function (params) {
 	// タイトル情報設定
 	setTitleInfo(ret);
 
+	// 最終更新日
+	var selectTime = db.select(
+		"COMMISSION",
+		"searchTime",
+		{
+			"shopid": getShopId()
+		}
+	).getSingle()
+	ret.eval("$('#td_time').html('" + selectTime['endtime'] + "')");
+
 	// sl:商品管理番号初始化
 	var selectResult1 = db.select(
 		"COMMISSION",
@@ -66,7 +76,7 @@ commission_init.fire = function (params) {
 	'<td style="width: 100px;" class="r"><span class="r5">{salesrate}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{estimated}</span></td>' +
 
-	'<td style="width: 100px;" class="r"><span class="r5">{agencyfees}</span></td>' +
+	'<td style="width: 100px;" class="l"><span class="l5">{agencyfees}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{deliverycommission}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{commissiontotal}</span></td> ' + 
 

@@ -208,7 +208,8 @@
 			case when c."推奨納品数量" &lt;= 0 then null else c."推奨納品数量" end as deliveryquantity,
 			case when c."推奨仕入数量" &lt;= 0 then null else c."推奨仕入数量" end as purchasequantity,
 			a."店舗ID" as shopid,
-			a."暫定フラグ" as zt_flg
+			a."暫定フラグ" as zt_flg,
+			res2."請求金額"  as amountrequested
 		from
 			"MST_出品マスタ情報" a
 			left join "MST_販売数量情報" b on a."ASIN番号" = b."ASIN番号" and a."SKU番号" = b."SKU番号" and a."店舗ID" = b."店舗ID"
@@ -217,6 +218,9 @@
 			left join "IPT_全出品情報" e on a."ASIN番号" = e."ASIN 1" and a."SKU番号" = e."出品者SKU" and a."店舗ID" = e."店舗ID" 
 			left join "MST_ソート情報" S1 on a."商品種別" = S1."商品種別" and S1."分類" = '分類１' and a."分類１" = S1."内容" and a."店舗ID" = S1."店舗ID"
 			left join "MST_ソート情報" S2 on a."商品種別" = S2."商品種別" and S2."分類" = '分類２' and a."分類２" = S2."内容" and a."店舗ID" = S2."店舗ID"
+			LEFT JOIN "RES_長期在庫保管手数料請求額情報" res2   
+							on a."ASIN番号" = res2."ASIN" AND  a."SKU番号" = res2."出品者SKU" AND a."LABEL番号" = res2."FNSKU" AND a."店舗ID" = res2."店舗ID" 
+							AND to_char(res2."日付", 'yyyyMM') = (SELECT to_char( max("日付"), 'yyyyMM')  FROM "RES_長期在庫保管手数料請求額情報" ) 
 		where
 			a."暫定フラグ" = 0
 			and

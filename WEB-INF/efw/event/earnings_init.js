@@ -65,8 +65,8 @@ earnings_init.fire=function(params){
 				}
 			
 				var resultHTML2 =  ' <td style="width: 120px;"  class="c a"  onclick="opendetail(this)">{yearmonth}</td>' +
-					' <td style="width: 100px" class="r">{ordercount}個</td>' +
-					' <td style="width: 130px;" class="r">{orderprofit}円</td>' +
+					' <td style="width: 80px" class="r">{ordercount}個</td>' +
+					' <td style="width: 110px;" class="r">{orderprofit}円</td>' +
 
 					' <td style="width: 100px;" class="r">{monthlyfee}円</td>' +
 					' <td style="width: 100px;" class="r">{adfee}円</td>' +
@@ -76,14 +76,15 @@ earnings_init.fire=function(params){
 					' <td style="width: 100px;" class="r">{fbaworkfee}円</td>' +
 					' <td style="width: 100px;" class="r">{ruturnfee}円</td>' +
 
-					' <td style="width: 110px;" class="r">{remittance}円</td>' +
+					' <td style="width: 100px;" class="r">{remittance}円</td>' +
 					' <td style="width: 110px;" class="r">{purchase}円</td>' +
 					' <td style="width: 100px;" class="r">{earining}円</td>' +
-					' <td style="width: 100px;" class="r">{disburse}円</td>' +
+					' <td style="width: 90px;" class="r">{disburse}円</td>' +
 
-					' <td style="width: 128px;font-weight: bold;" class="r">{profit}円</td>' +
-					' <td style="width: 130px;font-weight: bold;" class="r">{orderprofitnum}円</td>' +
-					' <td style="width: 130px;font-weight: bold;" class="r">{profitnum}円</td>' +
+					' <td style="width: 90px;" class="r">{sendingcost}円</td>' +
+					' <td style="width: 110px;font-weight: bold;" class="r">{profit}円</td>' +
+					' <td style="width: 120px;font-weight: bold;" class="r">{orderprofitnum}円</td>' +
+					' <td style="width: 120px;font-weight: bold;" class="r">{profitnum}円</td>' +
 					' </tr>'
 				
 				// 遍历列表

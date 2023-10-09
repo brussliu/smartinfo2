@@ -58,12 +58,12 @@ commission_search.fire=function(params){
 	'<td style="width: 100px;" class="r"><span class="r5">{salesrate}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{estimated}</span></td>' +
 
-	'<td style="width: 100px;" class="r"><span class="r5">{agencyfees}</span></td>' +
+	'<td style="width: 100px;" class="l"><span class="l5">{agencyfees}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{deliverycommission}</span></td>' +
 	'<td style="width: 100px;" class="r"><span class="r5">{commissiontotal}</span></td> ' + 
 
 	'<td style="width: 90px;" class="r"><span class="r5">{purchaseprice}</span></td> ' +                          
-	'<td style="width: 105px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                            
+	'<td style="width: 105px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                             
 	'</tr> '
 
 	ret.runat("#commissiontable").remove("tr").append(html1).withdata(selectResult);

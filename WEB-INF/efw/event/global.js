@@ -315,9 +315,9 @@ function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_
 						excute_m2_m4();	flg_m4 = true;
 					}
 
-					if(flg_m1){
-						excute_m1_m5();	flg_m5 = true;
-					}
+					// if(flg_m1){
+					// 	excute_m1_m5();	flg_m5 = true;
+					// }
 					// --------------------------------↑↑↑確認済↑↑↑--------------------------------
 
 					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
@@ -683,7 +683,8 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	var COL_X = "X";
 	var COL_Y = "Y";
 	var COL_Z = "Z";
-
+	var COL_AC = "AC";
+	
 	var no = returnNull(selectRecord["pno"]);
 	var asin = returnNull(selectRecord["asin"]);
 
@@ -716,7 +717,8 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	}else if(exl_flg == '2'){
 		var num = returnNumber(selectRecord["purchasequantity"]);
 	}
-	
+	var amountrequested = returnQuantity(selectRecord["amountrequested"]);
+
 	// 管理番号
 	setExcelValue(excel, sheetName, COL_B + from, no);
 	// ASIN番号
@@ -765,6 +767,8 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	if(exl_flg == '1' || exl_flg == '2'){
 		setExcelValue(excel, sheetName, COL_Z + from, num);
 	}
+	// 請求金額 
+	setExcelValue(excel, sheetName, COL_AC + from, amountrequested);
 }
 
 function setExcelValue(excel, sheetName, station, value) {
