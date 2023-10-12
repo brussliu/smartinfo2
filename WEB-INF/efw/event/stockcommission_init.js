@@ -39,27 +39,27 @@ stockcommission_init.fire = function (params) {
 
 	ret.runat("#checkbox_producttype").remove("*").append(resultHTML2).withdata(selectResult2);
 	
-	// sl:商品管理番号初始化
+	// sl:年月初始化
 	var selectResult4 = db.select(
 		"STOCKCOMMISSION",
 		"searchYearMonth",
 		{
 			"shopid": getShopId(),
 		}
-	).getArray();
+	).getArray();  
 
 	var resultHTML4 = "<option value='{value}'class='option' >{text}</option>";
 
 	ret.runat("#opt_yearmonth").remove("option .option").append(resultHTML4).withdata(selectResult4);
+	ret.eval("$('#opt_yearmonth').find('option:eq(1)').attr('selected','selected');")
 
-
-	var selectResult3 = db.select(
-		"STOCKCOMMISSION",
-		"searchcommission",
-		{
-			"shopid": getShopId(),
-		}
-	).getArray();
+	// var selectResult3 = db.select(
+	// 	"STOCKCOMMISSION",
+	// 	"searchcommission",
+	// 	{
+	// 		"shopid": getShopId(),
+	// 	}
+	// ).getArray();
  
 	var html1=' <tr> ' +
 	'<td style="width: 40px;" class="c">{ids}</td>' +
@@ -92,9 +92,9 @@ stockcommission_init.fire = function (params) {
 	'<td style="width: 90px;" class="r"><span class="r5">{amountrequested}</span></td>' +
 
 	'</tr> '
-	if(selectResult3.length > 0){
-		ret.runat("#stockcommissiontable").remove("*").append(html1).withdata(selectResult3);
+	// if(selectResult3.length > 0){
+	// 	ret.runat("#stockcommissiontable").remove("*").append(html1).withdata(selectResult3);
 
-	}
+	// }
 	return ret;
 };

@@ -111,20 +111,22 @@
                    
                     //  上传日期
                     var impWeek =getDate(importdate)
-                     
+                    
                     var weekDay = impWeek.getDay();
                     impWeek =  Date.parse(impWeek)
                      
                     // 日期判断 
                     var today = new Date()
                     var yesterweek =  new Date(today.getFullYear(),today.getMonth(),today.getDate())                  
-                       
-                    if(weekDay == 0){ 
-                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-7 + 1)); 
-                    }else{
-                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()- weekDay + 1))
+                   
+                    // if(weekDay == 0){ 
+                    //     yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-7 + 1)); 
+                    // }else{
+                    //     yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate() - 7 ))
                          
-                    } 
+                    // }  
+                    yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-7 + 1));
+                     
                     //  当前tr 
                     var cur_tr = $("#"+objectname + "_filename").parent();
 
@@ -151,12 +153,13 @@
                     var today = new Date()
                     var yesterweek =  new Date(today.getFullYear(),today.getMonth(),today.getDate())                  
                        
-                    if(weekDay == 0){ 
-                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-31 + 1)); 
-                    }else{
-                        yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()- weekDay + 1))
+                    // if(weekDay == 0){ 
+                    //     yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-31 + 1)); 
+                    // }else{
+                    //     yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate() - 31 - weekDay + 1))
                          
-                    } 
+                    // } 
+                    yesterweek = Date.parse(yesterweek.setDate(yesterweek.getDate()-31 + 1)); 
                     //  当前tr 
                     var cur_tr = $("#"+objectname + "_filename").parent();
 
@@ -203,7 +206,39 @@
                        cur_tr.css("background-color", "#f0ffff")
                    } 
                 }
-           </script>
+          
+                function formatDate(ms, format = 'YYYY-MM-DD hh:mm:ss') {
+  const date = new Date(ms);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const map = {
+    'YYYY': year,
+    'MM': addPrefixZero(month),
+    'M': month,
+    'DD': addPrefixZero(day),
+    'D': day,
+    'hh': addPrefixZero(hours),
+    'h': hours,
+    'mm': addPrefixZero(minutes),
+    'm': minutes,
+    'ss': addPrefixZero(seconds),
+    's': seconds,
+  };
+
+  let result = format;
+  for (const key in map) {
+    result = result.replace(key, map[key]);
+  }
+  return result;
+}
+
+ 
+          </script>
             <style>
 
                 /* table */

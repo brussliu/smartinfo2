@@ -17,7 +17,7 @@
                 , sum(cast("仕入費用" as int)) as purchase
                 , sum("その他支払") as earining
                 , sum("その他受領") as disburse
-                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" - fm) as profit
+                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" + fm) as profit
 				, sum(fm) as sendingcost
     from (  
                     SELECT
@@ -171,7 +171,7 @@
                 "年月" as yearmonth
 				,"年" as years
                 , sum("注文粗利益") as orderprofit
-                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" - fm) as profit
+                , sum(0 - "振込金額" + cast("仕入費用" as int) + "その他支払" + "その他受領" + fm) as profit
     from (  
                     SELECT
                                 to_char( "発生日", 'YYYY' ) || '年' || to_char( "発生日", 'MM' ) || '月' AS "年月"  
@@ -400,7 +400,7 @@
 			"年月"
 			, "トランザクションの種類"
 			, "説明"
-			, sum("合計") as "合計" 
+			, sum("合計") as "合計"  
 		FROM
 			( 
 				select
