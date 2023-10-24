@@ -7,6 +7,7 @@
             <title>在庫情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+
             <script>
                 function scrollHead(obj) {
 
@@ -25,11 +26,13 @@
                         producttypeArr.push($(this).val());
                     });
 
-                    // var send = new Array();
-                    // $('#checkbox_send input:checkbox:checked').each(function (index, item) {
-                    //     send.push($(this).val());
-                    // });
-                    Efw('stockinfo_search', { 'producttypeArr': producttypeArr});
+                    var keywordArr = new Array();
+                    var text_keyword =$("#text_keyword").val()
+                    console.log(text_keyword)
+                    keywordArr = text_keyword.split(' ') 
+                    console.log(keywordArr)
+
+                    Efw('stockinfo_search', { 'producttypeArr': producttypeArr,'keywordArr':keywordArr});
                 }
 
                 // 选中当前数据，编辑LOCAL在庫

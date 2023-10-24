@@ -3,7 +3,7 @@ stockinfo_search.name="在庫情報管理画面検索";
 stockinfo_search.paramsFormat={
 	"producttypeArr":null,
 	"#opt_productno":null,
-	"#text_keyword":null,
+	"keywordArr":null,
 	// "aslArr":null
 	// "send":null,
 	"#shippingway_fba":null,
@@ -25,16 +25,32 @@ stockinfo_search.fire=function(params){
 	var type="";
 	for(let i=0;i<ptArr.length;i++){
 		
-		if(i==ptArr.length-1){
+		if(i==ptArr.length-1){ 
 			type += "'"+ptArr[i]+"'"
 		}else{
 			type += "'"+ptArr[i]+"',";
 		}
 	}
 	var opt_productno = params["#opt_productno"];
-	var text_keyword = params["#text_keyword"].toUpperCase();
-
-	// var send = params["send"];
+	var text_keyword = params["keywordArr"];
+	var flg = '0';
+	 
+	var keyword = ''
+	if(text_keyword.length == 1){
+		flg = '1';
+		keyword = text_keyword[0]
+		 
+	}else if(text_keyword.length > 1){
+		flg = '2';
+		for(var t=0;t<text_keyword.length; t++){
+			if(t == text_keyword.length - 1){
+				keyword += "'"+ text_keyword[t]+"'"
+			}else{ 
+				keyword += "'"+ text_keyword[t] +"',"
+			} 
+		}  
+    } 
+	// var send = params["send"];.toUpperCase()
 	// var send1="";
 	// var sendArr="";
 	// if(send.length>1){
@@ -53,20 +69,21 @@ stockinfo_search.fire=function(params){
 			shippingway = shippingway + ',' + "'FBM'";
 		}
 	}
-
+ 
 	// 数量範囲
 	var item = params["#select_item"]
 	var minNum =params["#text_minNum"] == ''? null : params["#text_minNum"]
 	var maxNum =params["#text_maxNum"] == ''? null : params["#text_maxNum"]
-
-	var selectResult = db.select(
+ 
+		var selectResult = db.select(
 		"STOCK",
 		"selectstockinfo",
 		{
 			shopid : getShopId(),
 			ptype : type,
 			opt_productno : opt_productno,
-			text_keyword : text_keyword,
+			keyword : keyword,
+			flg : flg,
 			shippingway :shippingway,
 			item :item,
 			minNum :minNum,
@@ -74,7 +91,7 @@ stockinfo_search.fire=function(params){
 		
 		}
 	).getArray();
-
+ 
 	var resultHTML =
 		'<tr>' +
 			'<td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this);"><input type="hidden" value="{zt_flg}"></td>' +

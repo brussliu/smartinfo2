@@ -517,17 +517,28 @@
 				)
 			</if>
 
-			<if exists="text_keyword"> and (
-				UPPER(T."type") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."pno") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."preproduct") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."sub1") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."sub2") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."sku") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."asin") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."label") LIKE concat('%', :text_keyword ,'%') OR
-				UPPER(T."productname") LIKE concat('%', :text_keyword ,'%') 
+			<if exists="keyword">  
+				<if istrue="flg == '2'">   and ( 
+					T."asin" IN (@keyword)   
+					or
+					T."sku" IN (@keyword)
 				)
+				</if>
+				<if istrue="flg == '1'">  and (  
+				 
+					UPPER(T."type") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."pno") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."preproduct") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."sub1") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."sub2") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."sku") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."asin") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."label") LIKE concat('%', :keyword ,'%') OR
+					UPPER(T."productname") LIKE concat('%', :keyword ,'%') 
+					)
+				 
+				</if>
+			 
 			</if>
 
 			<if exists="ptype"> and (	
