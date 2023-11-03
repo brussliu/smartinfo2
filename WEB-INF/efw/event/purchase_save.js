@@ -164,7 +164,7 @@ purchase_save.fire = function (params) {
 			"updatepurchasedetail",
 			{
 				deteil:deteil,
-				purchaseno: purchaseno,
+				purchaseno: newpurchaseno,
 				shopid: getShopId()
 			}
 		);
