@@ -1121,29 +1121,33 @@
 				then 1
 				else
 				COALESCE(MST3."販売数量（日平均値）", 0) * 30 - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) end,
-		"推奨仕入数量" = case when 
-			COALESCE(MST2."FBA在庫", 0) + 
-				COALESCE(MST2."FBM在庫", 0) + 
-				COALESCE(MST2."途中在庫_入庫", 0) + 
-				COALESCE(MST2."LOCAL在庫", 0) + 
-				COALESCE(MST2."途中在庫_仕入", 0) = 0
-			and 
-			cast(
-			COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
-			(	COALESCE(MST2."FBA在庫", 0) + 
-				COALESCE(MST2."FBM在庫", 0) + 
-				COALESCE(MST2."途中在庫_入庫", 0) + 
-				COALESCE(MST2."LOCAL在庫", 0) + 
-				COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
-			then 1
-			else
-			COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
-			(	COALESCE(MST2."FBA在庫", 0) + 
-				COALESCE(MST2."FBM在庫", 0) + 
-				COALESCE(MST2."途中在庫_入庫", 0) + 
-				COALESCE(MST2."LOCAL在庫", 0) + 
-				COALESCE(MST2."途中在庫_仕入", 0))
-			end
+		"推奨仕入数量" = case when
+				MST1."仕入中止" = '1' then 0
+				else  
+					case when 
+						COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0) = 0
+						and 
+						cast(
+						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
+						(	COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
+						then 1
+						else
+						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
+						(	COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0))
+					end
+				end
 		from 
 			"MST_出品マスタ情報" MST1,
 			"MST_在庫情報" MST2,
@@ -1311,6 +1315,8 @@
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"
 			, "暫定フラグ"
+			, "仕入中止"
+			, "仕入先"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"
@@ -1329,6 +1335,8 @@
 			null as "仕入申報価格（元）",
 			null as "仕入申報価格（ドル）",
 			0 as "暫定フラグ",
+			'0' as "仕入中止",
+			null as "仕入先",
 			"店舗ID" as "店舗ID",
 			now(),
 			now()
@@ -1351,6 +1359,9 @@
 			"商品名称" = case when BK."商品名称" is not null then BK."商品名称" else "MST_出品マスタ情報"."商品名称" end,
 			"仕入申報価格（元）" = case when BK."仕入申報価格（元）" is not null then BK."仕入申報価格（元）" else "MST_出品マスタ情報"."仕入申報価格（元）" end,
 			"仕入申報価格（ドル）" = case when BK."仕入申報価格（ドル）" is not null then BK."仕入申報価格（ドル）" else "MST_出品マスタ情報"."仕入申報価格（ドル）" end,
+			"暫定フラグ" = case when BK."暫定フラグ" is not null then BK."暫定フラグ" else "MST_出品マスタ情報"."暫定フラグ" end,
+			"仕入中止" = case when BK."仕入中止" is not null then BK."仕入中止" else "MST_出品マスタ情報"."仕入中止" end,
+			"仕入先" = case when BK."仕入先" is not null then BK."仕入先" else "MST_出品マスタ情報"."仕入先" end,
 			"更新日時" = now()
 		from "MST_出品マスタ情報_BACKUP" BK
 		where
@@ -1380,6 +1391,8 @@
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"
 			, "暫定フラグ"
+			, "仕入中止"
+			, "仕入先"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"
@@ -1396,6 +1409,8 @@
 			, "仕入申報価格（元）"
 			, "仕入申報価格（ドル）"
 			, "暫定フラグ"
+			, "仕入中止"
+			, "仕入先"
 			, "店舗ID"
 			, "登録日時"
 			, "更新日時"

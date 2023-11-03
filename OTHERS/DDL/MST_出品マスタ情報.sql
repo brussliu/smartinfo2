@@ -15,6 +15,8 @@ create table public."MST_出品マスタ情報" (
   , "仕入申報価格（元）" numeric(10,2)
   , "仕入申報価格（ドル）" numeric(10,2)
   , "暫定フラグ" int
+  , "仕入中止" character varying(1)
+  , "仕入先" character varying(50)
   , "店舗ID" character varying(20)
   , "登録日時" timestamp(6) without time zone
   , "更新日時" timestamp(6) without time zone

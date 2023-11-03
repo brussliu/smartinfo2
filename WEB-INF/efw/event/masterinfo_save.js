@@ -39,7 +39,8 @@ masterinfo_save.paramsFormat = {
 
 	"oldsub1": null,
 	"oldsub2": null,
-
+	"#cbox_suspend":null,
+	"#purchase":null,
 };
 
 masterinfo_save.fire = function (params) {
@@ -51,7 +52,8 @@ masterinfo_save.fire = function (params) {
 
 	// 操作区分
 	var opt = params["#opt"];
-
+	var suspend = params["#cbox_suspend"];
+	var purchase = params["#purchase"];
 	// 新規保存の場合
 	if (opt == "new") {
 
@@ -145,6 +147,7 @@ masterinfo_save.fire = function (params) {
 					shopid: getShopId(),
 					oldasin: asin,
 					oldsku: sku,
+					purchase:purchase
 				}
 			);
 			// 親商品时，更新子商品价格
@@ -191,6 +194,46 @@ masterinfo_save.fire = function (params) {
 						shopid: getShopId(),
 					}
 				);
+			} 
+			// 亲商品推荐仕入数量
+			if (suspend != null && suspend != "" ) {
+				// 更新仕入中止
+				var updateResult2 = db.change(
+					"MASTER",
+					"updatemasterinfopresuspendstate",
+					{ 
+						shopid: getShopId(),
+						no: productno,
+						state: '1'
+					}
+				);
+				// 重置推荐仕入数量
+				var updateResult3 = db.change(
+					"MASTER",
+					"refreshrecommendnum",
+					{ 
+						shopid: getShopId()
+					}
+				);
+			}
+			if(suspend == null || suspend == "" ) {
+				var updateResult2 = db.change(
+					"MASTER",
+					"updatemasterinfopresuspendstate",
+					{ 
+						shopid: getShopId(),
+						no: productno,
+						state: '0'
+					}
+				);
+				// 重置推荐仕入数量
+				var updateResult3 = db.change(
+					"MASTER",
+					"refreshrecommendnum",
+					{ 
+						shopid: getShopId()
+					}
+				);
 			}
 		}
 
@@ -216,12 +259,58 @@ masterinfo_save.fire = function (params) {
 					shopid: getShopId(),
 
 					oldasin: asin,
-					oldsku: sku
+					oldsku: sku,
+					purchase:purchase
 				}
 			);
 
-		}
+			// 子商品推荐仕入数量
+			if (suspend != null && suspend != "" ) {
+				var selectResult2 = db.change(
+					"MASTER",
+					"updatemasterinfopresuspendstate",
+					{ 
+						shopid: getShopId(),
+						oldasin: asin,
+						oldsku: sku,
+						state: '1'
+					}
+				);
+				// 重置推荐仕入数量
+				var updateResult3 = db.change(
+					"MASTER",
+					"refreshrecommendnum",
+					{ 
+						shopid: getShopId(),
+						oldasin: asin,
+						oldsku: sku
+					}
+				);
+			}
+			if(suspend == null || suspend == "" ) {
+				var updateResult2 = db.change(
+					"MASTER",
+					"updatemasterinfopresuspendstate",
+					{ 
+						shopid: getShopId(),
+						no: productno,
+						state: '0'
+					}
+				);
+				// 重置推荐仕入数量 
+				var updateResult3 = db.change(
+					"MASTER",
+					"refreshrecommendnum",
+					{ 
+						shopid: getShopId(),
+						oldasin: asin,
+						oldsku: sku
+					}
+				);
+			}
 
+		}
+		// 暫定データ
 		if (flg > 0 && preproduct == '親商品') {
 
 			var selectResult = db.change(
@@ -237,6 +326,7 @@ masterinfo_save.fire = function (params) {
 					oldno: oldno,
 					oldtype: oldtype,
 					oldpreproduct: oldpreproduct,
+					purchase:purchase
 				}
 			);
 
@@ -339,7 +429,7 @@ masterinfo_save.fire = function (params) {
 						oldsub2: oldsub2
 					}
 				)
-
+ 
 				// 在库表
 				var changeResult = db.change(
 					"MASTER",
@@ -367,8 +457,6 @@ masterinfo_save.fire = function (params) {
 					}
 				)
 
-
-
 				// 仕入明细表
 				var changeResult = db.change(
 					"MASTER",
@@ -395,6 +483,48 @@ masterinfo_save.fire = function (params) {
 						oldsub2: oldsub2
 					}
 				)
+
+				// 亲商品推荐仕入数量
+				if (suspend != null && suspend != "" ) {
+					// 更新仕入中止
+					var updateResult2 = db.change(
+						"MASTER",
+						"updatemasterinfopresuspendstate",
+						{ 
+							shopid: getShopId(),
+							no: productno,
+							state: '1'
+						}
+					);
+					// 重置推荐仕入数量
+					var updateResult3 = db.change(
+						"MASTER",
+						"refreshrecommendnum",
+						{ 
+							shopid: getShopId()
+						}
+					);
+		 
+				}
+				if(suspend == null || suspend == "" ) {
+					var updateResult2 = db.change(
+						"MASTER",
+						"updatemasterinfopresuspendstate",
+						{ 
+							shopid: getShopId(),
+							no: productno,
+							state: '0'
+						}
+					);
+					// 重置推荐仕入数量
+					var updateResult3 = db.change(
+						"MASTER",
+						"refreshrecommendnum",
+						{ 
+							shopid: getShopId()
+						}
+					);
+				}
 			}
 
 		}
@@ -425,7 +555,8 @@ masterinfo_save.fire = function (params) {
 					oldtype: oldtype,
 					oldpreproduct: oldpreproduct,
 					oldsub1: oldsub1,
-					oldsub2: oldsub2
+					oldsub2: oldsub2,
+					purchase:purchase
 				}
 			);
 
@@ -541,7 +672,53 @@ masterinfo_save.fire = function (params) {
 						oldsub2: oldsub2
 					}
 				)
-
+ 
+				// 子商品推荐仕入数量
+				if (suspend != null && suspend != "" ) {
+					// 更新仕入中止
+					var updateResult2 = db.change(
+						"MASTER",
+						"updatemasterinfopresuspendstate",
+						{ 
+							shopid: getShopId(),
+							oldasin: asin,
+							oldsku: sku, 
+							state: '1'
+						}
+					);
+					// 重置推荐仕入数量
+					var updateResult3 = db.change(
+						"MASTER",
+						"refreshrecommendnum",
+						{ 
+							shopid: getShopId(),
+							oldasin: asin,
+							oldsku: sku, 
+						}
+					);
+		 
+				}
+				if(suspend == null || suspend == "" ) {
+					var updateResult2 = db.change(
+						"MASTER",
+						"updatemasterinfopresuspendstate",
+						{ 
+							shopid: getShopId(),
+							no: productno,
+							state: '0'
+						}
+					);
+					// 重置推荐仕入数量
+					var updateResult3 = db.change(
+						"MASTER",
+						"refreshrecommendnum",
+						{ 
+							shopid: getShopId(),
+							oldasin: asin,
+							oldsku: sku, 
+						}
+					);
+				}
 			}
 		}
 

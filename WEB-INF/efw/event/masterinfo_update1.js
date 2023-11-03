@@ -137,10 +137,20 @@ masterinfo_update1.fire = function (params) {
 			// 仕入申報価格（ドル）
 			"#price3":selectResultObj["price3"],
 			// 商品名称
-			"#productname":selectResultObj["name"]
+			"#productname":selectResultObj["name"],
+			// 仕入中止
+			// "#cbox_suspend":selectResultObj["suspend"],
+			// 仕入先
+			"#purchase":selectResultObj["purchase"]
 		}
 	);
 
+	if(selectResultObj["suspend"]  == '1'){
+		ret.eval("$('#cbox_suspend').prop('checked',true)")
+	}else{
+		ret.eval("$('#cbox_suspend').prop('checked',false)")
+	}
+	 
 	if(selectResult.length > 0){
 		ret.eval("$('#asinselect').removeAttr('disabled').css('background', 'lightcyan');");
 		ret.eval("$('#skuselect').removeAttr('disabled').css('background', 'lightcyan');");

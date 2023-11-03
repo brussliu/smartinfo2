@@ -49,7 +49,7 @@
                 </tbody>
             </table>
             <table class="table_inputdialog" border="0">
-                <tbody>
+                <tbody> 
                     <tr>
                         <td style="width: 150px;">商品種別：</td>
                         <td style="width: 220px;">
@@ -58,17 +58,27 @@
                             </select></td>
                         <td style="width:220px;"><input type="text" style="width: 200px;" id="newproducttype2"></input>
                         </td>
-                        <td></td>
+                        <td  id="td_suspend">
+                            <input type="checkbox"  id="cbox_suspend" value="1"   style="vertical-align: middle;">
+                            <span>仕入中止</span></input>
+                        </td>  
                     </tr>
                     <tr>
                         <td>商品管理番号：</td>
                         <td>
                             <select style="width: 200px;" id="newproductno">
                                 <option value=""></option>
-                            </select>
+                            </select> 
                         </td>
                         <td><input type="text" style="width: 200px;" id="newproductno2"></input></td>
-                        <td></input></td>
+                        <td>仕入先：
+                            <select style="width: 200px;" id="purchase">
+                                     <option value=""></option>
+                                     <option value="01">01.恩氏製衣</option>
+                                     <option value="02">02.両匹狼</option>
+                                     <option value="03">03.星峰製衣</option>
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>

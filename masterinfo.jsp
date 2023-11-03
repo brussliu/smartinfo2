@@ -58,6 +58,10 @@
                     $('#preproduct').val("親商品");
                     $("#preproduct").removeAttr("disabled").css("background", "lightcyan");
 
+                    $("#cbox_suspend").prop('checked',false)
+                    // $("#cbox_suspend").attr("disabled", "disabled");
+                    $("#td_suspend").attr("disabled", false);
+
                     Efw('masterinfo_new');
 
                 }
@@ -68,8 +72,10 @@
                     var flg = $(btn).next().val();
                     
                     $("#opt").val("update");
-
-       
+                    $("#td_suspend").attr("disabled", false);
+                    // $("#cbox_suspend").prop('checked',false)
+                  
+                    
 
                     var type = $(btn).parent().next().children().html();
                     var no = $(btn).parent().next().next().html();
@@ -90,20 +96,19 @@
                     if (flg == '1') {//更新时，当暂定为1时
                         $("#del").css("display","block");
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
-
+ 
                         Efw('masterinfo_update1', { 'type': type, 'no': no, 'preproduct': preproduct, 'sub1': sub1, 'sub2': sub2 });
 
                     } else if (flg == '0') {//更新时，当暂定为0时
                         $("#del").css("display","none");
-
-
+ 
                         $("#asinselect").attr("disabled", "disabled").css("background", "lightgray");
                         $("#skuselect").attr("disabled", "disabled").css("background", "lightgray");
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
                     
                         Efw('masterinfo_update0', {'asin': asin, 'sku': sku });
 
-                    }
+                    } 
 
                 }
 
@@ -337,24 +342,6 @@
 
                 }
 
-
-                // ASL显示
-                //function showitem(obj) {
-                    // var flg2 = false;
-                    // $('#displayitem input:checkbox:checked').each(function (index, item) {
-
-                    //     if ($(this).val() == 'ASIN、SKU、LABEL') {
-                    //         $(".display2").show();
-                    //         flg2 = true;
-                    //         $("#stocktablehead").width($("#stocktablehead").width());
-                    //         $("#stocktable").width($("#stocktable").width());
-                    //     }
-                    // });
-                    // if (flg2 == false) {
-                    //     $(".display2").hide();
-                    // }
-
-                //}
 
             </script>
 

@@ -109,6 +109,8 @@
 		, "FBM発送方式" as fba
 		, "商品名称" as name
 		, "暫定フラグ" as flg
+		, "仕入中止" as suspend
+		, "仕入先" as purchase 
 
 	FROM
 		"MST_出品マスタ情報" 
@@ -174,6 +176,8 @@
 		, "仕入申報価格（ドル）" as price3
 		, "FBM発送方式" as fba
 		, "商品名称" as name
+		, "仕入中止" as suspend
+		, "仕入先" as purchase
 		, "暫定フラグ" as flg
 	FROM
 		"MST_出品マスタ情報" 
@@ -263,12 +267,11 @@
 <sql id="udatemasterinfoflg1pre" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
 		SET
-
 			"商品管理番号" = !productno,
 			"商品種別" = !producttype,
 
 			"商品名称" = !productname,
-
+			"仕入先" = !purchase,
 			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
@@ -299,7 +302,7 @@
 	   </if>
 		   
 </sql>
-
+ 
 
 <!-- sl：更新-暂定1-子商品 -->
 <sql id="udatemasterinfoflg1sub1" paramPrefix="!">
@@ -317,6 +320,7 @@
 
 			"FBM発送方式" = !fba,
 			"商品名称" = !productname,
+			"仕入先" = !purchase,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -524,8 +528,9 @@
 		UPDATE "MST_出品マスタ情報" 
 		SET
 			"商品種別" = !producttype,
-			"商品管理番号" = !productno,
+			"商品管理番号" = !productno, 
 			"商品名称" = !productname,
+			"仕入先" = !purchase,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -561,6 +566,7 @@
 
 			"FBM発送方式" = !fba,
 			"商品名称" = !productname,
+			"仕入先" = !purchase,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
@@ -687,6 +693,144 @@
 		  "商品管理番号" = :no
 		AND 
 		  "親子区分" = '子商品'
+</sql>
+
+<sql id="udatemasterinfopresuspend"  >
+	update "MST_入庫仕入推奨数量情報" mst1 set 
+			"推奨仕入数量" = 0
+	FROM 
+		(
+			SELECT 
+			 mst."ASIN番号",mst."SKU番号"
+			FROM 
+					"MST_出品マスタ情報" mst
+			WHERE 
+					mst."商品管理番号" = :no 
+			AND
+					 "店舗ID" =:shopid
+		) s
+	where  		mst1."ASIN番号" = s."ASIN番号" 
+			and mst1."SKU番号" = s."SKU番号"
+</sql>
+
+<sql id="updatemasterinfopresuspendstate"  >
+	UPDATE "MST_出品マスタ情報" 
+		set 
+			"仕入中止" = :state 
+		WHERE   
+			"店舗ID" =:shopid
+			<if exists="no"> AND (	 "商品管理番号" = :no ) </if>
+	    	<if exists="oldasin"> AND ( "ASIN番号" = :oldasin ) </if>
+	  		<if exists="oldsku"> AND ( "SKU番号" = :oldsku ) </if> 
+		
+</sql>
+
+<sql id="refreshrecommendnum">
+		update "MST_入庫仕入推奨数量情報" set
+		"在庫販売可能日数" = case when MST3."販売数量（日平均値）" is null or MST3."販売数量（日平均値）" = 0 then 9999 else 
+				    COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) / MST3."販売数量（日平均値）" end,
+		"保有数量販売可能日数" = case when MST3."販売数量（日平均値）" is null or MST3."販売数量（日平均値）" = 0 then 9999 else 
+			        COALESCE(MST2."FBA在庫", 0) + 
+					COALESCE(MST2."FBM在庫", 0) + 
+					COALESCE(MST2."途中在庫_入庫", 0) + 
+					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."途中在庫_仕入", 0) / MST3."販売数量（日平均値）" end,
+		"推奨納品数量" = case when 
+				COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0) = 0
+				and
+				cast(COALESCE(MST3."販売数量（日平均値）", 0) * 30 - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) as int) = 0
+				then 1
+				else
+				COALESCE(MST3."販売数量（日平均値）", 0) * 30 - (COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0)) end,
+		"推奨仕入数量" = case when
+				MST1."仕入中止" = '1' then 0
+				else 
+					case when 
+						COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0) = 0
+						and 
+						cast(
+						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
+						(	COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
+						then 1
+						else
+						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
+						(	COALESCE(MST2."FBA在庫", 0) + 
+							COALESCE(MST2."FBM在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) + 
+							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_仕入", 0))
+					end
+				end
+		from 
+			"MST_出品マスタ情報" MST1,
+			"MST_在庫情報" MST2,
+			"MST_販売数量情報" MST3
+		where 
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST1."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST1."ASIN番号"
+			and
+			MST1."暫定フラグ" = 0
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST1."店舗ID"
+			and
+			MST1."親子区分" = '子商品'
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST2."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST2."ASIN番号"
+			and
+			MST2."暫定フラグ" = 0
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST2."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."SKU番号" = MST3."SKU番号"
+			and
+			"MST_入庫仕入推奨数量情報"."ASIN番号" = MST3."ASIN番号"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = MST3."店舗ID"
+			and
+			"MST_入庫仕入推奨数量情報"."店舗ID" = :shopid
+			<if exists="no"> AND ( MST1."商品管理番号" = :no ) </if>
+	    	<if exists="oldasin"> AND ( MST1."ASIN番号" = :oldasin ) </if>
+	  		<if exists="oldsku"> AND ( MST1."SKU番号" = :oldsku ) </if> 
+</sql>
+
+
+
+
+<sql id="udatemasterinfosubsuspend"  >
+		UPDATE "MST_入庫仕入推奨数量情報" 
+		SET
+			"推奨仕入数量" = 0 
+		WHERE 
+		  "店舗ID" =:shopid
+		<if exists="oldasin"> AND (	
+		  "ASIN番号" = :oldasin
+		)
+	    </if>
+	   <if notexists="oldasin"> AND (	
+		  "ASIN番号" is NULL
+		)
+	   </if> 
+	 	<if exists="oldsku"> AND (	
+		  "SKU番号" = :oldsku
+		)
+	    </if>
+	   <if notexists="oldsku"> AND (	
+		  "SKU番号" is NULL
+		)
+	   </if>
 </sql>
 
 <sql id="searchAsinSku" >
