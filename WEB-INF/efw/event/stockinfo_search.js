@@ -50,14 +50,7 @@ stockinfo_search.fire=function(params){
 			} 
 		}  
     } 
-	// var send = params["send"];.toUpperCase()
-	// var send1="";
-	// var sendArr="";
-	// if(send.length>1){
-	// 	sendArr='2';
-	// }else{
-	// 	send1=send[0];
-	// }
+ 
 	var shippingway = "";
 	if(params["#shippingway_fba"] == 'FBA'){
 		shippingway = shippingway + "'FBA'";
@@ -77,7 +70,7 @@ stockinfo_search.fire=function(params){
  
 		var selectResult = db.select(
 		"STOCK",
-		"selectstockinfo",
+		"selectstockinfo", 
 		{
 			shopid : getShopId(),
 			ptype : type,
@@ -90,11 +83,11 @@ stockinfo_search.fire=function(params){
 			maxNum :maxNum
 		
 		}
-	).getArray();
- 
-	var resultHTML =
-		'<tr>' +
+	).getArray(); 
+	var resultHTML = 
+		'<tr data-suspend="{suspend}">' +
 			'<td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this);"><input type="hidden" value="{zt_flg}"></td>' +
+			'<td style="width: 50px;" class="c" data-suspend="{suspend}"><span></span></td>' +
 			'<td style="width: 140px" class="l"><span class="l5">{type}</span></td>' +
 			'<td style="width: 80px;" class="c">{pno}</td>' +
 			'<td style="width: 70px;" class="c">{preproduct}</td>' +
@@ -102,8 +95,7 @@ stockinfo_search.fire=function(params){
 			'<td style="width: 160px;" class="l"><span class="l5">{sub2}</span></td>' +
 			'<td style="width: 120px;" class="c">{asin}</td>' +
 			'<td style="width: 150px;" class="c">{sku}</td>' +
-			'<td style="width: 120px;" class="c">{label}</td>' +
-			// '<td style="width: 817px;" class="l"><span>{productname}</span></td>' +
+			'<td style="width: 120px;" class="c">{label}</td>' + 
 			'<td style="width: 80px;" class="c">{shippingway}</td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fba}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fbm}</span></td>' +

@@ -4,9 +4,7 @@ masterinfo_search.paramsFormat={
 	"producttype":null,
 	"#productno":null,
 	"#keyword":null,
-	"#notenough":null,
-	//"displayflg2":null,
-	//"#displayItem1":null
+	"#notenough":null, 
 
 };
  
@@ -21,8 +19,7 @@ masterinfo_search.fire=function(params){
 	var productno = params["#productno"];
 	var keyword = params["#keyword"].toUpperCase();
 	var notenough = params["#notenough"];
-
-	//var displayflg2 = params["displayflg2"];
+ 
 	var type="";
 	for(let i=0;i<pdArr.length;i++){
 		
@@ -32,10 +29,7 @@ masterinfo_search.fire=function(params){
 			type += "'"+pdArr[i]+"',";
 		}
 	}
-	 
- 
-	//var subhtml = displayflg2 == "1" ? "" : "style='display: none;'";
- 
+	  
 	var selectResult = db.select(
 		"MASTER",
 		"selectmasterinfo",
@@ -50,9 +44,10 @@ masterinfo_search.fire=function(params){
 	).getArray();
 
  
-	var resultHTML =
-		"<tr>" +
+	var resultHTML = 
+		"<tr data-suspend='{suspend}'>" +
 		"<td style='width: 70px;' class='c'><button class='btn' id='update' onclick='updatedialog(this);'>更新</button><input type='hidden' id='flg' value='{flg}'></input></td>" +
+		"<td style='width: 70px;' class='c' data-suspend='{suspend}'><span></span></td>" +
 		"<td style='width: 140px;' class='l'><span class='l5'>{type}</span></td>" +
 		"<td style='width: 80px;' class='c'>{no}</td>" +
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +
@@ -60,20 +55,14 @@ masterinfo_search.fire=function(params){
 		"<td style='width: 160px;' class='l'><span class='l5'>{sub2}</span></td>" +
 		"<td style='width: 150px;' class='c display2'>{asin}</td>" +
 		"<td style='width: 150px;' class='c display2'>{sku}</td>" +
-		"<td style='width: 150px;' class='c display2'>{label}</td>" +
-		// "<td  " + subhtml +      "style='width: 150px;' class='c display2'>{asin}</td>" +
-		// "<td  " + subhtml +      " style='width: 150px;' class='c display2'>{sku}</td>" +
-		// "<td  " + subhtml +      "style='width: 150px;' class='c display2'>{label}</td>" +
+		"<td style='width: 150px;' class='c display2'>{label}</td>" + 
 		"<td style='width: 80px;' class='r'><span class='r5'>{price}</span></td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{fba}</span></td>" +
 		"<td style='width: 800px;' class='l'><span>{name}</span></td>" +
 		"</tr>";
 
 	ret.runat("#stocktable").remove("tr").append(resultHTML).withdata(selectResult);
-	 
-	// var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
-	// ret.eval(script);
-
+ 
 	ret.show('.c_detail_header').show('.c_detail_content');
 
 	if(notenough != null && notenough != ""){

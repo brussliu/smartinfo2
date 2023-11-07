@@ -73,7 +73,7 @@
                         <td><input type="text" style="width: 200px;" id="newproductno2"></input></td>
                         <td>仕入先：
                             <select style="width: 200px;" id="purchase">
-                                     <option value=""></option>
+                                     <option value=""></option> 
                                      <option value="01">01.恩氏製衣</option>
                                      <option value="02">02.両匹狼</option>
                                      <option value="03">03.星峰製衣</option>

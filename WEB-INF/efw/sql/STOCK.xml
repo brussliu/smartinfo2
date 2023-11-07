@@ -312,9 +312,6 @@
 			T.shippingway,
 			T.fba,
 			T.fbm,
-			<!-- T.put,
-			T.local,
-			T.purchase, -->
 			case when cast(T.put as varchar)  = '0' or cast(T.put as varchar)  = '' then ''  else cast(T.put as varchar) end,
 			case when cast(T.local as varchar)  = '0' or cast(T.local as varchar)  = '' then ''  else cast(T.local as varchar) end,
 			case when cast(T.purchase as varchar)  = '0' or cast(T.purchase as varchar)  = '' then ''  else cast(T.purchase as varchar) end,
@@ -333,7 +330,8 @@
 			T.salenumber,
 			T.deliveryquantity,
 			T.purchasequantity,
-			T.zt_flg
+			T.zt_flg,
+			T.suspend 
 		from
 			(
 				select
@@ -376,7 +374,8 @@
 					c."推奨納品数量" as deliveryquantity,
 					c."推奨仕入数量" as purchasequantity,
 					a."店舗ID" as shopid,
-					a."暫定フラグ" as zt_flg
+					a."暫定フラグ" as zt_flg,
+					a."仕入中止" as suspend
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" and a."SKU番号"=b."SKU番号" and a."店舗ID" = b."店舗ID"
@@ -487,7 +486,8 @@
 					null as deliveryquantity,
 					null as purchasequantity,
 					a."店舗ID" as shopid,
-					a."暫定フラグ" as zt_flg
+					a."暫定フラグ" as zt_flg,
+					a."仕入中止" as suspend 
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_在庫情報" d on 

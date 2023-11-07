@@ -77,11 +77,11 @@
                   
                     
 
-                    var type = $(btn).parent().next().children().html();
-                    var no = $(btn).parent().next().next().html();
-                    var preproduct = $(btn).parent().next().next().next().html();
-                    var sub1 = $(btn).parent().next().next().next().next().children().html();
-                    var sub2 = $(btn).parent().next().next().next().next().next().children().html();
+                    var type = $(btn).parent().next().next().children().html();
+                    var no = $(btn).parent().next().next().next().html();
+                    var preproduct = $(btn).parent().next().next().next().next().html();
+                    var sub1 = $(btn).parent().next().next().next().next().next().children().html();
+                    var sub2 = $(btn).parent().next().next().next().next().next().next().children().html();
                 
                     $("#newproducttype2").data("oldvalue", type);
                     $("#newproductno2").data("oldvalue", no);
@@ -89,10 +89,10 @@
                     $("#sub1").data("oldvalue", sub1);
                     $("#sub2").data("oldvalue", sub2);
                     
-                    var preproduct = $(btn).parent().next().next().next().html();
-                    var asin = $(btn).parent().next().next().next().next().next().next().html().toString();
-                    var sku = $(btn).parent().next().next().next().next().next().next().next().html().toString();
-
+                    var preproduct = $(btn).parent().next().next().next().next().html();
+                    var asin = $(btn).parent().next().next().next().next().next().next().next().html().toString();
+                    var sku = $(btn).parent().next().next().next().next().next().next().next().next().html().toString();
+ 
                     if (flg == '1') {//更新时，当暂定为1时
                         $("#del").css("display","block");
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
@@ -182,8 +182,8 @@
                         'oldtype': oldtype, 
                         'oldno': oldno, 
                         'oldpreproduct': oldpreproduct,
-                        'oldsub1': oldsub1,
-                        'oldsub2': oldsub2,
+                        'oldsub1': oldsub1==undefined?'':oldsub1,
+                        'oldsub2': oldsub2==undefined?'':oldsub2,
                     });
 
                 }
@@ -198,10 +198,10 @@
                         var tdArr = $(this).children();
 
                         // 商品管理番号
-                        var newproductno = tdArr.eq(2).html();
+                        var newproductno = tdArr.eq(3).html();
                         // 親子区分
-                        var productkinds = tdArr.eq(3).html();
-
+                        var productkinds = tdArr.eq(4).html(); 
+                       
                         var flg = false;
                         if (newproductno != oldproductno) {
                             flg = true;
@@ -232,27 +232,27 @@
                         // 入力足りない
                         var displayflg = false;
                         // １，商品種別が未入力
-                        var inputValue = tdArr.eq(1).children(0).html();
-                        if(inputValue == null || inputValue == ""){
-                            tdArr.eq(1).css({ "background": "rgb(255,150,150)" });
-                            displayflg = true;
-                        }
-                        // ２，商品管理番号が未入力
-                        var inputValue = tdArr.eq(2).html();
+                        var inputValue = tdArr.eq(2).children(0).html();
                         if(inputValue == null || inputValue == ""){
                             tdArr.eq(2).css({ "background": "rgb(255,150,150)" });
                             displayflg = true;
                         }
+                        // ２，商品管理番号が未入力
+                        var inputValue = tdArr.eq(3).html();
+                        if(inputValue == null || inputValue == ""){
+                            tdArr.eq(3).css({ "background": "rgb(255,150,150)" });
+                            displayflg = true;
+                        }
                         // ３，商品分類が未入力
-                        var inputValue1 = tdArr.eq(4).children(0).html();
-                        var inputValue2 = tdArr.eq(5).children(0).html();
+                        var inputValue1 = tdArr.eq(5).children(0).html();
+                        var inputValue2 = tdArr.eq(6).children(0).html();
                         if (productkinds == "親商品") {
                             if(inputValue1 != null && inputValue1 != ""){
-                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                             if(inputValue2 != null && inputValue2 != ""){
-                                tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(6).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }else{
@@ -260,14 +260,14 @@
                                 (inputValue1 == null || inputValue1 == "") && 
                                 (inputValue2 == null || inputValue2 == "")
                             ){
-                                tdArr.eq(4).css({ "background": "rgb(255,150,150)" });
                                 tdArr.eq(5).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(6).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }
                         // ４，暫定商品
-                        var inputValue1 = tdArr.eq(6).html();
-                        var inputValue2 = tdArr.eq(7).html();
+                        var inputValue1 = tdArr.eq(7).html();
+                        var inputValue2 = tdArr.eq(8).html();
                         if(inputValue1 == null || inputValue1 == ""){
                             $(this).css({ "background": "rgb(200,200,200)" });
                             tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
@@ -279,28 +279,14 @@
                             displayflg = true;
                         }
                         // ５，LABEL番号
-                        var inputValue = tdArr.eq(8).html();
+                        var inputValue = tdArr.eq(9).html();
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
-                                tdArr.eq(8).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }
                         // ６，仕入価格
-                        var inputValue = tdArr.eq(9).children(0).html();
-                        if (productkinds == "親商品") {
-                            if(inputValue != null && inputValue != ""){
-                                tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
-                                displayflg = true;
-                            }
-                        }
-                        if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == "" || inputValue == 0){
-                                tdArr.eq(9).css({ "background": "rgb(255,150,150)" });
-                                displayflg = true;
-                            }
-                        }
-                        // ７，FBA発送方式
                         var inputValue = tdArr.eq(10).children(0).html();
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
@@ -309,8 +295,22 @@
                             }
                         }
                         if (productkinds == "子商品") {
-                            if(inputValue == null || inputValue == ""){
+                            if(inputValue == null || inputValue == "" || inputValue == 0){
                                 tdArr.eq(10).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
+                            }
+                        }
+                        // ７，FBA発送方式
+                        var inputValue = tdArr.eq(11).children(0).html();
+                        if (productkinds == "親商品") {
+                            if(inputValue != null && inputValue != ""){
+                                tdArr.eq(11).css({ "background": "rgb(255,150,150)" });
+                                displayflg = true;
+                            }
+                        }
+                        if (productkinds == "子商品") {
+                            if(inputValue == null || inputValue == ""){
+                                tdArr.eq(11).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }
@@ -320,7 +320,14 @@
                                 $(this).hide();
                             }
                         }
-
+                      
+                         // 仕入中止
+                         if($(this).data("suspend") == '1'){ 
+                            $(this).css({ "background": "rgb(200,200,200)" })
+                            $(this).children().eq(0).css({ "background": "rgb(200,200,200)" })
+                            $(this).children().eq(1).css({"color" : "red"})
+                            $(this).children().eq(1).children().html('止')
+                        }
                     });
                 }
 
@@ -345,9 +352,9 @@
 
             </script>
 
-            <style>
+    <style>
 
-            </style>
+    </style>
         </head>
 
         <body onload="init();">
@@ -404,7 +411,7 @@
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品分類：</td>
                                     <td id="producttype">
                                     </td>
-                                </tr>
+                                </tr> 
                             </tbody>
                         </table>
                         <table>
@@ -433,10 +440,11 @@
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
                         <table class="table_detail_header" id="stocktablehead"
-                            style="width: 2164px;table-layout: fixed;">
+                            style="width: 2234px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 70px;">操作</th>
+                                    <th style="width: 70px;">STR</th>
                                     <th style="width: 140px;">商品種別</th>
                                     <th style="width: 80px;">商品<br>管理番号</th>
                                     <th style="width: 70px;">親子区分</th>
@@ -453,7 +461,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2147px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2217px;table-layout: fixed;" id="stocktable">
 
                             <tr>
                                 <td style="width: 70px;" class="c"><button class="btn" id="update"

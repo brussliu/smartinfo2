@@ -7,7 +7,11 @@
             <title>在庫情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <link rel="icon" href="/img/tb.jpg" sizes="50x50"/> 
+            <!-- <link rel="shortcut icon" href="/img/tb.jpg"/> -->
 
+            <link href="/img/tb1.ico" rel="icon" type="image/x-icon" />
+            <link href="/img/tb1.ico" rel="shortcut icon" type="image/x-icon" />
             <script>
                 function scrollHead(obj) {
 
@@ -38,14 +42,14 @@
                 // 选中当前数据，编辑LOCAL在庫
                 function check(val) {
                     // 途中（納品）
-                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     // 途中（LOCAL）
-                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     // 途中（仕入）
-                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
 
                     if ($(val).is(':checked')) {
                         if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
@@ -90,21 +94,21 @@
                             // 暫定フラグ
                             var flg = tdArr.eq(0).children().eq(1).val();
                             // ASIN番号
-                            var asin = tdArr.eq(6).html();
+                            var asin = tdArr.eq(7).html();
                             // SKU番号
-                            var sku = tdArr.eq(7).html();
+                            var sku = tdArr.eq(8).html();
                             // LOCAL在庫
-                            var local = tdArr.eq(13).children().next().val();
+                            var local = tdArr.eq(14).children().next().val();
                             // 商品種別
-                            var producttype = tdArr.eq(1).children().html();
+                            var producttype = tdArr.eq(2).children().html();
                             // 商品管理番号
-                            var productno = tdArr.eq(2).html();
+                            var productno = tdArr.eq(3).html();
                             // 親子区分
-                            var preproduct = tdArr.eq(3).html();
+                            var preproduct = tdArr.eq(4).html();
                             // 分類①
-                            var productsub1 = tdArr.eq(4).children().html();
+                            var productsub1 = tdArr.eq(5).children().html();
                             // 分類②
-                            var productsub2 = tdArr.eq(5).children().html();
+                            var productsub2 = tdArr.eq(6).children().html();
 
                             var localArr = new Array();
 
@@ -119,9 +123,9 @@
                             localArr.push(productsub2);
                             
                             //途中（入庫）
-                            var put = tdArr.eq(12);
+                            var put = tdArr.eq(13);
                             if (put.data("text") != "undefined") {
-                                var putval = tdArr.eq(12).children().next().val();
+                                var putval = tdArr.eq(13).children().next().val();
                                 
                                 localArr.push(parseInt(putval == 'null'?0:putval));
                             }else{
@@ -129,9 +133,9 @@
                             }
                             
                             // 途中（仕入）
-                            var purchase = tdArr.eq(14);
+                            var purchase = tdArr.eq(15);
                             if (purchase.data("text") != "undefined") {
-                                var purchaseval = tdArr.eq(14).children().next().val();
+                                var purchaseval = tdArr.eq(15).children().next().val();
                                 localArr.push(parseInt(purchaseval == 'null'?0:purchaseval));
                             }else{
                                 localArr.push(null);
@@ -155,11 +159,7 @@
                     Efw('stockinfo_output', { 'exl': val });
                 }
 
-                // // 输出仕入EXCEL
-                // function outputreceiving(val) {
-                //     console.log("outputreceiving");
-                //     Efw('stockinfo_output', { 'exl': val });
-                // }
+         
                 
                 function changeColor() {
 
@@ -171,9 +171,9 @@
                         var tdArr = $(this).children();
 
                         // 商品管理番号
-                        var newproductno = tdArr.eq(2).html();
+                        var newproductno = tdArr.eq(3).html();
                         // 親子区分
-                        var productkinds = tdArr.eq(3).html();
+                        var productkinds = tdArr.eq(4).html();
 
                         var flg = false;
                         if (newproductno != oldproductno) {
@@ -204,11 +204,18 @@
                         }
                         oldproductno = newproductno;
 
-
+                        
+                        // 仕入中止
+                        if($(this).data("suspend") == '1'){ 
+                            $(this).css({ "background": "rgb(200,200,200)" }) 
+                            $(this).children().eq(0).css({ "background": "rgb(200,200,200)" })
+                            $(this).children().eq(1).css({"color" : "red"}) 
+                            $(this).children().eq(1).children().html('止')
+                        }
                     });
                 }
            
-
+ 
                 // 推奨数量入り
                 function changeRecommend(val){
                    
@@ -351,10 +358,11 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
-                        <table class="table_detail_header" style="width: 2685px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2735px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
+                                    <th style="width: 50px;">STR</th>
                                     <th style="width: 140px">商品種別</th>
                                     <th style="width: 80px;">商品<br>管理番号</th>
 
@@ -391,7 +399,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2668px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2738px;table-layout: fixed;" id="stocktable">
                             <tbody>
                                 <!-- 
                                 <tr>

@@ -32,7 +32,7 @@
 	SELECT
 		  M."商品種別" as type
 		, M."商品管理番号" as no
-		, M."親子区分" as preproduct
+		, M."親子区分" as preproduct 
 		, M."分類１" as sub1
 		, M."分類２" as sub2
 		, M."ASIN番号" as asin
@@ -43,6 +43,8 @@
 		, M."仕入申報価格（ドル）" as price3
 		, M."FBM発送方式" as fba
 		, M."商品名称" as name
+		, M."仕入中止" as suspend
+		, M."仕入先" as purchase
 		, M."暫定フラグ" as flg
 	FROM
 		"MST_出品マスタ情報" M
@@ -806,32 +808,6 @@
 	  		<if exists="oldsku"> AND ( MST1."SKU番号" = :oldsku ) </if> 
 </sql>
 
-
-
-
-<sql id="udatemasterinfosubsuspend"  >
-		UPDATE "MST_入庫仕入推奨数量情報" 
-		SET
-			"推奨仕入数量" = 0 
-		WHERE 
-		  "店舗ID" =:shopid
-		<if exists="oldasin"> AND (	
-		  "ASIN番号" = :oldasin
-		)
-	    </if>
-	   <if notexists="oldasin"> AND (	
-		  "ASIN番号" is NULL
-		)
-	   </if> 
-	 	<if exists="oldsku"> AND (	
-		  "SKU番号" = :oldsku
-		)
-	    </if>
-	   <if notexists="oldsku"> AND (	
-		  "SKU番号" is NULL
-		)
-	   </if>
-</sql>
 
 <sql id="searchAsinSku" >
 	SELECT 
