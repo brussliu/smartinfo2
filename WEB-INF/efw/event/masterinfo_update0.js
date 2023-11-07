@@ -92,9 +92,7 @@ masterinfo_update0.fire = function (params) {
 			// 仕入申報価格（ドル）
 			"#price3":selectResultObj["price3"],
 			// 商品名称
-			"#productname":selectResultObj["name"],
-			// 仕入中止
-			// "#cbox_suspend":selectResultObj["suspend"],
+			"#productname":selectResultObj["name"], 
 			// 仕入先
 			"#purchase":selectResultObj["purchase"]
 		}
@@ -113,4 +111,4 @@ masterinfo_update0.fire = function (params) {
 	// 画面へ結果を返す
 	return ret.eval("masterinfo_inputdialog.dialog('open');");
 
-};
+};	
