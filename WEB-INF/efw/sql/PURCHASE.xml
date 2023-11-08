@@ -806,5 +806,25 @@
 	and "店舗ID" = !shopid
 
 </sql>
+
+<!--  --> 
+<sql id="selectpurchasedoc" paramPrefix="!">
+	SELECT 
+		mst."商品管理番号"  as productno,
+		mst."ASIN番号" as asin,
+		mst."SKU番号" as sku,
+		mst."仕入価格" as purchaseprice,
+		mst."仕入先" as supplier,
+		trn."数量" as num
+	from 
+		"MST_出品マスタ情報" mst ,"TRN_仕入明細" trn 
+	where 
+		trn."仕入NO" = !no  
+	and trn."ASIN番号"=mst."ASIN番号" 
+	and trn."SKU番号" = mst."SKU番号" 
+	and trn."店舗ID" = mst."店舗ID"
+	and trn."店舗ID" = !shopid
+	ORDER BY productno
+</sql>
  </sqls>
 

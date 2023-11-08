@@ -122,24 +122,28 @@
                         $('#btn_delete').attr('disabled', false);
                         $('#btn_send').attr('disabled', false);
                         $('#btn_collection').attr('disabled', false);
+                        $('#btn_addpurchase').attr('disabled', false);
                     } else if (v == '2.発送済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', false);
+                        $('#btn_addpurchase').attr('disabled', true);
                     } else if (v == '3.仕入済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
+                        $('#btn_addpurchase').attr('disabled', true);
                     } else {
                         $('#btn_content').attr('disabled', true);
                         $('#btn_update').attr('disabled', true);
                         $('#btn_delete').attr('disabled', true);
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
+                        $('#btn_addpurchase').attr('disabled', true);
                     }
                 }
 
@@ -189,40 +193,6 @@
                     var purchaseno = $('#td_no').html();
                     Efw('purchase_delfile', { "filename": filename, "purchaseno": purchaseno });
                 }
-
-
-                // // new初始化
-                // function newdialog() {
-                //     $('#td_no').html("-");
-                //     $('#text_purchase').val("");
-                //     $('#opt_ship').get(0).selectedIndex = 0;
-                //     $('#date_entrydate').html('-');
-                //     $('#date_forwarddate1').val("");
-                //     $('#date_forwarddate2').val("");
-                //     $('#date_completiondate').val("");
-                //     $('#number_productamountRMB').val("");
-                //     $('#opt_monetaryunit1').get(0).selectedIndex = 0;
-                //     $('#number_productamountRY').html("");
-                //     $('#number_shipamountRMB').val("");
-                //     $('#opt_monetaryunit2').get(0).selectedIndex = 0;
-                //     $('#number_shipamountRY').html("");
-                //     $('#number_faxamountRMB').val("");
-                //     $('#opt_monetaryunit3').get(0).selectedIndex = 0;
-                //     $('#number_faxamountRY').html("");
-                //     $('#number_rate').val("");
-                //     $('#text_totalRMB').html("");
-                //     $('#text_totalRY').html("");
-                //     $('#file_proContent').val("");
-                //     $('#text_track').val("");
-                //     $('#file_acces').val("");
-                //     $('#text_filename').val("");
-                //     // 上传NO
-                //     $('#purchasediv').css('display', 'none');
-                //     $('#purchaseno').val("");
-                //     $('#filetable').html("");
-                // }
-
-
 
                 // 汇率转换
                 function Xchanger() {
@@ -377,6 +347,13 @@
                     })
                 }
 
+                // 仕入ファイル
+                function addpurchase(){
+                    var purchaseno = $('input:radio[name="choice"]:checked').val();
+                    console.log(purchaseno)
+                    Efw('purchase_doc', { "purchaseno": purchaseno });
+                }
+
             </script>
             <style>
                 .table_btn td button {
@@ -440,12 +417,14 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                   
                                     <td style="width: 120px;"><button id="btn_new" onclick="add()">新規</button></td>
                                     <td style="width: 120px;"><button id="btn_content" disabled="disabled"
                                             onclick="opencontentdialog()">仕入内容</button></td>
                                     <td style="width: 120px;"><button id="btn_update" onclick="update()"
                                             disabled="disabled">仕入更新</button></td>
+                                    <td style="width: 170px;"><button id="btn_addpurchase" onclick="addpurchase()"
+                                            disabled="disabled" style="width: 150px;">仕入ファイル</button></td>
                                     <td style="width: 120px;"><button id="btn_delete" onclick="deletepurchase()"
                                             disabled="disabled">仕入削除</button></td>
                                     <td style="width: 120px;"><button id="btn_send" onclick="send()"

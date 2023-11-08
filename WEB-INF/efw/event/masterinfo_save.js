@@ -235,6 +235,18 @@ masterinfo_save.fire = function (params) {
 					}
 				);
 			}
+			// 亲商品仕入先
+			if (purchase != null && purchase != "" ) {
+				var updateResult3 = db.change(
+					"MASTER",
+					"updatemasterinfopurchasepre",
+					{ 
+						no: productno,
+						purchase:purchase,
+						shopid: getShopId()
+					}
+				);
+			}
 		}
 
 		if (flg == 0 && preproduct == '子商品') {
@@ -305,6 +317,19 @@ masterinfo_save.fire = function (params) {
 						shopid: getShopId(),
 						oldasin: asin,
 						oldsku: sku
+					}
+				);
+			}
+			// 子商品仕入先
+			if (purchase != null && purchase != "" ) {
+				var updateResult3 = db.change(
+					"MASTER",
+					"updatemasterinfopurchasesub",
+					{ 
+						oldasin: asin,
+						oldsku: sku,
+						purchase:purchase,
+						shopid: getShopId()
 					}
 				);
 			}
@@ -525,6 +550,18 @@ masterinfo_save.fire = function (params) {
 						}
 					);
 				}
+				// 亲商品仕入先
+				if (purchase != null && purchase != "" ) {
+					var updateResult3 = db.change(
+						"MASTER",
+						"updatemasterinfopurchasepre",
+						{ 
+							no: productno,
+							purchase:purchase,
+							shopid: getShopId()
+						}
+					);
+				}
 			}
 
 		}
@@ -716,6 +753,19 @@ masterinfo_save.fire = function (params) {
 							shopid: getShopId(),
 							oldasin: asin,
 							oldsku: sku, 
+						}
+					);
+				}
+				// 子商品仕入先
+				if (purchase != null && purchase != "" ) {
+					var updateResult3 = db.change(
+						"MASTER",
+						"updatemasterinfopurchasesub",
+						{ 
+							oldasin: asin,
+							oldsku: sku,
+							purchase:purchase,
+							shopid: getShopId()
 						}
 					);
 				}

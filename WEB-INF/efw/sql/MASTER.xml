@@ -895,5 +895,28 @@
 			and
 			"店舗ID" =:shopid
 	</sql>
+
+	
+<sql id="updatemasterinfopurchasepre"  >
+		UPDATE "MST_出品マスタ情報" 
+		SET
+			"仕入先" = :purchase
+		WHERE 
+		    "店舗ID" =:shopid
+		AND 
+		    "商品管理番号" = :no
+</sql>
+
+<sql id="updatemasterinfopurchasesub"  >
+	UPDATE "MST_出品マスタ情報" 
+		set 
+			"仕入先" = :purchase 
+		WHERE   
+			"店舗ID" =:shopid
+			<if exists="no"> AND (	 "商品管理番号" = :no ) </if>
+	    	<if exists="oldasin"> AND ( "ASIN番号" = :oldasin ) </if>
+	  		<if exists="oldsku"> AND ( "SKU番号" = :oldsku ) </if> 
+		
+</sql>
 </sqls>
 
