@@ -826,5 +826,30 @@
 	and trn."店舗ID" = !shopid
 	ORDER BY productno
 </sql>
+
+
+<!-- 追跡番号 -->
+<sql id="selecttracknumber"  >
+	SELECT DISTINCT "追跡番号" AS tracknumber
+	FROM  "TRN_仕入管理" 
+	WHERE "仕入NO" = :no
+	AND "店舗ID" = :shopid
+</sql>
+<!-- 追跡番号 -->
+<sql id="selectnumber"  >
+	SELECT 
+			MST."商品管理番号" AS productno,
+			sum(TRN."数量") AS   num
+	FROM
+			"TRN_仕入明細" TRN
+			LEFT JOIN "MST_出品マスタ情報" MST 
+			ON MST."ASIN番号" = TRN."ASIN番号" AND MST."SKU番号" = TRN."SKU番号" 
+	where 
+			TRN."仕入NO" =  :no 
+	AND 	TRN."店舗ID" = :shopid
+	GROUP BY   MST."商品管理番号" 
+	ORDER BY 	MST."商品管理番号" 
+</sql>
+
  </sqls>
 

@@ -319,5 +319,28 @@
 			ORDER BY mst1."商品管理番号"
 	</sql>
 
+	<!-- 入库 -->
+	<sql id="scanInstorage">
+		UPDATE "MST_在庫情報" 
+		set "LOCAL在庫" = COALESCE("LOCAL在庫" , 0) + COALESCE(h.num , 0)
+		from 
+			( SELECT 
+					mst."ASIN番号" as asin 
+					, mst."SKU番号" as sku 
+					, trn."数量" as num 
+					, mst."店舗ID" as shopid
+			FROM 
+					"TRN_商品スキャン明細" trn 
+					, "MST_出品マスタ情報" mst 
+			where 	
+					trn."リストNO" = :listno 
+					and trn."LABEL番号" = mst."LABEL番号"
+					and trn."店舗ID" = :shopid 
+			) h
+		where 
+			"MST_在庫情報"."ASIN番号" = h.asin 
+			and "MST_在庫情報"."SKU番号" = h.sku 
+			and "MST_在庫情報"."店舗ID" = h.shopid
+	</sql>
 
 </sqls>

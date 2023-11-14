@@ -44,7 +44,10 @@
 		, M."FBM発送方式" as fba
 		, M."商品名称" as name
 		, M."仕入中止" as suspend
-		, M."仕入先" as purchase
+		, case when  M."仕入先" = '01' then '01.恩氏製衣'
+			   when  M."仕入先" = '02' then '02.両匹狼'
+			   when  M."仕入先" = '03' then '03.星峰製衣'
+			   when  M."仕入先" = '99' then '99.その他' end  as purchase
 		, M."暫定フラグ" as flg
 	FROM
 		"MST_出品マスタ情報" M
@@ -64,8 +67,12 @@
 		<if istrue="productno == 'マスタ未登録'"> M."商品管理番号" is NULL </if>
 		<if istrue="productno != 'マスタ未登録'"> M."商品管理番号" = :productno </if>
 		)
+	</if> 
+	<if exists="purchase"> AND (  
+			<if istrue="purchase == '99'"> M."仕入先" is NULL or M."仕入先" ='' or M."仕入先" ='99'</if>
+			<if isfalse="purchase == '99'"> M."仕入先" = :purchase </if>
+			)
 	</if>
-
 	<if exists="keyword"> AND (
 		UPPER(M."商品種別") LIKE concat('%', :keyword ,'%') OR
 		UPPER(M."商品管理番号") LIKE concat('%', :keyword ,'%') OR

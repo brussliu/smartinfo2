@@ -331,7 +331,11 @@
 			T.deliveryquantity,
 			T.purchasequantity,
 			T.zt_flg,
-			T.suspend 
+			T.suspend,
+			case when  T.purchasetype = '01' then '01.恩氏製衣'
+			   when  T.purchasetype = '02' then '02.両匹狼'
+			   when  T.purchasetype = '03' then '03.星峰製衣'
+			   when T.purchasetype = '99' then '99.その他' end  as purchasetype 
 		from
 			(
 				select
@@ -375,7 +379,8 @@
 					c."推奨仕入数量" as purchasequantity,
 					a."店舗ID" as shopid,
 					a."暫定フラグ" as zt_flg,
-					a."仕入中止" as suspend
+					a."仕入中止" as suspend ,
+					a."仕入先" as purchasetype
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" and a."SKU番号"=b."SKU番号" and a."店舗ID" = b."店舗ID"
@@ -451,7 +456,8 @@
 							<if exists="maxNum"> and ( c."推奨仕入数量" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
 						</if>
 						
-					</if>
+					</if> 
+					<!-- <if exists="purchasetype"> AND (  a."仕入先" = :purchasetype ) </if> -->
 				union all
 				
 				select
@@ -487,7 +493,8 @@
 					null as purchasequantity,
 					a."店舗ID" as shopid,
 					a."暫定フラグ" as zt_flg,
-					a."仕入中止" as suspend 
+					a."仕入中止" as suspend ,
+					a."仕入先" as purchasetype
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_在庫情報" d on 
@@ -515,13 +522,14 @@
 				<if istrue="opt_productno == 'マスタ未登録'"> T."pno" is null </if>
 				<if istrue="opt_productno != 'マスタ未登録'"> T."pno" = :opt_productno </if>
 				)
-			</if>
-
+			</if> 
+			<if exists="purchasetype"> AND (  
+				<if istrue="purchasetype == '99'">  T."purchasetype" is NULL or T."purchasetype" ='' or  T."purchasetype" ='99'</if>
+				<if isfalse="purchasetype == '99'">  T."purchasetype" = :purchasetype </if>
+			) </if>
 			<if exists="keyword">  
 				<if istrue="flg == '2'">   and ( 
 					T."asin" IN (@keyword)   
-					or
-					T."sku" IN (@keyword)
 				)
 				</if>
 				<if istrue="flg == '1'">  and (  
@@ -553,7 +561,7 @@
 
 			order by
 				T."pno",
-				T."preproduct" desc,
+				T."preproduct" ,
 				COALESCE(cast(S1."ソート" as varchar), T."sub1"),
 				COALESCE(cast(S2."ソート" as varchar), T."sub2")
 	</sql>

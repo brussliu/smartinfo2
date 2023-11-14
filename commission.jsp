@@ -78,7 +78,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 120px;"><a target="_blank" href="https://sellercentral.amazon.co.jp/help/hub/reference/201112670">販売手数料金</a></td>
+                                    <td style="width: 120px;"><a target="_blank" href="https://sellercentral.amazon.co.jp/help/hub/reference/200336920">販売手数料金</a></td>
                                     <td style="width: 120px;"><a target="_blank" href="https://sellercentral.amazon.co.jp/help/hub/reference/201112670">配送代行費用</a></td>
                                     <td style="width: 200px;"><button onclick="searchcommission()">検索</button></td>
                                 </tr>

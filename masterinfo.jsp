@@ -301,16 +301,16 @@
                             }
                         }
                         // ７，FBA発送方式
-                        var inputValue = tdArr.eq(11).children(0).html();
+                        var inputValue = tdArr.eq(12).children(0).html();
                         if (productkinds == "親商品") {
                             if(inputValue != null && inputValue != ""){
-                                tdArr.eq(11).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(12).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }
                         if (productkinds == "子商品") {
                             if(inputValue == null || inputValue == ""){
-                                tdArr.eq(11).css({ "background": "rgb(255,150,150)" });
+                                tdArr.eq(12).css({ "background": "rgb(255,150,150)" });
                                 displayflg = true;
                             }
                         }
@@ -404,12 +404,22 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="c_condition" style="height: 70px;">
+                    <div class="c_condition" style="height: 78px;">
                         <table>
                             <tbody>
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品分類：</td>
-                                    <td id="producttype">
+                                    <td id="producttype">  </td>
+                                    <td  style="width: 100px;font-weight: bold;">&nbsp;&nbsp;仕入先：</td>
+                                    <td >
+                                        <select style="width: 130px;height:30px;border-style: solid;" id="opt_purchase">
+                                            <option value=""></option> 
+                                            <option value="01">01.恩氏製衣</option>
+                                            <option value="02">02.両匹狼</option>
+                                            <option value="03">03.星峰製衣</option>
+                                            <option value="99">99.その他</option>
+                                            
+                                        </select>
                                     </td>
                                 </tr> 
                             </tbody>
@@ -440,7 +450,7 @@
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
                         <table class="table_detail_header" id="stocktablehead"
-                            style="width: 2234px;table-layout: fixed;">
+                            style="width: 2324px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 70px;">操作</th>
@@ -450,10 +460,11 @@
                                     <th style="width: 70px;">親子区分</th>
                                     <th style="width: 160px;">分類①</th>
                                     <th style="width: 160px;">分類②</th>
-                                    <th style="width: 150px;" class="display2">ASIN番号</th>
-                                    <th style="width: 150px;" class="display2">SKU番号</th>
-                                    <th style="width: 150px;" class="display2">LABEL番号</th>
+                                    <th style="width: 140px;" class="display2">ASIN番号</th>
+                                    <th style="width: 140px;" class="display2">SKU番号</th>
+                                    <th style="width: 140px;" class="display2">LABEL番号</th>
                                     <th style="width: 80px;">仕入価格</th>
+                                    <th style="width: 120px;">仕入先</th>
                                     <th style="width: 160px;">FBM発送方式</th>
                                     <th style="width: 817px;">商品名称</th>
                                 </tr>
@@ -461,24 +472,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2217px;table-layout: fixed;" id="stocktable">
-
-                            <tr>
-                                <td style="width: 70px;" class="c"><button class="btn" id="update"
-                                        onclick="masterinfo_inputdialog.dialog('open');" value="">更新</button><input
-                                        type="hidden" id="flg" value=""></input></td>
-                                <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                <td style="width: 80px;" class="c">W001</td>
-                                <td style="width: 70px;" class="c">親商品</td>
-                                <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-                                <td style="width: 150px;" class="c">B089WGVH9V</td>
-                                <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                <td style="width: 150px;" class="c">X000UXRHRV</td>
-                                <td style="width: 80px;" class="r"><span class="r5">999.00</span></td>
-                                <td style="width: 160px;" class="l"><span class="l5">A:クリックポスト</span></td>
-                                <td style="width: 800px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
-                            </tr>
+                        <table class="table_detail_content" style="width: 2307px;table-layout: fixed;" id="stocktable">
 
 
                         </table>

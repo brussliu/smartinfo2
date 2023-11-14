@@ -11,6 +11,7 @@ stockinfo_search.paramsFormat={
 	"#select_item":null,
 	"#text_minNum":null,
 	"#text_maxNum":null,
+	"#opt_purchase":null, 
 
 };
 
@@ -35,6 +36,7 @@ stockinfo_search.fire=function(params){
 	var text_keyword = params["keywordArr"];
 	var flg = '0';
 	 
+	var purchasetype = params["#opt_purchase"];
 	var keyword = ''
 	if(text_keyword.length == 1){
 		flg = '1';
@@ -80,7 +82,8 @@ stockinfo_search.fire=function(params){
 			shippingway :shippingway,
 			item :item,
 			minNum :minNum,
-			maxNum :maxNum
+			maxNum :maxNum,
+			purchasetype:purchasetype
 		
 		}
 	).getArray(); 
@@ -95,7 +98,8 @@ stockinfo_search.fire=function(params){
 			'<td style="width: 160px;" class="l"><span class="l5">{sub2}</span></td>' +
 			'<td style="width: 120px;" class="c">{asin}</td>' +
 			'<td style="width: 150px;" class="c">{sku}</td>' +
-			'<td style="width: 120px;" class="c">{label}</td>' + 
+			'<td style="width: 120px;" class="c">{label}</td>' +  
+			'<td style="width: 120px;" class="l"><span class="l5">{purchasetype}</span></td>' +
 			'<td style="width: 80px;" class="c">{shippingway}</td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fba}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fbm}</span></td>' +

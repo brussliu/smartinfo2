@@ -5,7 +5,7 @@ masterinfo_search.paramsFormat={
 	"#productno":null,
 	"#keyword":null,
 	"#notenough":null, 
-
+	"#opt_purchase":null, 
 };
  
 masterinfo_search.fire=function(params){
@@ -19,7 +19,7 @@ masterinfo_search.fire=function(params){
 	var productno = params["#productno"];
 	var keyword = params["#keyword"].toUpperCase();
 	var notenough = params["#notenough"];
- 
+	var purchase = params["#opt_purchase"];
 	var type="";
 	for(let i=0;i<pdArr.length;i++){
 		
@@ -38,7 +38,8 @@ masterinfo_search.fire=function(params){
 			shopid : getShopId(),
 			ptype : type,
 			productno : productno,
-			keyword : keyword
+			keyword : keyword,
+			purchase : purchase
 		
 		}
 	).getArray();
@@ -53,10 +54,11 @@ masterinfo_search.fire=function(params){
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{sub1}</span></td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{sub2}</span></td>" +
-		"<td style='width: 150px;' class='c display2'>{asin}</td>" +
-		"<td style='width: 150px;' class='c display2'>{sku}</td>" +
-		"<td style='width: 150px;' class='c display2'>{label}</td>" + 
+		"<td style='width: 140px;' class='c display2'>{asin}</td>" +
+		"<td style='width: 140px;' class='c display2'>{sku}</td>" +
+		"<td style='width: 140px;' class='c display2'>{label}</td>" + 
 		"<td style='width: 80px;' class='r'><span class='r5'>{price}</span></td>" +
+		"<td style='width: 120px;' class='l'><span class='l5'>{purchase}</span></td>" +
 		"<td style='width: 160px;' class='l'><span class='l5'>{fba}</span></td>" +
 		"<td style='width: 800px;' class='l'><span>{name}</span></td>" +
 		"</tr>";

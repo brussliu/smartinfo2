@@ -123,6 +123,7 @@
                         $('#btn_send').attr('disabled', false);
                         $('#btn_collection').attr('disabled', false);
                         $('#btn_addpurchase').attr('disabled', false);
+                        $('#btn_ivfile').attr('disabled', false);
                     } else if (v == '2.発送済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
@@ -130,6 +131,7 @@
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', false);
                         $('#btn_addpurchase').attr('disabled', true);
+                        $('#btn_ivfile').attr('disabled', false);
                     } else if (v == '3.仕入済') {
                         $('#btn_content').attr('disabled', false);
                         $('#btn_update').attr('disabled', false);
@@ -137,6 +139,7 @@
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
                         $('#btn_addpurchase').attr('disabled', true);
+                        $('#btn_ivfile').attr('disabled', false);
                     } else {
                         $('#btn_content').attr('disabled', true);
                         $('#btn_update').attr('disabled', true);
@@ -144,6 +147,7 @@
                         $('#btn_send').attr('disabled', true);
                         $('#btn_collection').attr('disabled', true);
                         $('#btn_addpurchase').attr('disabled', true);
+                        $('#btn_ivfile').attr('disabled', true);
                     }
                 }
 
@@ -349,11 +353,14 @@
 
                 // 仕入ファイル
                 function addpurchase(){
-                    var purchaseno = $('input:radio[name="choice"]:checked').val();
-                    console.log(purchaseno)
+                    var purchaseno = $('input:radio[name="choice"]:checked').val(); 
                     Efw('purchase_doc', { "purchaseno": purchaseno });
                 }
-
+                // ivfile
+                function ivfile() {
+                    var purchaseno = $('input:radio[name="choice"]:checked').val();
+                    Efw('purchase_ivfile', { "purchaseno": purchaseno });
+                }
             </script>
             <style>
                 .table_btn td button {
@@ -415,14 +422,15 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td></td> 
                                    
                                     <td style="width: 120px;"><button id="btn_new" onclick="add()">新規</button></td>
                                     <td style="width: 120px;"><button id="btn_content" disabled="disabled"
                                             onclick="opencontentdialog()">仕入内容</button></td>
                                     <td style="width: 120px;"><button id="btn_update" onclick="update()"
-                                            disabled="disabled">仕入更新</button></td>
+                                            disabled="disabled">仕入更新</button></td> 
+                                    <td style="width: 170px;"><button id="btn_ivfile" onclick="ivfile()"
+                                            disabled="disabled" style="width: 150px;">IVファイル</button></td>
                                     <td style="width: 170px;"><button id="btn_addpurchase" onclick="addpurchase()"
                                             disabled="disabled" style="width: 150px;">仕入ファイル</button></td>
                                     <td style="width: 120px;"><button id="btn_delete" onclick="deletepurchase()"

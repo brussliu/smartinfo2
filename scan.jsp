@@ -178,11 +178,11 @@
                     if (val == 'init') {
                         $('#btn_update').attr('disabled', true);
                         $('#btn_del').attr('disabled', true);
-                         
+                        $('#btn_instorage').attr('disabled', true);
                     } else {
                         $('#btn_update').attr('disabled', false);
                         $('#btn_del').attr('disabled', false);
-                      
+                        $('#btn_instorage').attr('disabled', false);
                     }
                 }
 
@@ -190,6 +190,11 @@
                     $('#opt').val('update')
                     var listno = $('input:radio[name="choice"]:checked').val();
                     Efw('scan_update', { "listno": listno });
+                }
+                // 入库
+                function instorage() { 
+                    var listno = $('input:radio[name="choice"]:checked').val();
+                    Efw('scan_instorage', { "listno": listno });
                 }
 
                 function inventory() {
@@ -316,14 +321,16 @@
                         <table class="table_btn" style="margin-bottom: 5px;">
                             <tbody>
                                 <tr>
-                                    <td> </td>
-                                    <td> </td>
+                                    <td> </td> 
                                     <td style="width: 200px;"><button id="btn_new" onclick="add()">新規</button></td>
                                     <td style="width: 200px;"><button id="btn_update" onclick="update()"
                                             disabled>更新</button></td>
                                     <td style="width: 200px;"><button id="btn_inventory" onclick="inventory()"
                                             >棚卸</button>
                                     </td>
+                                    <td style="width: 200px;"><button id="btn_instorage" onclick="instorage()"
+                                        disabled>入庫</button>
+                                     </td>
                                     <td style="width: 200px;"><button id="btn_del" onclick="del()" disabled>削除</button>
                                     </td>
                                 </tr>

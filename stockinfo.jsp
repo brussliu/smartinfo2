@@ -42,14 +42,14 @@
                 // 选中当前数据，编辑LOCAL在庫
                 function check(val) {
                     // 途中（納品）
-                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     // 途中（LOCAL）
-                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
                     // 途中（仕入）
-                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
 
                     if ($(val).is(':checked')) {
                         if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
@@ -290,12 +290,22 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="c_condition" style="height: 70px;">
+                    <div class="c_condition" style="height: 78px;">
                         <table>
                             <tbody>
                                 <tr>
                                     <td style="width: 120px;font-weight: bold;">&nbsp;&nbsp;商品分類：</td>
                                     <td id="checkbox_producttype"></td>
+                                    <td  style="width: 100px;font-weight: bold;">&nbsp;&nbsp;仕入先：</td>
+                                    <td >
+                                        <select style="width: 130px;height:30px;border-style: solid;" id="opt_purchase">
+                                            <option value=""></option> 
+                                            <option value="01">01.恩氏製衣</option>
+                                            <option value="02">02.両匹狼</option>
+                                            <option value="03">03.星峰製衣</option>
+                                            <option value="99">99.その他</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -358,7 +368,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
-                        <table class="table_detail_header" style="width: 2735px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2855px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
@@ -372,8 +382,8 @@
 
                                     <th style="width: 120px;">ASIN番号</th>
                                     <th style="width: 150px;">SKU番号</th>
-                                    <th style="width: 120px">LABEL番号</th>
-                                    <!-- <th style="width: 817px;">商品名称</th> -->
+                                    <th style="width: 120px">LABEL番号</th> 
+                                    <th style="width: 120px;">仕入先</th>
 
                                     <th style="width: 80px;">发送方式</th>
                                     <th style="width: 80px;">FBA在庫</th>
@@ -399,7 +409,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2738px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2848px;table-layout: fixed;" id="stocktable">
                             <tbody>
                                 <!-- 
                                 <tr>

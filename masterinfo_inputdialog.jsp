@@ -77,6 +77,7 @@
                                      <option value="01">01.恩氏製衣</option>
                                      <option value="02">02.両匹狼</option>
                                      <option value="03">03.星峰製衣</option>
+                                     <option value="99">99.その他</option>
                             </select>
                         </td>
                     </tr>
