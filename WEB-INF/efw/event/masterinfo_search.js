@@ -48,7 +48,7 @@ masterinfo_search.fire=function(params){
 	var resultHTML = 
 		"<tr data-suspend='{suspend}'>" +
 		"<td style='width: 70px;' class='c'><button class='btn' id='update' onclick='updatedialog(this);'>更新</button><input type='hidden' id='flg' value='{flg}'></input></td>" +
-		"<td style='width: 70px;' class='c' data-suspend='{suspend}'><span></span></td>" +
+		"<td style='width: 70px;' class='c'><span>{str}</span></td>" +
 		"<td style='width: 140px;' class='l'><span class='l5'>{type}</span></td>" +
 		"<td style='width: 80px;' class='c'>{no}</td>" +
 		"<td style='width: 70px;' class='c'>{preproduct}</td>" +

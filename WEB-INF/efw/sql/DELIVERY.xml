@@ -806,7 +806,7 @@
 	</sql>
 
 	
-		<sql id="selectSkuList">
+<sql id="selectSkuList">
 		select
 			"SKU番号" || '	' ||"数量" as skuinfo
 		from
@@ -815,6 +815,17 @@
 			"納品NO" = :col0
 		and 
 			"店舗ID" = :shopid
-	</sql>
+</sql>
+
+<sql id="checkLocalNum">
+	SELECT 
+		"SKU番号" 
+	from 
+		"MST_在庫情報" 
+	WHERE 
+		"途中在庫_入庫" &lt; 0
+	AND 
+		"店舗ID" = :shopid
+</sql>
  </sqls>
 

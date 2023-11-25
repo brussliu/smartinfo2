@@ -331,7 +331,7 @@
 			T.deliveryquantity,
 			T.purchasequantity,
 			T.zt_flg,
-			T.suspend,
+			T.str,
 			case when  T.purchasetype = '01' then '01.恩氏製衣'
 			   when  T.purchasetype = '02' then '02.両匹狼'
 			   when  T.purchasetype = '03' then '03.星峰製衣'
@@ -379,7 +379,9 @@
 					c."推奨仕入数量" as purchasequantity,
 					a."店舗ID" as shopid,
 					a."暫定フラグ" as zt_flg,
-					a."仕入中止" as suspend ,
+					case when a."削除フラグ" = '1' then '削除済'
+		       		     when a."仕入中止" = '1' then '止'
+		       		else '' end as str,
 					a."仕入先" as purchasetype
 				from
 					"MST_出品マスタ情報" a

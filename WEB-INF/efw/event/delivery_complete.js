@@ -49,10 +49,7 @@ delivery_complete.fire = function (params) {
 		// TODO
 		// 受領ファイル取り込み
 		loadAcceptanceFile(receiverfile, 2);
-
-
-
-
+ 
 	}
 
 
@@ -67,10 +64,22 @@ delivery_complete.fire = function (params) {
 		}
 	);
 
-	// 画面へ結果を返す
-
 	ret.eval("init();");
-	ret.eval("$('#file_receiverfile').val('')");
+	ret.eval("$('#file_receiverfile').val('')"); 
+	// 途中入库校验
+	var selectResult3 = db.select(
+		"DELIVERY",
+		"checkLocalNum",
+		{ 
+			shopid:  getShopId()
+		}
+	).getArray(); 
+
+	var logtitle = '納品NO：'+deliveryno+' 操作：納品完了' 
+	if(selectResult3.length > 0 ){
+		logtitle.debug('--------------------');
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');");  
+	}   
 	return ret;
 
 };
@@ -373,66 +382,3 @@ function importAcceptance01(aryField, index) {
 	}
 
 };
-
-
-
-// function importAcceptance(aryField, index) {
-
-// 	// AMZ-納品番号
-// 	if (index == 0) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz1",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-// 	// AMZ-納品名
-// 	if (index == 1) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz2",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-// 	// AMZ-納品プラン番号
-// 	if (index == 2) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz3",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-// 	// AMZ-納品先
-// 	if (index == 3) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz4",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-// 	// AMZ-SKU合計
-// 	if (index == 4) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz5",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-// 	// AMZ-商品合計数
-// 	if (index == 5) {
-// 		var updResult = db.change("DELIVERY",	"updateDeliveryAmz6",	{"info": aryField[1],	"col0": deliveryno,	"shopid": getShopId()});
-// 	}
-
-// 	if (index >= 8) {
-
-// 		// 納品明細の受領数量を更新
-// 		var updResult = db.change(
-// 			"DELIVERY",
-// 			"updateDeliveryNum",
-// 			{
-// 				"acceptance": aryField[9],
-// 				"sku": aryField[0],
-// 				"asin": aryField[2],
-// 				"no": no,
-// 				"shopid": getShopId()
-// 			}
-// 		);
-
-// 		// 想定外納品
-// 		if (updResult == 0 || updResult == "0") {
-// 			var insResult3 = db.change(
-// 				"DELIVERY",
-// 				"insertAcceptanceDetail",
-// 				{
-// 					"col0": no,
-// 					"col1": aryField[0],
-// 					"col2": aryField[2],
-// 					"col3": aryField[9],
-// 					"shopid": getShopId()
-// 				}
-// 			);
-// 		}
-
-// 	}
-
-// };

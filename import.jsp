@@ -515,7 +515,7 @@
                                 <td class="td6" id="file17_importtime">-</td>
                                 <td class="td6" id="file17_importcount">-</td>
                             </tr>
-                            <tr class="datatr" style="border-bottom: 1px solid black;background-color: lightgray;">
+                            <tr class="datatr" style=" background-color: lightgray;">
                                 <td class="td1">18</td>
                                 <td class="td2">返送所有権の放棄依頼の詳細レポート</td>
                                 <td class="td3">1回／月</td>
@@ -524,6 +524,16 @@
                                 <td class="td6" id="file18_reorganizecount">-</td>
                                 <td class="td6" id="file18_importtime">-</td>
                                 <td class="td6" id="file18_importcount">-</td>
+                            </tr>                            
+                            <tr class="datatr" style="border-bottom: 1px solid black;background-color: lightgray;">
+                                <td class="td1">19</td>
+                                <td class="td2">広告明細費用レポート</td>
+                                <td class="td3">1回／月</td>
+                                <td class="td4" id="file19_filename"></td>
+                                <td class="td5" id="file19_reorganizetime">-</td>
+                                <td class="td6" id="file19_reorganizecount">-</td>
+                                <td class="td6" id="file19_importtime">-</td>
+                                <td class="td6" id="file19_importcount">-</td>  
                             </tr>
                         </table>
                     </div>

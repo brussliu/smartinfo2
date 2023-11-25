@@ -90,7 +90,7 @@ stockinfo_search.fire=function(params){
 	var resultHTML = 
 		'<tr data-suspend="{suspend}">' +
 			'<td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this);"><input type="hidden" value="{zt_flg}"></td>' +
-			'<td style="width: 50px;" class="c" data-suspend="{suspend}"><span></span></td>' +
+			'<td style="width: 50px;" class="c"><span>{str}</span></td>' +
 			'<td style="width: 140px" class="l"><span class="l5">{type}</span></td>' +
 			'<td style="width: 80px;" class="c">{pno}</td>' +
 			'<td style="width: 70px;" class="c">{preproduct}</td>' +

@@ -43,7 +43,9 @@
 		, M."仕入申報価格（ドル）" as price3
 		, M."FBM発送方式" as fba
 		, M."商品名称" as name
-		, M."仕入中止" as suspend
+		, case when M."削除フラグ" = '1' then '削除済'
+		       when M."仕入中止" = '1' then '止'
+		       else '' end as str
 		, case when  M."仕入先" = '01' then '01.恩氏製衣'
 			   when  M."仕入先" = '02' then '02.両匹狼'
 			   when  M."仕入先" = '03' then '03.星峰製衣'

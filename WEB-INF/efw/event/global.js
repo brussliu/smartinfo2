@@ -437,7 +437,7 @@ function excute_01_m1() {
 	var updateResult02 = db.change("IMPORT", "excute_01_m1_02", {"shopId": getShopId()});
 	var updateResult03 = db.change("IMPORT", "excute_01_m1_03", {"shopId": getShopId()});
 	var updateResult04 = db.change("IMPORT", "excute_01_m1_04", {"shopId": getShopId()});
-	//var updateResult05 = db.change("IMPORT", "excute_01_m1_05", {"shopId": getShopId()});
+	var updateResult05 = db.change("IMPORT", "excute_01_m1_05", {"shopId": getShopId()});
 
 }
 

@@ -45,10 +45,21 @@ delivery_send.fire = function (params) {
 	);
 
 
-	// 画面へ結果を返す
+	// 途中入库校验
+	var selectResult3 = db.select(
+		"DELIVERY",
+		"checkLocalNum",
+		{  
+			shopid:  getShopId()
+		}
+	).getArray(); 
 
+	var logtitle = '納品NO：'+deliveryno+' 操作：納品発送'
+	if(selectResult3.length > 0 ){
+		logtitle.debug('--------------------');
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');");  
+	}  
 	ret.eval("init();");
-	// ret.eval("choice('');");
 	return ret;
 
 };

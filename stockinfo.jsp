@@ -206,11 +206,10 @@
 
                         
                         // 仕入中止
-                        if($(this).data("suspend") == '1'){ 
+                        if($(this).children().eq(1).children().html() == '止' || $(this).children().eq(1).children().html() == '削除済'){ 
                             $(this).css({ "background": "rgb(200,200,200)" }) 
                             $(this).children().eq(0).css({ "background": "rgb(200,200,200)" })
                             $(this).children().eq(1).css({"color" : "red"}) 
-                            $(this).children().eq(1).children().html('止')
                         }
                     });
                 }
