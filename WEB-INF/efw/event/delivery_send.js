@@ -44,20 +44,36 @@ delivery_send.fire = function (params) {
 		}
 	);
 
+	// MST_入庫仕入推奨数量情報 全体更新
+	excute_m2_m4();
 
 	// 途中入库校验
 	var selectResult3 = db.select(
 		"DELIVERY",
-		"checkLocalNum",
+		"checkLocalNum0",
 		{  
 			shopid:  getShopId()
 		}
 	).getArray(); 
+	var selectResult4 = db.select(
+		"DELIVERY", 
+		"checkLocalNum1",
+		{  
+			shopid:  getShopId()
+		}
+	).getSingle(); 
+	var selectResult5 = db.select(
+		"DELIVERY", 
+		"checkLocalNum2",
+		{  
+			shopid:  getShopId()
+		}
+	).getSingle(); 
 
 	var logtitle = '納品NO：'+deliveryno+' 操作：納品発送'
-	if(selectResult3.length > 0 ){
+	if(selectResult3.length > 0 || selectResult4['ct1'] != selectResult5['ct2']){
 		logtitle.debug('--------------------');
-		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');");  
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
 	}  
 	ret.eval("init();");
 	return ret;

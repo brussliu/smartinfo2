@@ -7,6 +7,7 @@
             <title>代行発送情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {
 
@@ -19,6 +20,15 @@
                 function init() {
                     Efw('shipacting_init');
                 }
+                  // CTRL+O
+                  $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
 
                 // 子画面が閉じる
                 function cancel() {
@@ -233,34 +243,7 @@
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="shipactingtable"
                             style="width: 2067px;table-layout: fixed;">
-                            <tbody>
-                                <!-- <tr>
-                                        <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                        <td style="width: 155px" class="c">20230110-190400</td>
-                                        <td style="width: 85px;" class="c">已发送</td>
-
-                                        <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
-                                        <td style="width: 100px;" class="r"><span class="r5">999999.99</span></td>
-                                        <td style="width: 100px;" class="c">111-1111</td>
-
-                                        <td style="width: 350px;" class="l">
-                                            <span class="l5">神奈川県</span><br>
-                                            <span class="l5">横浜市泉区緑園4-1-2</span><br>
-                                            <span class="l5">緑園都市耳鼻咽喉科 酒井医院</span>
-                                        </td>
-                                        <td style="width: 100px;" class="l"><span class="l5">阿部きよ子</span></td>
-                                        <td style="width: 130px;" class="l"><span class="l5">090-2633-1119</span></td>
-
-                                        <td style="width: 200px;" class="l"><span class="l5">鹰标（一对）银</span></td>
-                                        <td style="width: 60px;" class="r"><span class="r5">9999</span></td>
-                            
-
-                                        <td style="width: 180px;" class="l"><span class="l5">クリックポスト</span></td>
-                                        <td style="width: 180px;" class="r"><span class="r5">5.12</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">628716566505</span></td>
-                                    </tr>  -->
-
-                            </tbody>
+                          
                         </table>
                     </div>
                 </div>

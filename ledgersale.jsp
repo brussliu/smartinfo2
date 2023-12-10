@@ -7,6 +7,7 @@
             <title>商品別売上管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {
 
@@ -26,8 +27,15 @@
                     }); 
                     Efw('ledgersale_search', { 'producttypeArr': producttypeArr});
                 }
- 
-           
+                // CTRL+O
+                $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
            </script>
             <style>
 
@@ -145,7 +153,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: display; " onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="table-layout: fixed;width: 1957px;" id="advertisingtable">
-                            <tbody>
+                            <!-- <tbody> -->
                                 <tr >
                                     <td style="width: 50px;"class="c">1</td>
                                     <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
@@ -678,8 +686,7 @@
     
                                         </tr>   
                                  
-                               
-                            </tbody>
+                                
                         </table>
                     </div>
 

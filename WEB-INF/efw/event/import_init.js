@@ -27,6 +27,7 @@ var FILE15_NAME = "15.長期在庫保管手数料請求額レポート";
 var FILE16_NAME = "16.返品レポート";
 var FILE17_NAME = "17.返送推奨レポート";
 var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
+var FILE19_NAME = "19.広告明細費用レポート";
 
 import_init.fire = function (params) {
 
@@ -55,6 +56,7 @@ import_init.fire = function (params) {
 		
 	}
 
+	var file19_flg = false;
 	var selectResult2 = db.select("IMPORT",	"selectInitInfo2",	{"shopId": getShopId()}).getArray();
 	
 	// 取得したデータを画面に表示する
@@ -62,6 +64,11 @@ import_init.fire = function (params) {
 
 		var datatype = selectResult2[i]["データ種別"];
 		script = script + "setInit2('" + datatype + "','" + selectResult2[i]["導入ファイル名"] + "','" + selectResult2[i]["導入日時"].format("yyyy-MM-dd HH:mm:ss") + "','" + selectResult2[i]["導入件数"] + "');";
+
+		// ファイルNo.19判定
+		if(datatype == 'file19'){
+			file19_flg = true;
+		}
 		
 	}
 
@@ -74,8 +81,32 @@ import_init.fire = function (params) {
 
 	}
 
+	// ファイルNo.19の判定
+	if(file19_flg == true){
 
+		var optionstr = "<option value=''class='option'></option>";
+		ret.eval("$('#opt_yearMonth').append(`"+optionstr+"`)");
+
+		var newDate =  new Date();
+
+		for(var i = 0; i < 3; i++){
 	
+			// 前月から表示
+			newDate.setMonth(newDate.getMonth() - 1);
+	
+			var months = newDate.getMonth() + 1;
+			var years = newDate.getFullYear();
+	
+			var yearMonth = years + '年' + months + '月'
+			var options = "<option value='"+yearMonth+"'class='option' >"+yearMonth+"</option>";
+	
+			ret.eval("$('#opt_yearMonth').append(`"+options+"`)");
+	
+			ret.eval("$('#opt_yearMonth').show();");
+			
+		}
+		
+	}
 
 	return ret.eval(script);
 

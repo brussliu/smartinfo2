@@ -224,9 +224,13 @@
 		where
 			a."暫定フラグ" = 0
 			and
+			a."削除フラグ" != '1'
+			and
 			a."店舗ID" = :shopid
 			and 
 			a."親子区分" = '子商品'
+			and
+			a."商品種別" is not null
 		order by
 			a."商品種別",
 			a."商品管理番号",
@@ -288,9 +292,13 @@
 		where
 			a."暫定フラグ" > 0
 			and
+			a."削除フラグ" != '1'
+			and
 			a."店舗ID" = :shopid
 			and 
 			a."親子区分" = '子商品'
+			and
+			a."商品種別" is not null
 		order by
 			a."商品種別",
 			a."商品管理番号",
@@ -382,7 +390,8 @@
 					case when a."削除フラグ" = '1' then '削除済'
 		       		     when a."仕入中止" = '1' then '止'
 		       		else '' end as str,
-					a."仕入先" as purchasetype
+					a."仕入先" as purchasetype,
+					a."削除フラグ" as conceal 
 				from
 					"MST_出品マスタ情報" a
 					left join "MST_販売数量情報" b on a."ASIN番号"=b."ASIN番号" and a."SKU番号"=b."SKU番号" and a."店舗ID" = b."店舗ID"
@@ -459,7 +468,7 @@
 						</if>
 						
 					</if> 
-					<!-- <if exists="purchasetype"> AND (  a."仕入先" = :purchasetype ) </if> -->
+					
 				union all
 				
 				select
@@ -495,18 +504,41 @@
 					null as purchasequantity,
 					a."店舗ID" as shopid,
 					a."暫定フラグ" as zt_flg,
-					a."仕入中止" as suspend ,
-					a."仕入先" as purchasetype
+					case when a."削除フラグ" = '1' then '削除済'
+		       		     when a."仕入中止" = '1' then '止'
+		       		else '' end as str,
+					a."仕入先" as purchasetype,
+					a."削除フラグ" as conceal 
 				from
 					"MST_出品マスタ情報" a
-					left join "MST_在庫情報" d on 
-
-						a."暫定フラグ" = d."暫定フラグ" and 
-						a."店舗ID" = d."店舗ID" 
+					left join "MST_在庫情報" d on a."暫定フラグ" = d."暫定フラグ" and a."店舗ID" = d."店舗ID" 
 				where
 					a."暫定フラグ" > 0
 					and
 					a."店舗ID" = :shopid
+					<if exists="item"> 
+						<if istrue="item == 'FBA在庫' ">  
+							<if exists="minNum"> and (  d."FBA在庫" &gt;= CAST( :minNum as numeric(10,2)) ) </if>
+							<if exists="maxNum"> and (  d."FBA在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>				 
+						</if>
+						<if istrue="item == 'FBM在庫' "> 
+							<if exists="minNum"> and ( d."FBM在庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."FBM在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '途中在庫_入庫' ">	
+							<if exists="minNum"> and ( d."途中在庫_入庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."途中在庫_入庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == '途中在庫_仕入' ">	
+							<if exists="minNum"> and ( d."途中在庫_仕入" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."途中在庫_仕入" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						<if istrue="item == 'LOCAL在庫' ">	
+							<if exists="minNum"> and ( d."LOCAL在庫" &gt;= CAST( :minNum as numeric(10,2)) )   </if>
+							<if exists="maxNum"> and ( d."LOCAL在庫" &lt;= CAST( :maxNum as numeric(10,2)) )   </if>
+						</if>
+						
+					</if> 
 			) T
 			LEFT JOIN "MST_ソート情報" S1 ON 
 				T."type" = S1."商品種別" AND 
@@ -560,13 +592,14 @@
 				T."shippingway" IN (@shippingway)
 				)
 			</if>
-
+			<if notexists="conceal"> AND (  T."conceal" = '0' ) </if>
 			order by
 				T."pno",
-				T."preproduct" ,
+				T."preproduct" desc,
 				COALESCE(cast(S1."ソート" as varchar), T."sub1"),
 				COALESCE(cast(S2."ソート" as varchar), T."sub2")
 	</sql>
+ 
  
 
 <!-- sl:推奨数量入り-推奨納品数量 -->

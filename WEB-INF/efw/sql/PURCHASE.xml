@@ -175,7 +175,7 @@
 		and
 		MST."分類２" = !sub2
 		and
-		MST."暫定フラグ" > 0
+		MST."暫定フラグ" = !zt_flg
 		and
 		MST."店舗ID" = !shopid
 </sql>
@@ -416,8 +416,8 @@
 		C."数量" AS NUMBER 
  FROM
 		"TRN_仕入明細" C
-		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
-		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
+		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" AND A."暫定フラグ" = C."暫定フラグ"
+		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号" AND C."暫定フラグ" = B."暫定フラグ"
 		LEFT JOIN "MST_ソート情報" S1 on A."商品種別" = S1."商品種別" and S1."分類" = '分類１' and A."分類１" = S1."内容" and A."店舗ID" = S1."店舗ID"
 		LEFT JOIN "MST_ソート情報" S2 on A."商品種別" = S2."商品種別" and S2."分類" = '分類２' and A."分類２" = S2."内容" and A."店舗ID" = S2."店舗ID"
 		
@@ -555,6 +555,7 @@
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
 	and	MST."SKU番号" = TRN."SKU番号"
+	and MST."暫定フラグ" = TRN."暫定フラグ" 
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -566,6 +567,7 @@
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
 	and	MST."SKU番号" = TRN."SKU番号"
+	and MST."暫定フラグ" = TRN."暫定フラグ" 
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
@@ -588,6 +590,7 @@
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
 	and	MST."SKU番号" =  TRN."SKU番号"
+	and MST."暫定フラグ" = TRN."暫定フラグ" 
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>

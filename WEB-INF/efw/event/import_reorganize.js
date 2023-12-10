@@ -26,7 +26,7 @@ var FILE15_NAME = "15.長期在庫保管手数料請求額レポート";
 var FILE16_NAME = "16.返品レポート";
 var FILE17_NAME = "17.返送推奨レポート";
 var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
-
+var FILE19_NAME = "19.広告明細費用レポート";
 
 import_reorganize.fire = function (params) {   //
 
@@ -58,6 +58,7 @@ import_reorganize.fire = function (params) {   //
 	processFile("16", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("17", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 	processFile("18", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
+	processFile("19", -2);	// if(status != ""){	return ret.eval("alert('" + status + "')");	}
 
 	return ret.navigate("import.jsp");
 };

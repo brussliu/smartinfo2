@@ -7,6 +7,7 @@
             <title>収入支出情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <style>
            
 
@@ -20,6 +21,14 @@
                 function init(){
         	        Efw('cost_init');
                 }
+                // CTRL+O
+                $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });  
                 function del() {
                     //
                     var delKey = $('input:radio[name="choice"]:checked').val();
@@ -136,6 +145,7 @@
                                      
                     }
                 }
+ 
           </script>
             
         </head>
@@ -211,10 +221,7 @@
 
                     <div class="c_detail_content" style="overflow-y: auto;overflow-x: hidden;height: 777px;margin-left:48px;">
                         <table class="table_detail_content" style="table-layout: fixed;">
-                            <tbody>
-                                
-                               
-                            </tbody>
+                           
                         </table>
                     </div>
                 </div>

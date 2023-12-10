@@ -29,7 +29,7 @@ stockcommission_search.fire=function(params){
 	var opt_yearmonth = params["#opt_yearmonth"];
 	var selectResult = db.select(
 		"STOCKCOMMISSION",
-		"selectcommission",
+		"selectstockcommission",
 		{
 			shopid : getShopId(),
 			ptype : type,

@@ -58,6 +58,10 @@ commission_init.fire = function (params) {
 		}
 	).getArray();
  
+	for(var r=0; r< selectResult3.length; r++){
+		selectResult3[r]['salesrate'] = salesratePercentage(selectResult3[r]['type'],  selectResult3[r]['price'])
+		selectResult3[r]['estimated'] = estimatedPercentage(selectResult3[r]['type'],  selectResult3[r]['price'])
+	}
 	var html1=' <tr>' +
 	'<td style="width: 50px;" class="c">{ids}</td>' +
 	'<td style="width: 140px" class="l"><span class="l5">{type}</span></td>' +
@@ -84,8 +88,69 @@ commission_init.fire = function (params) {
 	'<td style="width: 105px;" class="r"><span class="r5">{grossprofit}</span></td> ' +                             
 	'</tr> '
 	if(selectResult3.length > 0){
-		ret.runat("#commissiontable").remove("*").append(html1).withdata(selectResult3);
+		ret.runat("#commissiontable").remove("tr").append(html1).withdata(selectResult3);
 
 	}
 	return ret;
 };
+
+function salesratePercentage(type, price ){
+	if(price == null || price == ''){
+		return ''
+	}
+	type = type.substring(3 ,type.length)
+	price = price.substring(0 ,price.length-1) 
+	var salesrate = ''
+	if(type == '雨靴'){
+		if(price <=7500){
+			salesrate = '12.00%'
+		}else{
+			salesrate = '12% + 6%'
+		}
+	}else if(type == 'レインコート' ||type == '靴下' ||type == '膝当て' 
+	||type == 'スキー靴下' ||type == 'パジャマ' ||type == 'バスタオル' ){
+		if(price <=3000){
+			salesrate = '12.00%'
+		}else{
+			salesrate = '12% + 8%'
+		}
+	}else if(type == 'Amazonデバイス用アクセサリ'){
+		salesrate = '45.00%'
+	}else if(type == 'その他'){
+		salesrate = '10.00%'
+	}
+
+	return salesrate;
+}
+function estimatedPercentage(type, price ){
+	if(price == null || price == ''){
+		return ''
+	}
+	type = type.substring(3 ,type.length)
+	price = price.substring(0 ,price.length-1)
+	var unit = '円'
+	var estimated = ''
+	if(type == '雨靴'){
+		if(price <=7500){
+			estimated = (price * 12 / 100) ;
+		}else{
+			estimated = ((7500 * 12 / 100) + ((price - 7500) * 6 / 100));
+		}
+	}else if(type == 'レインコート' ||type == '靴下' ||type == '膝当て' 
+	||type == 'スキー靴下' ||type == 'パジャマ' ||type == 'バスタオル' ){
+		if(price <=3000){
+			estimated = (price * 12 / 100) ;
+		}else{
+			estimated = ((3000 * 12 / 100) + ((price - 3000) * 8 / 100));
+		}
+	}else if(type == 'Amazonデバイス用アクセサリ'){
+		estimated = (price * 45 / 100) ;
+	}else if(type == 'その他'){
+		estimated = (price * 10 / 100) ;
+	}
+	estimated = Math.ceil(estimated)
+	if(estimated < 30){
+		estimated = 30 ;
+	}
+	return estimated + unit;
+}

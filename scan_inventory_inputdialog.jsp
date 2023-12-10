@@ -61,7 +61,7 @@
             <div style="overflow: hidden;">
                 <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
-                        <tr class="header">
+                        <tr class="header2">
                             <th style="width: 90px;">商品管理番号</th>
                             <th style="width: 160px;">分類①</th>
                             <th style="width: 160px;">分類②</th>
@@ -79,20 +79,8 @@
 
             </div>
             <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
-                <table id="inventoryObjectTable" class=" table_detail_content" style="table-layout: fixed;text-align: center;">
-                    <tbody>
-                        <!-- <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 80px;">XXXXXXX</td>
-                        </tr> -->
-                        
-                        
-                    </tbody>
+                <table id="inventoryObjectTable" class=" table_detail_content2" style="table-layout: fixed;text-align: center;">
+                    
                 </table>
 
             </div>
@@ -127,7 +115,7 @@
             <div style="overflow: hidden;">
                 <table class="table_detail_header" style="table-layout: fixed;text-align: center;">
                     <thead>
-                        <tr class="header">
+                        <tr class="header2">
                             <th style="width: 90px;">商品管理番号</th>
                             <th style="width: 160px;">分類①</th>
                             <th style="width: 160px;">分類②</th>
@@ -146,16 +134,7 @@
             <div style="overflow-x: hidden;height: 160px; overflow-y: auto; ">
                 <table  id="inventoryReturnTable"  class=" table_detail_content" style="table-layout: fixed;text-align: center;">
                     <tbody>
-                        <!-- <tr>
-                            <td style="width: 90px;">P002</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 160px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 150px;">XXXXXXX</td>
-                            <td style="width: 120px;">XXXXXXX</td>
-                            <td style="width: 80px;">XXXXXXX</td>
-                        </tr> -->
-                      
+                   
                         
                     </tbody>
                 </table>

@@ -77,16 +77,30 @@ delivery_update.fire = function (params) {
 	// 途中入库校验
 	var selectResult3 = db.select(
 		"DELIVERY", 
-		"checkLocalNum",
+		"checkLocalNum0",
 		{ 
 			shopid:  getShopId()
 		}
 	).getArray(); 
+	var selectResult4 = db.select(
+		"DELIVERY", 
+		"checkLocalNum1",
+		{  
+			shopid:  getShopId()
+		}
+	).getSingle(); 
+	var selectResult5 = db.select(
+		"DELIVERY", 
+		"checkLocalNum2",
+		{  
+			shopid:  getShopId()
+		}
+	).getSingle(); 
 
 	var logtitle = '納品NO：'+deliveryno+' 操作：納品更新'
-	if(selectResult3.length > 0 ){
+	if(selectResult3.length > 0 || selectResult4['ct1'] != selectResult5['ct2']){
 		logtitle.debug('--------------------');
-		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');");  
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
 	}  
    
 	// 画面へ結果を返す

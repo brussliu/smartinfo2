@@ -14,7 +14,7 @@ create table public."RES_’·ŠúİŒÉ•ÛŠÇè”—¿¿‹Šzî•ñ" (
   , "¿‹‘ÎÛ‚ÌİŒÉ”" integer
   , "¿‹‹àŠz" numeric(7, 2)
   , "’Ç‰Áè”—¿‚Ì‘ÎÛŠúŠÔ" character varying(50)
-  , "’Ç‰Áè”—¿—¦" integer
+  , "’Ç‰Áè”—¿—¦" numeric(7, 2);
   , "“X•ÜID" character varying(20)
   , "“o˜^“ú" timestamp(6) without time zone
   , "XV“ú" timestamp(6) without time zone

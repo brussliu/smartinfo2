@@ -7,6 +7,7 @@
             <title>納品情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <style>
                 .table_btn td button {
                     width: 100px;
@@ -23,6 +24,14 @@
                 function init() {
                     Efw('delivery_init');
                 }
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
 
                 // 新規
                 function add() {
@@ -159,8 +168,7 @@
 
                  })
                 }
-                
-
+ 
             </script>
         </head>
 
@@ -288,31 +296,7 @@
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="deliverytable"
                             style="width: 2556px;table-layout: fixed;">
-
-                            <!-- <tr>
-                                <td style="width: 50px;" class="c"><input type="radio" name="choice"></input></td>
-                                <td style="width: 155px" class="l a"><span class="l5"
-                                        onclick="delivery_content_inputdialog.dialog('open');">20230118-151418</span>
-                                </td>
-                                <td style="width: 200px;" class="l"><span class="l5">20230118-納品</span></td>
-
-                                <td style="width: 352px;" class="l"><span class="l5">XXXXXXXXX</span></td>
-                                <td style="width: 50px;" class="r"><span class="r5">70</span></td>
-                                <td style="width: 120px;" class="c">2:钠品凳送</td>
-
-                                <td style="width: 100px;" class="c"></td>
-                                <td style="width: 100px;" class="c">2023/01/18</td>
-                                <td style="width: 100px;" class="c">2023/01/18</td>
-                                <td style="width: 100px;" class="c">2023/01/18</td>
-
-                                <td style="width: 140px;" class="c">FBA15D9WH51X</td>
-                                <td style="width: 200px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                <td style="width: 160px;" class="c">FBA15D9WH51X</td>
-                                <td style="width: 400px;" class="l"><span class="l5">FBA STA(2023/01/14 06:45)-NRT5</td>
-                                <td style="width: 140px;" class="r"><span class="r5">33</span></td>
-                                <td style="width: 140px;" class="r"><span class="r5">33</span></td>
-                            </tr> -->
-
+                            
                         </table>
                     </div>
                 </div>

@@ -7,6 +7,7 @@
             <title>在庫保管手数料管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {
 
@@ -17,6 +18,14 @@
                 function init() {
                     Efw('stockcommission_init');
                 }
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
 
                 // 检索
                 function searchstockcommission() {
@@ -170,40 +179,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: display;height: 572px;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="table-layout: fixed;" id="stockcommissiontable">
-                            <tbody>
-                                
-                                <!-- <tr>
-                                    <td style="width: 50px;" class="c"></td>
-                                    <td style="width: 140px" class="c">2023/09/09</td>
-                                    <td style="width: 139px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">W001</td>
-                                    <td style="width: 161px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-
-                                    <td style="width: 121px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    
-                                    <td style="width: 80px;" class="c">china</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="c"><span>999999</span></td>
-                                    <td style="width: 81px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 78px;" class="r"><span class="r5">999999</span></td>
-
-                                    <td style="width: 114px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 113px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 114px;" class="r">999999</td>
-                                    <td style="width: 112px;" class="r"><span class="r5">999999</span></td>
-
-                                    <td style="width: 108px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 108px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 109px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 106px;" class="r"><span class="r5">999999</span></td>
-                                </tr>  -->
-                                
-                            </tbody>
+                           
                         </table>
                     </div>
 

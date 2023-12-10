@@ -3,9 +3,8 @@ stockinfo_search.name="在庫情報管理画面検索";
 stockinfo_search.paramsFormat={
 	"producttypeArr":null,
 	"#opt_productno":null,
-	"keywordArr":null,
-	// "aslArr":null
-	// "send":null,
+	"keywordArr":null, 
+	"#conceal":null, 
 	"#shippingway_fba":null,
 	"#shippingway_fbm":null,
 	"#select_item":null,
@@ -23,6 +22,7 @@ stockinfo_search.fire=function(params){
 	sessionCheck(ret);
 
 	var ptArr = params["producttypeArr"];
+	var conceal = params["#conceal"];
 	var type="";
 	for(let i=0;i<ptArr.length;i++){
 		
@@ -83,7 +83,8 @@ stockinfo_search.fire=function(params){
 			item :item,
 			minNum :minNum,
 			maxNum :maxNum,
-			purchasetype:purchasetype
+			purchasetype:purchasetype,
+			conceal : conceal
 		
 		}
 	).getArray(); 
@@ -106,9 +107,9 @@ stockinfo_search.fire=function(params){
 			'<td style="width: 80px;" class="r"><span class="r5">{put}</span></td>' +
 			'<td style="width: 80px;" class="r"><span>{local}</span> </td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{purchase}</span></td>' +
-			'<td style="width: 80px;" class="r"><span class="r5"><span>{stockonsell}</span></td>' +
-			'<td style="width: 80px;" class="r"><span class="r5"><span>{stockprepare}</span></td>' +
-			'<td style="width: 80px;" class="r"><span class="r5"><span>{stockall}</span></td>' +
+			'<td style="width: 80px;" class="r"><span class="r5">{stockonsell}</span></td>' +
+			'<td style="width: 80px;" class="r"><span class="r5">{stockprepare}</span></td>' +
+			'<td style="width: 80px;" class="r"><span class="r5">{stockall}</span></td>' +
 			'<td style="width: 350px;" class="c">{selled3} / {selled7} / {selled30} / {selled60} / {selled90} / {selled180} / {selled360}</td>' +
 			'<td style="width: 100px;" class="r"><span class="r5">{dayaverage}</span></td>' +
 			'<td style="width: 100px;" class="r"><span class="r5">{stocknumber}</span></td>' +

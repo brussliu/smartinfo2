@@ -228,7 +228,7 @@
                                     </td>
                                     <td><button class="btn btn-0301_17" style="display: none;"
                                         onclick="Efw('common_menu_goto',{page:'advertising.jsp'})">商品別広告情報管理</button></td>
-                                    <td> <button class="btn btn-0301_19" style="display: none;"
+                                    <td> <button class="btn btn-0301_11" style="display: none;"
                                             onclick="Efw('common_menu_goto',{page:'earnings.jsp'})">売上管理</button></td>
                                     <td><button class="btn btn-0301_20" style="display: none;"
                                         onclick="Efw('common_menu_goto',{page:'ledgersale.jsp'})">商品別売上管理</button></td>

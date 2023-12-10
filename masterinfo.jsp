@@ -7,6 +7,7 @@
             <title>SmartInfo 2.0</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
 
                 function scrollHead(obj) {
@@ -18,6 +19,10 @@
                     Efw('masterinfo_init');
                 }
 
+                function cel(){
+                    masterinfo_inputdialog.dialog('close');
+                }
+
                 // 検索
                 function searchmasterinfo() {
 
@@ -25,20 +30,9 @@
                     $('#producttype input:checkbox:checked').each(function (index, item) {
                         productdivArr.push($(this).val());
                     });
-
-                    // var displayflg2 = "0";
-                    // $('#displayitem input:checkbox:checked').each(function (index, item) {
-
-                    //     if ($(this).val() == 'ASIN、SKU、LABEL') {
-                    //         displayflg2 = "1";
-                    //     }
-                    // });
+ 
                     Efw('masterinfo_search', { 'producttype': productdivArr});
                     
-                }
-
-                function cel(){
-                    masterinfo_inputdialog.dialog('close');
                 }
 
                 // 新規
@@ -57,11 +51,11 @@
 
                     $('#preproduct').val("親商品");
                     $("#preproduct").removeAttr("disabled").css("background", "lightcyan");
-
-                    $("#cbox_suspend").prop('checked',false)
-                    // $("#cbox_suspend").attr("disabled", "disabled");
-                    $("#td_suspend").attr("disabled", false);
-
+                    $("#purchase").val('');
+                    $("#productname").val('');
+                    $("#cbox_suspend").prop('checked',false); 
+                    $("#td_suspend").attr("disabled", false); 
+                    $("#del").css("display","none");
                     Efw('masterinfo_new');
 
                 }
@@ -72,10 +66,9 @@
                     var flg = $(btn).next().val();
                     
                     $("#opt").val("update");
-                    $("#td_suspend").attr("disabled", false);
-                    // $("#cbox_suspend").prop('checked',false)
-                  
-                    
+                    $("#del").val(flg);
+                    $("#td_suspend").attr("disabled", false);  
+                    $("#del").attr("disabled", false); 
 
                     var type = $(btn).parent().next().next().children().html();
                     var no = $(btn).parent().next().next().next().html();
@@ -87,28 +80,28 @@
                     $("#newproductno2").data("oldvalue", no);
                     $("#preproduct").data("oldvalue", preproduct);
                     $("#sub1").data("oldvalue", sub1);
-                    $("#sub2").data("oldvalue", sub2);
+                    $("#sub2").data("oldvalue", sub2); 
                     
                     var preproduct = $(btn).parent().next().next().next().next().html();
                     var asin = $(btn).parent().next().next().next().next().next().next().next().html().toString();
                     var sku = $(btn).parent().next().next().next().next().next().next().next().next().html().toString();
- 
-                    if (flg == '1') {//更新时，当暂定为1时
-                        $("#del").css("display","block");
-                        $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
- 
-                        Efw('masterinfo_update1', { 'type': type, 'no': no, 'preproduct': preproduct, 'sub1': sub1, 'sub2': sub2 });
-
-                    } else if (flg == '0') {//更新时，当暂定为0时
+                     
+                    if (flg == '0') {//更新时，当暂定为0时
                         $("#del").css("display","none");
  
                         $("#asinselect").attr("disabled", "disabled").css("background", "lightgray");
                         $("#skuselect").attr("disabled", "disabled").css("background", "lightgray");
                         $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
-                    
+                        
                         Efw('masterinfo_update0', {'asin': asin, 'sku': sku });
 
-                    } 
+                    } else{//更新时，非暂定时
+                        $("#del").css("display","block");
+                        $("#preproduct").attr("disabled", "disabled").css("background", "lightgray");
+                         
+                        Efw('masterinfo_update1', { "flg" : flg});
+
+                    }
 
                 }
 
@@ -170,22 +163,33 @@
                
                 }
 
-                function save() {
+                function save() {   
+                    var opt = $("#opt").val();
+                    if(opt == 'new'){
 
-                    var oldtype = $('#newproducttype2').data('oldvalue');
-                    var oldno = $('#newproductno2').data('oldvalue');
-                    var oldpreproduct = $('#preproduct').data('oldvalue');
-                    var oldsub1 = $('#sub1').data('oldvalue');
-                    var oldsub2 = $('#sub2').data('oldvalue');
-
-                    Efw('masterinfo_save', {
+                        Efw('masterinfo_save', {
+                        'oldtype': '', 
+                        'oldno': '', 
+                        'oldpreproduct': '',
+                        'oldsub1': '',
+                        'oldsub2': '',
+                    });
+                    }
+                    if(opt == 'update'){
+                        var oldtype = $('#newproducttype2').data('oldvalue');
+                        var oldno = $('#newproductno2').data('oldvalue');
+                        var oldpreproduct = $('#preproduct').data('oldvalue');
+                        var oldsub1 = $('#sub1').data('oldvalue');
+                        var oldsub2 = $('#sub2').data('oldvalue');
+                        Efw('masterinfo_save', {
                         'oldtype': oldtype, 
                         'oldno': oldno, 
                         'oldpreproduct': oldpreproduct,
                         'oldsub1': oldsub1==undefined?'':oldsub1,
                         'oldsub2': oldsub2==undefined?'':oldsub2,
                     });
-
+                    }
+                     
                 }
 
                 function changeColor(hideflg) {
@@ -269,13 +273,13 @@
                         var inputValue1 = tdArr.eq(7).html();
                         var inputValue2 = tdArr.eq(8).html();
                         if(inputValue1 == null || inputValue1 == ""){
-                            $(this).css({ "background": "rgb(200,200,200)" });
-                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                            $(this).css({ "background": "rgb(255, 210, 255)" });
+                            tdArr.eq(0).css({ "background": "rgb(255, 210, 255)" });
                             displayflg = true;
                         } 
                         if(inputValue2 == null || inputValue2 == ""){
-                            $(this).css({ "background": "rgb(200,200,200)" });
-                            tdArr.eq(0).css({ "background": "rgb(200,200,200)" });
+                            $(this).css({ "background": "rgb(255, 210, 255)" });
+                            tdArr.eq(0).css({ "background": "rgb(255, 210, 255)" });
                             displayflg = true;
                         }
                         // ５，LABEL番号
@@ -332,22 +336,17 @@
 
                 function del(){
 
-                    var oldtype = $('#newproducttype2').data('oldvalue');
-                    var oldno = $('#newproductno2').data('oldvalue');
-                    var oldpreproduct = $('#preproduct').data('oldvalue');
-                    var oldsub1 = $('#sub1').data('oldvalue');
-                    var oldsub2 = $('#sub2').data('oldvalue');
-
-                    Efw('masterinfo_delete', {
-                        'oldtype': oldtype, 
-                        'oldno': oldno, 
-                        'oldpreproduct': oldpreproduct,
-                        'oldsub1': oldsub1,
-                        'oldsub2': oldsub2,
-                    });
-
+                    var flg =  $("#del").val();  
+                    Efw('masterinfo_delete', {  "flg" : flg }); 
                 }
+                 // CTRL+O
+                $(window).keydown(function(e) {
+	   
+                    if (e.keyCode == 79 && e.ctrlKey) {
 
+                        outputToExcelFile(); 
+                    } 
+                });
 
             </script>
 
@@ -394,10 +393,10 @@
                                     <td style="font-weight: bold;color: maroon">【検索条件】</td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="width: 200px;"><button id="insert" onclick="newdialog()" disabled>新規</button>
-                                    </td>
+                                    <td></td> 
+                                    <td></td> 
+                                    <td style="width: 200px;"><button id="insert" onclick="newdialog()" >新規</button>
+                                    </td> 
                                     <td style="width: 200px;"><button id="searchbtn" onclick="searchmasterinfo()">検索</button></td>
                                 </tr>
                             </tbody>
@@ -442,7 +441,10 @@
                                         <input type="checkbox" id="notenough" value="1">
                                         入力不足項目のみ
                                     </td>
-
+                                    <td style="width: 250px;">
+                                        <input type="checkbox" id="conceal" value="1">
+                                        削除データも表示
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -472,8 +474,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="width: 2307px;table-layout: fixed;" id="stocktable">
-
-
+                          
                         </table>
                     </div>
 

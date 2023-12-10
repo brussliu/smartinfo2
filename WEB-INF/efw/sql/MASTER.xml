@@ -95,6 +95,11 @@
 		  M."商品種別" IN ( @ptype )
 		)
 	 </if>
+	  
+	   <if notexists="conceal"> AND (	
+		  M."削除フラグ" = '0'
+		)
+	   </if>
 		AND M."店舗ID" = :shopid  
 	ORDER BY 
 		M."商品管理番号",
@@ -102,7 +107,7 @@
     	COALESCE(cast(S1."ソート" as varchar), M."分類１"),
     	COALESCE(cast(S2."ソート" as varchar), M."分類２")
 </sql>
- 
+  
 <!-- sl:暂定为1时更新检索 -->
 <sql id="searchmasterinfoflg1" paramPrefix="!">
 	SELECT
@@ -124,50 +129,10 @@
 		, "仕入先" as purchase 
 
 	FROM
-		"MST_出品マスタ情報" 
-	WHERE
-	1=1
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
-		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if>
-	    <if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	    <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	     </if>
- 	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
-		AND "店舗ID" = !shopid  
+		"MST_出品マスタ情報"  
+	WHERE 
+		"暫定フラグ" =  cast(!flg as int )
+	AND "店舗ID" = !shopid  
  
 </sql>
 
@@ -220,20 +185,30 @@
 <sql id="savemasterinfopre">
 	INSERT INTO "MST_出品マスタ情報"
 	(
+		"SKU番号",
+		"ASIN番号",
 		"商品管理番号",
 		"親子区分",
 		"商品種別",
 		"商品名称",
 		"暫定フラグ",
+		"仕入中止",
+		"仕入先",
+		"削除フラグ",
 		"店舗ID",
 		"登録日時",
 		"更新日時"
 	) VALUES (
+		'',
+		'',
 		:productno,--商品管理番号
 		:preproduct,--親子区分
 		:producttype,--商品種別
 		:productname,--商品名称
-		'1',--暫定フラグ
+		:flg,--暫定フラグ
+		COALESCE(:suspend , 0) ,--仕入中止
+		:purchase,--仕入先
+		0,--削除フラグ
 		:shopid,--店舗ID
 		now(), --登録日時
 		now() --更新日時
@@ -243,6 +218,8 @@
 <sql id="savemasterinfosub">
 	INSERT INTO "MST_出品マスタ情報"
 	(
+		"SKU番号",
+		"ASIN番号",
 		"商品管理番号",
 		"親子区分",
 		"商品種別",
@@ -254,10 +231,15 @@
 		"仕入申報価格（元）",
 		"仕入申報価格（ドル）",
 		"暫定フラグ",
+		"仕入中止",
+		"仕入先",
+		"削除フラグ",
 		"店舗ID",
 		"登録日時",
 		"更新日時"
 	) VALUES (
+		'', 
+		'',
 		:productno,--商品管理番号
 		:preproduct,--親子区分
 		:producttype,--商品種別
@@ -268,7 +250,10 @@
 		:productname,--商品名称
 		:price2,--仕入申報価格（元）
 		:price3, --仕入申報価格（ドル）
-		'1',--暫定フラグ
+		:flg,--暫定フラグ
+		COALESCE(:suspend , 0) ,--仕入中止
+		:purchase,--仕入先
+		0,--削除フラグ
 		:shopid,--店舗ID
 		now(), --登録日時
 		now() --更新日時
@@ -283,34 +268,11 @@
 
 			"商品名称" = !productname,
 			"仕入先" = !purchase,
-			"暫定フラグ" = 0,
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
-	 	<if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
-		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
+	 	and 
+		 	"暫定フラグ" = !flg
 		   
 </sql>
  
@@ -335,46 +297,8 @@
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
-	 <if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
-		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
+		and 
+		 	"暫定フラグ" = !flg
 </sql>
 <sql id="udatemasterinfoflg1sub2" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
@@ -387,153 +311,58 @@
 		    "更新日時"=now()
 		WHERE 
 		    "店舗ID" =!shopid
-	 <if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
-		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
+		and
+			"暫定フラグ" = !flg
 </sql>
 
-<sql id="udateStockflg1sub2" paramPrefix="!">
-		UPDATE "MST_在庫情報" 
-		SET
-			"SKU番号" = !sku,
-			"ASIN番号" = !asin,
-			"LABEL番号" = !label,
-
-			"暫定フラグ" = 0,
-		    "更新日時"=now()
-		WHERE 
-		    "店舗ID" =!shopid
-	 <if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
+<sql id="insertStockflg1sub2" paramPrefix="!">
+	 	insert into "MST_在庫情報" (
+			  "SKU番号"
+			, "ASIN番号"
+			, "暫定フラグ"
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
 		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
+		values
+		(
+			'',
+			'',
+			!flg,
+			!shopid,
+			now(),
+			now()
 		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
 </sql>
 
-<sql id="udatePurchaseflg1sub2" paramPrefix="!">
-		UPDATE "TRN_仕入明細" 
-		SET
-			"SKU番号" = !sku,
-			"ASIN番号" = !asin,
-			"LABEL番号" = !label,
-
-			"暫定フラグ" = 0,
-		    "更新日時"=now()
-		WHERE 
-		    "店舗ID" =!shopid
-	 <if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
+	<sql id="deleteByAsinSkuForSaleNum" >
+		DELETE FROM "MST_販売数量情報" 
+		WHERE
+		 
+			"ASIN番号" is null
+			and
+			"SKU番号" is null 
+			and
+			"店舗ID" =:shopid
+	</sql>
+<sql id="insertSaleNumflg1sub2" paramPrefix="!">
+	 	insert into "MST_販売数量情報" (
+			  "SKU番号"
+			, "ASIN番号" 
+			, "店舗ID"
+			, "登録日時"
+			, "更新日時"
 		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
+		values
+		(
+			'',
+			'', 
+			!shopid,
+			now(),
+			now()
 		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
 </sql>
+
 <!-- sl：更新-暂定0-親商品 -->
 <sql id="udatemasterinfoflg0pre" paramPrefix="!">
 		UPDATE "MST_出品マスタ情報" 
@@ -612,66 +441,62 @@
 		  "親子区分" = '子商品'
 </sql>
 <!--sl:更新仕入明细价格  -->
-<sql id="udatePurchasesubprice1"  >
-		UPDATE "TRN_仕入明細" 
+<sql id="updatePurchasesubpriceflg0"  >
+	UPDATE "TRN_仕入明細"  
 		SET
 		   "単価" =  :price1,
-		   "更新日時"= now()
+		   "SKU番号" = :sku,
+		   "ASIN番号" = :asin,
+		   "暫定フラグ" = 0,
+		   "更新日時"= now() 
+		FROM  
+			"MST_出品マスタ情報" mst,
+			"TRN_仕入管理" mng
 		WHERE 
-		  "店舗ID" =:shopid
+			mst."店舗ID" = :shopid
 		AND 
-		  "商品管理番号" = :no
+			mst."店舗ID" = "TRN_仕入明細"."店舗ID"
+		AND
+			mst."SKU番号" = "TRN_仕入明細"."SKU番号"
+		AND
+			mst."SKU番号" = :sku
+		AND  
+			mst."ASIN番号" = "TRN_仕入明細"."ASIN番号"
+		AND
+			mst."ASIN番号" = :asin
 		AND 
-		  "親子区分" = '子商品'
+			mst."暫定フラグ" = "TRN_仕入明細"."暫定フラグ"
+		AND
+			mst."暫定フラグ" = 0 
+		AND 
+			mng."仕入NO" = "TRN_仕入明細"."仕入NO"
+		AND
+			mng."ステータス" != '3.仕入済'
+		 
 </sql>
-<sql id="udatePurchasesubprice2"  >
-		UPDATE "TRN_仕入明細" 
+<sql id="updatePurchasesubpriceflg1"  >
+	UPDATE "TRN_仕入明細"  
 		SET
 		   "単価" =  :price1,
-		   "更新日時"= now()
+		   "SKU番号" = :sku,
+		   "ASIN番号" = :asin,
+		   "暫定フラグ" = 0,
+		   "更新日時"= now() 
+		FROM  
+			"MST_出品マスタ情報" mst
 		WHERE 
-		  "店舗ID" =:shopid
-		  	 <if exists="oldno"> AND (	
-		  "商品管理番号" = !oldno
-		)
-	    </if>
-	   <if notexists="oldno"> AND (	
-		  "商品管理番号" is NULL
-		)
-	   </if> 
-	 	<if exists="oldpreproduct"> AND (	
-		  "親子区分" = !oldpreproduct
-		)
-	    </if>
-	   <if notexists="oldpreproduct"> AND (	
-		  "親子区分" is NULL
-		)
-	   </if>
-	 	<if exists="oldtype"> AND (	
-		  "商品種別" = !oldtype
-		)
-	    </if>
-	   <if notexists="oldtype"> AND (	
-		  "商品種別" is NULL
-		)
-	   </if>
-	 	<if exists="oldsub1"> AND (	
-		  "分類１" = !oldsub1
-		)
-	    </if>
-	   <if notexists="oldsub1"> AND (	
-		  "分類１" is NULL
-		)
-	   </if>
-	    <if exists="oldsub2"> AND (	
-		  "分類２" = !oldsub2
-		)
-	    </if>
-	    <if notexists="oldsub2"> AND (	
-		  "分類２" is NULL
-		)
-	     </if>
+		  mst."店舗ID" = :shopid
+		AND 
+		  mst."店舗ID" = "TRN_仕入明細"."店舗ID" 
+		<if exists="flg"> AND (  
+			mst."暫定フラグ" = "TRN_仕入明細"."暫定フラグ"
+			AND
+			mst."暫定フラグ" = :flg
+			)
+		</if>
+		 
 </sql>
+
 <sql id="udatemasterinfosubprice2"  >
 		UPDATE "MST_出品マスタ情報" 
 		SET
@@ -827,14 +652,13 @@
 		"MST_出品マスタ情報" 
 	WHERE
 		"暫定フラグ" = 0
-		and
-		(
-			"商品管理番号" = :productno
-			or
-			"商品管理番号" is null
-		)
-		and
-		"店舗ID" =:shopid
+	and
+		"商品管理番号" is null 
+	and
+		"店舗ID" = :shopid
+		<if exists="sub1"> AND ( "商品名称" like  concat('%', :sub1 ,'%')  ) </if>
+		<if exists="sub2"> AND ( "商品名称" like  concat('%', :sub2 ,'%')  ) </if>
+	  	<if exists="productno"> AND ( "商品名称" like concat('%', :productno ,'%') ) </if> 
 	</sql>
 	<sql id="selectAsinSku" >
 		SELECT 
@@ -864,14 +688,32 @@
 			"店舗ID" =:shopid
 	</sql>
 
+	<sql id="updateLocalNumForStock"  >
+		UPDATE 	
+				"MST_在庫情報" 
+		SET 	
+				"LOCAL在庫" = mst2.local,
+				"途中在庫_仕入" = mst2.purchase 
+		FROM
+				( SELECT 	
+						mst1."LOCAL在庫" AS local,
+						mst1."途中在庫_仕入" AS purchase 
+				FROM 	
+						"MST_在庫情報" mst1 
+					WHERE	 
+						"暫定フラグ" = :flg 
+						and "店舗ID" = :shopid
+				) mst2 
+		WHERE
+				"SKU番号" = :sku
+				and "ASIN番号" = :asin
+				and "店舗ID" = :shopid
+			
+	</sql>
 	<sql id="deleteByAsinSkuForStock" >
 		DELETE FROM "MST_在庫情報" 
 		WHERE
-			"暫定フラグ" = 0
-			and
-			"ASIN番号" = :asin
-			and
-			"SKU番号" = :sku
+			"暫定フラグ" = :flg 
 			and
 			"店舗ID" =:shopid
 	</sql>
@@ -888,21 +730,13 @@
 			and
 			"店舗ID" =:shopid
 	</sql>
-<!-- sl:删除マスタ -->
+<!-- sl:删除マスタ暂定 -->
 		<sql id="deletemasterinfo" >
 		DELETE FROM "MST_出品マスタ情報" 
 		WHERE
-			"商品管理番号" = :oldno
+			"暫定フラグ" = cast (:flg as int)
 			and
-			"親子区分" = :oldpreproduct
-			and
-			"商品種別" = :oldtype
-			and
-			"分類１" = :oldsub1
-			and
-			"分類２" = :oldsub2
-			and
-			"店舗ID" =:shopid
+			"店舗ID" =:shopid 
 	</sql>
 
 	
@@ -927,5 +761,11 @@
 	  		<if exists="oldsku"> AND ( "SKU番号" = :oldsku ) </if> 
 		
 </sql>
+
+	<sql id="maxFlg" >
+		SELECT  max("暫定フラグ") as maxflg
+		FROM   "MST_出品マスタ情報" 
+		WHERE  "店舗ID" = :shopid
+	</sql>
 </sqls>
 

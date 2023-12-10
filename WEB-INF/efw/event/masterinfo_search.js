@@ -5,6 +5,7 @@ masterinfo_search.paramsFormat={
 	"#productno":null,
 	"#keyword":null,
 	"#notenough":null, 
+	"#conceal":null, 
 	"#opt_purchase":null, 
 };
  
@@ -19,6 +20,7 @@ masterinfo_search.fire=function(params){
 	var productno = params["#productno"];
 	var keyword = params["#keyword"].toUpperCase();
 	var notenough = params["#notenough"];
+	var conceal = params["#conceal"];
 	var purchase = params["#opt_purchase"];
 	var type="";
 	for(let i=0;i<pdArr.length;i++){
@@ -39,7 +41,8 @@ masterinfo_search.fire=function(params){
 			ptype : type,
 			productno : productno,
 			keyword : keyword,
-			purchase : purchase
+			purchase : purchase,
+			conceal : conceal
 		
 		}
 	).getArray();

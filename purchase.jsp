@@ -7,6 +7,7 @@
             <title>仕入情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
 
                 $(function () {
@@ -361,6 +362,15 @@
                     var purchaseno = $('input:radio[name="choice"]:checked').val();
                     Efw('purchase_ivfile', { "purchaseno": purchaseno });
                 }
+                // CTRL+O
+                $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
             </script>
             <style>
                 .table_btn td button {
@@ -484,9 +494,7 @@
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" id="purchasetable"
                             style="width: 2589px;table-layout: fixed;">
-
-
-
+ 
                         </table>
                     </div>
                 </div>

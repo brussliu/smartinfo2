@@ -7,6 +7,7 @@
             <title>商品スキャン</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
 
             <script>
 
@@ -276,6 +277,15 @@
                     Efw('scan_localupdate', { "insertArray": insertArray, "objectArray": objectArray });
 
                 }
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
             </script>
             <style>
                 .tr_pink {
@@ -356,18 +366,7 @@
 
                     <div class="c_detail_content" style="overflow: auto;height: 673px;width:1193px; margin-left:48px;">
                         <table id="scantable" class="table_detail_content" style="table-layout: fixed;">
-                            <tbody>
-                                <!-- <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio"></input></td>
-                                    <td style="width: 160px;" class="c">20230101-121212</td>
-                                    <td style="width: 250px;" class="l"><span class="l5"></span>靴下リストA</span></td>
-                                    <td style="width: 400px;" class="l"><span class="l5">W001-レッド-X,W001-レッド-XXS</span>
-                                    </td>
-                                    <td style="width: 150px;" class="r"><span class="r5">99999</span></td>
-                                    <td style="width: 150px;" class="c"></td>
-                                </tr> -->
-
-                            </tbody>
+                          
                         </table>
                     </div>
                 </div>

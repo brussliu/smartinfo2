@@ -18,8 +18,6 @@ shipactingmaster_querypic.fire = function (params) {
 		}
 	).getSingle();
 
-	selectResult.debug("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-
 	ret.eval("$('#img_pic2').attr('src','"+selectResult["pic"]+"');")
 	ret.eval("$('#img_pic2').css('display','block');")
   

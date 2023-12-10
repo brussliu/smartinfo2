@@ -2,12 +2,10 @@ var masterinfo_update1 = {};
 masterinfo_update1.name = "インポート画面更新（暫定データ）";
 masterinfo_update1.paramsFormat = {
 
-	"type": null,
-	"no": null,
-	"preproduct": null,
-	"sub1": null,
-	"sub2": null,
-
+	"flg": null, 
+	"#sub1": null,
+	"#sub2": null,
+	"#newproductno": null,
 };
 
 masterinfo_update1.fire = function (params) {
@@ -45,38 +43,14 @@ masterinfo_update1.fire = function (params) {
 	ret.runat("#newproducttype").remove(".option").append(resultHTML2).withdata(selectResult2);
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	var oldtype = params["type"];
-	var oldno = params["no"];
-	var oldpreproduct = params["preproduct"];
-	var oldsub1 = params["sub1"];
-	var oldsub2 = params["sub2"];
-
-	// ASIN,SKU初期化
-	var selectResult = db.select(
-		"MASTER",
-		"searchAsinSku",
-		{
-			"shopid": getShopId(),
-			"productno": oldno,
-		}
-	).getArray();
-
-	var resultHTML3 = "<option value='{asin}' class='asin'>{asin}</option>";
-	ret.runat("#asinselect").remove("option .asin").append(resultHTML3).withdata(selectResult);
-
-	var resultHTML4 = "<option value='{sku}' class='sku'>{sku}</option>";
-	ret.runat("#skuselect").remove("option .sku").append(resultHTML4).withdata(selectResult);
+	var flg = params["flg"];
 	
 	var selectResultObj = db.select(
 		"MASTER",
 		"searchmasterinfoflg1",
 		{
-			shopid :	getShopId(),
-			oldtype :	oldtype,
-			oldno :		oldno,
-			oldpreproduct :	oldpreproduct,
-			oldsub1 :	oldsub1,
-			oldsub2 :	oldsub2
+			shopid :getShopId(),
+			flg :flg 
 
 		}
 	).getSingle();
@@ -117,7 +91,7 @@ masterinfo_update1.fire = function (params) {
 			"#productname":selectResultObj["name"],
 			// 仕入中止
 			// "#cbox_suspend":selectResultObj["suspend"],
-			// 仕入先
+			// 仕入先 
 			"#purchase":selectResultObj["purchase"]
 		}
 	);
@@ -127,7 +101,46 @@ masterinfo_update1.fire = function (params) {
 	}else{
 		ret.eval("$('#cbox_suspend').prop('checked',false)")
 	}
-	 
+
+
+	var productno = selectResultObj["no"];
+
+	var sub1 = selectResultObj["sub1"];
+	var sub2 = selectResultObj["sub2"];
+
+
+	
+	// ASIN,SKU初期化
+	var selectResult = db.select(
+		"MASTER",
+		"searchAsinSku",
+		{  
+			"shopid": getShopId(),
+			"sub1": sub1,
+			"sub2": sub2,
+			"productno": productno,
+		}
+	).getArray();
+
+	if(selectResult.length == 0){
+		selectResult = db.select(
+			"MASTER",
+			"searchAsinSku",
+			{  
+				"shopid": getShopId(),
+				"sub1": "",
+				"sub2": "",
+				"productno": productno,
+			}
+		).getArray();
+	}
+
+	var resultHTML3 = "<option value='{asin}' class='asin'>{asin}</option>";
+	ret.runat("#asinselect").remove(".asin").append(resultHTML3).withdata(selectResult);
+
+	var resultHTML4 = "<option value='{sku}' class='sku'>{sku}</option>";
+	ret.runat("#skuselect").remove(".sku").append(resultHTML4).withdata(selectResult);
+
 	if(selectResult.length > 0){
 		ret.eval("$('#asinselect').removeAttr('disabled').css('background', 'lightcyan');");
 		ret.eval("$('#skuselect').removeAttr('disabled').css('background', 'lightcyan');");
@@ -135,7 +148,6 @@ masterinfo_update1.fire = function (params) {
 		ret.eval("$('#asinselect').attr('disabled', 'disabled').css('background', 'lightgray')");
 		ret.eval("$('#skuselect').attr('disabled', 'disabled').css('background', 'lightgray')");
 	}
-
 
 	ret.eval("preproductchange();");
 

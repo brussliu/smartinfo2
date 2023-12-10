@@ -213,121 +213,127 @@ function getRole(){
 }
 
 function excute(flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
-				flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-				flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18) {
-					
-					// --------------------------------↓↓↓確認済↓↓↓--------------------------------
-					var flg_h1 = false;
-					var flg_h2 = false;
-					var flg_h3 = false;
-					var flg_h4 = false;
-					var flg_h5 = false;
+	flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
+	flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18, flg_file19) {
+		
+		// --------------------------------↓↓↓確認済↓↓↓--------------------------------
+		var flg_h1 = false;
+		var flg_h2 = false;
+		var flg_h3 = false;
+		var flg_h4 = false;
+		var flg_h5 = false;
 
-					var flg_r1 = false;
-					var flg_r2 = false;
-					var flg_r3 = false;
-					var flg_r4 = false;
-					var flg_r5 = false;
+		var flg_r1 = false;
+		var flg_r2 = false;
+		var flg_r3 = false;
+		var flg_r4 = false;
+		var flg_r5 = false;
 
-					var flg_m1 = false;
-					var flg_m2 = false;
-					var flg_m3 = false;
-					var flg_m4 = false;
+		var flg_m1 = false;
+		var flg_m2 = false;
+		var flg_m3 = false;
+		var flg_m4 = false;
 
-					var flg_t1 = false;
+		var flg_t1 = false; 
 
-					if(flg_file02){
-						excute_02_h1();	flg_h1 = true;
-					}
-					if(flg_file04){
-						excute_04_h2();	flg_h2 = true;
-					}
-					if(flg_file14){
-						excute_14_h3();	flg_h3 = true;
-					}
-					if(flg_file15){
-						excute_15_h4();	flg_h4 = true;
-					}
-					
-					if(flg_file02){
-						excute_02_r1();	flg_r1 = true;
-					}
-					if(flg_file11){
-						excute_11_r1();	flg_r1 = true;
-					}
-					if(flg_file12){
-						excute_12_r1();	flg_r1 = true;
-					}
-					
-					if(flg_file04){
-						excute_04_r2();	flg_r2 = true;
-					}
+		if(flg_file02){
+			excute_02_h1();	flg_h1 = true;
+		}
+		if(flg_file04){
+			excute_04_h2();	flg_h2 = true;
+		}
+		if(flg_file14){
+			excute_14_h3();	flg_h3 = true;
+		}
+		if(flg_file15){
+			excute_15_h4();	flg_h4 = true;
+		}
+		
+		if(flg_file02){
+			excute_02_r1();	flg_r1 = true;
+		}
+		if(flg_file11){
+			excute_11_r1();	flg_r1 = true;
+		}
+		if(flg_file12){
+			excute_12_r1();	flg_r1 = true;
+		}
+		
+		if(flg_file04){
+			excute_04_r2();	flg_r2 = true;
+		}
 
-					if(flg_file04){
-						excute_04_r3();	flg_r3 = true;
-					}
-					if(flg_file13){
-						excute_13_m5();	flg_m5 = true;
-					}
-					if(flg_file14){
-						excute_14_r4();	flg_r4 = true;
-					}
-					if(flg_file15){
-						excute_15_r5();	flg_r5 = true;
-					}
-					
-					if(flg_file01){
-						excute_01_m1();	flg_m1 = true;
-					}
-					if(flg_file03){
-						excute_03_m1(); flg_m1 = true;
-					}
+		if(flg_file04){
+			excute_04_r3();	flg_r3 = true;
+		}
+		if(flg_file13){
+			excute_13_m5();	flg_m5 = true;
+		}
+		if(flg_file14){
+			excute_14_r4();	flg_r4 = true;
+		}
+		if(flg_file15){
+			excute_15_r5();	flg_r5 = true;
+		}
+		
+		if(flg_file01){
+			excute_01_m1();	flg_m1 = true;
+		}
+		if(flg_file03){
+			excute_03_m1(); flg_m1 = true;
+		}
 
-					if(flg_file05){
-						excute_05_t1(); flg_t1 = true;
-					}
+		if(flg_file05){
+			excute_05_t1(); flg_t1 = true;
+		}
 
-					if(flg_file06){
-						excute_06_h5(); flg_h5 = true;
-						excute_06_t1(); flg_t1 = true;
-					}
+		if(flg_file06){
+			excute_06_h5(); flg_h5 = true;
+			excute_06_t1(); flg_t1 = true;
+		}
 
-					if(flg_m1){
-						excute_m1_m2();	flg_m2 = true;
-					}
-					if(flg_file01){
-						excute_01_m2();	flg_m2 = true;
-					}
-					if(flg_file03){
-						excute_03_m2();	flg_m2 = true;
-					}
-					
-					if(flg_m1){
-						excute_m1_m3();	flg_m3 = true;
-					}
-					if(flg_r1){
-						excute_r1_m3();	flg_m3 = true;
-					}
-					if(flg_m1){
-						excute_m1_m4();	flg_m4 = true;
-					}
-					if(flg_m2 || flg_m3){
-						excute_m2_m4();	flg_m4 = true;
-					}
-
+		if(flg_m1){
+			excute_m1_m2();	flg_m2 = true;
+		}
+		if(flg_file01){
+			excute_01_m2();	flg_m2 = true;
+		}
+		if(flg_file03){
+			excute_03_m2();	flg_m2 = true;
+		}
+		
+		if(flg_m1){
+			excute_m1_m3();	flg_m3 = true;
+		}
+		if(flg_r1){
+			excute_r1_m3();	flg_m3 = true;
+		}
+		if(flg_m1){
+			excute_m1_m4();	flg_m4 = true;
+		}
+		if(flg_m2 || flg_m3){
+			excute_m2_m4();	flg_m4 = true;
+		}
 					// if(flg_m1){
 					// 	excute_m1_m5();	flg_m5 = true;
 					// }
-					// --------------------------------↑↑↑確認済↑↑↑--------------------------------
+		if(flg_file19){
+			excute_19_r6();
+		}
+		// --------------------------------↑↑↑確認済↑↑↑--------------------------------
 
-					// --------------------------------↓↓↓実装中↓↓↓--------------------------------
+		// --------------------------------↓↓↓実装中↓↓↓--------------------------------
 
 
 
 
-							
+				
 }
 
+function excute_19_r6() {
+	var deleteResult = db.change("IMPORT", "delete_19_r6", {"shopId": getShopId()});
+	var insertResult = db.change("IMPORT", "insert_19_r6", {"shopId": getShopId()});
+}
 function excute_05_t1() {
 	var insertResult = db.change("IMPORT", "insert_05_t1", {"shopId": getShopId()});
 }
@@ -555,7 +561,8 @@ function checkUpladFileExsits(foldername){
 	returnValue = returnValue || checkFile(foldername, "16");
 	returnValue = returnValue || checkFile(foldername, "17");
 	returnValue = returnValue || checkFile(foldername, "18");
-
+	returnValue = returnValue || checkFile(foldername, "19");
+	
 	return returnValue;
 
 }
@@ -640,13 +647,12 @@ function writeExcel(selectResult0, selectResult1, exl, exl_flg) {
 
 		for (var i = 0; i < selectResult1.length; i++) {
 
-			excel.delRow("暫定データ", y_from - 1, 500 - y_from + 1);
-
 			// 设定值
 			setInfoToExcel(excel, selectResult1[i], "暫定データ", y_from, exl_flg);
 			y_from ++;
 
 		}
+		excel.delRow("暫定データ", y_from - 1, 500 - y_from + 1);
 
 	}
 
@@ -659,7 +665,7 @@ function writeExcel(selectResult0, selectResult1, exl, exl_flg) {
 
 function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 
-
+	var COL_A = "A";
 	var COL_B = "B";
 	var COL_C = "C";
 	var COL_D = "D";
@@ -718,7 +724,10 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 		var num = returnNumber(selectRecord["purchasequantity"]);
 	}
 	var amountrequested = returnQuantity(selectRecord["amountrequested"]);
+	var zt_flg = returnQuantity(selectRecord["zt_flg"]);
 
+	// 暫定フラグ
+	setExcelValue(excel, sheetName, COL_A + from, zt_flg);
 	// 管理番号
 	setExcelValue(excel, sheetName, COL_B + from, no);
 	// ASIN番号
@@ -824,6 +833,7 @@ function importProContent(proContent, no, flg) {
 	var exlarray = exl.getSheetNames();
 
 	// 列名
+	var COL_A = "A";//暫定フラグ
 	var COL_B = "B";//商品管理番号
 	var COL_C = "C";//ASIN番号
 	var COL_D = "D";//SKU番号
@@ -843,6 +853,8 @@ function importProContent(proContent, no, flg) {
 				// ループ
 				for (var y = Y_from; y <= Y_to; y++) {
 
+					// 暫定フラグ
+					var zt_flg = exl.getValue(sheetName, COL_A + y);
 					// 商品管理番号
 					var pno = exl.getValue(sheetName, COL_B + y);
 					// 分類１
@@ -867,6 +879,8 @@ function importProContent(proContent, no, flg) {
 								"PURCHASE",
 								"insertpurchasedata2",
 								{
+									purchaseno: no,
+									zt_flg: zt_flg,
 									pno: pno,
 									sub1: sub1,
 									sub2: sub2,
@@ -977,4 +991,39 @@ function deleteProContent(no, flg) {
 	}
 }
 
+function writeEcl(form, colName, colData){
+	var  COL_A = 65;
+	var exl =  new Excel("common/templates/EXCEL.xlsx");
+	exl.createSheet(form,'Sheet1'); 
+	var tempFilePathName = file.getTempFileName();
+   // 行头
+	for(var i=0; i< colName.length; i++){
+		if(COL_A + i > 90){
+			var COL = 'A'+String.fromCharCode(COL_A + i - 26) + 1;
+		}else{
+			var COL = String.fromCharCode(COL_A + i) + 1;
+		}
+		 
+	   setExcelValue(exl, form, COL, colName[i]);
+	} 
+   //  数据
+	for(var j=0; j< colData.length; j++){
+		
+		for(var q=0; q<colData[j].length; q++){
+			if(COL_A + q > 90){
+				var COL = 'A'+String.fromCharCode(COL_A + q - 26) + (j+2);
+			}else{
+				var COL = String.fromCharCode(COL_A + q) + (j+2);
+			}
+	  
+		   setExcelValue(exl, form, COL, colData[j][q]);
+			
+		}
+	 
+   }
+	exl.removeSheet("Sheet1");
+	exl.setActiveSheet(form).save(tempFilePathName);
+	
+	return tempFilePathName;
+}
 /////////////////////////////////////////////////////////////Excel読み取り/////////////////////////////////////////////////////////////

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+ 
+	<sql id="searchproducttype">
+		SELECT DISTINCT
+			"商品種別" as value,
+			substr("商品種別",4) as text
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品種別 ) > 0 
+			AND "店舗ID" = :shopid 
+		ORDER BY
+			"商品種別"
+	</sql>
+
+	<sql id="searchproducno">
+		SELECT DISTINCT
+			"商品管理番号" AS value,
+			"商品管理番号" AS text 
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品管理番号 ) > 0 
+			AND "店舗ID" = :shopid  
+		ORDER BY
+			"商品管理番号"
+	</sql>
+
+ 
+	<sql id="searchyearmonths">
+		SELECT DISTINCT
+			"年月" AS value,
+			"年月" AS text 
+		FROM
+			"RES_商品別広告明細費用" 
+		WHERE
+			 "店舗ID" = :shopid  
+		ORDER BY
+			"年月" desc
+	</sql>
+
+	<sql id="searchadvertisinglist">
+		SELECT * FROM 
+			( 
+				SELECT 
+					prarent.yearmonths,
+					mst."商品種別" as categories,
+					mst."商品管理番号" as productno,
+					mst."親子区分" as preproduct,
+					mst."分類１" as sub1,
+					mst."分類２" as sub2,
+					mst."ASIN番号" as asin,
+					mst."SKU番号" as sku,
+					mst."LABEL番号" as label,
+					'' as state,
+					'' as type,
+					'' as sponsoredproduct,
+					prarent.sale,
+					cast(prarent.roas as numeric(10,2)) as roas,
+					case when prarent.conversion is null then null
+                    else concat(cast(prarent.conversion * 100 as numeric(10,2)),'%') 
+                    end as conversion,
+					prarent.impressionnumber,
+					prarent.clickvolume,
+					case when prarent.clickrate is null then null
+                    else concat(cast(prarent.clickrate * 100 as numeric(10,2)),'%') 
+                    end as clickrate,
+					prarent.advertisingfee,
+					cast(prarent.averageprice as numeric(10,2)) as averageprice,
+					prarent.orderform,
+					case when prarent.acos is null then null
+                    else concat(cast(prarent.acos * 100 as numeric(10,2)),'%') 
+                    end as acos,
+					prarent.shopid
+				FROM 
+					"MST_出品マスタ情報" mst 
+				LEFT JOIN 
+					( 		
+						SELECT 
+							r.yearmonths, 
+							r.productno,
+							r.categories,
+							<!--売上-->
+							sum(r.sale) as sale, 
+							<!--インプレッション数-->
+							sum(r.impressionnumber) as impressionnumber,
+							<!--広告費-->
+							sum(r.advertisingfee) as advertisingfee,
+							<!--ROAS-->
+							sum(r.sale) / nullif(sum(r.advertisingfee), 0) as roas,
+							<!--クリック数-->
+							sum(r.clickvolume) as clickvolume,
+							<!--コンバージョン率-->
+							sum(r."orderform") / nullif(sum(r.clickvolume), 0) as conversion,
+							<!--クリック率(CTR)-->
+							sum(r.clickvolume) / nullif(sum(r.impressionnumber), 0) as clickrate,
+							<!--平均クリック単価(CPC)-->
+							sum(r.advertisingfee) / nullif(sum(r.clickvolume), 0) as averageprice,
+							<!--注文-->
+							sum(r."orderform") as orderform,
+							<!--ACOS-->
+							sum(r.advertisingfee) / nullif(sum(r.sale), 0) as acos,
+							r.shopid
+						FROM ( 
+							SELECT  
+								mst."年月" as yearmonths,
+								mst."商品種別" as categories,
+								mst."商品管理番号" as productno,
+
+								res."ステータス" as state,
+								res."タイプ" as type,
+								res."スポンサープロダクト広告の利用資格" as sponsoredproduct,
+								res."売上(JPY)" as sale,
+								res."ROAS" as roas,
+								res."コンバージョン率" as conversion,
+								res."インプレッション数" as impressionnumber,
+								res."クリック数" as clickvolume,
+								res."クリック率(CTR)" as clickrate,
+								res."広告費(JPY)" as advertisingfee,
+								res."平均クリック単価(CPC)(JPY)" as averageprice,
+								res."注文" as orderform,
+								res."ACOS" as acos,
+
+								mst."店舗ID" as shopid
+							FROM
+								(
+									select
+										M1."年月", M2.* 
+									FROM
+										(select distinct "年月" from "RES_商品別広告明細費用") M1
+										, "MST_出品マスタ情報" M2
+									WHERE 
+										M2."削除フラグ" != '1'
+									and M2."暫定フラグ" = 0
+									and M2."親子区分" = '子商品'
+									and M2."店舗ID" = :shopid
+								) mst 
+							LEFT JOIN 
+								(
+									SELECT 
+										*
+									FROM
+										"RES_商品別広告明細費用" 
+									WHERE
+										"店舗ID" = :shopid	
+								) res
+							ON 		
+								mst."年月" = res."年月"
+								and  mst."ASIN番号" = res."ASIN番号" 
+								and  mst."SKU番号" = res."SKU番号"
+								and  mst."店舗ID" = res."店舗ID"
+
+						) r
+						GROUP BY r.shopid, r.yearmonths, r.categories, r.productno
+					) prarent 
+					ON mst."商品種別" = prarent.categories
+					and mst."商品管理番号" = prarent.productno
+
+				WHERE
+					    mst."削除フラグ" != '1'
+					and mst."暫定フラグ" = 0
+					and mst."親子区分" = '親商品'
+					and mst."店舗ID" = :shopid	
+
+				UNION ALL
+
+				SELECT
+					mst."年月" as yearmonths,
+
+					mst."商品種別" as categories,
+					mst."商品管理番号" as productno,
+					mst."親子区分" as preproduct,
+					mst."分類１" as sub1,
+					mst."分類２" as sub2,
+					mst."ASIN番号" as asin,
+					mst."SKU番号" as sku,
+					mst."LABEL番号" as label,
+
+					res."ステータス" as state,
+					res."タイプ" as type,
+					res."スポンサープロダクト広告の利用資格" as sponsoredproduct,
+					res."売上(JPY)" as sale,
+					res."ROAS" as roas,
+					case when res."コンバージョン率" is null then null
+                    else concat(cast(res."コンバージョン率" * 100 as numeric(10,2)),'%') 
+                    end as conversion,
+					res."インプレッション数" as impressionnumber,
+					res."クリック数" as clickvolume,
+					case when res."クリック率(CTR)" is null then null
+                    else concat(cast(res."クリック率(CTR)" * 100 as numeric(10,2)),'%') 
+                    end as clickrate,
+					res."広告費(JPY)" as advertisingfee,
+					res."平均クリック単価(CPC)(JPY)" as averageprice,
+					res."注文" as orderform,
+					case when res."ACOS" is null then null
+                    else concat(cast(res."ACOS" * 100 as numeric(10,2)),'%') 
+                    end as acos,
+
+					mst."店舗ID" as shopid
+				FROM 
+					(
+						select
+							M1."年月", M2.* 
+						FROM
+							(select distinct "年月" from "RES_商品別広告明細費用") M1
+							, "MST_出品マスタ情報" M2
+						WHERE
+								M2."削除フラグ" != '1'
+							and M2."暫定フラグ" = 0
+							and M2."親子区分" = '子商品'
+							and M2."店舗ID" = :shopid	
+					) mst 
+				LEFT JOIN 
+					(
+						SELECT 
+							*
+						FROM
+							"RES_商品別広告明細費用" 
+						WHERE
+							"店舗ID" = :shopid	
+					) res
+					ON mst."年月" = res."年月"
+					   and  mst."ASIN番号" = res."ASIN番号" 
+					   and  mst."SKU番号" = res."SKU番号"
+					   and  mst."店舗ID" = res."店舗ID"
+			) advertinglist
+			LEFT JOIN "MST_ソート情報" S1 
+					on advertinglist."categories" = S1."商品種別" and S1."分類" = '分類１' and advertinglist."sub1" = S1."内容" and advertinglist."shopid" = S1."店舗ID"
+			LEFT JOIN "MST_ソート情報" S2 
+					on advertinglist."categories" = S2."商品種別" and S2."分類" = '分類２' and advertinglist."sub2" = S2."内容" and advertinglist."shopid" = S2."店舗ID"
+			WHERE 
+				1=1
+				<if exists="productno"> AND (
+					<if istrue="productno == 'マスタ未登録'"> advertinglist.productno is NULL </if>
+					<if istrue="productno != 'マスタ未登録'"> advertinglist.productno = :productno </if>
+					)
+				</if> 
+	
+				<if exists="keyword"> AND (
+					UPPER(advertinglist.categories) LIKE concat('%', :keyword ,'%') OR
+					UPPER(advertinglist.productno) LIKE concat('%', :keyword ,'%') OR
+					UPPER(advertinglist.preproduct) LIKE concat('%', :keyword ,'%') OR
+					UPPER(advertinglist.sub1) LIKE concat('%', :keyword ,'%') OR
+					UPPER(advertinglist.sub2) LIKE concat('%', :keyword ,'%') OR
+
+					UPPER(advertinglist.sku) LIKE concat('%', :keyword ,'%') OR 
+					UPPER(advertinglist.asin) LIKE concat('%', :keyword ,'%') OR
+					UPPER(advertinglist.label) LIKE concat('%', :keyword ,'%') 
+					)
+				</if>
+
+				<if exists="ptype"> AND (	 advertinglist.categories IN ( @ptype ) ) </if>
+
+				<if exists="yearmonths"> AND (	 advertinglist.yearmonths = :yearmonths ) </if>
+			
+			ORDER BY 
+				advertinglist.productno,
+				advertinglist.preproduct DESC,
+				COALESCE(cast(S1."ソート" as varchar), advertinglist."sub1"),
+				COALESCE(cast(S2."ソート" as varchar), advertinglist."sub2"),
+				advertinglist.yearmonths DESC
+				
+	</sql>
+</sqls>
+

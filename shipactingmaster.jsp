@@ -7,6 +7,7 @@
             <title>代行発送商品管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
 
             <script>
                 // 商品名称（中国語）
@@ -23,6 +24,15 @@
                 function init() {
                     Efw('shipactingmaster_init');
                 }
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
 
                 // 子画面が閉じる
                 function cancel() {
@@ -182,17 +192,7 @@
 
                     <div class="c_detail_content" style="overflow: auto;height: 673px;margin-left:48px;width: 1106px;">
                         <table class="table_detail_content" id="shipactingmastertable" style="table-layout: fixed;" >
-                            <tbody>
-                                <!-- <tr>
-                                    <td style="width: 50px;" class="c"><input type="radio"></input></td>
-                                    <td style="width: 120px;" class="c">0001</td>
-                                    <td style="width: 150px;" class="l"><span class="l5">A：販売商品</span></td>
-                                    <td style="width: 400px;" class="l"><span class="l5">战术笔P9</span></td>
-                                    <td style="width: 200px;" class="l"><span class="l5">タクティカルペン</span></td>
-                                    <td style="width: 150px;" class="r"><span class="r5">999</span></td>
-                                </tr> -->
-                                
-                            </tbody>
+                           
                         </table>
                     </div>
                 </div>

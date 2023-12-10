@@ -116,7 +116,7 @@ cost_save.fire=function(params){
 					shopid : getShopId(),
 				}
 			);
-			updateResult.debug('----updateCostInfo---')
+
 	}
 
 	// 画面へ結果を返す

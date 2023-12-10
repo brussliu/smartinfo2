@@ -41,7 +41,7 @@ stockinfo_output.fire = function (params) {
 	var selectResult0 = db.select("STOCK", "selectstockinfo0_excel", {shopid: getShopId()}).getArray();
 	// 暫定データ
 	var selectResult1 = db.select("STOCK", "selectstockinfo1_excel", {shopid: getShopId()}).getArray();
-	selectResult0.debug('------selectResult0')
+
 	var tempFilePathName = writeExcel(selectResult0, selectResult1, exl, exl_flg);
 
 	if(exl=='1'){

@@ -7,6 +7,7 @@
             <title>手数料見積情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {
 
@@ -28,8 +29,14 @@
                    
                     Efw('commission_search', { 'producttypeArr': producttypeArr});
                 }
- 
-           
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });           
            </script>
             <style>
 
@@ -156,36 +163,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: display;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="table-layout: fixed;" id="commissiontable">
-                            <tbody>
-                                
-                                <!-- <tr>
-                                    <td style="width: 50px;" class="c"></td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">number(W001)</td>
-
-                                    
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                 
-
-                                    <td style="width: 80px;" class="c">999999</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">999999</span></td>
-
-                                    <td style="width: 120px;" class="c"><span>999999</span></td>
-                                    <td style="width: 140px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5">999999</span></td>                               
-                                </tr>  -->
-                               
-                            </tbody>
+                             
                         </table>
                     </div>
 

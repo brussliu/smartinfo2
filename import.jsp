@@ -36,6 +36,12 @@
                 }
 
                 function importFile(){
+
+                    if($("#file19_filename").html() != "" && $("#opt_yearMonth").val()  == ""){
+                        alert("ファイルNo.19の年月を選択してください。");
+                        return;
+                    }
+
                     Efw('import_import');
                 }
 
@@ -63,6 +69,7 @@
                         // case 'file16': changeColorForDay(objectname, importdate);  break;
                         // case 'file17': changeColorForDay(objectname, importdate);  break;
                         // case 'file18': changeColorForDay(objectname, importdate);  break;
+                        case 'file19': changeColorForMonthBegin(objectname, importdate);  break;
                         default : break;
                     }
                  
@@ -174,7 +181,7 @@
 
                 }
            
-                //   月初-3号
+                //   月初-2号
                 function changeColorForMonthBegin(objectname, importdate){ 
                     //  上传日期
                     var impWeek = Date.parse(getDate(importdate));
@@ -184,7 +191,7 @@
                     var startMonth =  new Date(today.getFullYear(),today.getMonth(),1);
                     startMonth = Date.parse(startMonth);
 
-                    var endMonth =  new Date(today.getFullYear(),today.getMonth(),3);
+                    var endMonth =  new Date(today.getFullYear(),today.getMonth(),2);
                     endMonth = Date.parse(endMonth);
 
                     var yesterday =  new Date(today.getFullYear(),today.getMonth(),today.getDate())
@@ -195,10 +202,12 @@
 
                 //    alert(impWeek);
                 //    alert(startMonth);
+
+                //    alert(yesterday);
                 //    alert(endMonth);
 
                    //  本月未导入                   
-                   if(impWeek < startMonth &&  yesterday > endMonth){
+                   if(impWeek < startMonth &&  yesterday >= endMonth){
                        cur_tr.css("background-color", "rgb(230, 101, 101)")
                    }
                    // 本月已导入
@@ -208,34 +217,34 @@
                 }
           
                 function formatDate(ms, format = 'YYYY-MM-DD hh:mm:ss') {
-  const date = new Date(ms);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+                    const date = new Date(ms);
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;
+                    const day = date.getDate();
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+                    const seconds = date.getSeconds();
 
-  const map = {
-    'YYYY': year,
-    'MM': addPrefixZero(month),
-    'M': month,
-    'DD': addPrefixZero(day),
-    'D': day,
-    'hh': addPrefixZero(hours),
-    'h': hours,
-    'mm': addPrefixZero(minutes),
-    'm': minutes,
-    'ss': addPrefixZero(seconds),
-    's': seconds,
-  };
+                    const map = {
+                        'YYYY': year,
+                        'MM': addPrefixZero(month),
+                        'M': month,
+                        'DD': addPrefixZero(day),
+                        'D': day,
+                        'hh': addPrefixZero(hours),
+                        'h': hours,
+                        'mm': addPrefixZero(minutes),
+                        'm': minutes,
+                        'ss': addPrefixZero(seconds),
+                        's': seconds,
+                    };
 
-  let result = format;
-  for (const key in map) {
-    result = result.replace(key, map[key]);
-  }
-  return result;
-}
+                    let result = format;
+                    for (const key in map) {
+                        result = result.replace(key, map[key]);
+                    }
+                    return result;
+                }
 
  
           </script>
@@ -525,10 +534,13 @@
                                 <td class="td6" id="file18_importtime">-</td>
                                 <td class="td6" id="file18_importcount">-</td>
                             </tr>                            
-                            <tr class="datatr" style="border-bottom: 1px solid black;background-color: lightgray;">
+                            <tr class="datatr" style="border-bottom: 1px solid black;">
                                 <td class="td1">19</td>
-                                <td class="td2">広告明細費用レポート</td>
-                                <td class="td3">1回／月</td>
+                                <td class="td2">広告明細費用レポート
+                                    <select style="width:200px;height: 25px;float: right;display: none;" id="opt_yearMonth"> 
+                                    </select>
+                                </td>
+                                <td class="td3">月初</td>
                                 <td class="td4" id="file19_filename"></td>
                                 <td class="td5" id="file19_reorganizetime">-</td>
                                 <td class="td6" id="file19_reorganizecount">-</td>

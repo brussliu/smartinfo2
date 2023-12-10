@@ -7,6 +7,7 @@
             <title>壳上情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                  function scrollHead(obj) {
                     var p = $(obj).get(0).scrollLeft;
@@ -26,6 +27,14 @@
                   
                      Efw('earning_purchaselist',{"purchaseno" : $(val).html()});
                 }
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
 
             </script>
             <style>
@@ -113,29 +122,7 @@
  
                     <div class="c_detail_content" style="overflow: auto;height: 673px;"onscroll="scrollHead(this);">
                         <table id="earningstable" class="table_detail_content" style="table-layout: fixed;">
-                            <tbody>
-                                <!-- <tr>
-                                    <td style="width: 120px;"  class="c a"  onclick="earnings_detail_inputdialog.dialog('open');">2023年01月</td>
-                                    <td style="width: 120px" class="r">999999個</td>
-                                    <td style="width: 138px;" class="r">99999999円</td>
-                                   
-                                    <td style="width: 138px;" class="r">99999999円</td>
-                                    <td style="width: 110px;" class="r">99999999円</td>
-
-                                    <td style="width: 138px;" class="r">99999999円</td>
-                                    <td style="width: 138px;" class="r">99999999円</td>
-                                    <td style="width: 138px;" class="r">99999999円</td>
-
-                                    <td style="width: 138px;" class="r">99999999円</td>
-                                    
-                                    <td style="width: 110px;" class="r">99999999円</td>
-                                    <td style="width: 110px;" class="r">99999999円</td>
-                                    <td style="width: 100px;" class="r">99999999円</td>
-                                    <td style="width: 100px;" class="r">99999999円</td>
-                                    <td style="width: 143px;font-weight: bold;" class="r">99999999円</td>
-                                </tr> -->
-                               
-                            </tbody>
+                          
                         </table>
                     </div>
                 </div>

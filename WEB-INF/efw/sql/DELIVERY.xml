@@ -817,7 +817,7 @@
 			"店舗ID" = :shopid
 </sql>
 
-<sql id="checkLocalNum">
+<sql id="checkLocalNum0">
 	SELECT 
 		"SKU番号" 
 	from 
@@ -827,5 +827,26 @@
 	AND 
 		"店舗ID" = :shopid
 </sql>
+<sql id="checkLocalNum1">
+	SELECT 
+		sum("途中在庫_入庫") as ct1
+	from 
+		"MST_在庫情報" 
+	WHERE 
+		"途中在庫_入庫" != 0
+	AND 
+		"店舗ID" = :shopid
+</sql>
+<sql id="checkLocalNum2">
+	SELECT 
+		sum("発送数量") as ct2
+	from 
+		"TRN_納品管理" 
+	WHERE 
+		"ステータス" = '2.発送済'
+	AND 
+		"店舗ID" = :shopid
+</sql>
+
  </sqls>
 

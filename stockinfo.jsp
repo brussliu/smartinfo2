@@ -12,6 +12,7 @@
 
             <link href="/img/tb1.ico" rel="icon" type="image/x-icon" />
             <link href="/img/tb1.ico" rel="shortcut icon" type="image/x-icon" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {
 
@@ -22,6 +23,15 @@
                 function init() {
                     Efw('stockinfo_init');
                 }
+
+                 // CTRL+O
+                 $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
 
                 // 检索
                 function searchstockinfo() {
@@ -305,6 +315,10 @@
                                             <option value="99">99.その他</option>
                                         </select>
                                     </td>
+                                    <td style="width: 250px;">
+                                        <input type="checkbox" id="conceal" value="1" style="margin-left: 30px;">
+                                        削除データも表示
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -409,46 +423,7 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
                         <table class="table_detail_content" style="width: 2848px;table-layout: fixed;" id="stocktable">
-                            <tbody>
-                                <!-- 
-                                <tr>
-                                    <td style="width: 50px;" class="c"><input type="checkbox" onchange="check(this)"
-                                            name="choice"></input></td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 80px;" class="c">number(W001)</td>
-
-                                    <td style="width: 70px;" class="c">親商品</td>
-                                    <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                    <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>
-
-                                    <td style="width: 120px;" class="c">B089WGVH9V</td>
-                                    <td style="width: 150px;" class="c">H2-E3RM-NID1</td>
-                                    <td style="width: 120px;" class="c">X000UXRHRV</td>
-                                    <td style="width: 817px;" class="l"><span>【Smart-Bear】P002 キッズ服 Tシ </span></td>
-
-                                    <td style="width: 80px;" class="c">fma</td>
-                                    <td style="width: 80px;" class="r"><span class="r5">1</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">2</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">3</span></td>
-
-                                    <td style="width: 80px;" class="c"><span>{lsssscal}</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">4</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">5</span></td>
-
-                                    <td style="width: 80px;" class="r"><span class="r5">6</span></td>
-                                    <td style="width: 80px;" class="r"><span class="r5">7</span></td>
-                                    <td style="width: 320px;" class="r">999 / 999 / 999 / 999 / 999 / 999 / 999</td>
-
-                                    <td style="width: 100px;" class="r"><span class="r5">8.99</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-                                    <td style="width: 100px;" class="r"><span class="r5">9999</span></td>
-
-                                </tr> 
-                                -->
-                            </tbody>
+                           
                         </table>
                     </div>
 

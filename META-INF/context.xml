@@ -29,6 +29,17 @@
 	/>
 
 	<Resource
+		name			=	"jdbc/efw3"
+		auth			=	"Container"
+		type			=	"javax.sql.DataSource"
+		driverClassName	=	"net.ucanaccess.jdbc.UcanaccessDriver"
+		url				=	"jdbc:ucanaccess://D:/Access/smartinfo2db.accdb"
+		maxTotal		=	"100"
+		maxIdle			=	"10"
+		maxWaitMillis	=	"10"
+	/>
+
+	<Resource
 		name			=	"mail/efw"
 		auth			=	"Container"
 		type			=	"javax.mail.Session"

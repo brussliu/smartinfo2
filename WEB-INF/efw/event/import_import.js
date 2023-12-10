@@ -1,11 +1,11 @@
 var import_import = {};
 import_import.name = "データ導入";//
 import_import.paramsFormat = {
-
+	"#opt_yearMonth":null
 
 };
 var num = 0;
-
+var yearMonths = '';
 var today = null;
 var registrationDate = null;
 
@@ -32,6 +32,7 @@ var FILE15_NAME = "15.長期在庫保管手数料請求額レポート";
 var FILE16_NAME = "16.返品レポート";
 var FILE17_NAME = "17.返送推奨レポート";
 var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
+var FILE19_NAME = "19.広告明細費用レポート";
 
 import_import.fire = function (params) {   //
 
@@ -39,7 +40,8 @@ import_import.fire = function (params) {   //
 
 	// セッションチェック
 	if(sessionCheck(ret) == false){return ret};
-
+	yearMonths = params['#opt_yearMonth'];
+	 
 	UPLOAD_FILE_PATH = getShopId() + "\\import\\" + "UPLOAD_FILE";
 	PROCESS_FILE_PATH = getShopId() + "\\import\\" + "PROCESS_FILE";
 	BACKUP_FILE_PATH = getShopId() + "\\import\\" + "BACKUP_FILE";
@@ -74,6 +76,9 @@ import_import.fire = function (params) {   //
 
 	var flg_file18 = importFile("18",	"S-JIS",		",",	"\r\n",		null);
 
+	var flg_file19 = importFile("19",	"UTF-8(BOM)",		",",	"\r\n",		1);
+
+
 	moveFile("01");
 	moveFile("02");
 	moveFile("03");
@@ -92,10 +97,11 @@ import_import.fire = function (params) {   //
 	moveFile("16");
 	moveFile("17");
 	moveFile("18");
+	moveFile("19");
 
 	excute(	flg_file01, flg_file02, flg_file03, flg_file04, flg_file05, flg_file06,
 			flg_file07, flg_file08, flg_file09, flg_file10, flg_file11, flg_file12,
-			flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18);
+			flg_file13, flg_file14, flg_file15, flg_file16, flg_file17, flg_file18, flg_file19);
 
 	return ret.navigate("import.jsp");
 };
@@ -369,7 +375,7 @@ function importFile(fileno, encoding, separator, breakcode, opt){
 
 		//データ全件導入
 		num = 0;
-
+ 
 		eval('csvReader.loopAllLines(import_' + fileno +');');
 
 		///////////////////////////////////////////////////////////////////////////////////
@@ -413,6 +419,20 @@ function makeSQLObj(aryField){
 
 }
 
+function makeSQLObj19(aryField ){ 
+	var obj = {};
+	obj["yearMonths"] = yearMonths;
+	for(var i = 0; i < aryField.length; i ++){
+		obj["col"+i] = aryField[i]
+	}
+	
+	obj["col" + (aryField.length)] = getShopId();
+	obj["col" + (aryField.length+1)] = registrationDate;
+	obj["col" + (aryField.length+2)] = registrationDate;
+	 
+	return obj;
+
+}
 
 
 function import_01(aryField, index) {
@@ -539,6 +559,13 @@ function import_18(aryField, index) {
 
 	if (index > 0) {
 		var insertResult = db.change("IMPORT",	"insertFile18",	makeSQLObj(aryField));
+		num++;
+	}
+};
+function import_19(aryField, index) {
+
+	if (index > 0) {
+		var insertResult = db.change("IMPORT",	"insertFile19",	makeSQLObj19(aryField));
 		num++;
 	}
 };

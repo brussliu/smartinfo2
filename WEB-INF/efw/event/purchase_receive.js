@@ -45,7 +45,9 @@ purchase_receive.fire = function (params) {
 		}
 	);
 
-
+	// MST_入庫仕入推奨数量情報 全体更新
+	excute_m2_m4();
+	
 	// 画面へ結果を返す
 
 	ret.eval("init();");

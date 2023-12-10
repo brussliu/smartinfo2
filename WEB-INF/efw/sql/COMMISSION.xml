@@ -55,7 +55,7 @@
 					(mst2."一番短い辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as short ,
 					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
 					e."価格" || '円' as price,
-					case when mst2."販売手数料見積り額(個数あたり)" is not null then 
+					<!-- case when mst2."販売手数料見積り額(個数あたり)" is not null then 
 						cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%'
                     else 
                     (
@@ -67,8 +67,8 @@
 						order by res."日付/時間" asc
 						limit 1
 
-					) end as salesrate ,
-					case when mst2."販売手数料見積り額(個数あたり)" is not null then cast(mst2."販売手数料見積り額(個数あたり)" as numeric) || '円'
+					) end as salesrate , -->
+					<!-- case when mst2."販売手数料見積り額(個数あたり)" is not null then cast(mst2."販売手数料見積り額(個数あたり)" as numeric) || '円'
                     else 
                     (
 						select 
@@ -79,7 +79,9 @@
 						order by res."日付/時間" asc
 						limit 1
 
-					) end as estimated ,
+					) end as estimated , -->
+					'' as salesrate ,
+					'' as estimated ,
 					case when  mst2."sku" is not null THEN 
 						case  	when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 288 THEN 'FBA-小型'
 							    when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 318 THEN 'FBA-標準1'
@@ -127,6 +129,7 @@
 		where 
 					mst1."店舗ID" = :shopid
 					AND mst1."親子区分"= '子商品'
+					AND mst1."削除フラグ" != '1'
 		order by
 					mst1."商品種別",
 					mst1."商品管理番号",
@@ -160,7 +163,7 @@
 					(mst2."一番短い辺" ||  case when mst2."商品の寸法" = 'centimeters' THEN 'cm' else mst2."商品の寸法" END) as short ,
 					(mst2."商品パッケージの重量" ||  case when mst2."商品重量" = 'grams' THEN 'g' else mst2."商品重量" END) as weight ,
 					e."価格" || '円' as price,
-					case when mst2."販売手数料見積り額(個数あたり)" is not null then 
+					<!-- case when mst2."販売手数料見積り額(個数あたり)" is not null then 
 						cast(cast(mst2."販売手数料見積り額(個数あたり)" as numeric) / cast (e."価格" as numeric) * 100 as numeric(5,2)) || '%'
                     else 
                     (
@@ -184,7 +187,9 @@
 						order by res."日付/時間" asc
 						limit 1
 
-					) end as estimated ,
+					) end as estimated , -->
+					'' as salesrate ,
+					'' as estimated ,
 					case when  mst2."sku" is not null THEN 
 						case  	when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 288 THEN 'FBA-小型'
 							    when cast(mst2."配送代行手数料見積り額（個数あたり）"as numeric) = 318 THEN 'FBA-標準1'
@@ -232,6 +237,7 @@
 		where 
 					mst1."店舗ID" = :shopid
 					AND mst1."親子区分"= '子商品'
+					AND mst1."削除フラグ" != '1'
 		order by
 					mst1."商品種別",
 					mst1."商品管理番号",

@@ -29,114 +29,99 @@
 	</sql>
 
 	<sql id="searchYearMonth">
-		SELECT DISTINCT 
-			res."Month of charge" as value,
-			res."Month of charge" as text
-		FROM "RES_在庫保管手数料情報" res  
-		WHERE
-			"店舗ID" = :shopid  
+		SELECT
+			value, 
+			text 
+		FROM
+			( 
+				SELECT
+					res1."Month of charge" as value, 
+					res1."Month of charge" as text 
+				FROM
+					"RES_在庫保管手数料情報" res1 
+				WHERE
+					"店舗ID" = :shopid
+				union 
+				SELECT
+					to_char(res2."日付", 'yyyy-mm') as value
+					, to_char(res2."日付", 'yyyy-mm') as text 
+				FROM
+					"RES_長期在庫保管手数料請求額情報" res2
+				WHERE
+					"店舗ID" = :shopid
+			) T 
 		ORDER BY
-			res."Month of charge" desc
+			text desc
 	</sql>
 
-<sql id="searchcommission">
+
+<sql id="selectstockcommission">
 		SELECT 
 					ROW_NUMBER () OVER (ORDER BY 1 ASC) AS ids,
 					*
 		FROM 	
 		(
-
-		SELECT  
-					res1."Month of charge" as yearmonth,
-					mst."商品種別" as type,
-					mst."商品管理番号" as pno,
-					mst."分類１" as sub1,
-					mst."分類２" as sub2,
-					
-					res1."ASIN" as asin,
-					mst."SKU番号" as sku,
-					res1.fnsku as label,
-					
-					res1."Country code" as country,
-					res1."Fulfillment center" as fulfillment,
-					res1."Longest side" || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as longest,
-					res1."Median side"  || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as median,
-					res1."Shortest side"  || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as shortest,
-					res1.weight  ||  case when res1."Weight units" = 'kilograms' THEN 'Kg' else  res1."Weight units" end as weight,
-					res1."Item volume" ||  case when  res1."Volume units" = 'cubic meters' THEN  'm³' else  res1."Volume units" end as item,
-					
-					res1.category AS category,
-					res1."Product size tier" as productsize,
-					res1."Monthly storage fee (est.)"  || case when res1."通貨" = 'JPY' THEN '円' ELSE  res1."通貨" end as monthlystoragefee,
-					res1."Total Incentive Amount"  || case when res1."通貨" = 'JPY' THEN '円' ELSE  res1."通貨" end as incentiveamount,
-					
-					res2."追加手数料の対象期間" as additionalfeeperiod,
-					res2."追加手数料率" as additionalfee,
-					res2."請求対象の在庫数" as inventorynumber ,
-					res2."請求金額" || '円' as amountrequested
-					 
-		FROM 
-					"MST_出品マスタ情報" mst RIGHT JOIN "RES_在庫保管手数料情報" res1 
-							on mst."ASIN番号" = res1."ASIN" AND mst."LABEL番号" = res1.fnsku AND mst."店舗ID" = res1."店舗ID"
-					LEFT JOIN "RES_長期在庫保管手数料請求額情報" res2 
-							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID" AND res1."Month of charge" = substr( cast( res2."日付" as varchar),0, 8 ) 
-					LEFT JOIN "MST_ソート情報" S1 on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
-					LEFT JOIN "MST_ソート情報" S2 on mst."商品種別" = S2."商品種別" and S2."分類" = '分類２' and mst."分類２" = S2."内容" and mst."店舗ID" = S2."店舗ID"
-		where 
-					mst."店舗ID" = :shopid
-					AND mst."親子区分"= '子商品'
-		order by
-					res1."Month of charge" desc,
-					mst."商品種別",
-					mst."商品管理番号",
-					COALESCE(cast(S1."ソート" as varchar), mst."分類１"),
-					COALESCE(cast(S2."ソート" as varchar), mst."分類２"),
-					mst."ASIN番号"	
-	) T
-	</sql>
-
-
-<sql id="selectcommission">
-		SELECT 
-					ROW_NUMBER () OVER (ORDER BY 1 ASC) AS ids,
-					*
-		FROM 	
-		(
-
 			SELECT  
-					res1."Month of charge" as yearmonth,
+					res."Month of charge" as yearmonth,
 					mst."商品種別" as type,
 					mst."商品管理番号" as pno,
 					mst."分類１" as sub1,
 					mst."分類２" as sub2,
 					
-					res1."ASIN" as asin,
+					res."ASIN" as asin,
 					mst."SKU番号" as sku,
-					res1.fnsku as label,
+					mst."LABEL番号" as label,
 					
-					res1."Country code" as country,
-					res1."Fulfillment center" as fulfillment,
-					res1."Longest side" || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as longest,
-					res1."Median side"  || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as median,
-					res1."Shortest side"  || case when res1."Measurement units" = 'centimeters' THEN 'cm' else res1."Measurement units" END  as shortest,
-					res1.weight  ||  case when res1."Weight units" = 'kilograms' THEN 'Kg' else  res1."Weight units" end as weight,
-					res1."Item volume" ||  case when  res1."Volume units" = 'cubic meters' THEN  'm³' else  res1."Volume units" end as item,
+					res."Country code" as country,
+					res."Fulfillment center" as fulfillment,
+					res."Longest side" || case when res."Measurement units" = 'centimeters' THEN 'cm' else res."Measurement units" END  as longest,
+					res."Median side"  || case when res."Measurement units" = 'centimeters' THEN 'cm' else res."Measurement units" END  as median,
+					res."Shortest side"  || case when res."Measurement units" = 'centimeters' THEN 'cm' else res."Measurement units" END  as shortest,
+					res.weight  ||  case when res."Weight units" = 'kilograms' THEN 'Kg' else res."Weight units" end as weight,
+					res."Item volume" ||  case when  res."Volume units" = 'cubic meters' THEN 'm³' else res."Volume units" end as item,
 					
-					res1.category AS category,
-					res1."Product size tier" as productsize,
-					res1."Monthly storage fee (est.)"  || case when res1."通貨" = 'JPY' THEN '円' ELSE  res1."通貨" end as monthlystoragefee,
-					res1."Total Incentive Amount"  || case when res1."通貨" = 'JPY' THEN '円' ELSE  res1."通貨" end as incentiveamount,
+					res.category AS category,
+					res."Product size tier" as productsize,
+					res."Monthly storage fee (est.)"  || case when res."通貨" = 'JPY' THEN '円' ELSE  res."通貨" end as monthlystoragefee,
+					res."Total Incentive Amount"  || case when res."通貨" = 'JPY' THEN '円' ELSE  res."通貨" end as incentiveamount,
 					
-					res2."追加手数料の対象期間" as additionalfeeperiod,
-					res2."追加手数料率" as additionalfee,
-					res2."請求対象の在庫数" as inventorynumber ,
-					res2."請求金額" || '円' as amountrequested
+					res."追加手数料の対象期間" as additionalfeeperiod,
+					res."追加手数料率" as additionalfee,
+					res."請求対象の在庫数" as inventorynumber ,
+					res."請求金額" || '円' as amountrequested
 					 
 			FROM 
-					"MST_出品マスタ情報" mst right JOIN "RES_在庫保管手数料情報" res1 
-							on mst."ASIN番号" = res1."ASIN" AND mst."LABEL番号" = res1.fnsku AND mst."店舗ID" = res1."店舗ID" 
-					LEFT JOIN "RES_長期在庫保管手数料請求額情報" res2 
-							on mst."ASIN番号" = res2."ASIN" AND  mst."SKU番号" = res2."出品者SKU" AND mst."LABEL番号" = res2."FNSKU" AND mst."店舗ID" = res2."店舗ID" AND res1."Month of charge" = substr( cast( res2."日付" as varchar),0, 8 ) 
+					"MST_出品マスタ情報" mst 
+                    LEFT JOIN 
+                    (
+                    select
+                        COALESCE(res1."ASIN",res2."ASIN" ) as "ASIN",
+                        COALESCE(res1."店舗ID",res2."店舗ID" ) as "店舗ID",
+						COALESCE(res1."Month of charge",to_char(res2."日付", 'yyyy-mm') ) as "Month of charge",
+                        res1."Country code",
+                        res1."Fulfillment center",
+                        res1."Longest side",
+                        res1."Measurement units",
+                        res1."Median side",
+                        res1."Shortest side",
+                        res1."weight",
+                        res1."Weight units",
+                        res1."Item volume",
+                        res1."Volume units",
+                        res1.category,
+                        res1."Product size tier",
+                        res1."Monthly storage fee (est.)",
+                        res1."通貨",
+                        res1."Total Incentive Amount",
+                        res2."追加手数料の対象期間",
+                        res2."追加手数料率",
+                        res2."請求対象の在庫数",
+                        res2."請求金額"
+                    from
+                        "RES_在庫保管手数料情報" res1
+                        FULL OUTER JOIN "RES_長期在庫保管手数料請求額情報" res2 
+                        on res1."ASIN" = res2."ASIN" AND res1."店舗ID" = res2."店舗ID" AND res1."Month of charge" = to_char(res2."日付", 'yyyy-mm') 
+                    ) res on mst."ASIN番号" = res."ASIN" AND mst."店舗ID" = res."店舗ID" 
 					LEFT JOIN "MST_ソート情報" S1 
 							on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
 					LEFT JOIN "MST_ソート情報" S2 
@@ -144,9 +129,9 @@
 			where 
 					mst."店舗ID" = :shopid
 					AND mst."親子区分"= '子商品'
-					
+					AND mst."削除フラグ" != '1'
 			order by
-					res1."Month of charge" desc,
+					res."Month of charge" desc,
 					mst."商品種別",
 					mst."商品管理番号",
 					COALESCE(cast(S1."ソート" as varchar), mst."分類１"),

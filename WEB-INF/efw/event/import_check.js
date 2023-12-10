@@ -26,6 +26,7 @@ var FILE15_NAME = "15.長期在庫保管手数料請求額レポート";
 var FILE16_NAME = "16.返品レポート";
 var FILE17_NAME = "17.返送推奨レポート";
 var FILE18_NAME = "18.返送所有権の放棄依頼の詳細レポート";
+var FILE19_NAME = "19.広告明細費用レポート";
 
 var HEADER01_LENGTH = 341;
 var HEADER02_LENGTH = 1426;
@@ -44,6 +45,7 @@ var HEADER15_LENGTH = 151;
 var HEADER16_LENGTH = 107;
 var HEADER17_LENGTH = 315;
 var HEADER18_LENGTH = 183;
+var HEADER19_LENGTH = 213;
 
 import_check.fire = function (params) {   //
 
@@ -145,6 +147,9 @@ function checkUpladFileCount2(){
 	result = checkFile2("18");
 	errorFile = makeMessage(errorFile, result);
 
+	result = checkFile2("19");
+	errorFile = makeMessage(errorFile, result);
+
 	if(errorFile != ""){
 		errorFile = "ファイル" + errorFile + "が複数指定しています。ご確認ください。";
 	}
@@ -235,7 +240,8 @@ function checkUpladFileFormat(){
 	errorFile = makeMessage(errorFile, result);
 	result = checkFileFormat("18");
 	errorFile = makeMessage(errorFile, result);
-
+	result = checkFileFormat("19");
+	errorFile = makeMessage(errorFile, result);
 	if(errorFile != ""){
 		errorFile = "ファイル" + errorFile + "が正しくありません。ご確認ください。";
 	}
@@ -273,8 +279,7 @@ function checkFileTitleSize(fileno, filenamewithpath){
 	var filearray1 = txt.split("\r");
 	var filearray2 = txt.split("\n");
 	var count1 = filearray1.length;
-	var count2 = filearray2.length;
-
+	var count2 = filearray2.length; 
 	var header = "";
 
 	if(count1 == count2){
@@ -324,7 +329,7 @@ function checkUpladFileCount4(){
 	result = result + checkFile4("16");
 	result = result + checkFile4("17");
 	result = result + checkFile4("18");
-
+	result = result + checkFile4("19");
 	return result;
 
 }
