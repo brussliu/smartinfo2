@@ -293,6 +293,7 @@
 			"ASIN番号" =  (SELECT  m."ASIN番号" AS asin FROM "MST_出品マスタ情報" m WHERE
 								m."商品管理番号" = :product
 								and m."親子区分" = '子商品' 
+								and m."削除フラグ" != '1'
 						<if exists="sub1"> AND (	m."分類１"  = :sub1) </if>
 						<if notexists="sub1"> AND ( m."分類１" is null ) </if>
 						<if exists="sub2"> AND (	m."分類２"  = :sub2 ) </if>
@@ -302,6 +303,7 @@
 			"SKU番号" = (SELECT  m."SKU番号" AS sku FROM "MST_出品マスタ情報" m WHERE
 						m."商品管理番号" = :product
 						and m."親子区分" = '子商品' 
+						and m."削除フラグ" != '1'
 						<if exists="sub1"> AND (	m."分類１"  = :sub1) </if>
 						<if notexists="sub1"> AND ( m."分類１" is null ) </if>
 						<if exists="sub2"> AND (	m."分類２"  = :sub2 ) </if>
@@ -497,69 +499,69 @@
 	</sql>
 <!-- sl: Label情報を挿入する -->
 	<sql id="insertLabelInfo">
-		insert into `ipt_発送情報` (
-			`ORDERNO`,
-			`届け先_郵便番号`,
-			`届け先_都道府県市区町村`,
-			`届け先_住所１`,
-			`届け先_住所２`,
-			`届け先_住所３`,
-			`届け先_宛先`,
-			`発送内容`,
-			`発送元_郵便番号`,
-			`発送元_都道府県市区町村`,
-			`発送元_住所`,
-			`発送元_宛先`,
-			`区分`,
-			`店舗ID`,
-			`登録日時` 
+		insert into ipt_発送情報 (
+			ORDERNO,
+			届け先_郵便番号,
+			届け先_都道府県市区町村,
+			届け先_住所１,
+			届け先_住所２,
+			届け先_住所３,
+			届け先_宛先,
+			発送内容,
+			発送元_郵便番号,
+			発送元_都道府県市区町村,
+			発送元_住所,
+			発送元_宛先,
+			区分,
+			店舗ID,
+			登録日時 
 		) values (
-			:orderno  --`ORDERNO` int NOT NULL,
-			,:postno  --`届け先-郵便番号` varchar(10) DEFAULT NULL,
-			,:address1  --`届け先-都道府県市区町村` varchar(50) DEFAULT NULL,
-			,:address2  --`届け先-住所１` varchar(100) DEFAULT NULL,
-			,:address3  --`届け先-住所２` varchar(100) DEFAULT NULL,
-			,:address4  --`届け先-住所３` varchar(100) DEFAULT NULL,
-			,:name  --`届け先-宛先` varchar(50) DEFAULT NULL,
-			,:shipcontent  --`発送内容` varchar(50) DEFAULT NULL,
-			,:senderPostno  --`発送元-郵便番号` varchar(10) DEFAULT NULL,
-			,:senderAddress1  --`発送元-都道府県市区町村` varchar(50) DEFAULT NULL,
-			,:senderAddress2  --`発送元-住所` varchar(100) DEFAULT NULL,
-			,:senderName  --`発送元-宛先` varchar(50) DEFAULT NULL,
-			,:type  --`区分` varchar(50) DEFAULT NULL,
-			,:shopid  --`店舗ID` varchar(20) NOT NULL,
-			,now()    --`登録日時` datetime DEFAULT NULL,
+			:orderno
+			,:postno
+			,:address1
+			,:address2
+			,:address3
+			,:address4
+			,:name
+			,:shipcontent
+			,:senderPostno
+			,:senderAddress1
+			,:senderAddress2
+			,:senderName
+			,:type
+			,:shopid
+			,now()
 		);
 	</sql>
 <!-- sl:ipt_発送情報 ⇒ res_発送情報 -->
 		<sql id="insertResSendInfo">
-			insert into `res_発送情報`
+			insert into res_発送情報
 			select
-				ipt.`ORDERNO`
-				, ipt.`届け先_郵便番号`
-				, ipt.`届け先_都道府県市区町村`
-				, ipt.`届け先_住所１`
-				, ipt.`届け先_住所２`
-				, ipt.`届け先_住所３`
-				, ipt.`届け先_宛先`
-				, ipt.`発送内容`
-				, ipt.`発送元_郵便番号`
-				, ipt.`発送元_都道府県市区町村`
-				, ipt.`発送元_住所`
-				, ipt.`発送元_宛先`
-				, ipt.`区分`
-				, ipt.`店舗ID`
+				ipt.ORDERNO
+				, ipt.届け先_郵便番号
+				, ipt.届け先_都道府県市区町村
+				, ipt.届け先_住所１
+				, ipt.届け先_住所２
+				, ipt.届け先_住所３
+				, ipt.届け先_宛先
+				, ipt.発送内容
+				, ipt.発送元_郵便番号
+				, ipt.発送元_都道府県市区町村
+				, ipt.発送元_住所
+				, ipt.発送元_宛先
+				, ipt.区分
+				, ipt.店舗ID
 				, now()
 				, now() 
 			from
-				`ipt_発送情報` ipt 
+				ipt_発送情報 ipt 
 			where
-				ipt.`店舗ID` = :shopid
+				ipt.店舗ID = :shopid
 	</sql>
 
 <!-- sl:ipt_発送情報 を　全件削除する -->
 	<sql id="delIptSend">
-		delete from `ipt_発送情報` where `店舗ID` = :shopid
+		delete from ipt_発送情報 where 店舗ID = :shopid
 	</sql>
 <!-- sl:処理対象検索（未発送、普通便とゆうパケット） -->
 	<sql id="selectUnsentInfo">

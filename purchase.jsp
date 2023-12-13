@@ -426,7 +426,7 @@
                     <p><a href="menu.jsp">メニュー</a> > 仕入情報管理</p>
                 </div>
                 <div class="content">
-                    <div class="c_btn" style="border-bottom: 1px solid black;">
+                    <div class="c_btn">
                         <table class="table_btn" style="margin-bottom: 5px;">
                             <tbody>
                                 <tr>
@@ -501,5 +501,52 @@
             </div>
 
         </body>
+        <script>
+            $(document).ready(function() {
 
+                // 获取屏幕宽度
+                var screenWidth = window.screen.width;
+
+                // 获取屏幕高度
+                var screenHeight = window.screen.height;
+
+                // 获取屏幕可用工作区宽度（不包括任务栏等）
+                var screenAvailableWidth = window.screen.availWidth;
+
+                // 获取屏幕可用工作区高度（不包括任务栏等）
+                var screenAvailableHeight = window.screen.availHeight;
+
+
+                //alert(screenWidth);
+                //alert(screenHeight);
+                //alert(screenAvailableWidth);
+                //alert(screenAvailableHeight);
+
+                var h0 = $(document).height();
+                
+
+                var h1 = $(".head").height();
+                var h2 = $(".topnav").height();
+                var h3 = $(".c_btn").height();
+                var h4 = $(".c_condition").height();
+                if(h4 == undefined){
+                    h4 = 0;
+                }
+                var h5 = $(".c_detail_header").height();
+
+                var h6 = h0 - h1 - h2 - h3 - h4 - h5 - 30 -120;
+
+                // alert("h0:"+h0);
+                // alert("h1:"+h1);
+                // alert("h2:"+h2);
+                // alert("h3:"+h3);
+                // alert("h4:"+h4);
+                // alert("h5:"+h5);
+
+                // alert("h6:"+h6);
+                $(".c_detail_content").height(h6);
+                //alert(h4);
+
+            });
+        </script>
         </html>

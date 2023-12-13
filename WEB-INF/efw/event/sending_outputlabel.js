@@ -34,7 +34,7 @@ sending_outputlabel.fire = function (params) {
 		{
 			"shopid": getShopId(),
 		},
-		"jdbc/efw2"
+		"jdbc/efw3"
 	);
 
 	// ipt_発送情報 を　全件削除する TODO
@@ -44,7 +44,7 @@ sending_outputlabel.fire = function (params) {
 		{
 			"shopid": getShopId(),
 		},
-		"jdbc/efw2"
+		"jdbc/efw3"
 	);
 
 	// Label情報を挿入する TODO
@@ -56,6 +56,20 @@ sending_outputlabel.fire = function (params) {
 		var senderAddress2 = '浮間３－１－３７'; //発送元-住所
 		var senderName = 'Smart-Bear'; //発送元-宛先
 
+		var address2 = record["address2"];
+		var address3 = record["address3"];
+		var address4 = record["address4"];
+
+		if(record["address2"]==null || record["address2"]==""){
+			address2 = " ";
+		}
+		if(record["address3"]==null || record["address3"]==""){
+			address3 = " ";
+		}
+		if(record["address4"]==null || record["address4"]==""){
+			address4 = " ";
+		}
+
 		var insertResult = db.change(
 			"SENDING",
 			"insertLabelInfo",
@@ -63,10 +77,10 @@ sending_outputlabel.fire = function (params) {
 				"orderno": record["orderno"] ,
 				"postno": record["postno"] ,
 				"address1": record["address1"] ,
-				"address2": record["address2"] ,
-				"address3": record["address3"] ,
+				"address2": address2 ,
+				"address3": address3 ,
 
-				"address4": record["address4"] ,
+				"address4": address4 ,
 				"name": record["name"] ,
 				"shipcontent": record["shipcontent"] ,
 				"senderPostno": senderPostno ,
@@ -78,7 +92,7 @@ sending_outputlabel.fire = function (params) {
 				"shopid": getShopId()
 
 			},
-			"jdbc/efw2"
+			"jdbc/efw3"
 		);
 
 	}

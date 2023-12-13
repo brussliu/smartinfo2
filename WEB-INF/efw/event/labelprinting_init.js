@@ -23,7 +23,7 @@ labelprinting_init.fire = function (params) {
 		}
 	).getArray();
 
-	var resultHTML1 = "<option value='{value}'class='option' >{text}</option>";
+	var resultHTML1 = "<option value='{value}' class='option' >{text}</option>";
 
 	ret.runat("#select_productno").remove("option .option").append(resultHTML1).withdata(selectResult1);
  
@@ -47,7 +47,7 @@ labelprinting_init.fire = function (params) {
 					 "label" : label,
 					 "shopid":getShopId() 
 				 },
-				 "jdbc/efw2" 
+				 "jdbc/efw3" 
 				 ).getSingle();
 				 
 				 var count = selectResult3["数量"] == null? '':selectResult3["数量"] ;
@@ -75,7 +75,7 @@ labelprinting_init.fire = function (params) {
 		 { 
 			 "shopid":getShopId() 
 		 },
-		 "jdbc/efw2" 
+		 "jdbc/efw3" 
 		 ).getArray();
 
 		 var resultHTML3 = '<tr>' +
@@ -87,7 +87,7 @@ labelprinting_init.fire = function (params) {
 		 '<td style="width: 150px;" class="r"><span class="r5">{label番号}</span></td>' +
 		 '<td style="width: 300px;" class="c"></td>' + 
 		 '<td style="width: 100px;" class="l"><span class="l5">{数量}</span></td>   ' +  
-		 '<td style="width: 127px;" class="l"></td>   ' +              
+		 '<td style="width: 127px;" class="l"><span class="l5">{店舗id}</span></td>   ' +              
 		 '</tr>' ;
 		 ret.runat("#labeltable").append(resultHTML3).withdata(selectResult4);
 

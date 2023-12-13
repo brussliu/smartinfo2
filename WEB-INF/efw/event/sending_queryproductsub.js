@@ -23,9 +23,6 @@ sending_queryproductsub.fire = function (params) {
 	// 操作区分（商品管理番号⇒0　分類１⇒1　分類２⇒2）
 	var opt = params["opt"];
 
-	// product.debug("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-	// sub1.debug("111111111111111111111111111111111111");
-	// sub2.debug("222222222222222222222222222222222222");
 	// 商品管理番号を選択する場合
 	if(opt == '0'){
 

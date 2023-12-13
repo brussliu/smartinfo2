@@ -22,7 +22,7 @@ labelprinting_reserve.fire = function (params) {
 		{
 			"shopid": getShopId(),
 		},
-		"jdbc/efw2" 
+		"jdbc/efw3" 
 	)
  
 
@@ -31,17 +31,28 @@ labelprinting_reserve.fire = function (params) {
 			"LABELPRINTING",
 			"delAliSmart_bear",
 			{},
-			"jdbc/efw2" 
+			"jdbc/efw3" 
 		)
  
 	}
+
+
 	if(tableArr != null || tableArr != ''){
 		for(var i =0; i<tableArr.length;i++){
 			var jsons = JSON.parse(tableArr[i]);
 			var type = jsons.type;
 			var productno = jsons.productno;
 			var sub1 = jsons.sub1;
-			var sub2 = jsons.sub2; 
+
+			if (sub1 == null || sub1 == ""){
+				sub1 = " ";
+			}
+
+			var sub2 = jsons.sub2;
+			if (sub2 == null || sub2 == ""){
+				sub2 = " ";
+			}
+
 			var label = jsons.label;
 			var count = parseInt(jsons.count);
 			var shopname = jsons.shopname;
@@ -61,7 +72,7 @@ labelprinting_reserve.fire = function (params) {
 					"shopname":shopname,
 					"shopid": getShopId(),
 				},
-				"jdbc/efw2" 
+				"jdbc/efw3" 
 			)
 			 
 
@@ -79,7 +90,7 @@ labelprinting_reserve.fire = function (params) {
 							"label":label, 
 							"shopname":shopname,
 						},
-						"jdbc/efw2" 
+						"jdbc/efw3" 
 					)
 				 
 				}

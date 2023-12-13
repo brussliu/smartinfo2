@@ -11,7 +11,7 @@
                 /* content */
                 .content {
                     width: var(--width);
-                    height: 86vh;
+                    height: 100%;
                     vertical-align: middle;
                 }
 

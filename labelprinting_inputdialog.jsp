@@ -143,8 +143,6 @@
                 <tbody>
                     <tr>
                         <td></td>
-                      
-                        <!-- <td><input type="hidden" id="opt"></input></td> -->
                         <td style="width: 200px;"><button class="btn"  onclick="save()">保存</button></td>
                         <td style="width: 200px;"><button class="btn" onclick="cancel()">キャンセル</button></td>
                         <td style="width: 50px;"></td>

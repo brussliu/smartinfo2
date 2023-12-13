@@ -10,6 +10,8 @@
 				"MST_出品マスタ情報" 
 			WHERE
 				"length" ( 商品管理番号 ) > 0 
+				AND "LABEL番号" is not null
+				AND "削除フラグ" != '1'
 				AND "店舗ID" = :shopid  
 			ORDER BY
 				"商品管理番号"
@@ -35,30 +37,24 @@
 		SELECT 
 			 *
 		FROM
-			`mst_label情報` mst
+			mst_label情報 mst
 		WHERE 
-			 mst.`LABEL番号` = :label
+			 mst.LABEL番号 = :label
 			AND
-			 mst.`店舗ID` = :shopid
+			 mst.店舗ID = :shopid
 			AND
-			 mst.`商品区分` = '代納商品'
+			 mst.商品区分 = '代納商品'
 	</sql>
 
 	<sql id="searchAliLabelprinting2">
 		SELECT 
 			*
-			 <!-- mst.`商品区分` as type
-			, mst.`商品管理番号` as productno
-			, mst.`分類１` as sub1
-			, mst.`分類２` as sub2
-			, mst.`LABEL番号` as label 
-			, mst.`数量` as count -->
 		FROM
-			`mst_label情報`  mst
+			mst_label情報  mst
 		WHERE  
-			 mst.`店舗ID` = :shopid
+			mst.店舗ID = :shopid
 			AND
-			 mst.`商品区分` = '自納商品'
+			mst.商品区分 = '自納商品'
 	</sql>
 
 	<!-- 查询MST_出品マスタ情報分類１ -->
@@ -70,7 +66,8 @@
 			FROM
 				"MST_出品マスタ情報" 
 			WHERE
-				"店舗ID" = :shopid  
+				"店舗ID" = :shopid
+				and "削除フラグ" != '1'
 				and "商品管理番号" = :product
 				and "親子区分" = '子商品'
 		) TEMP
@@ -87,7 +84,8 @@
 		FROM
 			"MST_出品マスタ情報" 
 		WHERE
-			"店舗ID" = :shopid  
+			"店舗ID" = :shopid
+			and "削除フラグ" != '1'  
 			and "商品管理番号" = :product
 			and "親子区分" = '子商品'
 			<if exists="sub1"> AND ( "分類１"  = :sub1 ) </if>
@@ -105,6 +103,7 @@
 			"MST_出品マスタ情報" 
 		WHERE
 			"店舗ID" = :shopid  
+			and "削除フラグ" != '1'
 			and "商品管理番号" = :product
 			and "親子区分" = '子商品'
 			<if exists="sub1"> AND (	
@@ -137,6 +136,7 @@
 			"MST_出品マスタ情報" 
 		WHERE
 			"店舗ID" = :shopid  
+			and "削除フラグ" != '1'
 			and "商品管理番号" = :productno
 			and "親子区分" = '子商品'
 			<if exists="sub1"> AND (	
@@ -205,21 +205,21 @@
 	<sql id="delAliLabel" >
 		delete
 		from
-			`mst_label情報`
+			mst_label情報
 		where
-			`店舗ID`= :shopid
+			店舗ID = :shopid
 		 
 	</sql>
 	
 	<sql id="delAliSmart_bear" >
 		delete
 		from
-			`label_smart_bear`
+			label_smart_bear
 		 
 	</sql>
 
 	<sql id="insertAliLabel">
-		insert into `mst_label情報` 
+		insert into mst_label情報
 		<!-- (
 			"仕入NO",
 			"枝番",
@@ -244,7 +244,7 @@
 	</sql>
 
 		<sql id="insertAliSmart_bear">
-		insert into `label_smart_bear` 
+		insert into label_smart_bear
 			 values ( 
 			:productno,
 			:sub1,

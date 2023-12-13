@@ -7,6 +7,7 @@
             <title>SmartInfo 2.0</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <script type="text/javascript" src="js/common.js"></script>
             <script>
 
                 function scrollHead(obj) {
@@ -242,7 +243,16 @@
                         else
                         alter('印刷 IS NULL')
                 }
-         
+
+                // CTRL+O
+                $(window).keydown(function(e) {
+                    
+                    if (e.keyCode == 79 && e.ctrlKey) {
+
+                        outputToExcelFile(); 
+                    } 
+                });
+
          </script>
 
             <style>
@@ -320,34 +330,59 @@
                     </div>
                     <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
                         <table id="labeltable" class="table_detail_content" style="width: 1353px;table-layout: fixed;" id="stocktable">
-
-                            <!-- <tr>
-                                <td style="width: 70px;" class="c"><input type="checkbox" name="label"></input></td>
-                                <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                <td style="width: 80px;" class="c">W001</td>                
-                                <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>                              
-                                <td style="width: 200px;" class="c">X000UXRHRV</td>
-                                <td style="width: 100px;" class="r"><span class="r5">999.00</span></td>
-                                <td style="width: 177px;" class="l"><span class="l5">A:クリックポスト</span></td>                   
-                            </tr>
-                            <tr>
-                                <td style="width: 70px;" class="c"><input type="checkbox" name="label"></input></td>
-                                <td style="width: 140px;" class="l"><span class="l5">01:レインコート</span></td>
-                                <td style="width: 80px;" class="c">W001</td>                
-                                <td style="width: 160px;" class="l"><span class="l5">イエローライオン</span></td>
-                                <td style="width: 160px;" class="l"><span class="l5">28 内寸18.5cm</span></td>                              
-                                <td style="width: 200px;" class="c">X000UXRHRV</td>
-                                <td style="width: 100px;" class="r"><span class="r5">999.00</span></td>
-                                <td style="width: 177px;" class="l"><span class="l5">A:クリックポスト</span></td>                   
-                            </tr>     -->
-
-
+                         
                         </table>
                     </div>
 
                 </div>
             </div>
         </body>
+        <script>
+            $(document).ready(function() {
 
+                // 获取屏幕宽度
+                var screenWidth = window.screen.width;
+
+                // 获取屏幕高度
+                var screenHeight = window.screen.height;
+
+                // 获取屏幕可用工作区宽度（不包括任务栏等）
+                var screenAvailableWidth = window.screen.availWidth;
+
+                // 获取屏幕可用工作区高度（不包括任务栏等）
+                var screenAvailableHeight = window.screen.availHeight;
+
+
+                //alert(screenWidth);
+                //alert(screenHeight);
+                //alert(screenAvailableWidth);
+                //alert(screenAvailableHeight);
+
+                var h0 = $(document).height();
+                
+
+                var h1 = $(".head").height();
+                var h2 = $(".topnav").height();
+                var h3 = $(".c_btn").height();
+                var h4 = $(".c_condition").height();
+                if(h4 == undefined){
+                    h4 = 0;
+                }
+                var h5 = $(".c_detail_header").height();
+
+                var h6 = h0 - h1 - h2 - h3 - h4 - h5 - 30 -120;
+
+                // alert("h0:"+h0);
+                // alert("h1:"+h1);
+                // alert("h2:"+h2);
+                // alert("h3:"+h3);
+                // alert("h4:"+h4);
+                // alert("h5:"+h5);
+
+                // alert("h6:"+h6);
+                $(".c_detail_content").height(h6);
+                //alert(h4);
+
+            });
+        </script>
         </html>

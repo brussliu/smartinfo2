@@ -101,8 +101,6 @@ sending_save.fire = function (params) {
 						(address2 == null ? '' : address2) + ' ' + 
 						(address3 == null ? '' : address3);
 
-	addressall.debug("==============================================================");
-
 	if(sub1 == '‐‐‐‐'){
 		sub1 = null;
 	}
