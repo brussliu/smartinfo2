@@ -42,9 +42,7 @@
 
                     var keywordArr = new Array();
                     var text_keyword =$("#text_keyword").val()
-                    console.log(text_keyword)
                     keywordArr = text_keyword.split(' ') 
-                    console.log(keywordArr)
 
                     Efw('stockinfo_search', { 'producttypeArr': producttypeArr,'keywordArr':keywordArr});
                 }
@@ -54,13 +52,18 @@
                     // 途中（納品）
                     var span_put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
                     var put = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
-                    // 途中（LOCAL）
-                    var span_local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var local = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    
+                    // LOCAL1
+                    var span_local1 = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var local1 = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    // LOCAL2
+                    var span_local2 = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var local2 = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    
                     // 途中（仕入）
-                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
-                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
-
+                    var span_purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().children();
+                    var purchase = $(val).parent().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next().next();
+                    
                     if ($(val).is(':checked')) {
                         if (span_put.html() != "" && span_put.html() != null && span_put.html() != '0') {
                             span_put.css("display", "none");
@@ -74,16 +77,22 @@
                             purchase.append('<input type="text" class="text_purchase"value="' + sp2  + '"style="width:60px;height: 30px;"></input>')
                             purchase.data("text", "1");
                         }
-                        span_local.css("display", "none");
-                        var sp3 = span_local.html() =="null"?"":span_local.html() 
-                        local.append('<input type="text" class="text_local"value="' + sp3 + '"style="width:60px;height: 30px;"></input>')
+                        span_local1.css("display", "none");
+                        var sp3 = span_local1.html() =="null"?"":span_local1.html() 
+                        local1.append('<input type="text" class="text_local1" value="' + sp3 + '"style="width:60px;height: 30px;"></input>')
+                       
+                        span_local2.css("display", "none");
+                        var sp4 = span_local2.html() =="null"?"":span_local2.html() 
+                        local2.append('<input type="text" class="text_local2" value="' + sp4 + '"style="width:60px;height: 30px;"></input>')
 
                     } else {
                         span_put.css("display", "block");
-                        span_local.css("display", "block");
+                        span_local1.css("display", "block");
+                        span_local2.css("display", "block");
                         span_purchase.css("display", "block");
                         $(".text_put").remove();
-                        $(".text_local").remove();
+                        $(".text_local1").remove();
+                        $(".text_local2").remove();
                         $(".text_purchase").remove();
                     }
                 }
@@ -107,8 +116,10 @@
                             var asin = tdArr.eq(7).html();
                             // SKU番号
                             var sku = tdArr.eq(8).html();
-                            // LOCAL在庫
-                            var local = tdArr.eq(14).children().next().val();
+                            // LOCAL1在庫
+                            var local1 = tdArr.eq(15).children().next().val();
+                            // LOCAL2在庫
+                            var local2 = tdArr.eq(16).children().next().val();
                             // 商品種別
                             var producttype = tdArr.eq(2).children().html();
                             // 商品管理番号
@@ -125,17 +136,20 @@
                             localArr.push(parseInt(flg));
                             localArr.push(sku);
                             localArr.push(asin);
-                            localArr.push(parseInt(local == null?0:local));
+
+                            localArr.push(parseInt(local1 == null?0:local1));
+
                             localArr.push(producttype);
                             localArr.push(productno);
+
                             localArr.push(preproduct);
                             localArr.push(productsub1);
                             localArr.push(productsub2);
                             
                             //途中（入庫）
-                            var put = tdArr.eq(13);
+                            var put = tdArr.eq(14);
                             if (put.data("text") != "undefined") {
-                                var putval = tdArr.eq(13).children().next().val();
+                                var putval = tdArr.eq(14).children().next().val();
                                 
                                 localArr.push(parseInt(putval == 'null'?0:putval));
                             }else{
@@ -143,16 +157,16 @@
                             }
                             
                             // 途中（仕入）
-                            var purchase = tdArr.eq(15);
+                            var purchase = tdArr.eq(17);
                             if (purchase.data("text") != "undefined") {
-                                var purchaseval = tdArr.eq(15).children().next().val();
+                                var purchaseval = tdArr.eq(17).children().next().val();
                                 localArr.push(parseInt(purchaseval == 'null'?0:purchaseval));
                             }else{
                                 localArr.push(null);
                             }
                              
+                            localArr.push(parseInt(local2 == null?0:local2));
                             alllocalArr.push(localArr);
-
                         }
 
                     });
@@ -239,8 +253,6 @@
                         $('#text_date').val('')
                         $('#text_date').attr ("disabled",true);
                     }
-              
-
                 }
            
            
@@ -358,7 +370,8 @@
                                         <option value="FBA在庫">FBA在庫</option>
                                         <option value="FBM在庫">FBM在庫</option>
                                         <option value="途中在庫_入庫">途中（入庫）</option>
-                                        <option value="LOCAL在庫">LOCAL在庫</option>
+                                        <option value="LOCAL在庫_1">LOCAL1在庫</option>
+                                        <option value="LOCAL在庫_2">LOCAL2在庫</option>
                                         <option value="途中在庫_仕入">途中（仕入）</option>
                                         <option value="販売数量（直近３日間）">販売数量（直近３日間）</option>
                                         <option value="販売数量（直近７日間）">販売数量（直近７日間）</option>
@@ -381,7 +394,7 @@
                         </table>
                     </div>
                     <div class="c_detail_header" style="overflow: hidden;display: none;">
-                        <table class="table_detail_header" style="width: 2855px;table-layout: fixed;">
+                        <table class="table_detail_header" style="width: 2937px;table-layout: fixed;">
                             <thead>
                                 <tr class="header">
                                     <th style="width: 50px;">操作</th>
@@ -403,7 +416,8 @@
                                     <th style="width: 80px;">FBM在庫</th>
 
                                     <th style="width: 80px;">途中<br>（入庫）</th>
-                                    <th style="width: 80px;">LOCAL<br>在庫</th>
+                                    <th style="width: 80px;">LOCAL1<br>在庫</th>
+                                    <th style="width: 80px;">LOCAL2<br>在庫</th>
                                     <th style="width: 80px;">途中<br>（仕入）</th>
 
                                     <th style="width: 80px;">在庫合計<br>（販売中）</th>
@@ -422,7 +436,7 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: none;" onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="width: 2848px;table-layout: fixed;" id="stocktable">
+                        <table class="table_detail_content" style="width: 2920px;table-layout: fixed;" id="stocktable">
                            
                         </table>
                     </div>

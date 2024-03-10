@@ -50,7 +50,8 @@ earning_purchaselist.fire = function (params) {
 	'<td style="width: 150px;">{sku}</td>' +
 	'<td style="width: 120px;">{label}</td>' +
 	'<td style="width: 80px;">{fba}</td>' +
-	'<td style="width: 80px;">{local}</td>' +
+	'<td style="width: 80px;">{local1}</td>' +
+	'<td style="width: 80px;">{local2}</td>' +
 	'<td style="width: 80px;">{number}</td>' +
 	'</tr>';
 

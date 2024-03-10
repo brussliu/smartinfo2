@@ -105,7 +105,8 @@ stockinfo_search.fire=function(params){
 			'<td style="width: 80px;" class="r"><span class="r5">{fba}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{fbm}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{put}</span></td>' +
-			'<td style="width: 80px;" class="r"><span>{local}</span> </td>' +
+			'<td style="width: 80px;" class="r"><span class="r5">{local1}</span> </td>' +
+			'<td style="width: 80px;" class="r"><span class="r5">{local2}</span> </td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{purchase}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{stockonsell}</span></td>' +
 			'<td style="width: 80px;" class="r"><span class="r5">{stockprepare}</span></td>' +

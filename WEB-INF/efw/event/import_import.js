@@ -226,7 +226,7 @@ function importFile06(){
 
 		var csvReader = new CSVReader(PROCESS_FILE_PATH + "\\" + filefoldername + "\\" + csvFile, ",", "\"", "MS932");
 		// データ全件削除
-		var delResult = db.change("IMPORT",	"delAllFile06",{});
+		var delResult = db.change("IMPORT",	"delAllFile06",{"shopId": getShopId()});
 
 		num = 0;
 		eval('csvReader.loopAllLines(import_06);');

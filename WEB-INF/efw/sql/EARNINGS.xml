@@ -555,12 +555,13 @@
 		A."SKU番号" AS sku,
 		A."LABEL番号" AS label,
 		B."FBA在庫" AS fba,
-		B."LOCAL在庫" AS LOCAL,
+		B."LOCAL在庫_1" AS LOCAL1,
+		B."LOCAL在庫_2" AS LOCAL2,
 		C."数量" AS NUMBER 
  FROM
 		"TRN_仕入明細" C
 		LEFT JOIN "MST_出品マスタ情報" A ON A."ASIN番号" = C."ASIN番号" AND A."SKU番号" = C."SKU番号" 
-		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号"
+		LEFT JOIN "MST_在庫情報" B ON C."ASIN番号" = B."ASIN番号" AND C."SKU番号" = B."SKU番号" 
 		LEFT JOIN "MST_ソート情報" S1 on A."商品種別" = S1."商品種別" and S1."分類" = '分類１' and A."分類１" = S1."内容" and A."店舗ID" = S1."店舗ID"
 		LEFT JOIN "MST_ソート情報" S2 on A."商品種別" = S2."商品種別" and S2."分類" = '分類２' and A."分類２" = S2."内容" and A."店舗ID" = S2."店舗ID"
 		

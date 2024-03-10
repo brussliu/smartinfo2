@@ -98,10 +98,15 @@ delivery_update.fire = function (params) {
 	).getSingle(); 
 
 	var logtitle = '納品NO：'+deliveryno+' 操作：納品更新'
-	if(selectResult3.length > 0 || selectResult4['ct1'] != selectResult5['ct2']){
-		logtitle.debug('--------------------');
+	if(selectResult3.length > 0 ){
+		logtitle.debug('--------------------在庫数量<0');
 		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
-	}  
+	} 
+
+	if(selectResult4['ct1'] != selectResult5['ct2'] ){
+		logtitle.debug('--------------------在庫数量不一致');
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
+	}
    
 	// 画面へ結果を返す
 	return ret;

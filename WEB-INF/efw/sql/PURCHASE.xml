@@ -412,7 +412,8 @@
 		A."SKU番号" AS sku,
 		A."LABEL番号" AS label,
 		B."FBA在庫" AS fba,
-		B."LOCAL在庫" AS LOCAL,
+		B."LOCAL在庫_1" AS LOCAL1,
+		B."LOCAL在庫_2" AS LOCAL2,
 		C."数量" AS NUMBER 
  FROM
 		"TRN_仕入明細" C
@@ -574,53 +575,28 @@
 
 <sql id="removeStockFromLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "LOCAL在庫" = COALESCE("LOCAL在庫",0) - COALESCE(TRN."数量",0)
+	SET "LOCAL在庫_1" =  (case when  COALESCE("LOCAL在庫_1",0) - COALESCE(TRN."数量",0) &lt; 0
+							   then 0
+							   else COALESCE("LOCAL在庫_1",0) - COALESCE(TRN."数量",0) end )
 	FROM "TRN_仕入明細" TRN
 	WHERE
 		MST."ASIN番号" = TRN."ASIN番号" 
-	and	MST."SKU番号" = 	TRN."SKU番号"
+	and	MST."SKU番号" =  TRN."SKU番号"
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
 
 <sql id="allocateStockToLocal" paramPrefix="!">
 	UPDATE "MST_在庫情報" MST
-	SET "LOCAL在庫" = COALESCE("LOCAL在庫",0) + COALESCE(TRN."数量",0)
+	SET "LOCAL在庫_1" = COALESCE("LOCAL在庫_1",0) + COALESCE(TRN."数量",0)
 	FROM "TRN_仕入明細" TRN
 	WHERE
-		MST."ASIN番号" = TRN."ASIN番号" 
+		MST."ASIN番号" = TRN."ASIN番号"  
 	and	MST."SKU番号" =  TRN."SKU番号"
 	and MST."暫定フラグ" = TRN."暫定フラグ" 
 	and TRN."仕入NO" = !purchaseno
 	and TRN."店舗ID" = !shopid
 </sql>
-
-<!--sl:更新MST_在庫情報-减去LOCAL在庫数量  -->
-<!-- <sql id="updateMSTLocalMinus" paramPrefix="!">
- UPDATE 
- 	"MST_在庫情報" 
- 	SET 
-	 "LOCAL在庫" = "LOCAL在庫" - cast(!count as int)
- WHERE
-	"店舗ID" = !shopid 
-	and	"ASIN番号" = !asin
-	and	"SKU番号" = !sku
-
-</sql> -->
-
-
-<!--sl:更新MST_在庫情報-加上LOCAL在庫数量  -->
-<!-- <sql id="updateMSTLocalAdd" paramPrefix="!">
- UPDATE 
- 	"MST_在庫情報" 
- 	SET 
-	 "LOCAL在庫" = "LOCAL在庫" + cast(!count as int)
- WHERE
-	"店舗ID" = !shopid 
-	and	"ASIN番号" = !asin
-	and	"SKU番号" = !sku
-</sql> -->
-
 
 <!-- sl:仕入NOリンク押下 -->
 
@@ -648,11 +624,12 @@
 			d."FBA在庫" as fba,
 			d."FBM在庫" as fbm,
 			d."途中在庫_入庫" as put,	
-			d."LOCAL在庫" as local,
+			d."LOCAL在庫_1" as local1,
+			d."LOCAL在庫_2" as local2,
 			d."途中在庫_仕入" as purchase,
 			case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
-			case when m."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
-			case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+			case when m."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫_1", 0) + COALESCE(d."LOCAL在庫_2", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+			case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫_1", 0) + COALESCE(d."LOCAL在庫_2", 0)+ COALESCE(d."途中在庫_仕入", 0) end as stockall,
 			b."販売数量（直近３日間）" as selled3,
 			b."販売数量（直近７日間）" as selled7, 
 			b."販売数量（直近３０日間）" as selled30, 
@@ -705,12 +682,13 @@
 		null as shippingway,
 		d."FBA在庫" as fba,
 		d."FBM在庫" as fbm,
-		d."途中在庫_入庫" as put,	
-		d."LOCAL在庫" as local,
+		d."途中在庫_入庫" as put,
+		d."LOCAL在庫_1" as local1,
+		d."LOCAL在庫_2" as local2,
 		d."途中在庫_仕入" as purchase,
 		case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) end as stockonsell,
-		case when m."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
-		case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫", 0) + COALESCE(d."途中在庫_仕入", 0) end as stockall,
+		case when m."親子区分" = '親商品' then null else COALESCE(d."LOCAL在庫_1", 0) + COALESCE(d."LOCAL在庫_2", 0)+ COALESCE(d."途中在庫_仕入", 0) end as stockprepare,
+		case when m."親子区分" = '親商品' then null else COALESCE(d."FBA在庫", 0) + COALESCE(d."FBM在庫", 0) + COALESCE(d."途中在庫_入庫", 0) + COALESCE(d."LOCAL在庫_1", 0) + COALESCE(d."LOCAL在庫_2", 0)+ COALESCE(d."途中在庫_仕入", 0) end as stockall,
 		null as selled3,
 		null as selled7, 
 		null as selled30, 

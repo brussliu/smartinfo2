@@ -680,8 +680,8 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	var COL_M = "M";
 	var COL_N = "N";
 	var COL_O = "O";
-	var COL_R = "R";
-	var COL_S = "S";
+	var COL_P = "P";
+	var COL_Q = "Q";
 	var COL_T = "T";
 	var COL_U = "U";
 	var COL_V = "V";
@@ -689,7 +689,9 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	var COL_X = "X";
 	var COL_Y = "Y";
 	var COL_Z = "Z";
-	var COL_AC = "AC";
+	var COL_AA = "AA";
+	var COL_AB = "AB";
+	var COL_AE = "AE";
 	
 	var no = returnNull(selectRecord["pno"]);
 	var asin = returnNull(selectRecord["asin"]);
@@ -706,7 +708,9 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	var fba = returnNull(selectRecord["fba"]);
 	var fbm = returnNull(selectRecord["fbm"]);
 	var put = returnQuantity(selectRecord["put"]);
-	var local = returnQuantity(selectRecord["local"]);
+	var local1 = returnQuantity(selectRecord["local1"]);
+	var local2 = returnQuantity(selectRecord["local2"]);
+	var localcount =  local1 + local2;
 	var purchase = returnQuantity(selectRecord["purchase"]);
 
 	var selled3 = returnQuantity(selectRecord["selled3"]);
@@ -752,32 +756,36 @@ function setInfoToExcel(excel, selectRecord, sheetName, from, exl_flg) {
 	setExcelValue(excel, sheetName, COL_L + from, fbm);
 	// 在庫数量(納品途中)
 	setExcelValue(excel, sheetName, COL_M + from, put);
+	// LOCAL在庫_1
+	setExcelValue(excel, sheetName, COL_N + from, local1);
+	// LOCAL在庫_2
+	setExcelValue(excel, sheetName, COL_O + from, local2);
 	// 在庫数量(LOCAL)
-	setExcelValue(excel, sheetName, COL_N + from, local);
+	setExcelValue(excel, sheetName, COL_P + from, localcount);
 	// 在庫数量(仕入途中)
-	setExcelValue(excel, sheetName, COL_O + from, purchase);
+	setExcelValue(excel, sheetName, COL_Q + from, purchase);
 	// 販売数量(直近3日)
-	setExcelValue(excel, sheetName, COL_R + from, selled3);
+	setExcelValue(excel, sheetName, COL_T + from, selled3);
 	// 販売数量(直近7日)
-	setExcelValue(excel, sheetName, COL_S + from, selled7);
+	setExcelValue(excel, sheetName, COL_U + from, selled7);
 	// 販売数量(直近30日)
-	setExcelValue(excel, sheetName, COL_T + from, selled30);
+	setExcelValue(excel, sheetName, COL_V + from, selled30);
 	// 販売数量(直近60日)
-	setExcelValue(excel, sheetName, COL_U + from, selled60);
+	setExcelValue(excel, sheetName, COL_W + from, selled60);
 	// 販売数量(直近90日)
-	setExcelValue(excel, sheetName, COL_V + from, selled90);
+	setExcelValue(excel, sheetName, COL_X + from, selled90);
 	// 販売数量(直近180日)
-	setExcelValue(excel, sheetName, COL_W + from, selled180);
+	setExcelValue(excel, sheetName, COL_Y + from, selled180);
 	// 販売数量(直近360日)
-	setExcelValue(excel, sheetName, COL_X + from, selled360);
+	setExcelValue(excel, sheetName, COL_Z + from, selled360);
 	// 販売数量(参照値)
-	setExcelValue(excel, sheetName, COL_Y + from, dayaverage);
+	setExcelValue(excel, sheetName, COL_AA + from, dayaverage);
 	// 納品数量
 	if(exl_flg == '1' || exl_flg == '2'){
-		setExcelValue(excel, sheetName, COL_Z + from, num);
+		setExcelValue(excel, sheetName, COL_AB + from, num);
 	}
 	// 請求金額 
-	setExcelValue(excel, sheetName, COL_AC + from, amountrequested);
+	setExcelValue(excel, sheetName, COL_AE + from, amountrequested);
 }
 
 function setExcelValue(excel, sheetName, station, value) {
@@ -839,7 +847,7 @@ function importProContent(proContent, no, flg) {
 	var COL_D = "D";//SKU番号
 	var COL_F = "F";//分類１
 	var COL_G = "G";//分類２
-	var COL_Z = "Z";//仕入数量
+	var COL_Z = "AB";//仕入数量
 	var Y_from = 3;//EXCEL開始行
 	var Y_to = 9999;//EXCEL終了行
 

@@ -20,12 +20,9 @@
                 }
 
                 // 检索
-                function searchadvertising() {
-                    var producttypeArr = new Array();
-                    $('#checkbox_producttype input:checkbox:checked').each(function (index, item) {
-                        producttypeArr.push($(this).val());
-                    }); 
-                    Efw('ledgersale_search', { 'producttypeArr': producttypeArr});
+                function searchlegersale() {
+                  
+                    Efw('ledgersale_search' );
                 }
                 // CTRL+O
                 $(window).keydown(function(e) {
@@ -42,7 +39,7 @@
             </style>
         </head>
 
-        <body >
+        <body  onload="init();">
             <div>
                 <div class="head">
                     <div class="hleft">
@@ -85,7 +82,7 @@
                                     <td></td> 
                                     <td></td>
                                     <td></td>
-                                    <td style="width: 200px;"><button onclick="searchadvertising()">検索</button></td>
+                                    <td style="width: 200px;"><button onclick="searchlegersale()">検索</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -102,15 +99,15 @@
                                             <option value=""></option>
                                         </select>
                                     </td>
-                                    <td style="width: 120px;font-weight: bold;">キーワード：</td>
+                                    <td style="width: 120px;font-weight: bold;">ASIN番号：</td>
                                     <td style="width: 220px;">
                                         <input type="text" style="width: 200px;height: 30px;" id="text_keyword"></input>
                                     </td>
                                     <td style="width: 60px;font-weight: bold;">年月：</td>
                                     <td style="width: 220px;">
-                                        <select id="opt_productno" style="width: 130px;height:30px;border-style: solid;">
+                                        <select id="opt_yearmonths" style="width: 130px;height:30px;border-style: solid;">
                                                 <option value=""></option>
-                                                <option value="">2023年08月</option>
+                                              
                                          </select>                                    
                                     </td>
                                     <td></td>
@@ -126,24 +123,23 @@
                         <table class="table_detail_header" style="table-layout: fixed;width: 1974px; ">
                             <thead>
                                 <tr class="header">
-                                    <th style="width: 50px;">序号</th>
-                                    <th style="width: 140px">商品種別</th>
-                                    <th style="width: 75px;">商品<br>管理番号</th>
-
-                                    <th style="width: 200px;">分類</th>
-
-                                    <!-- <th style="width: 140px;">ASIN番号<br>SKU番号<br>LABEL番号</th> -->
-                                    <th style="width: 120px;">ASIN番号</th>
-                                    <th style="width: 120px;">SKU番号</th>
-                                    <th style="width: 120px;">LABEL番号</th>
- 
                                     <th style="width: 120px;">年月</th>
+                                    <th style="width: 140px">商品種別</th>
+                                    <th style="width: 80px;">商品<br>管理番号</th> 
+                                    <th style="width: 160px;">分類①</th>
+                                    <th style="width: 160px;">分類②</th>
+
+                                    <th style="width: 140px;">ASIN番号</th>
+                                    <th style="width: 140px;">SKU番号</th>
+                                    <th style="width: 140px;">LABEL番号</th>
+ 
+                                    
                                     <th style="width: 120px;">注文数量</th>
                                     <th style="width: 120px;">注文粗利益</th>
                                     <th style="width: 120px;">広告費用</th>
-                                    <th style="width: 120px;">FBA入庫料金</th>
-                                    <th style="width: 120px;">FBA保管料金</th>
-                                    <th style="width: 120px;">FBA作業料金</th>
+                                    <th style="width: 120px;">保管手数料</th>
+                                    <th style="width: 120px;">長期保管手数料</th>
+                                    <th style="width: 120px;">仕入費用</th>
                                     <th style="width: 120px;">返品損失金額</th>
                                     <th style="width: 137px;">純利益</th> 
 
@@ -152,541 +148,8 @@
                         </table>
                     </div>
                     <div class="c_detail_content" style="overflow: auto;display: display; " onscroll="scrollHead(this);">
-                        <table class="table_detail_content" style="table-layout: fixed;width: 1957px;" id="advertisingtable">
-                            <!-- <tbody> -->
-                                <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr>
-
-                                    <tr >
-                                        <td style="width: 50px;"class="c">1</td>
-                                        <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                        <td style="width: 75px;"class="c">	T001</td>
-    
-                                        <td style="width: 200px;" >イエロー
-                                            S</td>
-    
-                                         <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                        <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                        <td style="width: 120px;"class="c">X000RJ2QFV</td>
-    
-                                        <td style="width: 120px;"class="c">2023年08月</td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-    
-                                        </tr> <tr >
-                                            <td style="width: 50px;"class="c">1</td>
-                                            <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                            <td style="width: 75px;"class="c">	T001</td>
-        
-                                            <td style="width: 200px;" >イエロー
-                                                S</td>
-        
-                                             <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                            <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                            <td style="width: 120px;"class="c">X000RJ2QFV</td>
-        
-                                            <td style="width: 120px;"class="c">2023年08月</td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-        
-                                            </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                        <td style="width: 50px;"class="c">1</td>
-                                        <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                        <td style="width: 75px;"class="c">	T001</td>
-    
-                                        <td style="width: 200px;" >イエロー
-                                            S</td>
-    
-                                         <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                        <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                        <td style="width: 120px;"class="c">X000RJ2QFV</td>
-    
-                                        <td style="width: 120px;"class="c">2023年08月</td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-    
-                                        </tr> <tr >
-                                            <td style="width: 50px;"class="c">1</td>
-                                            <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                            <td style="width: 75px;"class="c">	T001</td>
-        
-                                            <td style="width: 200px;" >イエロー
-                                                S</td>
-        
-                                             <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                            <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                            <td style="width: 120px;"class="c">X000RJ2QFV</td>
-        
-                                            <td style="width: 120px;"class="c">2023年08月</td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-        
-                                            </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                        <td style="width: 50px;"class="c">1</td>
-                                        <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                        <td style="width: 75px;"class="c">	T001</td>
-    
-                                        <td style="width: 200px;" >イエロー
-                                            S</td>
-    
-                                         <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                        <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                        <td style="width: 120px;"class="c">X000RJ2QFV</td>
-    
-                                        <td style="width: 120px;"class="c">2023年08月</td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-    
-                                        </tr> <tr >
-                                            <td style="width: 50px;"class="c">1</td>
-                                            <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                            <td style="width: 75px;"class="c">	T001</td>
-        
-                                            <td style="width: 200px;" >イエロー
-                                                S</td>
-        
-                                             <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                            <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                            <td style="width: 120px;"class="c">X000RJ2QFV</td>
-        
-                                            <td style="width: 120px;"class="c">2023年08月</td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                            <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-        
-                                            </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                    <td style="width: 50px;"class="c">1</td>
-                                    <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                    <td style="width: 75px;"class="c">	T001</td>
-
-                                    <td style="width: 200px;" >イエロー
-                                        S</td>
-
-                                     <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                    <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                    <td style="width: 120px;"class="c">X000RJ2QFV</td>
-
-                                    <td style="width: 120px;"class="c">2023年08月</td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                    <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-
-                                    </tr> <tr >
-                                        <td style="width: 50px;"class="c">1</td>
-                                        <td style="width: 140px" class="l"><span class="l5">01:レインコート</span></td>
-                                        <td style="width: 75px;"class="c">	T001</td>
-    
-                                        <td style="width: 200px;" >イエロー
-                                            S</td>
-    
-                                         <td style="width: 120px;"class="c">B077TZR4R8</td>
-                                        <td style="width: 120px;"class="c">G3-7VTX-A8HN</td>
-                                        <td style="width: 120px;"class="c">X000RJ2QFV</td>
-    
-                                        <td style="width: 120px;"class="c">2023年08月</td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="l"><span class="l5">XXXXXXXXXXXXX</span></td>
-                                        <td style="width: 120px;" class="r"><span class="r5"></span>>XXXXXXXXXXXXX</span></td> 
-    
-                                        </tr>   
-                                 
-                                
+                        <table class="table_detail_content" style="table-layout: fixed;width: 1957px;" id="ledgersaletable">
+                        
                         </table>
                     </div>
 
@@ -694,5 +157,33 @@
             </div>
 
         </body>
+        <script>
+            $(document).ready(function() {
 
+                // 获取屏幕宽度
+                var screenWidth = window.screen.width;
+
+                // 获取屏幕高度
+                var screenHeight = window.screen.height;
+
+                // 获取屏幕可用工作区宽度（不包括任务栏等）
+                var screenAvailableWidth = window.screen.availWidth;
+
+                // 获取屏幕可用工作区高度（不包括任务栏等）
+                var screenAvailableHeight = window.screen.availHeight;
+ 
+                var h0 = $(document).height(); 
+                var h1 = $(".head").height();
+                var h2 = $(".topnav").height();
+                var h3 = $(".c_btn").height();
+                var h4 = $(".c_condition").height();
+                var h5 = $(".c_detail_header").height();
+
+                var h6 = h0 - h1 - h2 - h3 - h4 - h5 - 30 -120;
+ 
+                $(".c_detail_content").height(h6);
+             
+
+            });
+        </script>
         </html>

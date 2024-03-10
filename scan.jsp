@@ -24,6 +24,10 @@
                     scan_inventory_inputdialog.dialog('close');
                 }
 
+                 // 子画面が閉じる2
+                 function cancel3() {
+                    scan_instorage_inputdialog.dialog('close');
+                }
                 // スキャン
                 function inputLabel(obj) {
 
@@ -181,9 +185,30 @@
                         $('#btn_del').attr('disabled', true);
                         $('#btn_instorage').attr('disabled', true);
                     } else {
+                        var flg = false; 
+                        var  no = $('input:radio[name="choice"]:checked').val();
+                        
+                        $("#scantable").find("tr").each(function () {
+                  
+                            var tdArr = $(this).children();
+                            var listno = tdArr.eq(1).html();
+                            var state = tdArr.eq(5).html();
+                            if (listno == no) {
+                                if(state == '2.棚卸済'  ||state == '2.入庫济' ||state == '2.出庫济' ||state == '2.移動済(1→2)' || state == '2.移動済(2→1)')
+                                {flg = true;
+                                } 
+                                return;
+                            }
+                        });
+
                         $('#btn_update').attr('disabled', false);
                         $('#btn_del').attr('disabled', false);
-                        $('#btn_instorage').attr('disabled', false);
+                        if(flg){
+                            $('#btn_instorage').attr('disabled', true);
+                        }else{
+                            $('#btn_instorage').attr('disabled', false);
+                        }
+                      
                     }
                 }
 
@@ -192,9 +217,11 @@
                     var listno = $('input:radio[name="choice"]:checked').val();
                     Efw('scan_update', { "listno": listno });
                 }
-                // 入库
+                // 在庫変更
                 function instorage() { 
                     var listno = $('input:radio[name="choice"]:checked').val();
+                    $("input[name='type']").prop("checked", false);
+                    scan_instorage_inputdialog.dialog('open');
                     Efw('scan_instorage', { "listno": listno });
                 }
 
@@ -225,8 +252,11 @@
 
                         var state = tdArr.eq(5).html();
 
-                        if (state == '2.棚卸済') {
+                        console.log(state);
+
+                        if (state == '2.棚卸済'  ||state == '2.入庫济' ||state == '2.出庫济' ||state == '2.移動済(1→2)' || state == '2.移動済(2→1)') {
                             $(this).css({ "background": "#e6e6e6" });
+                            console.log(111)
                         }
                     });
 
@@ -277,6 +307,19 @@
                     Efw('scan_localupdate', { "insertArray": insertArray, "objectArray": objectArray });
 
                 }
+                 function inputInstorage(no,name,sunnumber){ 
+                    $('#td_instorageno').html(no);
+                    $('#td_instoragename').html(name);
+                    $('#td_instoragenum').html(sunnumber);
+
+                }
+                function implement(){
+                    var typeval = $('input:radio[name="type"]:checked').val();
+                     var listno =  $('#td_instorageno').html();
+                    Efw('scan_implement', { 'typeval': typeval , 'listno' : listno });
+
+                }
+               
                  // CTRL+O
                  $(window).keydown(function(e) {
                     
@@ -286,6 +329,8 @@
                     } 
                 });
 
+
+               
             </script>
             <style>
                 .tr_pink {
@@ -298,6 +343,7 @@
         <body onload="init();">
             <efw:Part path="scan_inputdialog.jsp" />
             <efw:Part path="scan_inventory_inputdialog.jsp" />
+            <efw:Part path="scan_instorage_inputdialog.jsp" />
             <div>
                 <div class="head">
                     <div class="hleft">
@@ -339,7 +385,7 @@
                                             >棚卸</button>
                                     </td>
                                     <td style="width: 200px;"><button id="btn_instorage" onclick="instorage()"
-                                        disabled>入庫</button>
+                                        disabled>在庫変更</button>
                                      </td>
                                     <td style="width: 200px;"><button id="btn_del" onclick="del()" disabled>削除</button>
                                     </td>
@@ -355,7 +401,7 @@
                                     <th style="width: 50px;">選択</th>
                                     <th style="width: 160px;">リストNO</th>
                                     <th style="width: 250px;">リスト名称</th>
-                                    <th style="width: 400px;">リスト内容</th>
+                                    <th style="width: 1020px;">リスト内容</th>
                                     <th style="width: 150px;">数量合計</th>
                                     <th style="width: 150px;">ステータス</th>
 
@@ -364,7 +410,7 @@
                         </table>
                     </div>
 
-                    <div class="c_detail_content" style="overflow: auto;height: 673px;width:1193px; margin-left:48px;">
+                    <div class="c_detail_content" style="overflow: auto;height: 673px;width:1816px; margin-left:48px;">
                         <table id="scantable" class="table_detail_content" style="table-layout: fixed;">
                           
                         </table>

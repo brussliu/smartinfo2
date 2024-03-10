@@ -1112,7 +1112,8 @@
 			        COALESCE(MST2."FBA在庫", 0) + 
 					COALESCE(MST2."FBM在庫", 0) + 
 					COALESCE(MST2."途中在庫_入庫", 0) + 
-					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."LOCAL在庫_1", 0) + 
+					COALESCE(MST2."LOCAL在庫_2", 0) + 
 					COALESCE(MST2."途中在庫_仕入", 0) / MST3."販売数量（日平均値）" end,
 		"推奨納品数量" = case when 
 				COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0) = 0
@@ -1128,23 +1129,26 @@
 						COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
 							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."LOCAL在庫_1", 0) + 
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0) = 0
 						and 
 						cast(
 						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
 						(	COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
-							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) +  
+							COALESCE(MST2."LOCAL在庫_1", 0) + 
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
 						then 1
 						else
 						COALESCE(MST3."販売数量（日平均値）", 0) * 90 - 
 						(	COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
-							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."途中在庫_入庫", 0) +  
+							COALESCE(MST2."LOCAL在庫_1", 0) + 
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0))
 					end
 				end
@@ -2923,15 +2927,16 @@
 			:col12, --販売者商品コード
 			:col13, --外部広告
 			:col14,	--決済サイト
+			:col15,	--ギフト注文
 			null,	--購入者名
 			null,	--購入者電話番号
 			null,	--郵便番号
 			null,	--お届け先
 			null,	--電話番号
 			null,	--携帯電話
-			:col15, --店舗ID
-			:col16, --登録日時
-			:col17  --更新日時
+			:col16, --店舗ID
+			:col17, --登録日時
+			:col18  --更新日時
 		)
 	</sql>
 	<sql id="updateFile06">	

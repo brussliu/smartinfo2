@@ -30,7 +30,7 @@ delivery_complete.fire = function (params) {
 	if(status == "2.発送済"){
 
 		// 受領ファイル取り込み
-		loadAcceptanceFile(receiverfile, 1);
+		loadAcceptanceFileC(receiverfile, 1);
 
 		// TODO
 		// 1.更新途中在庫_入庫数量
@@ -48,7 +48,7 @@ delivery_complete.fire = function (params) {
 
 		// TODO
 		// 受領ファイル取り込み
-		loadAcceptanceFile(receiverfile, 2);
+		loadAcceptanceFileC(receiverfile, 2);
  
 	}
 
@@ -92,16 +92,21 @@ delivery_complete.fire = function (params) {
 		}
 	).getSingle(); 
 	var logtitle = '納品NO：'+deliveryno+' 操作：納品完了' 
-	if(selectResult3.length > 0 || selectResult4['ct1'] != selectResult5['ct2'] ){
-		logtitle.debug('--------------------');
+	if(selectResult3.length > 0 ){
+		logtitle.debug('--------------------在庫数量<0');
 		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
-	}   
+	} 
+
+	if(selectResult4['ct1'] != selectResult5['ct2'] ){
+		logtitle.debug('--------------------在庫数量不一致');
+		ret.eval("alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');alert('数据出现异常，不要进行任何操作，等待处理！');");  
+	}
 	return ret;
 
 };
 
 
-function loadAcceptanceFile(receiverfile, flg){
+function loadAcceptanceFileC(receiverfile, flg){
 	
 	file.saveUploadFiles(getShopId() + "/upload");
 

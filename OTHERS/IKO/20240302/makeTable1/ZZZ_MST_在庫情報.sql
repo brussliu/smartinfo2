@@ -1,12 +1,11 @@
-drop table public."MST_İŒÉî•ñ";
+drop table public."ZZZ_MST_İŒÉî•ñ";
 
-create table public."MST_İŒÉî•ñ" (
+create table public."ZZZ_MST_İŒÉî•ñ" (
     "SKU”Ô†" character varying(12)
   , "ASIN”Ô†" character varying(20)
   , "FBAİŒÉ" int
   , "FBMİŒÉ" int
-  , "LOCALİŒÉ_1" int
-  , "LOCALİŒÉ_2" int
+  , "LOCALİŒÉ" int
   , "“r’†İŒÉ_“üŒÉ" int
   , "“r’†İŒÉ_d“ü" int
   , "b’èƒtƒ‰ƒO" int

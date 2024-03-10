@@ -571,7 +571,8 @@
 			        COALESCE(MST2."FBA在庫", 0) + 
 					COALESCE(MST2."FBM在庫", 0) + 
 					COALESCE(MST2."途中在庫_入庫", 0) + 
-					COALESCE(MST2."LOCAL在庫", 0) + 
+					COALESCE(MST2."LOCAL在庫_1", 0) + 
+					COALESCE(MST2."LOCAL在庫_2", 0) + 
 					COALESCE(MST2."途中在庫_仕入", 0) / MST3."販売数量（日平均値）" end,
 		"推奨納品数量" = case when 
 				COALESCE(MST2."FBA在庫", 0) + COALESCE(MST2."FBM在庫", 0) + COALESCE(MST2."途中在庫_入庫", 0) = 0
@@ -587,7 +588,8 @@
 						COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
 							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."LOCAL在庫_1", 0) +
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0) = 0
 						and 
 						cast(
@@ -595,7 +597,8 @@
 						(	COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
 							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."LOCAL在庫_1", 0) +
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0)) as int) = 0
 						then 1
 						else
@@ -603,7 +606,8 @@
 						(	COALESCE(MST2."FBA在庫", 0) + 
 							COALESCE(MST2."FBM在庫", 0) + 
 							COALESCE(MST2."途中在庫_入庫", 0) + 
-							COALESCE(MST2."LOCAL在庫", 0) + 
+							COALESCE(MST2."LOCAL在庫_1", 0) +
+							COALESCE(MST2."LOCAL在庫_2", 0) + 
 							COALESCE(MST2."途中在庫_仕入", 0))
 					end
 				end
@@ -692,11 +696,13 @@
 		UPDATE 	
 				"MST_在庫情報" 
 		SET 	
-				"LOCAL在庫" = mst2.local,
+				"LOCAL在庫_1" = mst2.local1,
+				"LOCAL在庫_2" = mst2.local2,
 				"途中在庫_仕入" = mst2.purchase 
 		FROM
 				( SELECT 	
-						mst1."LOCAL在庫" AS local,
+						mst1."LOCAL在庫_1" AS local1,
+						mst1."LOCAL在庫_2" AS local2,
 						mst1."途中在庫_仕入" AS purchase 
 				FROM 	
 						"MST_在庫情報" mst1 

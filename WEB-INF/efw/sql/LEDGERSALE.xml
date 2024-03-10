@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+ 
+	<sql id="searchproducttype">
+		SELECT DISTINCT
+			"商品種別" as value,
+			substr("商品種別",4) as text
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品種別 ) > 0 
+			AND "店舗ID" = :shopid 
+		ORDER BY
+			"商品種別"
+	</sql>
+
+	<sql id="searchproducno">
+		SELECT DISTINCT
+			"商品管理番号" AS value,
+			"商品管理番号" AS text 
+		FROM
+			"MST_出品マスタ情報" 
+		WHERE
+			"length" ( 商品管理番号 ) > 0 
+			AND "店舗ID" = :shopid  
+		ORDER BY
+			"商品管理番号"
+	</sql>
+
+ 
+	<sql id="searchyearmonths">
+		SELECT DISTINCT 	yearmonths AS value, yearmonths AS text  
+		FROM
+		(
+				( SELECT "年月" AS yearmonths FROM "RES_商品別広告明細費用" WHERE "店舗ID" = :shopid )
+				UNION ALL
+				(
+					SELECT
+						substr( "仕入NO", 1, 4 ) || '年' || substr( "仕入NO", 5, 2 ) || '月' AS yearmonths 
+					FROM
+						(
+						SELECT
+							trn1."仕入NO" 
+						FROM
+							"TRN_仕入管理" trn,
+							"TRN_仕入明細" trn1 
+						WHERE
+							trn."ステータス" = '3.仕入済' 
+							AND trn."仕入NO" = trn1."仕入NO" 
+							AND trn."店舗ID" = :shopid 
+							AND trn1."暫定フラグ" = 0 
+						) trntemp 
+				) 
+				UNION ALL
+				(
+					SELECT
+						restemp.yearmonths AS yearmonths 
+					FROM
+						(
+							SELECT
+								substr( COALESCE ( res1."Month of charge", to_char( res2."日付", 'yyyy-mm' ) ), 1, 4 ) || '年' || substr( COALESCE ( res1."Month of charge", to_char( res2."日付", 'yyyy-mm' ) ), 6, 2 ) || '月' AS yearmonths 
+							FROM
+								"RES_在庫保管手数料情報" res1
+								FULL OUTER JOIN "RES_長期在庫保管手数料請求額情報" res2 ON res1."ASIN" = res2."ASIN" 
+								AND res1."店舗ID" = res2."店舗ID" 
+								AND res1."Month of charge" = to_char( res2."日付", 'yyyy-mm' ) 
+								AND res1."店舗ID" = :shopid 
+						) restemp 
+				) 
+				UNION ALL
+				(
+					SELECT
+						yearmonths 
+					FROM
+						(
+						SELECT
+							"年月" AS yearmonths 
+						FROM
+							(
+									SELECT
+										to_char( "日付/時間", 'YYYY年MM月' ) AS "年月" 
+									FROM
+										"RES_注文ペイメント情報" 
+									WHERE
+										"SKU" IS NOT NULL AND "店舗ID" = :shopid
+								UNION ALL
+									SELECT
+										to_char( "日付/時間", 'YYYY年MM月' ) AS "年月" 
+									FROM
+										"RES_非注文ペイメント情報" 
+									WHERE  "店舗ID" = :shopid
+									AND "SKU" IS NOT NULL
+							) j 
+						) TEMP2 
+					) 
+		) s 
+ORDER BY
+	yearmonths DESC
+	</sql>
+ 
+ 	<sql id="searchledgersalelist">
+		SELECT *
+		FROM 
+		(
+			SELECT 
+					TEMP3.yearmonths AS yearmonths,
+					mst2."商品種別" AS type,
+					mst2."商品管理番号" AS no,
+					mst2."分類１" AS sub1,
+					mst2."分類２" AS sub2,
+					mst2."ASIN番号" AS asin,
+					mst2."SKU番号" AS sku,
+					mst2."LABEL番号" AS label,
+					
+					sum(temp3.adfee) AS adfee,
+					sum(temp3."仕入費用" )AS purchasefee,
+					
+					sum(temp3.msfee )AS msfee,
+					sum(temp3.lmsfee )AS lmsfee,
+					
+					sum(temp3."注文数量") AS ordercount,
+					sum(temp3."注文粗利益") AS orderprofit,
+					 
+					sum(temp3."返品損失金額") AS ruturnfee,
+					CAST ( SUM ( 0 + CAST ( temp3."注文粗利益" AS numeric(10,2) ) + CAST ( temp3."仕入費用" AS numeric(10,2) ) + CAST ( temp3.adfee AS numeric(10,2) ) + CAST ( temp3.msfee AS numeric(10,2) )  + CAST ( temp3.lmsfee AS numeric(10,2) ) + CAST ( temp3."返品損失金額" AS numeric(10,2) ) ) AS numeric(10,2) ) AS profit 
+					
+		FROM 
+				"MST_出品マスタ情報" MST2
+				right JOIN (
+		 
+					(
+								SELECT
+									"年月"as yearmonths,
+									"SKU番号" AS sku,
+									
+									0 - COALESCE(sum("広告費(JPY)") ,0) AS adfee,
+									
+									0 AS "仕入費用" ,
+									
+									0 AS msfee,
+									0 AS lmsfee,
+									
+									0 AS "注文数量",
+									0 AS "注文粗利益", 
+									0 AS "返品損失金額", 
+									0 AS "FBA在庫返品",
+									0 AS "FBA在庫紛失",
+									0 AS "FBA返品作業手数料", 
+								
+									 "店舗ID" as shopid
+								FROM
+									"RES_商品別広告明細費用" 
+								WHERE
+									"店舗ID" = :shopid 
+									GROUP BY shopid,yearmonths, sku
+					)  
+		 
+					UNION all
+					(
+								SELECT
+									substr( "仕入NO", 1, 4 ) || '年' || substr( "仕入NO", 5, 2 ) || '月'  as yearmonths,
+									"SKU番号" AS sku,
+										
+									0 AS adfee,
+									
+									 CASE WHEN SUM ( CAST ( trntemp."金額" AS FLOAT ) ) IS NOT NULL THEN  SUM ( CAST ( 0 - trntemp."金額" AS FLOAT ) ) ELSE 0  END AS "仕入費用" ,
+									
+									0 AS msfee,
+									0 AS lmsfee,
+									
+									0 AS "注文数量",
+									0 AS "注文粗利益", 
+									0 AS "返品損失金額", 
+									0 AS "FBA在庫返品",
+									0 AS "FBA在庫紛失",
+									0 AS "FBA返品作業手数料", 
+								
+									shopid
+								FROM
+									(
+									SELECT
+										trn1."SKU番号",
+										trn1."仕入NO",
+										trn1."金額" ,
+										trn."店舗ID" as shopid
+									FROM
+										"TRN_仕入管理" trn,
+										"TRN_仕入明細" trn1 
+									WHERE
+										trn."ステータス" = '3.仕入済' 
+										AND trn."仕入NO" = trn1."仕入NO" 
+										AND trn."店舗ID" = :shopid 
+										AND trn1."暫定フラグ" = 0 
+									) trntemp 
+								GROUP BY 	shopid,yearmonths, sku 
+								ORDER BY	yearmonths DESC, sku 
+					)  
+		 		
+					UNION all
+					(
+								SELECT 
+									restemp.yearmonths as yearmonths,
+									mst1."SKU番号" as sku,
+									
+									0 AS adfee,
+											
+									0 AS "仕入費用" ,
+									
+									0 - COALESCE(sum(restemp.msfee) ,0)as msfee,
+									0 - COALESCE(sum(restemp.lmsfee) ,0)as lmsfee,
+			
+									0 AS "注文数量",
+									0 AS "注文粗利益", 
+									0 AS "返品損失金額", 
+									0 AS "FBA在庫返品",
+									0 AS "FBA在庫紛失",
+									0 AS "FBA返品作業手数料",  
+									
+									restemp.shopid as shopid
+									
+								FROM (
+										SELECT  
+												COALESCE(res1."ASIN",res2."ASIN" ) as asin,
+												COALESCE(res1."店舗ID",res2."店舗ID" ) as shopid,
+												substr( COALESCE(res1."Month of charge",to_char(res2."日付", 'yyyy-mm') ), 1, 4 ) || '年' || substr( COALESCE(res1."Month of charge",to_char(res2."日付", 'yyyy-mm') ), 6, 2 ) || '月'  as yearmonths, 
+												res1."Monthly storage fee (est.)" as msfee,
+												res2."請求金額" as lmsfee  
+										FROM
+											"RES_在庫保管手数料情報" res1
+											FULL OUTER JOIN "RES_長期在庫保管手数料請求額情報" res2 ON res1."ASIN" = res2."ASIN" 
+											AND res1."店舗ID" = res2."店舗ID" 
+											AND res1."Month of charge" = to_char( res2."日付", 'yyyy-mm' )
+											AND res1."店舗ID" = :shopid 
+										) restemp
+											
+										LEFT  JOIN "MST_出品マスタ情報" mst1
+										on 		mst1."ASIN番号" = restemp.asin
+											and mst1."店舗ID" = restemp.shopid
+										GROUP BY shopid,restemp.yearmonths,sku
+										ORDER BY restemp.yearmonths
+					)  
+ 
+					UNION all 
+					(
+								SELECT
+										yearmonths,
+										sku,
+										 
+										0 AS adfee,
+										
+										0 AS "仕入費用" ,
+										
+										0 AS msfee,
+										0 AS lmsfee,
+												
+										COALESCE(SUM ( CASE WHEN "トランザクションの種類" = '注文' THEN "注文数量" ELSE 0 END ) ,0) AS "注文数量",
+										COALESCE(SUM ( CASE WHEN "トランザクションの種類" = '注文' THEN "合計" ELSE 0 END )  ,0) AS "注文粗利益", 
+										COALESCE(SUM ( CASE WHEN "トランザクションの種類" &lt;&gt; '注文' AND "説明" = '注文' THEN "合計" ELSE 0 END )  ,0) AS "返品損失金額",
+											
+										0 - COALESCE(SUM ( CASE WHEN "トランザクションの種類" = '調整'  AND  "説明" = 'FBA在庫の返金 - 購入者による返品: '  THEN "合計" ELSE 0 END )   ,0) AS "FBA在庫返品",
+										0 - COALESCE(SUM ( CASE WHEN "トランザクションの種類" = '調整'  AND  "説明" = 'FBA在庫の返金 - 紛失: フルフィルメントセンター: ' THEN "合計" ELSE 0 END )   ,0) AS "FBA在庫紛失",
+										0 - COALESCE(SUM ( CASE WHEN "トランザクションの種類" = 'FBA Customer Return Fee'  	AND  "説明" = '購入者返品作業手数料' 	 THEN "合計" ELSE 0 END )  ,0)  AS  "FBA返品作業手数料",
+										shopid  
+											FROM
+												(
+												SELECT
+													"年月" as yearmonths,
+													sku,
+													"トランザクションの種類",
+													"説明", 
+													SUM ( "注文数量" ) AS "注文数量",
+													SUM ( "合計" ) AS "合計" ,
+													shopid 
+												FROM
+													(
+															(SELECT
+																to_char( "日付/時間", 'YYYY年MM月' ) AS "年月",
+																"日付/時間",
+																"トランザクションの種類",
+																"注文番号",
+																"SKU" AS sku, 
+																CASE WHEN LENGTH ( TRIM ( "注文番号" ) ) > 10 THEN
+																	'注文' ELSE "説明"  END AS "説明",
+																CAST ( "数量" AS INT ) AS "注文数量",
+																CAST ( "合計" AS NUMERIC ) AS "合計"
+																,"店舗ID" as shopid   
+															 FROM
+																"RES_注文ペイメント情報" 
+															 WHERE
+																"SKU" IS NOT NULL 
+															)  
+													UNION ALL
+															(SELECT
+																to_char( "日付/時間", 'YYYY年MM月' ) AS "年月",
+																"日付/時間",
+																"トランザクションの種類",
+																"注文番号",
+																"SKU" AS sku, 
+																CASE WHEN LENGTH ( TRIM ( "注文番号" ) ) > 10 THEN '注文' ELSE "説明"  END AS "説明",
+																0 AS "注文数量",
+																CAST ( "合計" AS NUMERIC ) AS "合計" ,
+																shopid 
+															 FROM
+																(
+																			(SELECT
+																				res."日付/時間",
+																				res."決済番号",
+																				res."トランザクションの種類",
+																				mst."SKU番号" AS "SKU",
+																				res."注文番号",
+																				res."説明",
+																				res."合計" ,
+																				res."店舗ID" as shopid 
+																			 FROM
+																				( SELECT * FROM "RES_非注文ペイメント情報" res1 WHERE res1."トランザクションの種類" = 'FBA Customer Return Fee' AND res1."SKU" IS NOT NULL ) res
+																				LEFT JOIN "MST_出品マスタ情報" mst ON res."トランザクションの種類" = 'FBA Customer Return Fee' 
+																				AND res."SKU" = mst."LABEL番号" 
+																				AND mst."店舗ID" = res."店舗ID" 
+																				AND res."店舗ID" = :shopid
+																			)  
+																UNION ALL
+																
+																			(SELECT
+																				res."日付/時間",
+																				res."決済番号",
+																				res."トランザクションの種類",
+																				res."SKU",
+																				res."注文番号",
+																				res."説明",
+																				res."合計" ,
+																				res."店舗ID" as shopid 
+																			 FROM
+																				"RES_非注文ペイメント情報" res 
+																			 WHERE
+																				res."トランザクションの種類" != 'FBA Customer Return Fee' 
+																				AND res."SKU" IS NOT NULL 
+																				AND res."店舗ID" = :shopid 
+																			)  
+																) res2 
+															)
+													)  temp1  
+													GROUP BY 
+															shopid ,
+															"年月",
+															sku,
+															"トランザクションの種類",
+															"説明" 
+													  
+												)  TEMP2 
+									GROUP BY
+											 	shopid ,
+												yearmonths,
+												sku
+									ORDER BY
+												yearmonths DESC,
+												sku 
+					)  
+	
+				)  TEMP3 
+				ON 	TEMP3.sku = MST2."SKU番号" 
+			GROUP BY
+					yearmonths,
+					type,
+					no,
+					sub1,
+					sub2,
+					asin,
+					mst2."SKU番号",
+					label 
+			ORDER BY yearmonths , sku
+		)  list  
+		LEFT JOIN "MST_ソート情報" S1 
+					on list."type" = S1."商品種別" and S1."分類" = '分類１' and list."sub1" = S1."内容" 
+		LEFT JOIN "MST_ソート情報" S2 
+					on list."type" = S2."商品種別" and S2."分類" = '分類２' and list."sub2" = S2."内容"  
+	 	WHERE 
+				1=1
+				<if exists="productno"> AND (
+					<if istrue="productno == 'マスタ未登録'"> list.productno is NULL </if>
+					<if istrue="productno != 'マスタ未登録'"> list.productno = :productno </if>
+					)
+				</if> 
+	
+				<if exists="keyword"> AND ( 
+					UPPER(list.asin) LIKE concat('%', :keyword ,'%') 
+					)
+				</if> 
+
+				<if exists="yearmonths"> AND (	 list.yearmonths = :yearmonths ) </if>
+			
+		ORDER BY 
+				list.yearmonths DESC,
+				list.no, 
+				COALESCE(cast(S1."ソート" as varchar), list."sub1"),
+				COALESCE(cast(S2."ソート" as varchar), list."sub2")
+				
+		  
+			  	
+	</sql>
+</sqls>
+

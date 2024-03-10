@@ -412,8 +412,8 @@
 			AND  "orderno"= :orderno
 	</sql>
 
-	<!-- sl:返回在库数量 -->
-	<sql id="reverseLocal">
+	<!-- sl:返回在库数量  未使用 -->
+	<!-- <sql id="reverseLocal">
 		UPDATE "MST_在庫情報" 
 		SET "LOCAL在庫" = "LOCAL在庫" + :num
 		FROM
@@ -423,10 +423,10 @@
 			"MST_在庫情報"."ASIN番号" = trn.asin 
 			AND "MST_在庫情報"."SKU番号" = trn.sku 
 			AND "MST_在庫情報"."店舗ID" = trn.shop
-	</sql>
+	</sql> -->
 
-		<!-- sl:减少在库数量 -->
-	<sql id="minusLocal">
+		<!-- sl:减少在库数量 未使用-->
+	<!-- <sql id="minusLocal">
 		UPDATE "MST_在庫情報" 
 		SET "LOCAL在庫" = "LOCAL在庫" - :num
 		FROM
@@ -436,11 +436,14 @@
 			"MST_在庫情報"."ASIN番号" = trn.asin 
 			AND "MST_在庫情報"."SKU番号" = trn.sku 
 			AND "MST_在庫情報"."店舗ID" = trn.shop
-	</sql>
+	</sql> -->
 		<!-- sl:减少在库数量 -->
 	<sql id="minusLocal2">
 		UPDATE "MST_在庫情報" 
-		SET "LOCAL在庫" = "LOCAL在庫" - trn.num
+		SET "LOCAL在庫_1" = (case when "LOCAL在庫_1" - trn.num &lt; 0
+								then 0 
+								else COALESCE("LOCAL在庫_1",0) - trn.num end) 
+
 		FROM
 			( SELECT "ASIN番号" AS asin, "SKU番号" AS sku ,"数量" AS num, "店舗ID" as shop FROM "TRN_発送情報" 
 				WHERE orderno = :orderno and "店舗ID" = :shopid ) trn 

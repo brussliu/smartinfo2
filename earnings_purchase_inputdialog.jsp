@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 700,
-                    width: 1137,
+                    width: 1225,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -38,7 +38,7 @@
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="width: 1150px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header2">
                             <th style="width: 90px;">商品管理番号</th>
@@ -50,7 +50,8 @@
                             <th style="width: 120px;">LABEL番号</th>
 
                             <th style="width: 80px;">FBA数量</th>
-                            <th style="width: 80px;">LOCAL数量</th>
+                            <th style="width: 80px;">LOCAL1数量</th>
+                            <th style="width: 80px;">LOCAL2数量</th>
                             <th style="width: 80px;">仕入数量</th>
                         </tr>
                     </thead>
@@ -58,7 +59,7 @@
 
             </div>
             <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
-                <table id="table_cot" class=" table_detail_content2" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table id="table_cot" class=" table_detail_content2" style="width: 1150px;table-layout: fixed;text-align: center;">
                     
                 </table>
 

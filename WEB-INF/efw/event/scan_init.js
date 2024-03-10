@@ -26,7 +26,7 @@ scan_init.fire = function (params) {
 	'<td style="width: 50px;" class="c"><input type="radio" value="{listno}" name="choice" onclick="choice({listno})" ></input></td>' +
 	'<td style="width: 160px;" class="c">{listno}</td>' +
 	'<td style="width: 250px;" class="l"><span class="l5">{listname}</span></span></td>' +
-	'<td style="width: 400px;" class="l"><span class="l5">{listcontent}</span></td>' +
+	'<td style="width: 1020px;" class="l"><span class="l5">{listcontent}</span></td>' +
 	'<td style="width: 150px;" class="r"><span class="r5">{num}</span></td>' +
 	'<td style="width: 150px;" class="c">{status}</td>' +
     '</tr>'

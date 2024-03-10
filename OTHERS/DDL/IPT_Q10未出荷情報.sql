@@ -16,6 +16,7 @@ create table public."IPT_Q10未出荷情報" (
   , "販売者商品コード" character varying(10)
   , "外部広告" character varying(100)
   , "決済サイト" character varying(10)
+  , "ギフト注文" character varying(10)
   , "購入者名" character varying(50)
   , "購入者電話番号" character varying(50)
   , "郵便番号" character varying(10)
