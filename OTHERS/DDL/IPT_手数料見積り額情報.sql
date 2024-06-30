@@ -4,6 +4,7 @@ create table public."IPT_手数料見積り額情報" (
   "sku"character varying(50)
   , "fnsku" character varying(50)
   , "asin" character varying(50)
+  , "Amazonストア" character varying(50)
   , "商品名" character varying(500)
   , "商品グループ" character varying(50)
   , "ブランド" character varying(50)

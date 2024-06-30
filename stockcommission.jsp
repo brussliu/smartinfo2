@@ -37,6 +37,34 @@
                    
                     Efw('stockcommission_search', { 'producttypeArr': producttypeArr});
                 }
+
+                function typeDistinction(){
+                    var $table = $("#stockcommissiontable");
+
+                    $table.find("tr").each(function() {
+                        var $row = $(this);
+                        // 商品管理番号
+                        var productno = $row.find("td:eq(2)").text().trim();
+                        // 対象期間
+                        var col1 = $row.find("td:eq(12)").text().trim();
+                        // 請求対象在庫数
+                        var col2 = parseInt( $row.find("td:eq(14)").text().trim() ==''? 0 : $row.find("td:eq(14)").text().trim());
+                        // 在庫数（現時点）
+                        var col3 = parseInt($row.find("td:eq(16)").text().trim() ==''? 0 : $row.find("td:eq(16)").text().trim());
+                       
+                        // 如果当前行是新类型（与上一行类型不同），添加粗线下划线
+                        if ( productno != $row.next().find("td:eq(2)").text().trim()) {
+                                $row.css("border-bottom","2px solid black"); 
+                        }
+                        if(col1 == '365+' && (col2 > 1 || col3 > 1)){
+                            $row.find("td:eq(12)").css({ "background": "yellow" });
+                            $row.find("td:eq(13)").css({ "background": "yellow" });
+                            $row.find("td:eq(14)").css({ "background": "yellow" });
+                            $row.find("td:eq(15)").css({ "background": "yellow" });
+                            $row.find("td:eq(16)").css({ "background": "yellow" });
+                        }
+                    });
+                }
  
            </script>
             <style>
@@ -150,29 +178,30 @@
                                     <th ></th>
                                     <th ></th>
                                     <th colspan="4" style="border: 1px solid black;background-color: rgb(140, 240, 255);">通常在庫</th>
-                                    <th colspan="4" style="border: 1px solid black;background-color: rgb(140, 240, 255);">長期在庫</th>
+                                    <th colspan="5" style="border: 1px solid black;background-color: rgb(140, 240, 255);">長期在庫</th>
+                                    <th ></th>
                                 </tr>
                                 <tr class="header">
                                     <th style="width: 40px;">NO</th>
                                     <th style="width: 75px">年月</th>
-                                    <th style="width: 140px">商品種別</th>
-                                    <th style="width: 75px;">商品<br>管理番号</th>
+                                    <th style="width: 130px">商品管理番号<br>商品種別</th>
 
-                                    <th style="width: 200px;">分類</th>
+                                    <th style="width: 180px;">分類</th>
                                     <th style="width: 140px;">ASIN番号<br>SKU番号<br>LABEL番号</th>
                                     <th style="width: 80px;">国-倉庫</th>
                                     <th style="width: 225px;">体積・重量</th>
 
-                                    <th style="width: 90px;">カテゴリ</th>
-                                    <th style="width: 140px;">商品サイズ区分</th>
+                                    <th style="width: 85px;">カテゴリ</th>
+                                    <th style="width: 100px;">商品サイズ区分</th>
+                                    <th style="width: 85px;">在庫数</th>
                                     <th style="width: 110px;">在庫保管<br>手数料見積額</th>
                                     <th style="width: 80px;">奨励金額</th>
 
-                                    <th style="width: 90px;">対象期間</th>
-                                    <th style="width: 90px;">請求<br>手数料率</th>
-                                    <th style="width: 90px;">請求対象<br>在庫数</th>
-                                    <th style="width: 90px;">請求金額</th>
-                                    
+                                    <th style="width: 85px;">対象期間</th>
+                                    <th style="width: 85px;">請求<br>手数料率</th>
+                                    <th style="width: 85px;">請求対象<br>在庫数</th>
+                                    <th style="width: 85px;">請求金額</th>
+                                    <th style="width: 85px;">在庫数<br>（現時点）</th>
                                     </tr>
                             </thead>
                         </table>

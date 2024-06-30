@@ -4,6 +4,7 @@ create table public."MST_手数料見積り額情報" (
   "sku"character varying(12)
   , "fnsku" character varying(20)
   , "asin" character varying(20)
+  , "Amazonストア" character varying(20)
   , "商品名" character varying(500)
   , "商品グループ" character varying(50)
   , "ブランド" character varying(50)
