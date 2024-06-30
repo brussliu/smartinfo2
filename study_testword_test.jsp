@@ -168,7 +168,7 @@
             }
             function wrongVoice() {
                 var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', 'wrong.mp3');
+                audioElement.setAttribute('src', './mp3/wrong.mp3');
                 audioElement.setAttribute('autoplay', 'autoplay');
             }
 
@@ -177,27 +177,27 @@
 
                 if(flg == "word"){
                     if($('#hiddenSen1J').val() != "" || $('#hiddenSen2J').val() != ""){
-                        audioElement.setAttribute('src', 'right1.mp3');
+                        audioElement.setAttribute('src', './mp3/right1.mp3');
                     }else{
-                        audioElement.setAttribute('src', 'right2.mp3');
+                        audioElement.setAttribute('src', './mp3/right2.mp3');
                     }
                 }else if(flg == "sen1"){
                     if($('#hiddenSen2J').val() != ""){
-                        audioElement.setAttribute('src', 'right1.mp3');
+                        audioElement.setAttribute('src', './mp3/right1.mp3');
                     }else{
 
                         if($('#hiddenWordWrongTime').val() > 0){
-                            audioElement.setAttribute('src', 'right1.mp3');
+                            audioElement.setAttribute('src', './mp3/right1.mp3');
                         }else{
-                            audioElement.setAttribute('src', 'right2.mp3');
+                            audioElement.setAttribute('src', './mp3/right2.mp3');
                         }
                         
                     }
                 }else if(flg == "sen2"){
                     if($('#hiddenWordWrongTime').val() > 0 || $('#hiddenSen1WrongTime').val() > 0){
-                        audioElement.setAttribute('src', 'right1.mp3');
+                        audioElement.setAttribute('src', './mp3/right1.mp3');
                     }else{
-                        audioElement.setAttribute('src', 'right2.mp3');
+                        audioElement.setAttribute('src', './mp3/right2.mp3');
                     }
                 }
                 

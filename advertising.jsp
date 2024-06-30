@@ -47,7 +47,20 @@
 
                             if (productkinds == "親商品") {
                                 $(this).css({ "background": "rgb(153,217,234)" });  
-                            }         
+                            }     
+                            var jpy = parseFloat(tdArr.eq(18).text()); 
+                             // ACOS
+                             var acos =  parseFloat(tdArr.eq(21).text().replace('%', '')); 
+                             if (acos === 999.99 && jpy >= 500) {  
+                                    tdArr.parent().css('background-color', 'yellow'); // 条件①  
+                                } else if (acos >= 100.00 && acos < 999.99 && jpy >= 1000) {  
+                                    tdArr.parent().css('background-color', 'yellow'); // 条件②  
+                                } else if (acos >= 50.00 && acos < 100.00 && jpy >= 1500) {  
+                                    tdArr.parent().css('background-color', 'yellow'); // 条件③  
+                                } else if (acos >= 30.00 && acos < 50.00 && jpy >= 2000) {  
+                                    tdArr.parent().css('background-color', 'yellow'); // 条件④  
+                                } 
+
                         });
                 }
            </script>
@@ -129,12 +142,14 @@
                                         <input type="text" style="width: 200px;height: 30px;" id="text_keyword"></input>
                                     </td>
                                     <td style="width: 60px;font-weight: bold;">年月：</td>
-                                    <td style="width: 220px;">
+                                    <td style="width: 200px;">
                                         <select id="opt_yearmonths" style="width: 130px;height:30px;border-style: solid;">
                                                 <option value=""></option> 
                                          </select>                                    
                                     </td>
-                                    <td></td>
+                                    <td style="width: 200px;">
+                                        <input type="checkbox" id="checkbox_preproduct" value="1" checked>&nbsp;&nbsp;親商品のみ
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

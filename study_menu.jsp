@@ -6,7 +6,6 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>SmartInfo 2.0</title>
             <efw:Client />
-            <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
             <link rel="stylesheet" href="css/common.css" type="text/css" />
             <style>
                 /* content */
@@ -149,65 +148,6 @@
                     text-align: right;
                 }
             </style>
-        <script>
-            function test(){
-
-                var appKey = '332c8c525a2b782d';
-                var key = 'uNs1mpkwhX5Che4urqYJhI1DramQLuyG';//注意：暴露appSecret，有被盗用造成损失的风险
-                var salt = (new Date).getTime();
-                var curtime = Math.round(new Date().getTime()/1000);
-                var query = 'Hello,world!';// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
-                var to = 'zh-CHS';
-                var from = 'en';
-                var str1 = appKey + truncate(query) + salt + curtime + key;
-                var vocabId =  '您的用户词表ID';
-
-                var sign = CryptoJS.SHA256(str1).toString(CryptoJS.enc.Hex);
-                $.ajax({
-                    url: 'https://openapi.youdao.com/api',
-                    type: 'post',
-                    dataType: 'jsonp',
-                    data: {
-                        q: query,
-                        appKey: appKey,
-                        salt: salt,
-                        from: from,
-                        to: to,
-                        sign: sign,
-                        signType: "v3",
-                        curtime: curtime
-                    },
-                    success: function (data) {
-                        console.log(data);
-                    } 
-                });
-                // var params = {
-                //     "q" : query,
-                //     "from" : from,
-                //     "to" : to,
-                //     "appKey" : appKey,
-                //     "salt" : salt,
-                //     "sign" : sign,
-                //     "signType" : "v3",
-                //     "curtime" : curtime,
-                //     //vocabId: vocabId,
-                // };
-
-
-                // Efw('study_testword_getchinese',{ppp : params});
-
-
-
-            }
-
-            function truncate(q){
-                var len = q.length;
-                if(len<=20) return q;
-                return q.substring(0, 10) + len + q.substring(len-10, len);
-            }
-
-
-        </script>
         </head>
 
         <body onload="Efw('study_menuinit');">
@@ -246,8 +186,8 @@
                                     <td></td>
                                 </tr>
                                 <tr style="height: 80px;">
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_testinfo.jsp'})" disabled>テスト情報管理</button></td>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_wrongquestioninfo.jsp'})" disabled>間違った問題情報管理</button></td>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_testinfo.jsp'})">テスト情報管理</button></td>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_wrongquestioninfo.jsp'})">間違った問題情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>

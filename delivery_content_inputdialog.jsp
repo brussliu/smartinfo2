@@ -8,7 +8,7 @@
                     autoOpen: false,
                     resizable: true,
                     height: 700,
-                    width: 1220,
+                    width: 1350,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -30,15 +30,15 @@
                         <td id="td_contno" style="width: 260px;"></td>
                         <td style="width: 90px;text-align: left;">納品名称：</td>
                         <td id="td_conname" style="width: 180px;"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="width: 185px;text-align: left;"></td>
+                        <td style="width: 185px;text-align: left;"></td>
+                        <td style="text-align: right;"><input type="checkbox" id="box_move" onchange="move()">&nbsp;&nbsp;移動必要な項目のみ</input></td>
                     
                     </tr>
                 </tbody>
             </table>
             <div style="overflow: hidden;">
-                <table class="table_detail_header" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table class="table_detail_header" style="width: 1180px;table-layout: fixed;text-align: center;">
                     <thead>
                         <tr class="header2">
                             <th style="width: 90px;">商品管理<br>番号</th>
@@ -53,13 +53,14 @@
                             <th style="width: 80px;">LOCAL1<br>数量</th>
                             <th style="width: 80px;">LOCAL2<br>数量</th>
                             <th style="width: 80px;">納品数量</th>
+                            <th style="width: 110px;">移動必要な数量<br>（2⇒1）</th>
                         </tr>
                     </thead>
                 </table>
 
             </div>
             <div style="overflow-x: hidden;height: 500px; overflow-y: auto;">
-                <table  id="table_cot" class="table_detail_content2" style="width: 1068px;table-layout: fixed;text-align: center;">
+                <table  id="table_cot" class="table_detail_content2" style="width: 1180px;table-layout: fixed;text-align: center;">
                     
                      
                 </table>

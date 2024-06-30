@@ -31,12 +31,93 @@
                 }
                  // CTRL+O
                  $(window).keydown(function(e) {
-                    
+                  
                     if (e.keyCode == 79 && e.ctrlKey) {
 
                         outputToExcelFile(); 
                     } 
-                });           
+                });      
+                
+                function typeDistinction(){
+                    var $table = $("#commissiontable");
+                    // 最小值映射
+                    var minnum =  new Array();
+                    // 番号数组-记录行号
+                    var minnumMap = new Map();
+                    // 每个番号数组第一行
+                    var index = 0;
+
+                    $table.find("tr").each(function() {
+                        var $row = $(this);
+                        // 商品管理番号
+                        var productno = $row.find("td:eq(2)").text().trim();
+                        // 配送代行手数料区分
+                        var type = $row.find("td:eq(12)").text().trim(); 
+                        // 配送代行手数料見積額
+                        var num = isNaN(parseFloat($row.find("td:eq(13)").text().trim()))? 0 :parseFloat($row.find("td:eq(13)").text().trim());
+                        // 行号
+                        var col = parseInt($row.find("td:eq(0)").text().trim()) - 1; 
+                    
+                        if(index == 0){
+                            if(type != 'FBM-01'){
+                             
+                                minnum[0] = col;
+                                minnum[1] = num;
+                                minnumMap.set(minnum[0] ,minnum[1]);
+                                
+                            }
+                           
+                        }else{
+                             // 如果当前行是新类型（与上一行类型不同），添加粗线下划线
+                                if ( productno != $row.next().find("td:eq(2)").text().trim()) {
+                                        $row.css("border-bottom","2px solid black");
+                                        if(type != 'FBM-01'){
+                                            // 当前行的数大于最小值
+                                            if(num >=  minnum[1]){
+                                                minnumMap.set(col,num);
+                                            }else{
+                                                // 当前行小于最小值，替换
+                                                minnumMap.set(minnum[0] , minnum[1]);
+
+                                            }
+                                        }
+                                        // 选出除最小值外的数据
+                                        let newMap = new Map();  
+                                        minnumMap.forEach(function(value , key) { 
+                                            if (value !== minnum[1]) {  
+                                                newMap.set(key, value);  
+                                            }  
+                                        });
+                                        // 除最小值外的变色
+                                        newMap.forEach(function(value , key) { 
+                                            $('#commissiontable tr').eq(key).find('td:nth-child(13) , td:nth-child(14)').css('background-color', 'yellow');
+                                            
+                                        });
+                                        minnumMap.clear(); 
+                                        minnum = [];
+                                        index = -1;
+                                }else{
+                                    if(type != 'FBM-01'){
+                                        // 当前行的数大于最小值
+                                        if(num >=  minnum[1]){
+                                            minnumMap.set(col,num);
+                                        }else{
+                                            // 当前行小于最小值，替换
+                                            minnumMap.set(minnum[0] , minnum[1]);
+                                            minnum = [];
+                                            minnum[0] = col;
+                                            minnum[1] = num; 
+                                        }
+                                    }
+                                }
+                        }
+                       
+                        // 数组行号+1
+                        index++;
+                     
+                    });
+                }
+                    
            </script>
             <style>
 

@@ -12,6 +12,10 @@
                 .table_btn td button {
                     width: 100px;
                 }
+                .hide{
+                    display: none;  
+                }
+
             </style>
             <script>
 
@@ -41,7 +45,9 @@
                 // 納品内容
                 function content() {
                     var deliveryno = $('input:radio[name="choice"]:checked').val();
-                    Efw('delivery_list', { 'deliveryno': deliveryno });
+                    var state = $('input:radio[name="choice"]:checked').parent().siblings('td').eq(4).text();
+                    $('#box_move').prop('checked', false);
+                    Efw('delivery_list', { 'deliveryno': deliveryno , 'state' : state});
                 }
 
                 // 納品削除
@@ -169,6 +175,67 @@
                  })
                 }
  
+
+                function to2(state){ 
+                    if(state == '1.新　規'){
+                        $('#box_move').prop("disabled", false);
+                    }else{
+                        $('#box_move').prop("disabled", true);
+                    }
+                    var $table = $("#table_cot");
+                    $table.find("tr").each(function() { 
+                        var $tdArr =  $(this).children();  
+
+                        if(state == '1.新　規'){
+                                
+                                // 获取Local1, Local2, 納品数量列的值  
+                                var local1 = parseFloat($tdArr.eq(7).text());  
+                                var local2 = parseFloat($tdArr.eq(8).text());  
+                                var deliveryQuantity = parseFloat($tdArr.eq(9).text());  
+                                
+                                // 检查Local1, Local2和納品数量的值是否有效  
+                                if (!isNaN(local1) && !isNaN(local2) && !isNaN(deliveryQuantity)) {  
+                                    // 根据逻辑设置新值  
+                                    var newValue;  
+                                    if (local1 >= deliveryQuantity) {  
+                                        newValue = "";  
+                                    } else if (local1 < deliveryQuantity && local2 >= deliveryQuantity - local1) {  
+                                        newValue = deliveryQuantity - local1;  
+                                    } else if(local1 < deliveryQuantity && local2 < deliveryQuantity - local1){  
+                                        newValue = local2; 
+                                    }  
+                                    if(newValue == 0){
+                                        newValue = "";
+                                    }
+                                    $tdArr.eq(10).text(newValue); 
+                                }  
+   
+                        }else{
+                            $tdArr.eq(10).text('-'); 
+                        }
+
+                    })
+                }
+                // 移動必要な項目のみ
+                function move(){
+                    var isChecked = $('#box_move').is(':checked'); 
+                    var $table = $("#table_cot");
+                    if(isChecked){
+                        $table.find("tr").each(function() { 
+                            var $tdArr =  $(this).children(); 
+                            var to1 = $tdArr.eq(10).text();
+                        
+                            if(to1 == ''){
+                                $(this).addClass('hide');
+                            } 
+                        })
+                    }else{
+                        $table.find("tr").each(function() { 
+                            $(this).removeClass('hide');
+                        })
+                    }
+                   
+                }
             </script>
         </head>
 

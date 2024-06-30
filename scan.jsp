@@ -44,7 +44,7 @@
                     $("#scanInput").val("");
                     // ダメの音声
                     var audioElement = document.createElement('audio');
-                    audioElement.setAttribute('src', 'damei.mp3');
+                    audioElement.setAttribute('src', './mp3/damei.mp3');
                     audioElement.setAttribute('autoplay', 'autoplay');
 
                 }
@@ -84,7 +84,7 @@
                                 // 操作する（操作後の数量を箱列に反映）
                                 tdArr.eq(6).html(td_q + opttype);
                                 var audioElement = document.createElement('audio');
-                                audioElement.setAttribute('src', 'facai.mp3');
+                                audioElement.setAttribute('src', './mp3/facai.mp3');
                                 audioElement.setAttribute('autoplay', 'autoplay');
 
                                 // 処理終了フラグ
@@ -121,7 +121,7 @@
 
                     $("#boxinfobody").append(resultHTML);
                     var audioElement = document.createElement('audio');
-                    audioElement.setAttribute('src', 'facai.mp3');
+                    audioElement.setAttribute('src', './mp3/facai.mp3');
                     audioElement.setAttribute('autoplay', 'autoplay');
 
                     $("#scanInput").val("");

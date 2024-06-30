@@ -49,7 +49,7 @@
                 $("#scanInput").val("");
                 // ダメの音声
                 var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', 'damei.mp3');
+                audioElement.setAttribute('src', './mp3/damei.mp3');
                 audioElement.setAttribute('autoplay', 'autoplay');
 
             }
@@ -134,12 +134,12 @@
                                 // 増加操作の場合のみ、声が出る
                                 if (opttype > 0) {
                                     var audioElement = document.createElement('audio');
-                                    audioElement.setAttribute('src', 'chaochuzhonglei.mp3');
+                                    audioElement.setAttribute('src', './mp3/chaochuzhonglei.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
                                 }else{
                                     // 正常操作の場合、
                                     var audioElement = document.createElement('audio');
-                                    audioElement.setAttribute('src', 'facai.mp3');
+                                    audioElement.setAttribute('src', './mp3/facai.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
                                 }
 
@@ -150,12 +150,12 @@
                                 // 増加操作の場合のみ、声が出る
                                 if (opttype > 0) {
                                     var audioElement = document.createElement('audio');
-                                    audioElement.setAttribute('src', 'shuliangchaoguo.mp3');
+                                    audioElement.setAttribute('src', './mp3/shuliangchaoguo.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
                                 }else{
                                     // 正常操作の場合、
                                     var audioElement = document.createElement('audio');
-                                    audioElement.setAttribute('src', 'facai.mp3');
+                                    audioElement.setAttribute('src', './mp3/facai.mp3');
                                     audioElement.setAttribute('autoplay', 'autoplay');
                                 }
 
@@ -173,7 +173,7 @@
 
                             // 正常操作の場合、
                             var audioElement = document.createElement('audio');
-                            audioElement.setAttribute('src', 'facai.mp3');
+                            audioElement.setAttribute('src', './mp3/facai.mp3');
                             audioElement.setAttribute('autoplay', 'autoplay');
 
                             // 行の色を少し深くに変更
@@ -236,7 +236,7 @@
                 $("#boxinfobody").append(resultHTML);
 
                 var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', 'chaochuzhonglei.mp3');
+                audioElement.setAttribute('src', './mp3/chaochuzhonglei.mp3');
                 audioElement.setAttribute('autoplay', 'autoplay');
 
                 $("#scanInput").val("");
