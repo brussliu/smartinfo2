@@ -7,8 +7,8 @@
                     title: "テスト新規",
                     autoOpen: false,
                     resizable: true,
-                    height: 700,
-                    width: 1350,
+                    height: 1070,
+                    width: 1600,
                     modal: true,
                     open: function () {
                         setTimeout(function () { });
@@ -52,7 +52,7 @@
             <tbody> 
                 <tr>
                     <td style="width: 150px;">学年：</td>
-                    <td style="width: 220px;">
+                    <td style="width: 205px;">
                         <select style="width: 200px;" id="opt_academicyear">
                             <option value=""></option>
                             <option value="01.中1-上期">01.中1-上期</option>
@@ -68,35 +68,25 @@
                             <option value="11.中3-上期">11.中3-上期</option>
                             <option value="12.中3-下期">12.中3-下期</option>
                         </select></td>
-                    <td  style="width: 30px;"></td>
-                    <td ></td>  <td ></td>  <td ></td>  
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>名称：</td>
-                    <td style="width: 220px;"> <input type="text" style="width: 200px;" id="text_name"></input>
-                    </td>
+                    <td colspan="3"><input type="text" style="width: 460px;" id="text_name"></input></td>
+                </tr>
+
+                <tr>
+                    <td>期間：</td>
+                    <td><input type="date" style="width: 200px;" id="text_to"></input></td>
+                    <td style="width: 50px;text-align: center;">～</td>
+                    <td><input type="date" style="width: 200px;" id="text_from"></input></td>
+                </tr>
+
+                <tr style="height: 120px;">
+                    <td>内容：</td>
+                    <td colspan="2" id="td_content1"><img src="img\zhaoxiang.png" class="contentimg"></td>
                     <td></td>
-                    <td> </td><td ></td>  <td ></td>  
-                </tr>
-
-                <tr>
-                    <td> 期間：</td>
-                    <td>
-                        <input type="text" style="width: 200px;" id="text_to"></input>
-                    </td>
-                    <td> ～ </td>
-                    <td> <input type="text" style="width: 200px;" id="text_from"></input></td>
-                    <td ></td>  <td ></td>  
-                </tr>
-
-                <tr>
-                    <td>
-                        内容：
-                    </td>
-                    <td colspan="2" id="td_content1">
-                        <img src="img\zhaoxiang.png" class="contentimg"  > 
-                    </td>
-                    <td></td><td ></td>  <td ></td>  
                 </tr> 
             </tbody>
         </table>
@@ -106,41 +96,23 @@
                 <tr style="background-color: D9E1F4;">
                     <td style="width: 150px;" > <img src="img\right.png"  onclick="lessen(this)" width="20" height="20" style="vertical-align: middle;" > 科目：</td>
                     <td style="width: 220px;">総合成績</td>
-                    <td  style="width: 30px;"></td>
-                    <td ></td>
-                    <td ></td>
-                    <td ></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>  
-                </tr>
-                <tr>
-                    <td>内容：</td>
-                    <td style="width: 220px;"  id="td_content2"> <img src="img\zhaoxiang.png" class="contentimg" > 
-                    </td>
-                    <td></td>
-                    <td> </td>
-                    <td ></td>
-                    <td ></td>  
-                    <td></td>
-                    <td></td>
+                    <td style="width:  30px;"></td>
+                    <td style="width: 300px;"></td>
+                    <td style="width: 180px;"></td>
+                    <td style="width: 220px;"></td>
+                    <td style="width:  30px;"></td>
                     <td></td>
                 </tr>
-
-                <tr>
-                    <td> 内容(クリア)：</td>
-                    <td  id="td_content3">
-                        <img src="img\zhaoxiang.png" class="contentimg2" > 
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td ></td> 
-                    <td ></td>  
+                <tr style="height: 20px;">
                     <td></td>
                     <td></td>
                     <td></td>
-                </tr>
-
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr> 
                 <tr>
                     <td>得点：</td>
                     <td>
@@ -148,8 +120,8 @@
                     </td>
                     <td> / </td>
                     <td> <input type="text" style="width: 200px;" id="text_score2"></input></td> 
-                     <td></td>  
-                     <td></td>
+                    <td></td>  
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr> 
@@ -174,12 +146,22 @@
                     </td>
                     <td> / </td>
                     <td > <input type="text" style="width: 200px;" id="text_classranking2"></input></td>  
-                     <td >学年順位：</td>
-                     <td>
+                    <td >学年順位：</td>
+                    <td>
                          <input type="text" style="width: 200px;" id="text_yearranking1"></input>
-                     </td>
-                     <td> /&nbsp;&nbsp;</td>
-                     <td > <input type="text" style="width: 200px;" id="text_yearranking2"></input></td> 
+                    </td>
+                    <td> /&nbsp;&nbsp;</td>
+                    <td> <input type="text" style="width: 200px;" id="text_yearranking2"></input></td> 
+                </tr>
+                <tr style="height: 20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr> 
             </tbody>
         </table>
@@ -200,97 +182,95 @@
                              <option value="6.地理">6.地理</option>
                              <option value="7.歴史">7.歴史</option>
                         </select></td>
-                <td  style="width: 30px;"><img src="img\jia.png" onclick="addtable(this)" class="addicon" width="35" height="35"></td>
-                    <td ></td>
-                    <td ></td>
-                    <td ></td>
-                    <td ></td>
+                    <td style="width: 30px;"><img src="img\jia.png" onclick="addtable(this)" class="addicon" width="30" height="30"></td>
+                    <td style="width: 300px;"></td>
+                    <td style="width: 180px;"></td>
+                    <td style="width: 220px;"></td>
+                    <td style="width: 30px;"></td>
+                    <td></td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr> 
+                <tr style="height: 120px;">
+                    <td>内容：</td>
+                    <td id="td_content4"><img src="img\zhaoxiang.png" class="contentimg"></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>  
-                </tr>
-                <tr>
-                    <td>内容：</td>
-                    <td style="width: 220px;" id="td_content4"> <img src="img\zhaoxiang.png" class="contentimg"> 
-                    </td>
-                    <td></td>
-                    <td> </td>
-                    <td ></td>
-                    <td ></td>  
-                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
 
-                <tr>
+                <tr style="height: 120px;">
                     <td> 内容(クリア)：</td>
-                    <td  id="td_content5">
-                        <img src="img\zhaoxiang.png" class="contentimg2"> 
-                    </td>
+                    <td id="td_content5"><img src="img\zhaoxiang.png" class="contentimg2"></td>
                     <td></td>
                     <td></td>
-                    <td ></td> 
-                    <td ></td>  
-                    <td></td>
+                    <td></td> 
+                    <td></td>  
                     <td></td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td>得点：</td>
-                    <td>
-                        <input type="text" style="width: 200px;" id="text_score3"></input>
-                    </td>
-                    <td> / </td>
-                    <td > <input type="text" style="width: 200px;" id="text_score4"></input></td> 
-                     <td ></td>  
-                     <td></td>
+                    <td><input type="text" style="width: 200px;" id="text_score3"></input></td>
+                    <td>/</td>
+                    <td><input type="text" style="width: 200px;" id="text_score4"></input></td> 
+                    <td></td>  
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr> 
                 <tr>
                     <td>学級平均点：</td>
-                    <td>
-                        <input type="text" style="width: 200px;" id="text_classaverage2"></input>
-                    </td>
+                    <td><input type="text" style="width: 200px;" id="text_classaverage2"></input></td>
                     <td></td>
                     <td></td>
                     <td>学年平均点：</td>
-                    <td>
-                        <input type="text" style="width: 200px;" id="text_yearaverage2"></input>
-                    </td>
-                    
+                    <td><input type="text" style="width: 200px;" id="text_yearaverage2"></input></td>
                     <td></td>
                     <td></td>
                 </tr> 
                 <tr>
                     <td>学級順位：</td>
-                    <td>
-                        <input type="text" style="width: 200px;" id="text_classranking3"></input>
-                    </td>
-                    <td> / </td>
-                    <td > <input type="text" style="width: 200px;" id="text_classranking4"></input></td>  
-                     <td >学年順位：</td>
-                     <td>
-                         <input type="text" style="width: 200px;" id="text_yearranking3"></input>
-                     </td>
-                     <td> /&nbsp;&nbsp;</td>
-                     <td > <input type="text" style="width: 200px;" id="text_yearranking4"></input></td> 
+                    <td><input type="text" style="width: 200px;" id="text_classranking3"></input></td>
+                    <td>/</td>
+                    <td> <input type="text" style="width: 200px;" id="text_classranking4"></input></td>  
+                    <td>学年順位：</td>
+                    <td><input type="text" style="width: 200px;" id="text_yearranking3"></input></td>
+                    <td>/&nbsp;&nbsp;</td>
+                    <td><input type="text" style="width: 200px;" id="text_yearranking4"></input></td> 
+                </tr> 
+                <tr style="height: 20px;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr> 
             </tbody>
         </table>
 
-        <table class="table_inputdialog_btn" border="0">
+        <table class="table_inputdialog_btn" border="0" style="border-top: 1px dashed black;">
             <tbody>
                 <tr>
-                    <td style="width:400px;"> </td>
-                    <td style="width: 200px;">
-                        <button class="btn"  onclick="tablelist()">登　録</button></td>
-                     
+                    <td style="width: 650px;"></td>
+                    <td style="width: 200px;"><button class="btn"  onclick="tablelist()">登　録</button></td>
                     <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="width: 650px;"></td>
                 </tr>
             </tbody>
         </table>
