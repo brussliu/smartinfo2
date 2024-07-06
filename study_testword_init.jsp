@@ -165,13 +165,13 @@
                     $('#testwayhidden1').val("part");
                 }
             }
-            function changeTestWay2(){
+            // function changeTestWay2(){
 
-                var way = $("input[name='testway']:checked").val();
+            //     var way = $("input[name='testway']:checked").val();
 
-                $('#testwayhidden2').val(way);
+            //     $('#testwayhidden2').val(way);
 
-            }
+            // }
 
             function startTest(){
                 Efw("study_testword_starttest");
@@ -229,15 +229,23 @@
                 <input type="hidden" id="worldCounthidden">
             </div>
             <br/>
-            <div class="c_detail_header" style="margin-top: 0px;height:200px;display: none;" id="testway">
+            <div class="c_detail_header" style="margin-top: 0px;height:320px;display: none;" id="testway">
                 <span style="font-weight: bold;font-size: 30px;color:blue;">【テスト方式】</span>
                 <br/><br/>
-                <table style="width: 100%;">
-                    <tr style="height: 60px;">
+                <table style="width: 100%;" border="0">
+                    <!-- <tr style="height: 80px;">
                         <td style="font-weight: bold;font-size: 30px;">
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;区分：&nbsp;&nbsp;
+                            <input type="radio" style="width: 30px;height: 30px;" tabindex="80" name="" onchange="changeTestWay2();" value="translate" disabled>&nbsp;テスト&nbsp;&nbsp;
+                            <input type="radio" style="width: 30px;height: 30px;" tabindex="90" name="" onchange="changeTestWay2();" value="voice" checked disabled>&nbsp;練習
+                            <input type="hidden" id="" value="translate">
+                        </td>
+                    </tr> -->
+                    <tr style="height: 80px;">
+                        <td style="font-weight: bold;font-size: 30px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;範囲：&nbsp;&nbsp;
                             <input type="radio" tabindex="50" id="rdo_all" style="width: 30px;height: 30px;" name="radioword" onchange="changeTestWay1();" value="all" checked>&nbsp;全部　&nbsp;&nbsp;
-                            <input type="radio" tabindex="60" id="rdo_port" style="width: 30px;height: 30px;" name="radioword" onchange="changeTestWay1();" value="part">&nbsp;一部抽選
+                            <input type="radio" tabindex="60" id="rdo_port" style="width: 30px;height: 30px;" name="radioword" onchange="changeTestWay1();" value="part">&nbsp;一部抽選&nbsp;
                             <input type="hidden" id="testwayhidden1" value="all">
                             <select id="opt_testcount" tabindex="70" style="width: 180px;height:60px;border-style: solid;font-size: 24px;margin-top: 0px;" onchange="changeTestCount();" disabled>
                                 <option value="10">10語</option>
@@ -249,12 +257,17 @@
                             </select>
                         </td>
                     </tr>
-                    <tr style="height: 60px;">
+                    <tr style="height: 80px;">
                         <td style="font-weight: bold;font-size: 30px;">
-                            &nbsp;
-                            <input type="radio" style="width: 30px;height: 30px;" tabindex="80" name="testway" onchange="changeTestWay2();" value="translate" checked>&nbsp;日訳英&nbsp;&nbsp;
-                            <input type="radio" style="width: 30px;height: 30px;" tabindex="90" name="testway" onchange="changeTestWay2();" value="voice" >&nbsp;音声
-                            <input type="hidden" id="testwayhidden2" value="translate">
+                            &nbsp;&nbsp;&nbsp;&nbsp;種類：&nbsp;&nbsp;
+                            <select id="opt_testtype" tabindex="71" style="width: 300px;height:60px;border-style: solid;font-size: 24px;margin-top: 0px;" onchange="">
+                                <option value="translatebyJapaneseWithVoice">&nbsp;0.日訳英(音声付き)</option>
+                                <option value="translatebyJapaneseWithNotVoice">&nbsp;1.日訳英(音声無し)</option>
+                                <option value="onlyVoice">&nbsp;2.音声のみ</option>
+                                <option value="translatebyChineseWithVoice">&nbsp;3.漢訳英(音声付き)</option>
+                                <option value="translatebyChineseWithNotVoice">&nbsp;4.漢訳英(音声無し)</option>
+                                <option value="random">&nbsp;5.ランダム</option>
+                            </select>
                         </td>
                     </tr>
                 </table>

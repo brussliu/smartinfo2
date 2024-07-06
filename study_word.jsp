@@ -38,7 +38,9 @@
             
             // 初期化
             function init() {
+
                 Efw('study_word_init');
+
             }
 
             function initclassification(){
@@ -84,6 +86,43 @@
                 ;
             }
 
+            function updateItem(no,obj){
+                
+                var book =              $(obj).parent().children().eq(0).children().eq(0).html();
+                var classification =    $(obj).parent().children().eq(1).children().eq(0).html();
+                var wordseq =           $(obj).parent().children().eq(2).children().eq(0).html();
+
+                var itemvalue = $(obj).children().eq(0).html();
+                var input = prompt("内容を修正してください：", itemvalue);
+
+                var flg = null;
+
+                if(no == 1){
+                    flg = "wordE";
+                }else if(no == 2){
+                    flg = "wordJ";
+                }else if(no == 3){
+                    flg = "wordC";
+                }else if(no == 4){
+                    flg = "sen1E";
+                }else if(no == 5){
+                    flg = "sen1J";
+                }else if(no == 6){
+                    flg = "sen1C";
+                }else if(no == 7){
+                    flg = "sen2E";
+                }else if(no == 8){
+                    flg = "sen2J";
+                }else if(no == 9){
+                    flg = "sen2C";
+                }
+
+                if(input != null){
+                    Efw('study_word_updateitem',{book : book, classification : classification, wordseq : wordseq, flg : flg, content : input});
+                }
+            }
+
+
         </script>
     </head>
 
@@ -102,7 +141,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: right;padding-right: 20px;" id="sessioninfo">
+                            <td style="text-align: right;padding-right: 20px;" id="sessioninfo" >
                                 店舗ID：<span id="shopid" style="font-weight: bold;color: yellow;">未选择</span>
                                 &nbsp;&nbsp;&nbsp;
                                 UserID：<span id="userid" style="font-weight: bold;color: yellow;">XXXX</span>
@@ -119,9 +158,9 @@
                     <table class="table_btn">
                         <tbody>
                             <tr>
-                                <td style="width: 180px;">
+                                <td style="width: 200px;">
                                     書籍:
-                                    <select id="opt_book" style="width: 100px;" onchange="initclassification();">
+                                    <select id="opt_book" style="width: 120px;" onchange="initclassification();">
                                         <option value=""></option>
                                     </select>
                                 </td>
@@ -136,16 +175,19 @@
                                     <select id="opt_accuracy" style="width: 140px;" >
                                         <option value=""></option>
                                         <option value="1">100%</option>
-                                        <option value="2">100%以下</option>
+                                        <option value="2">100%未満</option>
                                         <option value="3">80%～100%</option>
                                         <option value="4">50%～80%</option>
                                         <option value="5">50%以下</option>
                                     </select>
                                 </td>
+                                <td>
+                                    キーワード:
+                                    <input type="text" style="width: 150px;height: 25px;" id="keyword">
+                                </td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td style="width: 180px;"><button onclick="getChineseExplain();">中国語翻訳取得</button></td>
+                                <td style="width: 180px;"><button onclick="getChineseExplain();">中日翻訳取得</button></td>
                                 <td style="width: 180px;"><button onclick="downloadVoice();">音声ダウンロード</button></td>
                                 <td style="width: 180px;"><button onclick="searchWord();">単語検索</button></td>
                             </tr>

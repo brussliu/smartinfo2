@@ -460,6 +460,7 @@
 			  "sku"
 			, "fnsku"
 			, "asin"
+			, "Amazonストア"
 			, "商品名"
 			, "商品グループ"
 			, "ブランド"
@@ -490,6 +491,7 @@
 			  "sku"
 			, "fnsku"
 			, "asin"
+			, "Amazonストア"
 			, "商品名"
 			, "商品グループ"
 			, "ブランド"
@@ -3166,6 +3168,7 @@
 			:col0,
 			:col1,
 			:col2,
+			:col3,
 			:col4,
 			:col5,
 			:col6,
@@ -3193,6 +3196,12 @@
 			:col24,
 			:col25,
 			:col26
+			<!-- ,
+			:col27,
+			:col28,
+			:col29,
+			:col30 
+			-->
 		)
 	</sql>
 	<sql id="delAllFile14">

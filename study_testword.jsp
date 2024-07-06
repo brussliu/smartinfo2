@@ -87,7 +87,7 @@
                     $("#btn_testwrong").prop("disabled", true);
                     $("#btn_delete").prop("disabled", true);
                     $("#btn_continue").prop("disabled", true);
-                    $("#btn_dotest").prop("disabled", false);
+                    //$("#btn_dotest").prop("disabled", false);
                 }else if(n == 1){
                     if($(obj).parent().next().next().next().children().eq(0).html() == "実施済"){
                         $("#btn_testwrong").prop("disabled", false);
@@ -100,7 +100,7 @@
                         $("#btn_continue").prop("disabled", true);
                     }
                     
-                    $("#btn_dotest").prop("disabled", false);
+                    //$("#btn_dotest").prop("disabled", false);
                 }else if(n >= 2){
 
                     // 書籍が違うテストは一緒に再テストできない。
@@ -112,7 +112,7 @@
                         $("#btn_delete").prop("disabled", false);
                     }
                     $("#btn_continue").prop("disabled", true);
-                    $("#btn_dotest").prop("disabled", false);
+                    //$("#btn_dotest").prop("disabled", false);
                 }
                 console.log("チェックOK個数:" + n);
                 //console.log(testno);
@@ -240,6 +240,81 @@
                 Efw('study_testword_initclassification');
             }
 
+            function selectAll(obj){
+                
+                var checked = $(obj).prop('checked');
+
+                $("input[name='testitem']").prop("checked", checked);
+
+                var n = 0;
+                var bookArr = new Array();
+                var statusArr = new Array();
+
+                $('#testwordtable input[type="checkbox"]').each(function() {
+
+                    var book = "";
+                    var status = "";
+                    if($(this).prop('checked') == true){
+                        n = n + 1;
+                        book = $(this).parent().next().children().eq(0).html();
+                        if(!bookArr.includes(book)){
+                            bookArr.push(book);
+                        }
+
+                        status = $(this).parent().next().next().next().children().eq(0).html();
+                        if(!statusArr.includes(status)){
+                            statusArr.push(status);
+                        }
+                    }
+
+                });
+
+
+                if(n == 0){
+
+                    $("#btn_testwrong").prop("disabled", true);
+                    $("#btn_delete").prop("disabled", true);
+                    $("#btn_continue").prop("disabled", true);
+
+
+                }else if(n == 1){
+                    if(statusArr[0] == "実施済"){
+                        $("#btn_testwrong").prop("disabled", false);
+                        $("#btn_delete").prop("disabled", true);
+                        $("#btn_continue").prop("disabled", true);
+                    }
+                    // 実施中のテストのみ継続する可能です。
+                    if(statusArr[0] == "実施中"){
+                        $("#btn_testwrong").prop("disabled", true);
+                        $("#btn_delete").prop("disabled", false);
+                        $("#btn_continue").prop("disabled", false);
+                    }
+
+                }else if(n >= 2){
+
+                    $("#btn_continue").prop("disabled", true);
+
+                    // 書籍が違うテストは一緒に再テストできない。
+                    // 実施済のテストのみ再テストする可能です。
+
+                    if(statusArr.length == 1 && statusArr[0] == "実施済" && bookArr.length == 1){
+                        $("#btn_testwrong").prop("disabled", false);
+                    }else{
+                        $("#btn_testwrong").prop("disabled", true);
+                    }
+
+
+                    // 実施中のテストのみ継続する可能です。
+                    if(statusArr.length == 1 && statusArr[0] == "実施中"){
+                        $("#btn_delete").prop("disabled", false);
+
+                    }else{
+                        $("#btn_delete").prop("disabled", true);
+                    }
+
+                }
+
+            }
         </script>
     </head>
 
@@ -276,9 +351,9 @@
                     <table class="table_btn">
                         <tbody>
                             <tr>
-                                <td style="width: 180px;">
+                                <td style="width: 200px;">
                                     書籍:
-                                    <select id="opt_book" style="width: 100px;" onchange="initclassification();">
+                                    <select id="opt_book" style="width: 120px;" onchange="initclassification();">
                                         <option value=""></option>
                                     </select>
                                 </td>
@@ -291,7 +366,7 @@
                                 <td></td>
                                 <td style="text-align: right;color: red;font-weight: bold;"><span id="studytime">今日勉強時間　00:00:00</span>&nbsp;&nbsp;</td>
                                 <td style="width: 180px;"><button id="btn_dotest" onclick="beginTest()" style="color: blue;font-weight: bold;background-color:aqua;width: 300px;">単語テスト実施</button></td>
-                                <td style="width: 180px;"><button id="btn_testlist" onclick="showTestInfo();">テスト状況確認</button></td>
+                                <td style="width: 180px;"><button id="btn_testlist" onclick="showTestInfo();">検索</button></td>
                                 <td style="width: 180px;"><button id="btn_testwrong" onclick="testWrong()" disabled>誤り単語再テスト</button></td>
                                 <td style="width: 180px;"><button id="btn_delete" onclick="deleteTest()" disabled>単語テスト削除</button></td>
                                 <td style="width: 180px;"><button id="btn_continue" onclick="continueTest()" disabled>単語テスト継続</button></td>
@@ -301,10 +376,10 @@
                 </div>
 
                 <div class="c_detail_header" style="overflow: hidden;" >
-                    <table class="table_detail_header" style="width: 1821px;table-layout: fixed;">
+                    <table class="table_detail_header" style="table-layout: fixed;">
                         <thead>
                             <tr class="header">
-                                <th style="width:  60px;" id="temp">選択</th>
+                                <th style="width:  60px;" id="temp">選択<br/><input type="checkbox" onclick="selectAll(this);" /></th>
                                 <th style="width: 180px;">書籍</th>
                                 <th style="width: 250px;">分類</th>
 
@@ -317,14 +392,14 @@
                                 <th style="width: 320px;">数量</th>
 
                                 <th style="width: 120px;">全部正確率</th>
-                                <th style="width: 160px;">勉強時間</th>
+                                <th style="width: 140px;">勉強時間</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
 
                 <div class="c_detail_content" style="overflow: auto;" onscroll="scrollHead(this);">
-                    <table class="table_detail_content" id="testwordtable" style="width: 1821px;table-layout: fixed;">
+                    <table class="table_detail_content" id="testwordtable" style="table-layout: fixed;">
 
                     </table>
                 </div>

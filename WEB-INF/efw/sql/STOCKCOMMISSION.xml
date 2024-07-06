@@ -81,14 +81,16 @@
 					res."Item volume" ||  case when  res."Volume units" = 'cubic meters' THEN 'm³' else res."Volume units" end as item,
 					
 					res.category AS category,
-					res."Product size tier" as productsize,
+					case when res."Product size tier" = 'Standard-Size' then 'Standard' else res."Product size tier" end as productsize,
 					res."Monthly storage fee (est.)"  || case when res."通貨" = 'JPY' THEN '円' ELSE  res."通貨" end as monthlystoragefee,
 					res."Total Incentive Amount"  || case when res."通貨" = 'JPY' THEN '円' ELSE  res."通貨" end as incentiveamount,
 					
 					res."追加手数料の対象期間" as additionalfeeperiod,
 					res."追加手数料率" as additionalfee,
 					res."請求対象の在庫数" as inventorynumber ,
-					res."請求金額" || '円' as amountrequested
+					res."請求金額" || '円' as amountrequested ,
+					cast(CAST(res."Average quantity on hand"  AS  numeric(10,2)) as text) as ave,
+					mst2."FBA在庫" as fba
 					 
 			FROM 
 					"MST_出品マスタ情報" mst 
@@ -113,15 +115,18 @@
                         res1."Monthly storage fee (est.)",
                         res1."通貨",
                         res1."Total Incentive Amount",
+						res1."Average quantity on hand" ,
                         res2."追加手数料の対象期間",
                         res2."追加手数料率",
                         res2."請求対象の在庫数",
                         res2."請求金額"
+
                     from
                         "RES_在庫保管手数料情報" res1
                         FULL OUTER JOIN "RES_長期在庫保管手数料請求額情報" res2 
                         on res1."ASIN" = res2."ASIN" AND res1."店舗ID" = res2."店舗ID" AND res1."Month of charge" = to_char(res2."日付", 'yyyy-mm') 
                     ) res on mst."ASIN番号" = res."ASIN" AND mst."店舗ID" = res."店舗ID" 
+					LEFT JOIN  "MST_在庫情報" mst2 on mst."ASIN番号" = mst2."ASIN番号" and mst."店舗ID" = mst2."店舗ID"
 					LEFT JOIN "MST_ソート情報" S1 
 							on mst."商品種別" = S1."商品種別" and S1."分類" = '分類１' and mst."分類１" = S1."内容" and mst."店舗ID" = S1."店舗ID"
 					LEFT JOIN "MST_ソート情報" S2 

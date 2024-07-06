@@ -187,7 +187,7 @@
                                 </tr>
                                 <tr style="height: 80px;">
                                     <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_test.jsp'})">テスト情報管理</button></td>
-                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_wrongquestion.jsp'})">間違った問題情報管理</button></td>
+                                    <td><button class="btn" onclick="Efw('common_menu_goto',{page:'study_wrongquestion.jsp'})">不正解情報管理</button></td>
                                     <td></td>
                                     <td></td>
                                 </tr>

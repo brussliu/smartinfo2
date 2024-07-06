@@ -70,9 +70,13 @@
 					prarent.advertisingfee,
 					cast(prarent.averageprice as numeric(10,2)) as averageprice,
 					prarent.orderform,
-					case when prarent.acos is null then null
-                    else concat(cast(prarent.acos * 100 as numeric(10,2)),'%') 
+
+					case when cast( COALESCE(  prarent.sale ,0) as int) = 0 AND  cast(COALESCE (prarent.advertisingfee  , 0)as int) = 0  then null
+						 when cast( COALESCE(  prarent.sale ,0) as int) = 0 and  cast(COALESCE (prarent.advertisingfee  , 0)as int) &gt; 0 then '999.99%'
+                   		 else concat(cast(prarent.acos * 100 as numeric(10,2)),'%') 
                     end as acos,
+
+
 					prarent.shopid
 				FROM 
 					"MST_出品マスタ情報" mst 
@@ -194,8 +198,9 @@
 					res."広告費(JPY)" as advertisingfee,
 					res."平均クリック単価(CPC)(JPY)" as averageprice,
 					res."注文" as orderform,
-					case when res."ACOS" is null then null
-                    else concat(cast(res."ACOS" * 100 as numeric(10,2)),'%') 
+					case when cast( COALESCE(  res."売上(JPY)" ,0) as int) = 0 AND  cast(COALESCE (res."広告費(JPY)"  , 0)as int) = 0  then null
+						 when cast( COALESCE(  res."売上(JPY)" ,0) as int) = 0 and   cast(COALESCE (res."広告費(JPY)"  , 0)as int) &gt; 0 then '999.99%'
+                   		 else concat(cast( res."ACOS" * 100 as numeric(10,2)),'%') 
                     end as acos,
 
 					mst."店舗ID" as shopid
@@ -254,7 +259,7 @@
 				<if exists="ptype"> AND (	 advertinglist.categories IN ( @ptype ) ) </if>
 
 				<if exists="yearmonths"> AND (	 advertinglist.yearmonths = :yearmonths ) </if>
-			
+				<if exists="preproduct"> AND (	 advertinglist.preproduct = '親商品' ) </if>
 			ORDER BY 
 				advertinglist.productno,
 				advertinglist.preproduct DESC,

@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+
+	<sql id="searchTestResult">
+		SELECT 
+			T."テスト番号" as testno,
+			T."書籍" as book,
+			T."分類" as classification,
+			T."テスト方式1" as div1,
+			T."テスト方式2" as div2,
+			T."数量" as count,
+			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
+			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
+			COALESCE(N2.CT,0) as suncount,
+			COALESCE(N3.CT,0) as cloudycount,
+			COALESCE(N4.CT,0) as raincount,
+			round(cast(COALESCE(N2.CT,0) as numeric) /cast(T."数量" as numeric) * 100, 2)  || '%'  as per,
+			LPAD(cast(COALESCE(FLOOR(N5.TM / 3600),0) as text), 2, '0') as costtime1,
+			LPAD(cast(COALESCE(FLOOR((N5.TM % 3600) / 60),0) as text), 2, '0') as costtime2,
+			LPAD(cast(COALESCE(N5.TM % 60,0) as text), 2, '0') as costtime3,
+			CASE WHEN N1.ST &gt; 0 THEN '実施中' ELSE '実施済' END AS status
+		FROM
+			"STY_単語テスト情報" T
+		LEFT JOIN
+			(
+				SELECT 
+					A."テスト番号",count(B."単語SEQ") AS ST
+				FROM 
+					"STY_単語テスト情報" A,
+					"STY_単語テスト詳細情報" B
+				WHERE A."テスト番号" = B."テスト番号" AND B."ステータス" = '1'
+				GROUP BY A."テスト番号"
+			) N1 ON T."テスト番号" = N1."テスト番号"
+		LEFT JOIN
+			(
+				SELECT 
+					A."テスト番号",count(B."単語SEQ") AS CT
+				FROM 
+					"STY_単語テスト情報" A,
+					"STY_単語テスト詳細情報" B,
+					"STY_単語情報" C
+				WHERE 
+					A."テスト番号" = B."テスト番号" AND 
+					B."書籍" = C."書籍" AND
+					B."分類" = C."分類" AND
+					B."単語SEQ" = C."単語SEQ" AND
+					B."ステータス" = '9' AND
+					(
+						(
+							C."例句1_英語" &lt;&gt; '' AND 
+							C."例句2_英語" &lt;&gt; '' AND
+							B."誤り回数_単語" &lt;= 2 AND
+							B."誤り回数_例句1" &lt;= 2 AND
+							B."誤り回数_例句2" &lt;= 2
+						)
+						OR
+						(
+							C."例句1_英語" &lt;&gt; '' AND 
+							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
+							B."誤り回数_単語" &lt;= 2 AND
+							B."誤り回数_例句1" &lt;= 2 
+						)
+						OR
+						(
+							(C."例句1_英語" = '' or C."例句1_英語" is NULL) AND 
+							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
+							B."誤り回数_単語" &lt;= 2
+						)
+					)
+				GROUP BY A."テスト番号"
+			) N2 ON T."テスト番号" = N2."テスト番号"
+		LEFT JOIN
+			(
+				SELECT 
+					A."テスト番号",count(B."単語SEQ") AS CT
+				FROM 
+					"STY_単語テスト情報" A,
+					"STY_単語テスト詳細情報" B,
+					"STY_単語情報" C
+				WHERE 
+					A."テスト番号" = B."テスト番号" AND 
+					B."書籍" = C."書籍" AND
+					B."分類" = C."分類" AND
+					B."単語SEQ" = C."単語SEQ" AND
+					B."ステータス" = '9' AND 
+					(B."誤り回数_単語" &lt;= 2) AND
+					(
+						(
+							C."例句1_英語" &lt;&gt; '' AND 
+							(B."誤り回数_例句1" is null OR B."誤り回数_例句1" &gt; 2)
+						)
+						OR
+						(
+							C."例句2_英語" &lt;&gt; '' AND 
+							(B."誤り回数_例句2" is null OR B."誤り回数_例句2" &gt; 2)
+						)
+					)
+				GROUP BY A."テスト番号"
+			) N3 ON T."テスト番号" = N3."テスト番号"
+		LEFT JOIN
+			(
+				SELECT 
+					A."テスト番号",count(B."単語SEQ") AS CT
+				FROM 
+					"STY_単語テスト情報" A,
+					"STY_単語テスト詳細情報" B
+				WHERE 
+					A."テスト番号" = B."テスト番号" AND 
+					B."ステータス" = '9' AND
+					(B."誤り回数_単語" is null OR B."誤り回数_単語" &gt; 2)
+				GROUP BY A."テスト番号"
+			) N4 ON T."テスト番号" = N4."テスト番号"
+		LEFT JOIN
+			(
+				SELECT 
+					A."テスト番号",sum(B."時間") AS TM
+				FROM 
+					"STY_単語テスト情報" A,
+					"STY_単語テスト詳細情報" B
+				WHERE 
+					A."テスト番号" = B."テスト番号" AND 
+					B."ステータス" = '9'
+				GROUP BY A."テスト番号"
+			) N5 ON T."テスト番号" = N5."テスト番号"
+		WHERE
+			T."登録ID" = :userid
+			<if exists="book"> AND T."書籍" = :book</if>
+			<if exists="classification"> AND 
+				(
+					(position('～' IN T."分類") = 0 and T."分類" like concat('%', :classification ,'%'))
+					or
+					(
+						position('～' IN T."分類") &gt; 0 and 
+						SUBSTRING(T."分類",1,5) &lt;= :classification and
+						SUBSTRING(T."分類",7,5) &gt;= :classification
+					)
+				)
+			</if>
+		ORDER BY
+			status DESC,"開始時間" DESC
+	</sql>
+	<sql id="selectStudyTime">
+		SELECT
+			LPAD(cast(COALESCE(FLOOR(T.TM / 3600),0) as text), 2, '0') as costtime1,
+			LPAD(cast(COALESCE(FLOOR((T.TM % 3600) / 60),0) as text), 2, '0') as costtime2,
+			LPAD(cast(COALESCE(T.TM % 60,0) as text), 2, '0') as costtime3
+		FROM
+		(
+			SELECT 
+				sum(B."時間") AS TM
+			FROM 
+				"STY_単語テスト詳細情報" B
+			WHERE 
+				cast(B."更新日時" as date) = CURRENT_DATE
+		) T
+	</sql>
+	<sql id="selectWordCount">
+		SELECT
+			count(*) as ct
+		FROM
+			"STY_単語情報" T
+		WHERE
+			1 = 1
+			<if exists="dayfrom"> AND (
+				<if istrue="dayfrom != ''"> T."分類" &gt;= :dayfrom </if>
+				)
+			</if>
+			<if exists="dayto"> AND (
+				<if istrue="dayto != ''"> T."分類" &lt;= :dayto </if>
+				)
+			</if>
+			AND T."書籍" = :book
+	</sql>
+
+	<sql id="selectWord">
+		SELECT
+			  "書籍" AS book
+			, "分類" AS classification
+			, "単語SEQ" AS seq
+			, "単語_英語" AS word_e
+			, "単語_日本語" AS word_j
+			, "単語_中国語" AS word_c
+			, "例句1_英語" AS sen1_e
+			, "例句1_日本語" AS sen1_j
+			, "例句1_中国語" AS sen1_c
+			, "例句2_英語" AS sen2_e
+			, "例句2_日本語" AS sen2_j
+			, "例句2_中国語" AS sen2_c
+		FROM
+			"STY_単語情報" T
+		WHERE
+			1 = 1
+			<if exists="dayfrom"> AND (
+				<if istrue="dayfrom != ''"> T."分類" &gt;= :dayfrom </if>
+				)
+			</if>
+			<if exists="dayto"> AND (
+				<if istrue="dayto != ''"> T."分類" &lt;= :dayto </if>
+				)
+			</if>
+			AND T."書籍" = :book
+		ORDER BY RANDOM()
+	</sql>
+
+	<sql id="insertTestDetailInfo">
+		insert into "STY_単語テスト詳細情報"
+		values (
+			:testno,
+			:subno,
+
+			:book,
+			:classification,
+			:wordseq,
+
+			'1',
+			null,
+			null,
+			null,
+			null,
+			:userid,
+			:userid,
+			now(),
+			now()
+		)
+
+	</sql>
+
+	<sql id="insertTestInfo">
+		insert into "STY_単語テスト情報"
+		values (
+			:testno,
+			:book,
+			:classification,
+			:div1,
+			:div2,
+			:count,
+			now(),
+			null,
+			:userid,
+			:userid,
+			now(),
+			now()
+		)
+
+	</sql>
+
+	<sql id="selectTestInfo">
+		SELECT 
+			T."テスト番号" as testno,
+			T."書籍" as book,
+			T."分類" as classification,
+			T."テスト方式1" as div1,
+			T."テスト方式2" as div2,
+			T."数量" as ct,
+			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
+			to_char(T."終了時間", 'YYYY/MM/DD') as endtime
+		FROM "STY_単語テスト情報" T
+		WHERE
+			T."テスト番号" = :testno
+	</sql>
+
+	<sql id="selectTestDetailInfo">
+		SELECT 
+			T."テスト番号" as testno,
+			T."枝番号" as testsubno,
+			T."書籍" as book,
+			T."分類" as classification,
+			T."単語SEQ" as wordseq,
+			T."ステータス" as status,
+			T."誤り回数_単語" as word_wrongtime,
+			T."誤り回数_例句1" as sen1_wrongtime,
+			T."誤り回数_例句2" as sen2_wrongtime,
+			T."時間" as costtime,
+			W."単語_英語" as word_e,
+			W."単語_日本語" as word_j,
+			W."単語_中国語" as word_c,
+			case when T."ステータス" = '9' and 
+				(W."単語_英語" is not null and W."単語_英語" &lt;&gt; '') and
+				(T."誤り回数_単語" is null or T."誤り回数_単語" &gt;= 3) then 'rgb(255,200,200)'
+			else '' end as word_color,
+			W."例句1_英語" as sen1_e,
+			W."例句1_日本語" as sen1_j,
+			W."例句1_中国語" as sen1_c,
+			case when T."ステータス" = '9' and 
+				(W."例句1_英語" is not null and W."例句1_英語" &lt;&gt; '') and
+				(T."誤り回数_例句1" is null or T."誤り回数_例句1" &gt;= 3) then 'rgb(255,200,200)'
+			else '' end as sen1_color,
+			W."例句2_英語" as sen2_e,
+			W."例句2_日本語" as sen2_j,
+			W."例句2_中国語" as sen2_c,
+			case when T."ステータス" = '9' and 
+				(W."例句2_英語" is not null and W."例句2_英語" &lt;&gt; '') and
+				(T."誤り回数_例句2" is null or T."誤り回数_例句2" &gt;= 3) then 'rgb(255,200,200)'
+			else '' end as sen2_color,
+			case when T."ステータス" = '1' then 'blue' else '' end as color
+
+		FROM "STY_単語テスト詳細情報" T
+		LEFT JOIN "STY_単語情報" W
+			ON T."書籍" = W."書籍" AND
+			T."分類" = W."分類" AND
+			T."単語SEQ" = W."単語SEQ"
+		WHERE
+			T."テスト番号" = :testno
+			<if exists="testsubno"> AND T."枝番号" = :testsubno</if>
+		ORDER BY
+			T."枝番号"
+			
+	</sql>
+
+	<sql id="updateTestInfo">
+		UPDATE 
+		"STY_単語テスト情報"
+		SET
+			"終了時間" = now(),
+			"更新日時" = now()
+		WHERE
+			"テスト番号" = :testno
+
+	</sql>
+
+	<sql id="updateTestDetailInfo">
+		UPDATE 
+		"STY_単語テスト詳細情報"
+		SET
+			"ステータス" = :status,
+			"誤り回数_単語" = :wordWrongTime,
+			"誤り回数_例句1" = :sen1WrongTime,
+			"誤り回数_例句2" = :sen2WrongTime,
+			"時間" = :costtime,
+			"更新日時" = now()
+		WHERE
+			"テスト番号" = :testno
+			AND
+			"枝番号" = :testsubno
+	</sql>
+
+	<sql id="deleteTestInfo">
+		DELETE FROM 
+		"STY_単語テスト情報"
+		WHERE
+			"テスト番号" = :testno
+	</sql>
+
+	<sql id="deleteTestDetailInfo">
+		DELETE FROM 
+		"STY_単語テスト詳細情報"
+		WHERE
+			"テスト番号" = :testno
+	</sql>
+
+	<sql id="selectMinTestSubNo">
+		SELECT
+			min("枝番号") as minsubtestno
+		FROM
+			"STY_単語テスト詳細情報"
+		WHERE
+			"テスト番号" = :testno
+			AND
+			"ステータス" = '1'
+	</sql>
+
+	<sql id="selectWrongWord">
+		SELECT 
+			distinct
+			T."書籍" as book,
+			T."分類" as classification,
+			T."単語SEQ" as wordseq,
+			W."単語_英語" as word_e,
+			W."単語_日本語" as word_j,
+			W."単語_中国語" as word_c,
+			W."例句1_英語" as sen1_e,
+			W."例句1_日本語" as sen1_j,
+			W."例句1_中国語" as sen1_c,
+			W."例句2_英語" as sen2_e,
+			W."例句2_日本語" as sen2_j,
+			W."例句2_中国語" as sen2_c
+			
+		FROM "STY_単語テスト詳細情報" T
+		LEFT JOIN "STY_単語情報" W
+			ON T."書籍" = W."書籍" AND
+			T."分類" = W."分類" AND
+			T."単語SEQ" = W."単語SEQ"
+		WHERE
+			T."テスト番号" IN (@testno)
+			AND
+			(
+				(T."誤り回数_単語" is null OR T."誤り回数_単語" &gt; 2)
+				OR
+				(
+					W."例句1_英語" &lt;&gt; '' AND 
+					(T."誤り回数_例句1" is null OR T."誤り回数_例句1" &gt; 2)
+				)
+				OR
+				(
+					W."例句2_英語" &lt;&gt; '' AND 
+					(T."誤り回数_例句2" is null OR T."誤り回数_例句2" &gt; 2)
+				)
+			)
+	</sql>
+
+	<sql id="selectWordTestInfo">
+		select
+			DATA.book,
+			DATA.classification,
+			DATA.wordseq,
+
+			DATA.costtime1,
+			DATA.costtime2,
+			DATA.costtime3,
+			DATA.testtimes,
+			DATA.all_right,
+			round(DATA.per, 2) || '%' as per,
+
+			DATA.word_e,
+			DATA.word_j,
+			DATA.word_c,
+			DATA.word_right,
+			DATA.word_wrong,
+
+			DATA.sen1_e,
+			DATA.sen1_j,
+			DATA.sen1_c,
+			DATA.sen1_right,
+			DATA.sen1_wrong,
+
+			DATA.sen2_e,
+			DATA.sen2_j,
+			DATA.sen2_c,
+			DATA.sen2_right,
+			DATA.sen2_wrong
+		from 
+		(
+			select
+				T."書籍" as book,
+				T."分類" as classification,
+				T."単語SEQ" as wordseq,
+
+				LPAD(cast(COALESCE(FLOOR(D.time / 3600),0) as text), 2, '0') as costtime1,
+				LPAD(cast(COALESCE(FLOOR((D.time % 3600) / 60),0) as text), 2, '0') as costtime2,
+				LPAD(cast(COALESCE(D.time % 60,0) as text), 2, '0') as costtime3,
+				D.testtimes,
+				D.all_right,
+				case when 
+					D.all_right is null or D.all_right = 0 or D.testtimes = 0 or D.testtimes is null then 0
+				else
+					cast(D.all_right as numeric) / cast(D.testtimes as numeric) * 100
+				end as per,
+
+				T."単語_英語" as word_e,
+				T."単語_日本語" as word_j,
+				T."単語_中国語" as word_c,
+				D.word_right,
+				D.word_wrong,
+
+				T."例句1_英語" as sen1_e,
+				T."例句1_日本語" as sen1_j,
+				T."例句1_中国語" as sen1_c,
+				D.sen1_right,
+				D.sen1_wrong,
+
+				T."例句2_英語" as sen2_e,
+				T."例句2_日本語" as sen2_j,
+				T."例句2_中国語" as sen2_c,
+				D.sen2_right,
+				D.sen2_wrong
+			from 
+				"STY_単語情報" T
+			left join 
+			(
+			select 
+				A."書籍",
+				A."分類",
+				A."単語SEQ",
+				--テスト回数
+				count(A."テスト番号") as testtimes,
+				--単語正しい回数
+				sum(
+					case when A."誤り回数_単語" is not null and A."誤り回数_単語" &lt; 3 then 1
+					else 0 end
+				) as word_right,
+				--単語誤り回数
+				sum(
+					case when A."誤り回数_単語" is null then 1
+						when A."誤り回数_単語" &gt;= 3 then 1
+					else 0 end
+				) as word_wrong,
+				--例句1正しい回数
+				sum(
+					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3 then 1
+					else 0 end
+				) as sen1_right,
+				--例句1誤り回数
+				sum(
+					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is null then 1
+						when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" &gt;= 3 then 1
+					else 0 end
+				) as sen1_wrong,
+				--例句2正しい回数
+				sum(
+					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3 then 1
+					else 0 end
+				) as sen2_right,
+				--例句2誤り回数
+				sum(
+					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is null then 1
+						when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" &gt;= 3 then 1
+					else 0 end
+				) as sen2_wrong,
+				--全部正解回数
+				sum(
+					case when A."誤り回数_単語" &lt;= 2 and 
+						(B."例句1_英語" is null or B."例句1_英語" = '' or (A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3)) and
+						(B."例句2_英語" is null or B."例句2_英語" = '' or (A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3)) 
+						then 1
+					else 0 end
+				) as all_right,
+				sum(A."時間") as time
+			from 
+				"STY_単語テスト詳細情報" A
+			left join "STY_単語情報" B
+				on A."書籍" = B."書籍" and A."分類" = B."分類" and A."単語SEQ" = B."単語SEQ"
+			where
+				"ステータス" = '9'
+			group by
+				A."書籍",A."分類",A."単語SEQ"
+			) D
+			ON T."書籍" = D."書籍" AND T."分類" = D."分類" AND T."単語SEQ" = D."単語SEQ"
+		) DATA
+		where
+			1 = 1
+			<if exists="book"> AND DATA.book = :book</if>
+			<if exists="classification"> AND DATA.classification = :classification</if>
+			<if exists="accuracy"> AND 
+				<if istrue="accuracy == ''"> 1 = 1 </if>
+				<if istrue="accuracy == '1'"> DATA.per = 100 </if>
+				<if istrue="accuracy == '2'"> DATA.per &lt; 100 </if>
+				<if istrue="accuracy == '3'"> (DATA.per &gt; 80 and DATA.per &lt; 100 )</if>
+				<if istrue="accuracy == '4'"> (DATA.per &gt; 50 and DATA.per &lt; 80 )</if>
+				<if istrue="accuracy == '5'"> DATA.per &lt; 50</if>
+			</if>
+			<if exists="keyword"> 
+				<if istrue="keyword != ''">
+				AND (
+					DATA.word_e like concat('%', :keyword ,'%') OR
+					DATA.word_j like concat('%', :keyword ,'%') OR
+					DATA.word_c like concat('%', :keyword ,'%') OR
+					DATA.sen1_e like concat('%', :keyword ,'%') OR
+					DATA.sen1_j like concat('%', :keyword ,'%') OR
+					DATA.sen1_c like concat('%', :keyword ,'%') OR
+					DATA.sen2_e like concat('%', :keyword ,'%') OR
+					DATA.sen2_j like concat('%', :keyword ,'%') OR
+					DATA.sen2_c like concat('%', :keyword ,'%') 
+				)
+				</if>
+			</if>
+		order by
+			DATA.book, DATA.classification, DATA.wordseq
+	</sql>
+
+	<sql id="searchWordBook">
+		SELECT
+			distinct "書籍" as book
+		FROM
+			"STY_単語情報"
+		ORDER BY
+			"書籍"
+	</sql>
+
+	<sql id="searchClassification">
+		SELECT
+			distinct "分類" as classification
+		FROM
+			"STY_単語情報"
+		WHERE
+			"書籍" = :book
+		ORDER BY
+			"分類"
+	</sql>
+
+	<sql id="updateChieseWordExplain">
+		UPDATE "STY_単語情報"
+		SET
+			"単語_中国語" = :explain
+		WHERE
+	  		"書籍" = :book
+			AND
+			"分類" = :classification
+			AND
+			"単語SEQ" = :wordseq
+	</sql>
+
+	<sql id="updateChieseSen1Explain">
+		UPDATE "STY_単語情報"
+		SET
+			"例句1_中国語" = :explain
+		WHERE
+	  		"書籍" = :book
+			AND
+			"分類" = :classification
+			AND
+			"単語SEQ" = :wordseq
+	</sql>
+
+	<sql id="updateChieseSen2Explain">
+		UPDATE "STY_単語情報"
+		SET
+			"例句2_中国語" = :explain
+		WHERE
+	  		"書籍" = :book
+			AND
+			"分類" = :classification
+			AND
+			"単語SEQ" = :wordseq
+	</sql>
+
+	<sql id="updateWordInfo">
+		UPDATE "STY_単語情報"
+		SET
+		<if istrue="flg == 'wordE'"> "単語_英語" = :content </if>
+		<if istrue="flg == 'wordJ'"> "単語_日本語" = :content </if>
+		<if istrue="flg == 'wordC'"> "単語_中国語" = :content </if>
+		<if istrue="flg == 'sen1E'"> "例句1_英語" = :content </if>
+		<if istrue="flg == 'sen1J'"> "例句1_日本語" = :content </if>
+		<if istrue="flg == 'sen1C'"> "例句1_中国語" = :content </if>
+		<if istrue="flg == 'sen2E'"> "例句2_英語" = :content </if>
+		<if istrue="flg == 'sen2J'"> "例句2_日本語" = :content </if>
+		<if istrue="flg == 'sen2C'"> "例句2_中国語" = :content </if>
+		WHERE
+	  		"書籍" = :book
+			AND
+			"分類" = :classification
+			AND
+			"単語SEQ" = :wordseq
+	</sql>
+
+	<sql id="insertTempPic">
+		insert into "STY_画像" (
+			  "元ファイル"
+			, "縮略ファイル"
+			, "登録ID"
+			, "更新ID"
+			, "登録日時"
+			, "更新日時"
+		)values(
+			:content,
+			:content_tb,
+			null,
+			null,
+			now(),
+			now()
+		)
+	</sql>
+</sqls>
+

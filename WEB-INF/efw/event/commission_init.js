@@ -91,6 +91,7 @@ commission_init.fire = function (params) {
 		ret.runat("#commissiontable").remove("tr").append(html1).withdata(selectResult3);
 
 	}
+	ret.eval('typeDistinction();')
 	return ret;
 };
 

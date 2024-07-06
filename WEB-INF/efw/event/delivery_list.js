@@ -1,7 +1,8 @@
 var delivery_list = {};
 delivery_list.name = "納品内容ボタン押下";
 delivery_list.paramsFormat = {
-	"deliveryno": null
+	"deliveryno": null,
+	"state": null
 
 };
 
@@ -14,6 +15,8 @@ delivery_list.fire = function (params) {
  
 	// 納品NO
 	var deliveryno = params["deliveryno"];
+	// ステータス
+	var state = params["state"];
 
 	// 納品名称検索
 	var selectResult = db.select(
@@ -55,9 +58,10 @@ delivery_list.fire = function (params) {
 		'<td style="width: 80px;">{local1}</td>' +
 		'<td style="width: 80px;">{local2}</td>' +
 		'<td style="width: 80px;">{number}</td>' +
+		'<td style="width: 110px;"></td>' +
 	'</tr>'
 	ret.runat("#table_cot").remove("tr").append(resultHTML).withdata(selectResult);
-
+	ret.eval("to2('"+state+"');");
 	ret.eval("delivery_content_inputdialog.dialog('open');");
 	
 	// 画面へ結果を返す

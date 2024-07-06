@@ -10,6 +10,19 @@ global.fire = function () {
 
 };
 
+function excuteClass(java, params){
+
+	cmd.execute(params.unshift("java", "-classpath", "D:/apache-tomcat-9.0.30/webapps/smartinfo2/java/", java));
+
+}
+
+function excuteJar(java, params){
+
+	params.unshift("java", "-jar", "D:/apache-tomcat-9.0.30/webapps/smartinfo2/java/smartinfo2.jar", java);
+
+	cmd.execute(params);
+
+}
 
 function setTitleInfo(ret){
 
@@ -162,6 +175,7 @@ function sessionCheck(ret){
 	}
 	return true;
 }
+
 
 function sessionCheckForShopList(ret){
 

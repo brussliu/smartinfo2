@@ -26,11 +26,11 @@ delivery_outputdeliveryfile.fire = function (params) {
 	file.remove(getShopId()+"/download/deliveryfile.txt");
 	file.makeFile(getShopId()+"/download/deliveryfile.txt");
 
-	var csvWriter = new CSVWriter(getShopId()+"/download/deliveryfile.txt", ",", "\"", "MS932");
+	var csvWriter = new CSVWriter(getShopId()+"/download/deliveryfile.txt", "", "", "utf-8");
 
 	var ary = [
 		["このシートに記入する前にExampleタブを確認してください										"],
-		["								"],
+		["										"],
 		["Default prep owner	Seller									"],
 		["Default labeling owner	Seller									"],
 		["										"],
@@ -46,7 +46,7 @@ delivery_outputdeliveryfile.fire = function (params) {
 
 			var dary = [skuResult[i]["skuinfo"]];
 
-			csvWriter.writeLine(dary);
+			csvWriter.writeLine(dary+"									");
 	}
 
 	ret.attach(getShopId()+"/download/deliveryfile.txt")

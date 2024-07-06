@@ -44,7 +44,27 @@
                 width: 100px;
                 height: 100px;
             }
-           
+            .stacked-img {
+                display: block;
+                
+             }
+            
+             .imgcss {
+                display:inline-block;
+                text-align: center; /* 使内部的块级元素水平居中 */
+            }
+
+            .imgcss img:first-child {
+                width: 80px;
+                height: 80px;
+            }
+
+            .imgcss img:last-child {
+                width: 20px;
+                height: 20px;
+                display: block;
+                margin: 0 auto; /* 使此图片水平居中 */
+            }
         </style>
 
     <div style="margin: 10px;">
@@ -85,12 +105,16 @@
 
                 <tr style="height: 120px;">
                     <td>内容：</td>
-                    <td colspan="2" id="td_content1"><img src="img\zhaoxiang.png" class="contentimg"></td>
-                    <td></td>
+                    <td colspan="3" id="td_content1" class="">
+                        <div class="imgcss">
+                            <img src="img\delete.png"></img>
+                           <img src="img\jian.png" onclick="deleteimg(this)"></img>
+                       </div>
+                        <img src="img\zhaoxiang.png" class="contentimg"></td> 
                 </tr> 
             </tbody>
         </table>
-
+        <!--総合成績  -->
         <table class="table_inputdialog table_inputdialog2" border="0"  padding="0" style="border-top: 1px dashed black;">
             <tbody> 
                 <tr style="background-color: D9E1F4;">
@@ -165,7 +189,7 @@
                 </tr> 
             </tbody>
         </table>
-        
+        <!-- 单科 -->
         <table class="table_inputdialog table_inputdialog3" border="0"  padding="0" style="border-top: 1px dashed black;">
             <tbody> 
                 <tr style="background-color: E3F2D9;">
@@ -182,7 +206,7 @@
                              <option value="6.地理">6.地理</option>
                              <option value="7.歴史">7.歴史</option>
                         </select></td>
-                    <td style="width: 30px;"><img src="img\jia.png" onclick="addtable(this)" class="addicon" width="30" height="30"></td>
+                    <td style="width: 30px;"><img src="img\jia.png"  class="addicon" width="30" height="30"></td>
                     <td style="width: 300px;"></td>
                     <td style="width: 180px;"></td>
                     <td style="width: 220px;"></td>
@@ -201,24 +225,21 @@
                 </tr> 
                 <tr style="height: 120px;">
                     <td>内容：</td>
-                    <td id="td_content4"><img src="img\zhaoxiang.png" class="contentimg"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>  
-                    <td></td>
-                    <td></td>
+                    <td id="td_content4" colspan="7">
+                        <div class="imgcss">
+                             <img src="img\delete.png"></img>
+                            <img src="img\jian.png" onclick="deleteimg(this)"></img>
+                        </div>
+                       
+                        <img src="img\zhaoxiang.png" class="contentimg"></img>
+                    </td>
+                
                 </tr>
 
                 <tr style="height: 120px;">
                     <td> 内容(クリア)：</td>
-                    <td id="td_content5"><img src="img\zhaoxiang.png" class="contentimg2"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td> 
-                    <td></td>  
-                    <td></td>
-                    <td></td>
+                    <td id="td_content5"  colspan="7"><img src="img\zhaoxiang.png" class="contentimg2"></td>
+                   
                 </tr>
 
                 <tr>
@@ -268,7 +289,7 @@
             <tbody>
                 <tr>
                     <td style="width: 650px;"></td>
-                    <td style="width: 200px;"><button class="btn"  onclick="tablelist()">登　録</button></td>
+                    <td style="width: 200px;"><button class="btn" id="btn_login" data-tags="table_inputdialog3" onclick="tablelist()">登　録</button></td>
                     <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
                     <td style="width: 650px;"></td>
                 </tr>

@@ -5,6 +5,7 @@ advertising_search.paramsFormat={
 	"#opt_productno":null,
 	"#text_keyword":null, 
 	"#opt_yearmonths":null, 
+	"#checkbox_preproduct":null, 
 };
  
 advertising_search.fire=function(params){
@@ -18,7 +19,7 @@ advertising_search.fire=function(params){
 	var productno = params["#opt_productno"];
 	var keyword = params["#text_keyword"].toUpperCase();
 	var yearmonths = params["#opt_yearmonths"]; 
-
+	var preproduct = params["#checkbox_preproduct"]; 
 	var type="";
 	for(let i=0;i<pdArr.length;i++){
 		
@@ -38,7 +39,8 @@ advertising_search.fire=function(params){
 			ptype : type,
 			productno : productno,
 			keyword : keyword,
-			yearmonths : yearmonths 
+			yearmonths : yearmonths ,
+			preproduct : preproduct
 		
 		}
 	).getArray();
