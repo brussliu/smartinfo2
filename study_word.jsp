@@ -93,6 +93,9 @@
                 var wordseq =           $(obj).parent().children().eq(2).children().eq(0).html();
 
                 var itemvalue = $(obj).children().eq(0).html();
+                if(no == 1){
+                    itemvalue = $(obj).children().eq(0).children().eq(0).html();
+                }
                 var input = prompt("内容を修正してください：", itemvalue);
 
                 var flg = null;
@@ -122,7 +125,23 @@
                 }
             }
 
+            function openWord(obj){
 
+                var word = $(obj).children().eq(0).html();
+
+                const windowFeatures =
+                "toolbar=no," + 
+                "location=no," + 
+                "directories=no," + 
+                "status=no," + 
+                "menubar=no," + 
+                "scrollbars=yes," + 
+                "resizable=yes," + 
+                "width=1920," + 
+                "height=1080";
+
+                window.open("https://ejje.weblio.jp/content/" + word, 'fullscreenWindow', windowFeatures);
+            }
         </script>
     </head>
 
@@ -178,7 +197,7 @@
                                         <option value="2">100%未満</option>
                                         <option value="3">80%～100%</option>
                                         <option value="4">50%～80%</option>
-                                        <option value="5">50%以下</option>
+                                        <option value="5">50%未満</option>
                                     </select>
                                 </td>
                                 <td>

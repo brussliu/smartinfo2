@@ -207,7 +207,23 @@
                     $(obj).prev().get(0).scrollLeft = p;
             }
 
+            function openWord(obj){
 
+                var word = $(obj).children().eq(0).html();
+
+                const windowFeatures =
+                "toolbar=no," + 
+                "location=no," + 
+                "directories=no," + 
+                "status=no," + 
+                "menubar=no," + 
+                "scrollbars=yes," + 
+                "resizable=yes," + 
+                "width=1920," + 
+                "height=1080";
+
+                window.open("https://ejje.weblio.jp/content/" + word, 'fullscreenWindow', windowFeatures);
+            }
 
             function changeStyleForTestInfo(){
                 $("#testwordtable tr").each(function () {
@@ -385,8 +401,8 @@
 
                                 <th style="width: 100px;">ステータス</th>
 
-                                <th style="width: 160px;">テスト方式１</th>
-                                <th style="width: 160px;">テスト方式２</th>
+                                <th style="width: 160px;">範囲</th>
+                                <th style="width: 160px;">種類</th>
                                 <th style="width: 280px;">テスト期間</th>
 
                                 <th style="width: 320px;">数量</th>

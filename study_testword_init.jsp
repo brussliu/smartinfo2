@@ -260,13 +260,14 @@
                     <tr style="height: 80px;">
                         <td style="font-weight: bold;font-size: 30px;">
                             &nbsp;&nbsp;&nbsp;&nbsp;種類：&nbsp;&nbsp;
-                            <select id="opt_testtype" tabindex="71" style="width: 300px;height:60px;border-style: solid;font-size: 24px;margin-top: 0px;" onchange="">
-                                <option value="translatebyJapaneseWithVoice">&nbsp;0.日訳英(音声付き)</option>
-                                <option value="translatebyJapaneseWithNotVoice">&nbsp;1.日訳英(音声無し)</option>
-                                <option value="onlyVoice">&nbsp;2.音声のみ</option>
-                                <option value="translatebyChineseWithVoice">&nbsp;3.漢訳英(音声付き)</option>
-                                <option value="translatebyChineseWithNotVoice">&nbsp;4.漢訳英(音声無し)</option>
-                                <option value="random">&nbsp;5.ランダム</option>
+                            <select id="opt_testkbn" tabindex="71" style="width: 300px;height:60px;border-style: solid;font-size: 24px;margin-top: 0px;" onchange="">
+                                <option value="0">&nbsp;0.全訳英</option>
+                                <option value="1" selected>&nbsp;1.日訳英(音声付き)</option>
+                                <option value="2">&nbsp;2.日訳英(音声無し)</option>
+                                <option value="3">&nbsp;3.音声のみ</option>
+                                <option value="4">&nbsp;4.漢訳英(音声付き)</option>
+                                <option value="5">&nbsp;5.漢訳英(音声無し)</option>
+                                <option value="6">&nbsp;6.ランダム</option>
                             </select>
                         </td>
                     </tr>
