@@ -1,6 +1,6 @@
-drop table public."TRN_テスト科目情報";
+drop table public."STY_テスト科目情報";
 
-create table public."TRN_テスト科目情報" (
+create table public."STY_テスト科目情報" (
     "テストSEQ" character varying(20) primary key
   , "テスト科目" character varying(20) primary key
 

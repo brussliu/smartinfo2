@@ -635,7 +635,7 @@
 	</sql>
 
 	<sql id="insertTempPic">
-		insert into "STY_画像" (
+		insert into "STY_臨時画像" (
 			  "元ファイル"
 			, "縮略ファイル"
 			, "登録ID"

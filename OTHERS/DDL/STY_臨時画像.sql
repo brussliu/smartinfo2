@@ -1,6 +1,6 @@
-drop table public."STY_画像";
+drop table public."STY_臨時画像";
 
-create table public."STY_画像" (
+create table public."STY_臨時画像" (
     "連番" serial primary key
   , "元ファイル" text
   , "縮略ファイル" text

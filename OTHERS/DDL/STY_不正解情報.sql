@@ -1,6 +1,6 @@
-drop table public."TRN_ŠÔˆá‚Á‚½–â‘èî•ñ";
+drop table public."STY_•s³‰ğî•ñ";
 
-create table public."TRN_ŠÔˆá‚Á‚½–â‘èî•ñ" (
+create table public."STY_•s³‰ğî•ñ" (
     "–â‘èSEQ" character varying(20) primary key
   , "–â‘è‹æ•ª" character varying(1)
 
