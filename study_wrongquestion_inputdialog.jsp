@@ -46,7 +46,9 @@
         <table class="table_inputdialog" border="0" padding="0">
             <tbody> 
                 <tr style="background-color: E3F2D9;">
-                    <td style="width: 150px;">&nbsp;<input type="radio" name="question" class="rad"> テスト問題</input></td>
+                    <td style="width: 150px;">
+                        &nbsp;<input type="radio" name="questionType" class="rad" onchange="changeQuersionType();" value="way1"> テスト問題</input>
+                    </td>
                     <td></td>
                 </tr>
                 <tr class="way1" style="display: none;">
@@ -95,7 +97,9 @@
                     </td>
                 </tr>
                 <tr style="background-color: E3F2D9;">
-                    <td style="border-top: 1px solid rgb(255, 255, 240);">&nbsp;<input type="radio" name="question" class="rad" checked ><label> その他問題</label></input></td>
+                    <td style="border-top: 1px solid rgb(255, 255, 240);">
+                        &nbsp;<input type="radio" name="questionType" class="rad" onchange="changeQuersionType();" value="way2" checked>その他問題</input>
+                    </td>
                     <td style="border-top: 1px solid rgb(255, 255, 240);"></td>
                 </tr>
                 <tr class="way2">
@@ -137,7 +141,7 @@
                 </tr>
                 <tr style="height: 120px;">
                     <td>内容：</td>
-                    <td id="td_content2" colspan="3"><img src="img\zhaoxiang.png" width="100" height="100"></td>
+                    <td id="td_content2" colspan="3"><img src="img\zhaoxiang.png" width="50" height="50"></td>
                 </tr>
 
                 <tr>
@@ -147,10 +151,34 @@
                     <td style="border-top: 1px dashed gray;"><input type="text" style="width:500px"></input></td>
                 </tr>
                 <tr style="height: 120px;">
-                    <td></td>
-                    <td id="td_content3"><img src="img\zhaoxiang.png" width="100" height="100"></td>
-                    <td></td>
-                    <td id="td_content3"><img src="img\zhaoxiang.png" width="100" height="100"></td>
+                    <td style="text-align: right;">
+                        <img src="img\zhaoxiang.png" width="50" height="50">
+                        <br>
+                        <img src="img\memo.png" style="margin-top: 5px;" width="50" height="50" onclick="openNote(1);">
+                    </td>
+                    <td>
+                        <div style="overflow: auto;height: 130px;" id="note_area_1">
+                            <!-- <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;"> -->
+                        </div>
+                    </td>
+                    <td style="text-align: right;">
+                        <img src="img\zhaoxiang.png" width="50" height="50">
+                        <br>
+                        <img src="img\memo.png" style="margin-top: 5px;" width="50" height="50" id="memo1" onclick="openNote(2);">
+                    </td>
+                    <td>
+                        <div style="overflow: auto;height: 130px;" id="note_area_2">
+                            <!-- <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="100" height="100" style="border: 1px solid gray;"> -->
+                        </div>
+                    </td>
                 </tr>
                 <tr style="height: 120px;">
                     <td style="border-top: 1px dashed gray;width: 150px;">誤った原因：</td>
@@ -158,9 +186,33 @@
                     <td style="border-top: 1px dashed gray;width: 150px;">深い原因：</td>
                     <td style="border-top: 1px dashed gray;"><textarea style="width: 500px;height: 100px;" id="text_score1"></textarea></td>
                 </tr> 
-                <tr style="height: 120px;">
-                    <td style="border-top: 1px dashed gray;">再計算内容：</td>
-                    <td style="border-top: 1px dashed gray;" colspan="3" id="td_content3"><img src="img\zhaoxiang.png" width="100" height="100"></td>
+                <tr>
+                    <td style="border-top: 1px dashed gray;">
+                        再計算内容：
+                    </td>
+                    <td style="border-top: 1px dashed gray;" colspan="3" rowspan="2">
+                        <div style="overflow: auto;height: 140px;" id="note_area_3">
+                            <!-- <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;"> -->
+                            <!-- <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;">
+                            <img src="img\zhaoxiang.png" width="120" height="120" style="border: 1px solid gray;"> -->
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">
+                        <img src="img\zhaoxiang.png" width="50" height="50">
+                        <br>
+                        <img src="img\memo.png" style="margin-top: 5px;" width="50" height="50" onclick="openNote(3);">
+                    </td>
                 </tr>
             </tbody>
         </table>

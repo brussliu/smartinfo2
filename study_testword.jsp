@@ -397,18 +397,18 @@
                             <tr class="header">
                                 <th style="width:  60px;" id="temp">選択<br/><input type="checkbox" onclick="selectAll(this);" /></th>
                                 <th style="width: 180px;">書籍</th>
-                                <th style="width: 250px;">分類</th>
+                                <th style="width: 380px;">分類</th>
 
                                 <th style="width: 100px;">ステータス</th>
 
-                                <th style="width: 160px;">範囲</th>
+                                <th style="width: 140px;">範囲</th>
                                 <th style="width: 160px;">種類</th>
-                                <th style="width: 280px;">テスト期間</th>
+                                <th style="width: 230px;">テスト期間</th>
 
-                                <th style="width: 320px;">数量</th>
+                                <th style="width: 300px;">数量</th>
 
-                                <th style="width: 120px;">全部正確率</th>
-                                <th style="width: 140px;">勉強時間</th>
+                                <th style="width: 100px;">全部正確率</th>
+                                <th style="width: 120px;">勉強時間</th>
                             </tr>
                         </thead>
                     </table>

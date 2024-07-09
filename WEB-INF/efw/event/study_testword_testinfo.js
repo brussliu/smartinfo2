@@ -37,12 +37,12 @@ study_testword_testinfo.fire = function (params) {
 		"<tr>" +
 			"<td style='width:  60px;text-align: center;'><input type='checkbox' name='testitem' value='{testno}' onchange='checkTest(this)'></input></td>" +
 			"<td style='width: 180px;'><span class='l5'>{book}</span></td>" +
-			"<td style='width: 250px;'><span class='l5'>{classification}</span></td>" +
+			"<td style='width: 380px;'><span class='l5'>{classification}</span></td>" +
 			"<td style='width: 100px;'><span class='l5'>{status}</span></td>" +
-			"<td style='width: 160px;'><span class='l5'>{div1}</span></td>" +
+			"<td style='width: 140px;'><span class='l5'>{div1}</span></td>" +
 			"<td style='width: 160px;'><span class='l5'>{div2}</span></td>" +
-			"<td style='width: 280px;'><span class='l5'>{starttime}～{endtime}</span></td>" +
-			"<td style='width: 320px;'>" +
+			"<td style='width: 230px;'><span class='l5'>{starttime}～{endtime}</span></td>" +
+			"<td style='width: 300px;'>" +
 				"<table border=0><tr>" +
 				"<td style='border:0;width:5px;'></td>" +
 				"<td style='border:0;width:25px;'><img style='width: 20px;height: 20px;margin: -2px;cursor: pointer;' src='img/all.png' onclick=\"listWord('{testno}');\"/></td>" +
@@ -55,8 +55,8 @@ study_testword_testinfo.fire = function (params) {
 				"<td style='border:0;width:45px;'><span style='font-size: 12px;'>{raincount}</span></td>" +
 				"</tr></table>" +
 			"</td>" +
-			"<td style='width: 120px;' class='r'><span class='r5'>{per}</span></td>" +
-			"<td style='width: 140px;' class='r'><span class='r5'>{costtime1}:{costtime2}:{costtime3}</span></td>" +
+			"<td style='width: 100px;' class='r'><span class='r5'>{per}</span></td>" +
+			"<td style='width: 120px;' class='r'><span class='r5'>{costtime1}:{costtime2}:{costtime3}</span></td>" +
 		"</tr>";
 
 	ret.runat("#testwordtable").remove("tr").append(resultHTML).withdata(selectResult);

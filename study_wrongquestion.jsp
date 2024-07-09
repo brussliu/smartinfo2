@@ -40,51 +40,110 @@
 
                 // 新規
                 function add() {
-                    $("#opt_academicyear").prop('selectedIndex', 0);
-                    $('#text_name').val('');
-                    $('#text_to').val('');
-                    $('#text_from').val('');
-                    $('#td_content1').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
+                    // $("#opt_academicyear").prop('selectedIndex', 0);
+                    // $('#text_name').val('');
+                    // $('#text_to').val('');
+                    // $('#text_from').val('');
+                    // $('#td_content1').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
                    
-                    //    科目 综合成绩
-                    $('#td_content2').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
-                    $('#td_content3').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
-                    $('#text_score1').val('');
-                    $('#text_score2').val('');
-                    $('#text_classaverage').val('');
-                    $('#text_yearaverage').val('');
-                    $('#text_classranking1').val('');
-                    $('#text_classranking2').val('');
-                    $('#text_yearranking1').val('');
-                    $('#text_yearranking2').val('');
+                    // //    科目 综合成绩
+                    // $('#td_content2').html(' <img src="img\\zhaoxiang.png"   width="50" height="50"> ');
+                    // $('#td_content3').html(' <img src="img\\zhaoxiang.png"   width="50" height="50"> ');
+                    // $('#text_score1').val('');
+                    // $('#text_score2').val('');
+                    // $('#text_classaverage').val('');
+                    // $('#text_yearaverage').val('');
+                    // $('#text_classranking1').val('');
+                    // $('#text_classranking2').val('');
+                    // $('#text_yearranking1').val('');
+                    // $('#text_yearranking2').val('');
 
-                    // 科目 单科
-                    $("#opt_subject").prop('selectedIndex', 0);
-                    $('#td_content4').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
-                    $('#td_content5').html(' <img src="img\\zhaoxiang.png"   width="100" height="100"> ');
-                    $('#text_score3').val('');
-                    $('#text_score4').val('');
-                    $('#text_classaverage2').val('');
-                    $('#text_yearaverage2').val('');
-                    $('#text_classranking3').val('');
-                    $('#text_classranking4').val('');
-                    $('#text_yearranking3').val('');
-                    $('#text_yearranking4').val('');                  
+                    // // 科目 单科
+                    // $("#opt_subject").prop('selectedIndex', 0);
+                    // $('#td_content4').html(' <img src="img\\zhaoxiang.png"   width="50" height="50"> ');
+                    // $('#td_content5').html(' <img src="img\\zhaoxiang.png"   width="50" height="50"> ');
+                    // $('#text_score3').val('');
+                    // $('#text_score4').val('');
+                    // $('#text_classaverage2').val('');
+                    // $('#text_yearaverage2').val('');
+                    // $('#text_classranking3').val('');
+                    // $('#text_classranking4').val('');
+                    // $('#text_yearranking3').val('');
+                    // $('#text_yearranking4').val('');                  
 
-                    // $("#study_wrongquestion_inputdialog").dialog({title:"間違った問題新規"})
-                    //$('#btn_login').html('<button class="btn" id="login" onclick="login()">登　録</button>');
 
                     study_wrongquestion_inputdialog.dialog('open');
                 }
 
-              // 子画面が閉じる
-              function cel() {
-                study_wrongquestion_inputdialog.dialog('close');
+                // 子画面が閉じる
+                function cel() {
+                    study_wrongquestion_inputdialog.dialog('close');
                 }
 
-     
+                function changeQuersionType(){
+
+                    var way = $("input[name='questionType']:checked").val();
+
+                    if(way == "way1"){
+                        $(".way1").show();
+                        $(".way2").hide();
+                    }
+                    if(way == "way2"){
+                        $(".way1").hide();
+                        $(".way2").show();
+                    }
+
+                }
  
- 
+                function openNote(flg){
+
+                    const windowFeatures =
+                    "toolbar=no," + 
+                    "location=no," + 
+                    "directories=no," + 
+                    "status=no," + 
+                    "menubar=no," + 
+                    "scrollbars=yes," + 
+                    "resizable=yes," + 
+                    "width=" + screen.availWidth + "," + 
+                    "height=" + screen.availHeight;
+
+                    window.open("study_note.jsp?flg=" + flg, 'fullscreenWindow', windowFeatures);
+                }
+
+                function displayNote(flg, closeflg){
+
+                    if(closeflg == true){
+                        Efw('study_displaynote',{flg : flg});
+                    }
+
+                }
+
+                function deleteNote(obj){
+
+                    var msg1 = "このメモを削除します、宜しいでしょうか？";
+                    var msg2 = "このメモを削除したら、回復できません。本当に削除しますか？";
+
+                    if(confirm(msg1) == true){
+                        if(confirm(msg2) == true){
+                            $(obj).remove();
+                        }
+                    }
+                    
+                }
+                
+                function adddisplaynote(flg, v){
+                    if(flg == 3){
+                        var pichtml = "<img src='" + v + "' height='135' style='border: 1px solid gray;' onclick='deleteNote(this)' ondblclick='openNote(this)'/>";
+                        $("#note_area_" + flg).append(pichtml);
+
+                    }else{
+                        var pichtml = "<img src='" + v + "' height='120' style='border: 1px solid gray;' onclick='deleteNote(this)' ondblclick='openNote(this)'/>";
+                        $("#note_area_" + flg).append(pichtml);
+
+                    }
+
+                }
             </script>
         </head>
         <!-- onload="init();" -->

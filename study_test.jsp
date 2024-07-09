@@ -254,7 +254,7 @@
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="menu.jsp">メニュー</a> > テスト情報管理</p>
+                    <p><a href="study_menu.jsp">メニュー</a> > テスト情報管理</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">

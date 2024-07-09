@@ -41,6 +41,11 @@ study_testword_test.fire = function (params) {
 
 	//selectDetailResult.debug("+++++++++++++++++++++++++++++++++++++++++++++");
 
+	var way2 = selectResult["div2"];
+	if(selectResult["div2"] == '6'){
+		way2 = parseInt(Math.round(Math.random() * 5));
+	}
+		
 
 	ret.runat("body").withdata(
 		{
@@ -69,7 +74,7 @@ study_testword_test.fire = function (params) {
 			"#hiddenSen2J" : selectDetailResult["sen2_j"],
 			"#hiddenSen2C" : selectDetailResult["sen2_c"],
 
-			"#hiddenWay" : selectResult["div2"],
+			"#hiddenWay" : way2,
 
 			"#hiddenMp3" : null
 			
@@ -79,9 +84,10 @@ study_testword_test.fire = function (params) {
 
 	var script1 = "showNumber();";
 	ret.eval(script1);
-
-	var script2 = "showWord();";
+	var script2 = "setContent();";
 	ret.eval(script2);
+	var script3 = "showWord();";
+	ret.eval(script3);
 
 	// 開始時間を残す
 	session.set("TEST_SUB_NO_STARTTIME", (new Date()).getTime());

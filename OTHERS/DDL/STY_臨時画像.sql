@@ -2,6 +2,7 @@ drop table public."STY_臨時画像";
 
 create table public."STY_臨時画像" (
     "連番" serial primary key
+  , "区分" character varying(1)
   , "元ファイル" text
   , "縮略ファイル" text
   , "登録ID" character varying(20)

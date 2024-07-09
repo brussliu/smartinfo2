@@ -26,12 +26,12 @@ study_testword_listword.fire = function (params) {
 	//selectResult.debug("6666666666666666666666666666666666666666666666666666666666666666666666666666");
 
 	var resultHTML =
-		"<tr style='color: {color}'>" +
+		"<tr style='color: {color};height:28px;'>" +
 			"<td class='l'><span class='l5'>{testsubno}</span></td>" +
 			"<td class='l'><span class='l5'>{book}</span></td>" +
 			"<td class='l'><span class='l5'>{classification}</span></td>" +
 			"<td class='l'><span class='l5'>{wordseq}</span></td>" +
-			"<td class='l' style='background-color: {word_color}'><span class='l5'>{word_e}</span></td>" +
+			"<td class='l' style='background-color: {word_color}'><a herf='#' onclick='openWord(this)'><span class='l5' style='text-decoration: underline;'>{word_e}</span></a></td>" +
 			"<td class='l'><span class='l5'>{word_j}</span></td>" +
 			"<td class='l' style='background-color: {sen1_color}'><span class='l5'>{sen1_e}</span></td>" +
 			"<td class='l'><span class='l5'>{sen1_j}</span></td>" +

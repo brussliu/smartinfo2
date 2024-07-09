@@ -8,7 +8,14 @@
 			T."書籍" as book,
 			T."分類" as classification,
 			T."テスト方式1" as div1,
-			T."テスト方式2" as div2,
+			case when T."テスト方式2" = '0' then '全訳英'
+				 when T."テスト方式2" = '1' then '日訳英(音声付き)'
+				 when T."テスト方式2" = '2' then '日訳英(音声無し)'
+				 when T."テスト方式2" = '3' then '音声のみ'
+				 when T."テスト方式2" = '4' then '漢訳英(音声付き)'
+				 when T."テスト方式2" = '5' then '漢訳英(音声無し)'
+				 when T."テスト方式2" = '6' then 'ランダム'
+				 else '' end as div2,
 			T."数量" as count,
 			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
 			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
@@ -375,28 +382,74 @@
 			W."例句2_英語" as sen2_e,
 			W."例句2_日本語" as sen2_j,
 			W."例句2_中国語" as sen2_c
-			
 		FROM "STY_単語テスト詳細情報" T
 		LEFT JOIN "STY_単語情報" W
 			ON T."書籍" = W."書籍" AND
 			T."分類" = W."分類" AND
 			T."単語SEQ" = W."単語SEQ"
+		LEFT JOIN (
+			select 
+				A."書籍",
+				A."分類",
+				A."単語SEQ",
+				--テスト回数
+				count(A."テスト番号") as testtimes,
+				--単語正しい回数
+				sum(
+					case when A."誤り回数_単語" is not null and A."誤り回数_単語" &lt; 3 then 1
+					else 0 end
+				) as word_right,
+				--単語誤り回数
+				sum(
+					case when A."誤り回数_単語" is null then 1
+						when A."誤り回数_単語" &gt;= 3 then 1
+					else 0 end
+				) as word_wrong,
+				--例句1正しい回数
+				sum(
+					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3 then 1
+					else 0 end
+				) as sen1_right,
+				--例句1誤り回数
+				sum(
+					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is null then 1
+						when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" &gt;= 3 then 1
+					else 0 end
+				) as sen1_wrong,
+				--例句2正しい回数
+				sum(
+					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3 then 1
+					else 0 end
+				) as sen2_right,
+				--例句2誤り回数
+				sum(
+					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is null then 1
+						when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" &gt;= 3 then 1
+					else 0 end
+				) as sen2_wrong,
+				--全部正解回数
+				sum(
+					case when A."誤り回数_単語" &lt;= 2 and 
+						(B."例句1_英語" is null or B."例句1_英語" = '' or (A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3)) and
+						(B."例句2_英語" is null or B."例句2_英語" = '' or (A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3)) 
+						then 1
+					else 0 end
+				) as all_right,
+				sum(A."時間") as time
+			from 
+				"STY_単語テスト詳細情報" A
+			left join "STY_単語情報" B
+				on A."書籍" = B."書籍" and A."分類" = B."分類" and A."単語SEQ" = B."単語SEQ"
+			where
+				"ステータス" = '9'
+			group by
+				A."書籍",A."分類",A."単語SEQ"
+		) D
+		ON W."書籍" = D."書籍" AND W."分類" = D."分類" AND W."単語SEQ" = D."単語SEQ"
 		WHERE
 			T."テスト番号" IN (@testno)
 			AND
-			(
-				(T."誤り回数_単語" is null OR T."誤り回数_単語" &gt; 2)
-				OR
-				(
-					W."例句1_英語" &lt;&gt; '' AND 
-					(T."誤り回数_例句1" is null OR T."誤り回数_例句1" &gt; 2)
-				)
-				OR
-				(
-					W."例句2_英語" &lt;&gt; '' AND 
-					(T."誤り回数_例句2" is null OR T."誤り回数_例句2" &gt; 2)
-				)
-			)
+			cast(D.all_right as numeric) / cast(D.testtimes as numeric) * 100 &lt; 90
 	</sql>
 
 	<sql id="selectWordTestInfo">
@@ -533,11 +586,11 @@
 			<if exists="classification"> AND DATA.classification = :classification</if>
 			<if exists="accuracy"> AND 
 				<if istrue="accuracy == ''"> 1 = 1 </if>
-				<if istrue="accuracy == '1'"> DATA.per = 100 </if>
-				<if istrue="accuracy == '2'"> DATA.per &lt; 100 </if>
-				<if istrue="accuracy == '3'"> (DATA.per &gt; 80 and DATA.per &lt; 100 )</if>
-				<if istrue="accuracy == '4'"> (DATA.per &gt; 50 and DATA.per &lt; 80 )</if>
-				<if istrue="accuracy == '5'"> DATA.per &lt; 50</if>
+				<if istrue="accuracy == '1'"> (DATA.testtimes &gt; 0 AND DATA.per = 100) </if>
+				<if istrue="accuracy == '2'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 100) </if>
+				<if istrue="accuracy == '3'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 80 and DATA.per &lt; 100)</if>
+				<if istrue="accuracy == '4'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 50 and DATA.per &lt;= 80)</if>
+				<if istrue="accuracy == '5'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 50)</if>
 			</if>
 			<if exists="keyword"> 
 				<if istrue="keyword != ''">
@@ -636,13 +689,15 @@
 
 	<sql id="insertTempPic">
 		insert into "STY_臨時画像" (
-			  "元ファイル"
+			  "区分"
+			, "元ファイル"
 			, "縮略ファイル"
 			, "登録ID"
 			, "更新ID"
 			, "登録日時"
 			, "更新日時"
 		)values(
+			'1',
 			:content,
 			:content_tb,
 			null,
@@ -651,5 +706,55 @@
 			now()
 		)
 	</sql>
+
+	<sql id="insertTempNote">
+		insert into "STY_臨時画像" (
+			  "区分"
+			, "元ファイル"
+			, "縮略ファイル"
+			, "登録ID"
+			, "更新ID"
+			, "登録日時"
+			, "更新日時"
+		)values(
+			'2',
+			:content,
+			:content_tb,
+			null,
+			null,
+			now(),
+			now()
+		)
+	</sql>
+	
+	<sql id="selectTbNote">
+		select
+			"連番" as seq,
+			"縮略ファイル" as "note"
+		from 
+			"STY_臨時画像"
+		where
+			"登録ID" is null
+			and
+			"区分" = '2'
+		order by
+			"連番" desc
+		limit
+			1
+	</sql>
+
+	<sql id="updateTbNote">
+		update
+			"STY_臨時画像"
+		set
+			"登録ID" = :userid,
+			"更新ID" = :userid,
+			"更新日時" = now()
+		where
+			"区分" = '2'
+			and
+			"連番" = :seq
+	</sql>
+
 </sqls>
 

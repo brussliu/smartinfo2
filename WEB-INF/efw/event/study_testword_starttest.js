@@ -8,7 +8,7 @@ study_testword_starttest.paramsFormat = {
 
 	"#testwayhidden1": null,
 	"#opt_testcount": null,
-	"#opt_testtype": null
+	"#opt_testkbn": null
 
 };
 
@@ -29,7 +29,7 @@ study_testword_starttest.fire = function (params) {
 	var dayto = params["#opt_dayto"];
 
 	var way1 = params["#testwayhidden1"];
-	var way2 = params["#opt_testtype"];
+	var way2 = params["#opt_testkbn"];
 
 	var selectcount = params["#opt_testcount"];
 
@@ -64,10 +64,10 @@ study_testword_starttest.fire = function (params) {
 		way1Str = "一部抽選";
 	}
 
-	var way2Str = "日訳英";
-	if(way2 == "onlyVoice"){
-		way2Str = "音声";
-	}
+	// var way2Str = "日訳英";
+	// if(way2 == "onlyVoice"){
+	// 	way2Str = "音声";
+	// }
 
 	var classification = dayfrom;
 	if(dayfrom != dayto){
@@ -88,7 +88,7 @@ study_testword_starttest.fire = function (params) {
 			book : book,
 			classification : classification,
 			div1 : way1Str,
-			div2 : way2Str,
+			div2 : way2,
 			count : selectResult.length,
 			userid : getUserId()
 		}

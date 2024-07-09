@@ -57,13 +57,14 @@
                 
                 $("#wordinfotable tr").each(function () {
 
+                    var ct = $(this).children().eq(4).children().eq(0).html();
                     var per = parseFloat($(this).children().eq(6).children().eq(0).html().replaceAll("%",""));
 
-                    if(per >= 90){
+                    if(ct != "" && per >= 90){
                         $(this).css("background-color", "rgb(200,255,200)");
-                    }else if(per >= 70){
+                    }else if(ct != "" &&per >= 70){
                         $(this).css("background-color", "rgb(255,255,200)");
-                    }else{
+                    }else if(ct != ""){
                         $(this).css("background-color", "rgb(255,200,200)");
                     }
                     

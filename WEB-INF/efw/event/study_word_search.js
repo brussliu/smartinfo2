@@ -46,7 +46,9 @@ study_word_search.fire = function (params) {
 			"<td style='width: 100px;' class='r'><span class='r5'>{all_right}</span></td>" +
 			"<td style='width: 100px;' class='r'><span class='r5'>{per}</span></td>" +
 
-			"<td style='width: 200px;' class='l' ondblclick='updateItem(1,this);'><span class='l5 word'>{word_e}</span></td>" +
+			"<td style='width: 200px;' class='l' ondblclick='updateItem(1,this);'>" +
+				"<a herf='#' onclick='openWord(this)'><span class='l5 word' style='text-decoration: underline;'>{word_e}</span></a>" +
+			"</td>" +
 			"<td style='width: 200px;' class='l' ondblclick='updateItem(2,this);'><span class='l5'>{word_j}</span></td>" +
 			"<td style='width: 500px;' class='l' ondblclick='updateItem(3,this);'><span class='l5'>{word_c}</span></td>" +
 			"<td style='width: 100px;' class='r'><span class='r5'>{word_right}</span></td>" +

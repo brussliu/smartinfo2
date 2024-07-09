@@ -80,7 +80,7 @@ study_testword_wrong.fire = function (params) {
 			book : book,
 			classification : classificationStr,
 			div1 : "誤り単語",
-			div2 : "日訳英",
+			div2 : "1",
 			count : selectResult.length,
 			userid : getUserId()
 		}
