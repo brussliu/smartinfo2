@@ -8,8 +8,10 @@ study_testword_starttest.paramsFormat = {
 
 	"#testwayhidden1": null,
 	"#opt_testcount": null,
-	"#opt_testkbn": null
+	"#opt_testkbn": null,
 
+	"#opt_testdiv": null,
+	
 };
 
 study_testword_starttest.fire = function (params) {
@@ -30,6 +32,8 @@ study_testword_starttest.fire = function (params) {
 
 	var way1 = params["#testwayhidden1"];
 	var way2 = params["#opt_testkbn"];
+
+	var way3 = params["#opt_testdiv"];
 
 	var selectcount = params["#opt_testcount"];
 
@@ -68,10 +72,19 @@ study_testword_starttest.fire = function (params) {
 	// if(way2 == "onlyVoice"){
 	// 	way2Str = "音声";
 	// }
+	var classification = "";
+	if((dayfrom == null || dayfrom == "") && (dayto == null || dayto == "")){
 
-	var classification = dayfrom;
-	if(dayfrom != dayto){
-		classification = dayfrom + "～" + dayto;
+		classification = "===ALL===";
+
+	}else{
+
+		if(dayfrom != dayto){
+			classification = dayfrom + "～" + dayto;
+		}else{
+			classification = dayfrom;
+		}
+
 	}
 
 	//selectResult.length.debug("============================================");
@@ -89,6 +102,7 @@ study_testword_starttest.fire = function (params) {
 			classification : classification,
 			div1 : way1Str,
 			div2 : way2,
+			div3 : way3,
 			count : selectResult.length,
 			userid : getUserId()
 		}
@@ -139,6 +153,10 @@ study_testword_starttest.fire = function (params) {
 	// ");"
 
 	// ret.eval(script1);
+
+	if(way3 == 1){
+		return ret.navigate("study_testword_test2.jsp");
+	}
 
 	// 画面へ結果を返す
 	return ret.navigate("study_testword_test.jsp");

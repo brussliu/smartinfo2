@@ -60,7 +60,7 @@
                     var ct = $(this).children().eq(4).children().eq(0).html();
                     var per = parseFloat($(this).children().eq(6).children().eq(0).html().replaceAll("%",""));
 
-                    if(ct != "" && per >= 90){
+                    if(ct != "" && per >= 85){
                         $(this).css("background-color", "rgb(200,255,200)");
                     }else if(ct != "" &&per >= 70){
                         $(this).css("background-color", "rgb(255,255,200)");
@@ -196,8 +196,8 @@
                                         <option value=""></option>
                                         <option value="1">100%</option>
                                         <option value="2">100%未満</option>
-                                        <option value="3">80%～100%</option>
-                                        <option value="4">50%～80%</option>
+                                        <option value="3">85%～100%</option>
+                                        <option value="4">50%～85%</option>
                                         <option value="5">50%未満</option>
                                     </select>
                                 </td>

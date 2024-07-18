@@ -8,6 +8,7 @@ create table public."STY_単語テスト情報" (
 
   , "テスト方式1" character varying(20)
   , "テスト方式2" character varying(20)
+  , "テスト方式3" character varying(20)
 
   , "数量" integer
 

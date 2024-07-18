@@ -20,7 +20,7 @@ study_testword_continue.fire = function (params) {
 
 
 	//  检索
-	var selectResult = db.select(
+	var selectResult1 = db.select(
 		"STUDY",
 		"selectMinTestSubNo",
 		{
@@ -28,12 +28,21 @@ study_testword_continue.fire = function (params) {
 		}
 	).getSingle();
 
-	var minSubTestNo = selectResult["minsubtestno"];
+	var minSubTestNo = selectResult1["minsubtestno"];
 
 	session.set("TEST_NO", testno);
 	session.set("TEST_SUB_NO", minSubTestNo);
 
-	ret.eval("continueTestPopup();");
+	//  检索
+	var selectResult2 = db.select(
+		"STUDY",
+		"selectTestInfo",
+		{
+			testno : testno,
+		}
+	).getSingle();
+
+	ret.eval("continueTestPopup('" + selectResult2["div3"] + "');");
 	// 画面へ結果を返す
 	return ret;
 

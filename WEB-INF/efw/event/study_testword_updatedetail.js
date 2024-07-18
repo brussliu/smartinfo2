@@ -9,8 +9,14 @@ study_testword_updatedetail.paramsFormat = {
 
 	"#hiddenWordWrongTime": null,
 	"#hiddenSen1WrongTime": null,
-	"#hiddenSen2WrongTime": null
+	"#hiddenSen2WrongTime": null,
 
+	"#hiddenWordNoteSeq": null,
+	"#hiddenSen1NoteSeq": null,
+	"#hiddenSen2NoteSeq": null,
+
+	"#hiddenWay3": null,
+	
 };
 
 study_testword_updatedetail.fire = function (params) {
@@ -30,6 +36,21 @@ study_testword_updatedetail.fire = function (params) {
 	var testno = session.get("TEST_NO");
 	var testsubno = 0;
 
+	var way3 = params["#hiddenWay3"];
+
+	var wordseq = parseInt(params["#hiddenWordNoteSeq"]);
+	var sen1seq = parseInt(params["#hiddenSen1NoteSeq"]);
+	var sen2seq = parseInt(params["#hiddenSen2NoteSeq"]);
+
+
+	var status = 9;
+
+
+	way3.debug("333333333333333333333333333333333333333333");
+	
+	if(way3 != "0"){
+		status = 2;
+	}
 
 	if(opt == "back"){
 
@@ -46,7 +67,7 @@ study_testword_updatedetail.fire = function (params) {
 
 			db.change(
 				"STUDY",
-				"updateTestDetailInfo",
+				"updateTestDetailInfo1",
 				{
 					testno : testno,
 					testsubno : testsubno,
@@ -54,7 +75,21 @@ study_testword_updatedetail.fire = function (params) {
 					wordWrongTime : null,
 					sen1WrongTime : null,
 					sen2WrongTime : null,
+					wordseq : null,
+					sen1seq : null,
+					sen2seq : null,
 					costtime : null,
+					userid : getUserId()
+				}
+			);
+
+			// 判定結果更新
+			db.change(
+				"STUDY",
+				"updateTestDetailInfo3",
+				{
+					testno : testno,
+					testsubno : test_sub_no
 				}
 			);
 
@@ -95,17 +130,52 @@ study_testword_updatedetail.fire = function (params) {
 
 		db.change(
 			"STUDY",
-			"updateTestDetailInfo",
+			"updateTestDetailInfo1",
 			{
 				testno : testno,
 				testsubno : test_sub_no,
-				status : 9,
+				status : status,
 				wordWrongTime : wordWrongTime,
 				sen1WrongTime : sen1WrongTime,
 				sen2WrongTime : sen2WrongTime,
-				costtime : endtime
+
+				wordseq : wordseq,
+				sen1seq : sen1seq,
+				sen2seq : sen2seq,
+
+				costtime : endtime,
+				userid : getUserId()
 			}
 		);
+
+		// 判定結果更新
+		db.change(
+			"STUDY",
+			"updateTestDetailInfo2",
+			{
+				testno : testno,
+				testsubno : test_sub_no
+			}
+		);
+
+
+		if(test_sub_no == 1){
+
+			// 終了時間更新
+			db.change(
+				"STUDY",
+				"updateTestStartTime",
+				{
+					testno : testno
+				}
+			);
+
+			// session.set("TEST_NO", null);
+			// session.set("TEST_SUB_NO", null);
+
+			// return ret.eval("overTest();");
+
+		}
 
 		if(test_sub_no == wordCount){
 
@@ -113,7 +183,7 @@ study_testword_updatedetail.fire = function (params) {
 			// 終了時間更新
 			db.change(
 				"STUDY",
-				"updateTestInfo",
+				"updateTestEndTime",
 				{
 					testno : testno
 				}
@@ -134,6 +204,18 @@ study_testword_updatedetail.fire = function (params) {
 
 	}
 
+	// //  检索
+	// var selectResult2 = db.select(
+	// 	"STUDY",
+	// 	"selectTestInfo",
+	// 	{
+	// 		testno : testno,
+	// 	}
+	// ).getSingle();
+
+	if(way3 != "0"){
+		return ret.navigate("study_testword_test2.jsp");
+	}
 
 	// 画面へ結果を返す
 	return ret.navigate("study_testword_test.jsp");

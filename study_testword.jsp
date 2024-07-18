@@ -22,16 +22,10 @@
 
         </style>
         <script>
+
             $(document).ready(function() {
 
-                // 添加一个option
-                // for(var i = 1;i <= 70;i ++){
-                //     var key = "Day" + i.toString().padStart(2, '0');
-                //     $("#opt_classification").append("<option value='" + i + "'>" + key + "</option>");
-                // }
-
             });
-
 
             // 初期化
             function init() {
@@ -59,63 +53,75 @@
             function checkTest(obj){
 
                 var n = 0;
-
                 var bookArr = new Array();
-                //var testno = "";
+                var statusArr = new Array();
 
                 $('#testwordtable input[type="checkbox"]').each(function() {
 
                     var book = "";
+                    var status = "";
                     if($(this).prop('checked') == true){
                         n = n + 1;
-                        book = $(obj).parent().next().children().eq(0).html();
-
+                        book = $(this).parent().next().children().eq(0).html();
                         if(!bookArr.includes(book)){
                             bookArr.push(book);
                         }
-                        //testno = testno + (testno == "" ? "" : ",") + $(this).val();
+
+                        status = $(this).parent().next().next().next().children().eq(0).html();
+                        if(!statusArr.includes(status)){
+                            statusArr.push(status);
+                        }
                     }
 
                 });
 
-                // <td style="width: 120px;"><button id="btn_testwrong" onclick="testWrong()">誤り単語再テスト</button></td>
-                // <td style="width: 120px;"><button id="btn_delete" onclick="deleteTest()">単語テスト削除</button></td>
-                // <td style="width: 120px;"><button id="btn_continue" onclick="continueTest()">単語テスト継続</button></td>
-                // <td style="width: 120px;"><button id="btn_dotest" onclick="beginTest()">単語テスト実施</button></td>
-
                 if(n == 0){
+
                     $("#btn_testwrong").prop("disabled", true);
                     $("#btn_delete").prop("disabled", true);
                     $("#btn_continue").prop("disabled", true);
-                    //$("#btn_dotest").prop("disabled", false);
+                    $("#btn_check").prop("disabled", true);
+
+
                 }else if(n == 1){
-                    if($(obj).parent().next().next().next().children().eq(0).html() == "実施済"){
+                    if(statusArr[0] == "実施済" || statusArr[0] == "採点中" || statusArr[0] == "採点済"){
                         $("#btn_testwrong").prop("disabled", false);
+                        $("#btn_delete").prop("disabled", true);
+                        $("#btn_continue").prop("disabled", true);
+                        $("#btn_check").prop("disabled", false);
                     }
                     // 実施中のテストのみ継続する可能です。
-                    if($(obj).parent().next().next().next().children().eq(0).html() == "実施中"){
-                        $("#btn_continue").prop("disabled", false);
+                    if(statusArr[0] == "実施中"){
+                        $("#btn_testwrong").prop("disabled", true);
                         $("#btn_delete").prop("disabled", false);
-                    }else{
-                        $("#btn_continue").prop("disabled", true);
+                        $("#btn_continue").prop("disabled", false);
+                        $("#btn_check").prop("disabled", true);
                     }
-                    
-                    //$("#btn_dotest").prop("disabled", false);
+
                 }else if(n >= 2){
 
+                    $("#btn_continue").prop("disabled", true);
+                    $("#btn_check").prop("disabled", true);
                     // 書籍が違うテストは一緒に再テストできない。
                     // 実施済のテストのみ再テストする可能です。
-                    if(bookArr.length == 1 && $(obj).parent().next().next().next().children().eq(0).html() == "実施済"){
+
+                    if(statusArr.length == 1 && statusArr[0] == "実施済" && bookArr.length == 1){
                         $("#btn_testwrong").prop("disabled", false);
+                    }else{
+
+                        $("#btn_testwrong").prop("disabled", true);
                     }
-                    if($(obj).parent().next().next().next().children().eq(0).html() == "実施中"){
+
+                    // 実施中のテストのみ継続する可能です。
+                    if(statusArr.length == 1 && statusArr[0] == "実施中"){
                         $("#btn_delete").prop("disabled", false);
+
+                    }else{
+                        $("#btn_delete").prop("disabled", true);
                     }
-                    $("#btn_continue").prop("disabled", true);
-                    //$("#btn_dotest").prop("disabled", false);
+
                 }
-                console.log("チェックOK個数:" + n);
-                //console.log(testno);
+
             }
 
             function getSelectedTest(){
@@ -135,26 +141,34 @@
             function testWrong(){
 
                 var testno = getSelectedTest();
-
                 Efw('study_testword_wrong', {testno : testno});
+            }
 
+            function allWrong(){
+                Efw('study_testword_allwrong');
             }
 
             function deleteTest(){
 
                 var testno = getSelectedTest();
-
                 Efw('study_testword_delete', {testno : testno});
+            }
 
+            function checkTestResult(){
+
+                var testno = getSelectedTest();
+
+                checkResultPop(testno);
+                //Efw('study_testword_check', {testno : testno});
             }
 
             function continueTest(){
-                var testno = getSelectedTest();
 
+                var testno = getSelectedTest();
                 Efw('study_testword_continue', {testno : testno});
             }
             // 初期化
-            function continueTestPopup() {
+            function continueTestPopup(no) {
 
                 const windowFeatures =
                 "toolbar=no," + 
@@ -167,7 +181,30 @@
                 "width=" + screen.availWidth + "," + 
                 "height=" + screen.availHeight;
 
-                window.open("study_testword_test.jsp", 'fullscreenWindow', windowFeatures);
+                if(parseInt(no) == 1){
+                    window.open("study_testword_test2.jsp", 'fullscreenWindow', windowFeatures);
+                }else{
+                    window.open("study_testword_test.jsp", 'fullscreenWindow', windowFeatures);
+                }
+                
+
+            }
+
+            // 初期化
+            function checkResultPop(testno) {
+
+                const windowFeatures =
+                "toolbar=no," + 
+                "location=no," + 
+                "directories=no," + 
+                "status=no," + 
+                "menubar=no," + 
+                "scrollbars=yes," + 
+                "resizable=yes," + 
+                "width=" + screen.availWidth + "," + 
+                "height=" + screen.availHeight;
+
+                window.open("study_testword_check.jsp?testno=" + testno, 'checkResult', windowFeatures);
 
             }
 
@@ -176,28 +213,7 @@
                 Efw('study_testword_listword', {testno : testno});
             }
 
-            // function showWordInfo(){
-
-            //     $("#testwordtable").parent().prev().hide();
-            //     $("#testwordtable").parent().hide();
-
-            //     $("#wordinfotable").parent().prev().show();
-            //     $("#wordinfotable").parent().show();
-
-            //     $("#btn_wordlist").hide();
-            //     $("#btn_testlist").show();
-            // }
-
             function showTestInfo(){
-
-                // $("#testwordtable").parent().prev().show();
-                // $("#testwordtable").parent().show();
-
-                // $("#wordinfotable").parent().prev().hide();
-                // $("#wordinfotable").parent().hide();
-
-                // $("#btn_wordlist").show();
-                // $("#btn_testlist").hide();
 
                 Efw('study_testword_testinfo');
             }
@@ -226,19 +242,28 @@
             }
 
             function changeStyleForTestInfo(){
-                $("#testwordtable tr").each(function () {
+
+                $("#testwordtable .tr1").each(function () {
 
                     var status = $(this).children().eq(3).children().eq(0).html();
-                    var per = parseFloat($(this).children().eq(8).children().eq(0).html().replaceAll("%",""));
-
-                    // console.log(status);
-                    // console.log(per);
+                    var per = parseFloat($(this).children().eq(9).children().eq(0).html().replaceAll("%",""));
+                    
+                    console.log(status);
+                    console.log(per);
 
                     if(status == "実施中"){
-                        $(this).css("color", "blue");
-                        $(this).css("font-weight", "blod");
+
                     }
                     if(status == "実施済"){
+
+                        var kikan = $(this).children().eq(7).children().eq(0).html().substring(0, 10);
+                        var today = (new Date()).format("yyyy/MM/dd");
+
+                        if(kikan == today){
+                            $(this).css("color", "blue");
+                            $(this).css("font-weight", "bold");
+                        }
+
                         if(per >= 90){
                             $(this).css("background-color", "rgb(200,255,200)");
                         }else if(per >= 70){
@@ -247,7 +272,9 @@
                             $(this).css("background-color", "rgb(255,200,200)");
                         }
                     }
-                    
+                    if(status == "採点中" || status == "採点済"){
+                        $(this).css("background-color", "rgb( 155,255,255)");
+                    }
                 });
             }
 
@@ -291,34 +318,35 @@
                     $("#btn_testwrong").prop("disabled", true);
                     $("#btn_delete").prop("disabled", true);
                     $("#btn_continue").prop("disabled", true);
-
+                    $("#btn_check").prop("disabled", true);
 
                 }else if(n == 1){
-                    if(statusArr[0] == "実施済"){
+                    if(statusArr[0] == "実施済" || statusArr[0] == "採点中"){
                         $("#btn_testwrong").prop("disabled", false);
                         $("#btn_delete").prop("disabled", true);
                         $("#btn_continue").prop("disabled", true);
+                        $("#btn_check").prop("disabled", false);
                     }
                     // 実施中のテストのみ継続する可能です。
                     if(statusArr[0] == "実施中"){
                         $("#btn_testwrong").prop("disabled", true);
                         $("#btn_delete").prop("disabled", false);
                         $("#btn_continue").prop("disabled", false);
+                        $("#btn_check").prop("disabled", true);
                     }
 
                 }else if(n >= 2){
 
                     $("#btn_continue").prop("disabled", true);
+                    $("#btn_check").prop("disabled", true);
 
                     // 書籍が違うテストは一緒に再テストできない。
                     // 実施済のテストのみ再テストする可能です。
-
                     if(statusArr.length == 1 && statusArr[0] == "実施済" && bookArr.length == 1){
                         $("#btn_testwrong").prop("disabled", false);
                     }else{
                         $("#btn_testwrong").prop("disabled", true);
                     }
-
 
                     // 実施中のテストのみ継続する可能です。
                     if(statusArr.length == 1 && statusArr[0] == "実施中"){
@@ -382,10 +410,14 @@
                                 <td></td>
                                 <td style="text-align: right;color: red;font-weight: bold;"><span id="studytime">今日勉強時間　00:00:00</span>&nbsp;&nbsp;</td>
                                 <td style="width: 180px;"><button id="btn_dotest" onclick="beginTest()" style="color: blue;font-weight: bold;background-color:aqua;width: 300px;">単語テスト実施</button></td>
-                                <td style="width: 180px;"><button id="btn_testlist" onclick="showTestInfo();">検索</button></td>
+                                <td style="width: 110px;"><button id="btn_testlist" onclick="showTestInfo();" style="width: 100px;">検索</button></td>
                                 <td style="width: 180px;"><button id="btn_testwrong" onclick="testWrong()" disabled>誤り単語再テスト</button></td>
-                                <td style="width: 180px;"><button id="btn_delete" onclick="deleteTest()" disabled>単語テスト削除</button></td>
-                                <td style="width: 180px;"><button id="btn_continue" onclick="continueTest()" disabled>単語テスト継続</button></td>
+                                <td style="width: 180px;"><button id="btn_allwrong" onclick="allWrong()">全て誤り再テスト</button></td>
+                                <td style="width: 130px;"><button id="btn_delete" onclick="deleteTest()" style="width: 120px;" disabled>テスト削除</button></td>
+                                <td style="width: 130px;">
+                                    <button id="btn_check" class="btn btn-0101_01" onclick="checkTestResult()" style="width: 120px;display: none;" disabled>採点</button>
+                                    <button id="btn_continue" class="btn btn-0101_02" onclick="continueTest()" style="width: 120px;display: none;" disabled>テスト継続</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -396,19 +428,21 @@
                         <thead>
                             <tr class="header">
                                 <th style="width:  60px;" id="temp">選択<br/><input type="checkbox" onclick="selectAll(this);" /></th>
-                                <th style="width: 180px;">書籍</th>
-                                <th style="width: 380px;">分類</th>
+                                <th style="width: 160px;">書籍</th>
+                                <th style="width: 300px;">分類</th>
 
                                 <th style="width: 100px;">ステータス</th>
 
                                 <th style="width: 140px;">範囲</th>
                                 <th style="width: 160px;">種類</th>
-                                <th style="width: 230px;">テスト期間</th>
+                                <th style="width: 160px;">方式</th>
 
-                                <th style="width: 300px;">数量</th>
+                                <th style="width: 220px;">テスト期間</th>
+
+                                <th style="width: 260px;">数量</th>
 
                                 <th style="width: 100px;">全部正確率</th>
-                                <th style="width: 120px;">勉強時間</th>
+                                <th style="width: 100px;">勉強時間</th>
                             </tr>
                         </thead>
                     </table>

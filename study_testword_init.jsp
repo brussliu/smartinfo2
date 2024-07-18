@@ -271,6 +271,16 @@
                             </select>
                         </td>
                     </tr>
+                    <tr style="height: 80px;">
+                        <td style="font-weight: bold;font-size: 30px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;入力方式：&nbsp;&nbsp;
+                            <select id="opt_testdiv" tabindex="71" style="width: 350px;height:60px;border-style: solid;font-size: 24px;margin-top: 0px;" onchange="">
+                                <option value="0" selected>&nbsp;0.キーボード入力</option>
+                                <option value="1">&nbsp;1.手書き入力(二つ端末)</option>
+                                <option value="2">&nbsp;2.手書き入力(一つ端末)</option>
+                            </select>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <br/>

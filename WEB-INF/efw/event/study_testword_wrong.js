@@ -81,6 +81,7 @@ study_testword_wrong.fire = function (params) {
 			classification : classificationStr,
 			div1 : "誤り単語",
 			div2 : "1",
+			div3 : "0",
 			count : selectResult.length,
 			userid : getUserId()
 		}

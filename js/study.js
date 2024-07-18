@@ -1,3 +1,14 @@
+function beginTest(){
+
+    showNumber();
+
+	setContent();
+
+	showWord();
+
+}
+
+
 function showNumber(){
 
     var no = $('#hiddenWordNo').val();
@@ -38,7 +49,7 @@ function nextLetter(obj){
 
 function showWord() {
 
-    var kbn = $("#hiddenWay").val();
+    var kbn = $("#hiddenWay2").val();
 
     // 0.全訳英
     // 1.日訳英(音声付き)
@@ -67,7 +78,7 @@ function showWord() {
 
     }
 
-    // if($("#hiddenWay").val() == "音声"){
+    // if($("#hiddenWay2").val() == "音声"){
     //     $("#wordJSpan").hide();
     //     $("#wordJSpan").next().show();
     // }
@@ -75,7 +86,7 @@ function showWord() {
     // 中国語表示
     // $("#wordJSpan").html($('#hiddenWordJ').val());
 
-    // if($("#hiddenWay").val() == "音声"){
+    // if($("#hiddenWay2").val() == "音声"){
     //     $("#wordJSpan").hide();
     //     $("#wordJSpan").next().show();
     // }
@@ -121,13 +132,16 @@ function showWord() {
     });
 
     $(".inputword").eq(0).focus();
+
+    // liuji
+    //study_testword_handwriting_inputdialog.dialog('open');
     
     
 }
 
 function showSen1(){
 
-    var kbn = $("#hiddenWay").val();
+    var kbn = $("#hiddenWay2").val();
 
     if($('#sen1CSpan').html() != "" || $('#sen1JSpan').html() != ""){
 
@@ -161,7 +175,7 @@ function showSen1(){
         // // 日本語表示
         // $("#sen1JSpan").html($('#hiddenSen1J').val());
 
-        // if($("#hiddenWay").val() == "音声"){
+        // if($("#hiddenWay2").val() == "音声"){
         //     $("#sen1JSpan").hide();
         //     $("#sen1JSpan").next().show();
         // }
@@ -201,7 +215,7 @@ function showSen1(){
 
 function showSen2(){
 
-    var kbn = $("#hiddenWay").val();
+    var kbn = $("#hiddenWay2").val();
 
     if($('#sen2CSpan').html() != "" || $('#sen2JSpan').html() != ""){
 
@@ -226,7 +240,7 @@ function showSen2(){
         // // 日本語表示
         // $("#sen2JSpan").html($('#hiddenSen2J').val());
 
-        // if($("#hiddenWay").val() == "音声"){
+        // if($("#hiddenWay2").val() == "音声"){
         //     $("#sen2JSpan").hide();
         //     $("#sen2JSpan").next().show();
         // }
@@ -265,7 +279,7 @@ function showSen2(){
 
 function playVoice(no,flg){
 
-    var kbn = $("#hiddenWay").val();
+    var kbn = $("#hiddenWay2").val();
 
     // 0.全訳英
     // 1.日訳英(音声付き)

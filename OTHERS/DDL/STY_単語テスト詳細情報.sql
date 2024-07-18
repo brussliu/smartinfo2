@@ -14,6 +14,14 @@ create table public."STY_単語テスト詳細情報" (
   , "誤り回数_例句1" integer
   , "誤り回数_例句2" integer
 
+  , "手書き内容_単語" text
+  , "手書き内容_例句1" text
+  , "手書き内容_例句2" text
+
+  , "判定結果_単語" character varying(10)
+  , "判定結果_例句1" character varying(10)
+  , "判定結果_例句2" character varying(10)
+
   , "時間" integer
 
   , "登録ID" character varying(20)
