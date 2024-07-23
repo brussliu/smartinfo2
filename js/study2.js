@@ -528,25 +528,28 @@ function pronounceB(no, type) {
         fileName = $("#hiddenwordseq").val() + "-sen2-" + type + ".mp3"; 
     }
 
-    if (checkFileExists(currentURL + pathUrl + fileName)) {
+    // if (checkFileExists(currentURL + pathUrl + fileName)) {
 
         var audioElement = document.createElement('audio');
         audioElement.setAttribute('src', '.' + pathUrl + fileName);
         audioElement.setAttribute('autoplay', 'autoplay');
         
-    } else {
+    // } else {
 
-        console.log('File does not exist.');
-        Efw('study_testword_downloadvoice',{type : type});
-        setTimeout(function(){
-            pronounceB(no, type);
-        }, 6000);
+    //     console.log('File does not exist.');
+    //     Efw('study_testword_downloadvoice',{type : type});
+    //     setTimeout(function(){
+    //         pronounceB(no, type);
+    //     }, 6000);
 
-    }
+    // }
 
 }
 
 function checkFileExists(url) {
+
+    console.log(url);
+
     var xhr = new XMLHttpRequest();
     xhr.open('HEAD', url, false);
     xhr.send();
