@@ -32,6 +32,16 @@ study_testword_listcheck.fire = function (params) {
 		}
 	).getArray();
 
+	var disabled = "";
+
+	var role = getRole();
+
+	if(role == "user"){
+
+		disabled = "disabled";
+
+	}
+
 	// <th style="width: 160px;">書籍</th>
 	// <th style="width: 100px;">分類</th>
 	// <th style="width: 100px;">SEQ</th>
@@ -51,15 +61,15 @@ study_testword_listcheck.fire = function (params) {
 			"<td style='width: 100px;' class='l'><span class='l5'>{classification}</span></td>" +
 			"<td style='width: 100px;' class='l'><span class='l5'>{wordseq}</span></td>" +
 			"<td style='width: 100px;' class='l'><span class='l5'>{kbn}</span></td>" +
-			"<td style='width: 200px;' class='l'><span class='l5'>{en}</span></td>" +
+			"<td style='width: 200px;' class='l'><span class='l5' style='color:red;font-size:24px;'>{en}</span></td>" +
 			"<td style='width: 410px;background-color:rgb(255,255,240);' class='l'>" +
 				"<img src='{content}' width='400px' style='border: 1px solid gray;display: {display}'>" +
 			"</td>" +
 			"<td style='width: 100px;text-align: center;' class='l'>" +
-				"<input onchange='checkWord(this);' style='width: 20px;height: 20px;' type='radio' name='cr_{testno}_{subno}_{kbn}_{book}_{classification}_{wordseq}' value='○' {right}></input>" +
+				"<input " + disabled + " onchange='checkWord(this);' style='width: 20px;height: 20px;' type='radio' name='cr_{testno}_{subno}_{kbn}_{book}_{classification}_{wordseq}' value='○' {right}></input>" +
 			"</td>" +
 			"<td style='width: 100px;text-align: center;' class='l'>" +
-				"<input onchange='checkWord(this);' style='width: 20px;height: 20px;' type='radio' name='cr_{testno}_{subno}_{kbn}_{book}_{classification}_{wordseq}' value='×' {wrong}></input>" +
+				"<input " + disabled + " onchange='checkWord(this);' style='width: 20px;height: 20px;' type='radio' name='cr_{testno}_{subno}_{kbn}_{book}_{classification}_{wordseq}' value='×' {wrong}></input>" +
 			"</td>" +
 		"</tr>";
 

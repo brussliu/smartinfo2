@@ -114,25 +114,32 @@
                 $('#hiddenOpt').val("next");
                 Efw('study_testword_updatedetail');
             }
-            // function displayNote(){
-
-                
-            //     $('#wordinput').arc
-            //     console.log("SSSSSSSSSSSSSSSSSSS");
-            // }
 
             var status = null;
+            var timer = null;
 
             $(document).ready(function() {
 
+                // setInterval(function() {
 
-                setInterval(function() {
+                //     Efw('study_testword_getwordnote');
+                //     console.log('interval');
 
-                    Efw('study_testword_getwordnote');
-                    console.log('interval');
+                // }, 2000);
 
-                }, 2000);
+                timer = setInterval(function() {
 
+                    var key = readKeyCode();
+
+
+                    // console.log("key:" + key);
+                    // if(key != null && key != undefined){
+
+                        
+                    //     doKeydown(key);
+                    // }
+
+                }, 800);
                 // window.addEventListener('message', function(event) {
 
                 //     if(event.data != null && event.data != ""){
@@ -150,18 +157,15 @@
                 $("body").keydown(function(event) {
 
                     var keycode = (event.keyCode ? event.keyCode : event.which);
-                    keydown(keycode);
 
-                });
-
-
-            });
-
-            function keydown(keycode){
-
-                var status = getStatus();
-
-                if(status == "1" || status == "2" || status == "3"){
+                    // if(keycode === 13) {
+                    //     if($('#btnnext').is(':focus')){
+                    //         $('#btnnext').click();
+                    //     }else{
+                    //         alert("qqqqqqqqqqqqqq");
+                    //     }
+                    // }
+                    
                     if(keycode === 16) {
                         playVoice(parseInt(status),0);
                     }
@@ -171,6 +175,111 @@
                     if(keycode === 18) {
                         playVoice(parseInt(status),2);
                     }
+
+                });
+
+
+            });
+
+            function readKeyCode(){
+
+                // var currentURL = window.location.href;
+                // var currentURL = currentURL.substring(0, currentURL.lastIndexOf("/"));
+
+                // var pathUrl = "/key/";
+
+                // var keyfilename16 = "16.key";
+                // var keyfilename17 = "17.key";
+                // var keyfilename18 = "18.key";
+                // var keyfilename997 = "997.key";
+                // var keyfilename998 = "998.key";
+                // var keyfilename999 = "999.key";
+
+                // if(checkFileExists(currentURL + pathUrl + keyfilename16)) {
+                //     Efw('study_testword_cancelkey',{keycode : 16});
+                //     return 16;
+                // }
+                // if(checkFileExists(currentURL + pathUrl + keyfilename17)) {
+                //     Efw('study_testword_cancelkey',{keycode : 17});
+                //     return 17;
+                // } 
+                // if(checkFileExists(currentURL + pathUrl + keyfilename18)) {
+                //     Efw('study_testword_cancelkey',{keycode : 18});
+                //     return 18;
+                // }
+                // if(checkFileExists(currentURL + pathUrl + keyfilename997)) {
+                //     Efw('study_testword_cancelkey',{keycode : 997});
+                //     return 997;
+                // }
+                // if(checkFileExists(currentURL + pathUrl + keyfilename998)) {
+                //     Efw('study_testword_cancelkey',{keycode : 998});
+                //     return 998;
+                // }
+                // if(checkFileExists(currentURL + pathUrl + keyfilename999)) {
+                //     Efw('study_testword_cancelkey',{keycode : 999});
+                //     return 999;
+                // }
+
+                //var s = checkFileExists('http://192.168.0.5:8080/smartinfo2/efwRestAPI/keymonitor');
+
+                //console.log("sssssssssssssssssssss" + s);
+
+                $.ajax({
+                    url: 'http://192.168.0.5:8080/smartinfo2/efwRestAPI/keymonitor', // 替换为你的API URL
+                    type: 'GET', // 或者 'POST'，取决于API要求
+                    dataType: 'json', // 假设你期望的响应数据是JSON
+                    global: false,
+                    success: function(response) {
+                        // 成功获取数据后的回调函数
+                        console.log('Success:', response);
+
+                        if(response != undefined){
+
+                            doKeydown(response);
+
+                            //rv = response;
+                        }
+                        
+                        // 这里处理你的数据
+                    },
+                    error: function(xhr, status, error) {
+                        // 请求失败的回调函数
+                        console.error('Error:', error);
+                    }
+                });
+
+
+            }
+
+            function doKeydown(keycode){
+
+                var status = getStatus();
+                if(keycode == 997) {
+                    $('#btnback').click();
+                }
+                if(keycode == 998) {
+                    $('#btnnext').click();
+                }
+                if(status == "1" || status == "2" || status == "3"){
+                    // if(keycode === 13) {
+                    //     $("body").trigger({type : 'keydown',which : 13});
+                    // }
+                    if(keycode == 16) {
+                        $("body").trigger({type : 'keydown',which : 16});
+                        //playVoice(parseInt(status),0);
+                    }
+                    if(keycode == 17) {
+                        $("body").trigger({type : 'keydown',which : 17});
+                        //playVoice(parseInt(status),1);
+                    }
+                    if(keycode == 18) {
+                        $("body").trigger({type : 'keydown',which : 18});
+                        //playVoice(parseInt(status),2);
+                    }
+                    if(keycode == 999) {
+                        Efw('study_testword_getwordnote');
+                    }
+                    
                 }
             }
 
@@ -199,66 +308,13 @@
 
                 }
 
-                // if($("#sen1div").css("display") == "none"){
-
-                //     status = "1";
-
-                // }else{
-
-                //     if($("#sen2div").css("display") == "none"){
-                //         status = "2";
-                //     }else{
-                //         status = "3";
-                //     }
-
-                // }
-
                 return status;
             }
 
-            // function setNoteSeq(seq){
-
-            //     var status = getStatus();
-
-            //     // <input type="hidden" id="hiddenWordNoteSeq">
-            //     // <input type="hidden" id="hiddenSen1NoteSeq">
-            //     // <input type="hidden" id="hiddenSen2NoteSeq">
-
-            //     // 単語
-            //     if(status == "1"){
-
-            //         console.log("11111111111111111111111111111111");
-            //         console.log(seq);
-            //         console.log("11111111111111111111111111111111");
-
-            //         alert("OOOOOOO");
-
-            //         $("#hiddenWordNoteSeq").val(seq);
-            //     }
-            //     if(status == "2"){
-
-            //         console.log("22222222222222222222222222222222");
-            //         console.log(seq);
-            //         console.log("22222222222222222222222222222222");
-
-            //         $("#hiddenSen1NoteSeq").val(seq);
-            //     }
-            //     if(status == "3"){
-
-            //         console.log("33333333333333333333333333333333");
-            //         console.log(seq);
-            //         console.log("33333333333333333333333333333333");
-            //         $("#hiddenSen2NoteSeq").val(seq);
-            //     }
-            // }
 
             function displayNote(seq,notecontent){
 
                 var status = getStatus();
-
-                // <input type="hidden" id="hiddenWordNoteSeq">
-                // <input type="hidden" id="hiddenSen1NoteSeq">
-                // <input type="hidden" id="hiddenSen2NoteSeq">
 
                 // 単語
                 if(status == "1"){
@@ -302,10 +358,22 @@
                 }
             }
 
-            function sc(){
+            function openNote(){
 
-                //alert($("#alldiv").prop("scrollHeight"));
-                
+                const windowFeatures =
+                "toolbar=no," + 
+                "location=no," + 
+                "directories=no," + 
+                "status=no," + 
+                "menubar=no," + 
+                "scrollbars=yes," + 
+                "resizable=yes," + 
+                "width=" + screen.availWidth + "," + 
+                "height=" + screen.availHeight;
+
+                window.open("study_testword_note.jsp?flg=3&div=1&pc=B", 'wordnote', windowFeatures);
+
+                clearInterval(timer);
             }
         </script>
     </head>
@@ -315,6 +383,7 @@
         <div class="content" style="width: 100%;overflow: auto;" id="alldiv">
             <div class="c_detail_header" style="margin-top: 0px;height:60px;text-align: center;">
                 <span style="font-weight: bold;font-size: 40px;color:maroon;" id="nospan"></span>
+                <img src="img/wordmemo.png" onclick="openNote();" style="cursor: pointer;float: right;margin-top: 15px;;" width="30px;" height="30px;"></img>
             </div>
             <div>
                 <div class="c_detail_header" style="margin-top: 0px;height:50px;">

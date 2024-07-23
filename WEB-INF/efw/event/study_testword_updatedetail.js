@@ -42,11 +42,7 @@ study_testword_updatedetail.fire = function (params) {
 	var sen1seq = parseInt(params["#hiddenSen1NoteSeq"]);
 	var sen2seq = parseInt(params["#hiddenSen2NoteSeq"]);
 
-
 	var status = 9;
-
-
-	way3.debug("333333333333333333333333333333333333333333");
 	
 	if(way3 != "0"){
 		status = 2;
@@ -158,6 +154,37 @@ study_testword_updatedetail.fire = function (params) {
 			}
 		);
 
+		// 臨時画像削除
+		if(wordseq != null){
+			db.change(
+				"STUDY",
+				"deleteTestWordNote",
+				{
+					seq : wordseq,
+					userid : getUserId()
+				}
+			);
+		}
+		if(sen1seq != null && sen1seq != NaN){
+			db.change(
+				"STUDY",
+				"deleteTestWordNote",
+				{
+					seq : sen1seq,
+					userid : getUserId()
+				}
+			);
+		}
+		if(sen2seq != null && sen2seq != NaN){
+			db.change(
+				"STUDY",
+				"deleteTestWordNote",
+				{
+					seq : sen2seq,
+					userid : getUserId()
+				}
+			);
+		}
 
 		if(test_sub_no == 1){
 

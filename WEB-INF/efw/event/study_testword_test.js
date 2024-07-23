@@ -12,12 +12,8 @@ study_testword_test.fire = function (params) {
 	// セッションチェック
 	if(sessionCheck(ret) == false){return ret};
 
-	// タイトル情報設定
-	//setTitleInfo(ret);
-
 	var test_no = session.get("TEST_NO");
 	var test_sub_no = session.get("TEST_SUB_NO");
-
 
 	//  检索
 	var selectResult = db.select(
@@ -36,10 +32,6 @@ study_testword_test.fire = function (params) {
 			testsubno: test_sub_no
 		}
 	).getSingle();
-
-	//selectResult.debug("============================================");
-
-	//selectDetailResult.debug("+++++++++++++++++++++++++++++++++++++++++++++");
 
 	var way2 = selectResult["div2"];
 	if(selectResult["div2"] == '6'){
@@ -86,12 +78,6 @@ study_testword_test.fire = function (params) {
 	var script = "beginTest();";
 	ret.eval(script);
 
-	// var script1 = "showNumber();";
-	// ret.eval(script1);
-	// var script2 = "setContent();";
-	// ret.eval(script2);
-	// var script3 = "showWord();";
-	// ret.eval(script3);
 
 	// 開始時間を残す
 	session.set("TEST_SUB_NO_STARTTIME", (new Date()).getTime());

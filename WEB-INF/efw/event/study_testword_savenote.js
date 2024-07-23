@@ -5,6 +5,7 @@ study_testword_savenote.paramsFormat = {
 	"#signContent":null,
 	"#signContent_tb":null,
 	"flg":null,
+	"keycode":null,
 
 };
 
@@ -16,6 +17,8 @@ study_testword_savenote.fire = function (params) {
 	var content_tb = params["#signContent_tb"];
 
 	var flg = params["flg"];
+
+	var keycode = params["keycode"];
 
 	if(content != null && content != ""){
 
@@ -30,6 +33,14 @@ study_testword_savenote.fire = function (params) {
 			}
 		);
 
+	}
+
+	if(keycode != null){
+		
+		var file = "D://apache-tomcat-9.0.30/webapps/smartinfo2/key/" + keycode + ".key";
+		if (!absfile.exists(file)){
+			absfile.makeFile(file);
+		}
 	}
 
 	// ret.alert("保存しました。");

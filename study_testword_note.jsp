@@ -21,7 +21,7 @@
             border: 2px solid gray;
             background: rgb(255,255,240);
             width: 1267px;
-            height: 660px;
+            height: 620px;
             cursor: url("img/pen.png"),auto;
             position: relative;
         }
@@ -35,7 +35,19 @@
             position: relative;
         }
 
-        .B::after,.B::before,.D::after,.D::before {
+        .E {
+            border: 2px solid red;
+            background: rgb(255,255,240);
+            width: 710px;
+            height: 296px;
+            cursor: url("img/pen.png"),auto;
+            position: relative;
+        }
+        /* .E_T,.E_F {
+            height: 30px;
+        } */
+
+        .B::after,.B::before,.D::after,.D::before,.E::after,.E::before {
             content: ' ';
             position: absolute;
             left: 5%;
@@ -44,12 +56,12 @@
             background: lightgrey;
         }
 
-        .B::before,.D::before {
-            bottom: 35%;
+        .B::before,.D::before,.E::before {
+            bottom: 30%;
         }
         
-        .B::after,.D::after {
-            bottom: 70%;
+        .B::after,.D::after,.E::after {
+            bottom: 65%;
         }
 
         canvas {
@@ -57,11 +69,16 @@
             height: 100% !important;
         }
 
+        #submit_btn:hover {
+            background-color: lightgreen;
+        }
+
     </style>
     <script>
 
         var urlParams = new URLSearchParams(window.location.search);
         var flg = urlParams.get('flg');
+        var div = urlParams.get('div');
         var pc = urlParams.get('pc');
 
         if(flg == null || flg == ""){
@@ -70,30 +87,47 @@
 
         $(document).ready(function() {
 
-            if (window.opener && !window.opener.closed) {
+            // if (window.opener && !window.opener.closed) {
 
-                $("body").keydown(function(event) {
-                    var keycode = (event.keyCode ? event.keyCode : event.which);
-                    window.opener.keydown(keycode);
-                });
-            }
+            //     $("body").keydown(function(event) {
+            //         var keycode = (event.keyCode ? event.keyCode : event.which);
+            //         window.opener.keydown(keycode);
+            //     });
+            // }
 
 
-            $("body").keydown(function(event) {
+            // $("body").keydown(function(event) {
 
-                var keycode = (event.keyCode ? event.keyCode : event.which);
+            //     var keycode = (event.keyCode ? event.keyCode : event.which);
 
-                if(keycode === 13) {
+            //     if(keycode === 13) {
                     
-                    $("#submit_btn").click();
-                }
+            //         $("#submit_btn").click();
+            //     }
 
-            });
+            // });
 
         });
 
         function overSave(){
+
             $("#reset_btn").click();
+
+            if (div == 1) {
+
+                window.opener.doKeydown(999);
+
+            }
+
+        }
+
+        function keydown(keycode){
+            if (div == 1) {
+                window.opener.doKeydown(keycode);
+            }else{
+                Efw("study_testword_keydown",{keycode : keycode});
+            }
+            
         }
 
     </script>
@@ -111,13 +145,22 @@
             <input type="radio" name="pen" value=" 0" onchange="changePen();">&nbsp;消しゴム</input>
             &nbsp;&nbsp;
             <button type="button" id="reset_btn"  style="height: 40px; width: 100px;margin-top: 2px;">クリア</button>
-            <button type="button" id="submit_btn" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">提交</button>
+            
             <button type="button" id="full_btn"   style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;" onclick="full();">全画面</button>
             <button type="button" id="unfull_btn" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;display: none;" onclick="unfull();">全画面解除</button>
         </div>
         <div id="canvas_box" style="text-align: center;">
             <span id="message" style="font-size: 100px;">全画面ボタンを押下してください。</span>
         </div>
+        <div id="canvas_foot" style="text-align: right;height: 45px;width: 100%;background-color: lightgreen;display: none;">
+            <button type="button" id="key17" onclick="keydown(17);" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">A発音</button>
+            <button type="button" id="key18" onclick="keydown(18);" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">B発音</button>
+            <button type="button" id="key16" onclick="keydown(16);" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">AI発音</button>
+            <button type="button" id="submit_btn" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">OK</button>
+            <button type="button" id="key16" onclick="keydown(997);" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">前へ</button>
+            <button type="button" id="key16" onclick="keydown(998);" style="height: 40px; width: 100px;margin-top: 2px;margin-right: 2px;">次へ</button>
+        </div>
+
     </div>
     <input type="hidden" id="signContent">
     <input type="hidden" id="signContent_tb">
@@ -159,6 +202,8 @@
 
         $("#message").hide();
         initCanvas();
+
+        $("#canvas_foot").show();
         
     }
     function unfull() {
@@ -193,6 +238,15 @@
         // 49インチモニター
         }else if(pc == "D"){
             $("#canvas_box").addClass("D");
+        // Mate20X
+        }else if(pc == "E"){
+            $("#canvas_box").addClass("E");
+            $("button").css("height","26px");
+            $("button").css("margin-right","12px");
+            $("#canvas_title").css("height","30px");
+            $("#canvas_title").css("font-size","12px");
+            $("#canvas_foot").addClass("E_F");
+            $("#canvas_foot").css("height","30px");
         }
         let canvas_box = $("#canvas_box");
         canvas_box.jSignature({lineWidth:'5'});
@@ -222,7 +276,8 @@
                 if(flg == null || flg == ""){
                     alert("アクセスは不正ですので、この画面が利用できません。");
                 }else{
-                    Efw("study_testword_savenote",{flg : flg});
+                    Efw("study_testword_savenote",{flg : flg,keycode : 999});
+                    
                 }
                 
             }

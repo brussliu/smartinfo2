@@ -31,7 +31,7 @@ study_word_getchinese.fire = function (params) {
 
 		var book = selectResult[i]["book"];
 		var classification = selectResult[i]["classification"];
-		var wordseq = selectResult[i]["seq"];
+		var wordseq = selectResult[i]["wordseq"];
 
 
 		var word_e = selectResult[i]["word_e"];

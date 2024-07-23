@@ -20,6 +20,85 @@
                 font-weight: bold;
             }
 
+            #btn_testlist {
+                background-image: url('img/search.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            #btn_testlist[disabled] {
+                background-image: url('img/search_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_delete {
+                background-image: url('img/delete.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_delete[disabled] {
+                background-image: url('img/delete_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_continue {
+                background-image: url('img/continue.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_continue[disabled] {
+                background-image: url('img/continue_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_allwrong {
+                background-image: url('img/allwrong.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_allwrong[disabled] {
+                background-image: url('img/allwrong_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_testwrong {
+                background-image: url('img/wrong.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_testwrong[disabled] {
+                background-image: url('img/wrong_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_dotest {
+                background-image: url('img/test.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_check {
+                background-image: url('img/checksheet.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            #btn_check[disabled] {
+                background-image: url('img/checksheet_disabled.png');
+                background-size: 38px 38px;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
         </style>
         <script>
 
@@ -208,7 +287,14 @@
 
             }
 
-            function listWord(testno){
+            function listWord(obj,testno){
+
+                var status = $(obj).parent().parent().parent().parent().parent().prev().prev().prev().prev().prev().children().eq(0).html();
+
+                if(status == "実施中"){
+                    alert("実施中のテストは単語リストを参照できません！");
+                    return;
+                }
 
                 Efw('study_testword_listword', {testno : testno});
             }
@@ -248,13 +334,15 @@
                     var status = $(this).children().eq(3).children().eq(0).html();
                     var per = parseFloat($(this).children().eq(9).children().eq(0).html().replaceAll("%",""));
                     
-                    console.log(status);
-                    console.log(per);
+                    var type = $(this).children().eq(5).children().eq(0).html();
 
-                    if(status == "実施中"){
+                    // console.log(status);
+                    // console.log(per);
 
-                    }
-                    if(status == "実施済"){
+                    // if(status == "実施中"){
+
+                    // }
+                    if(status == "実施済" || status == "採点済"){
 
                         var kikan = $(this).children().eq(7).children().eq(0).html().substring(0, 10);
                         var today = (new Date()).format("yyyy/MM/dd");
@@ -272,9 +360,85 @@
                             $(this).css("background-color", "rgb(255,200,200)");
                         }
                     }
-                    if(status == "採点中" || status == "採点済"){
+
+                    if(status == "採点中"){
                         $(this).css("background-color", "rgb( 155,255,255)");
                     }
+
+                    // 全訳英
+                    if(type == "0"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/un.png' width='30px;' height='30px;'>" + "&nbsp;" + 
+                            "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
+                            "<img src='img/english.png' width='30px;' height='30px;'>" + 
+                            "<div style='width:60px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                    // 日訳英（音声付き）
+                    }else if(type == "1"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/japanese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
+                            "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
+                            "<img src='img/english.png' width='30px;' height='30px;'>" + 
+                            "<div style='width:60px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                    // 日訳英（音声無し）
+                    }else if(type == "2"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/japanese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
+                            "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
+                            "<img src='img/english.png' width='30px;' height='30px;'>" + 
+                            "<div style='width:60px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                        
+                    // 音声のみ
+                    }else if(type == "3"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "------" +
+                            "<div style='width:108px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                        
+                    // 漢訳英(音声付き)
+                    }else if(type == "4"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/chinese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
+                            "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
+                            "<img src='img/english.png' width='30px;' height='30px;'>" + 
+                            "<div style='width:60px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                        
+                    // 漢訳英(音声無し)
+                    }else if(type == "5"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/chinese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
+                            "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
+                            "<img src='img/english.png' width='30px;' height='30px;'>" + 
+                            "<div style='width:60px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                    
+                    // ランダム
+                    }else if(type == "6"){
+                        $(this).children().eq(5).html(
+                            "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
+                            "<img src='img/dice.png' width='30px;' height='30px;'>" +
+                            // "<div style='width:122px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
+                            "</div>"
+                        );
+                        
+                    }
+
+
                 });
             }
 
@@ -395,9 +559,9 @@
                     <table class="table_btn">
                         <tbody>
                             <tr>
-                                <td style="width: 200px;">
+                                <td style="width: 240px;">
                                     書籍:
-                                    <select id="opt_book" style="width: 120px;" onchange="initclassification();">
+                                    <select id="opt_book" style="width: 160px;" onchange="initclassification();">
                                         <option value=""></option>
                                     </select>
                                 </td>
@@ -408,15 +572,44 @@
                                     </select>
                                 </td>
                                 <td></td>
-                                <td style="text-align: right;color: red;font-weight: bold;"><span id="studytime">今日勉強時間　00:00:00</span>&nbsp;&nbsp;</td>
-                                <td style="width: 180px;"><button id="btn_dotest" onclick="beginTest()" style="color: blue;font-weight: bold;background-color:aqua;width: 300px;">単語テスト実施</button></td>
-                                <td style="width: 110px;"><button id="btn_testlist" onclick="showTestInfo();" style="width: 100px;">検索</button></td>
-                                <td style="width: 180px;"><button id="btn_testwrong" onclick="testWrong()" disabled>誤り単語再テスト</button></td>
-                                <td style="width: 180px;"><button id="btn_allwrong" onclick="allWrong()">全て誤り再テスト</button></td>
-                                <td style="width: 130px;"><button id="btn_delete" onclick="deleteTest()" style="width: 120px;" disabled>テスト削除</button></td>
-                                <td style="width: 130px;">
-                                    <button id="btn_check" class="btn btn-0101_01" onclick="checkTestResult()" style="width: 120px;display: none;" disabled>採点</button>
-                                    <button id="btn_continue" class="btn btn-0101_02" onclick="continueTest()" style="width: 120px;display: none;" disabled>テスト継続</button>
+                                <td style="text-align: right;color: red;font-weight: bold;vertical-align:middle;display: table-cell;">
+                                    <img src="img/time2.png" width="25px;" height="25px;">
+                                    <span id="studytime" style="font-size: 30px;">00:00:00</span>&nbsp;&nbsp;
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_dotest" onclick="beginTest()" style="color: blue;font-weight: bold;background-color:aqua;width: 80px;height: 50px;">
+                                        <!-- <img src="img/test.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_testlist" onclick="showTestInfo();" style="width: 50px;height: 50px;">
+                                        <!-- <img src="img/search.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_testwrong" onclick="testWrong()" style="width: 50px;height: 50px;" disabled>
+                                        <!-- <img src="img/wrong.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_allwrong" onclick="allWrong()" style="width: 50px;height: 50px;">
+                                        <!-- <img src="img/allwrong.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_delete" onclick="deleteTest()" style="width: 50px;height: 50px;" disabled>
+                                        <!-- <img src="img/delete.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_continue" onclick="continueTest()" style="width: 50px;height: 50px;" disabled>
+                                        <!-- <img src="img/continue.png" width="38px;" height="38px;"> -->
+                                    </button>
+                                </td>
+                                <td style="width: 80px;">
+                                    <button id="btn_check" onclick="checkTestResult()" style="width: 50px;height: 50px;" disabled>
+                                        <!-- <img src="img/checksheet.png" width="38px;" height="38px;"> -->
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -429,13 +622,13 @@
                             <tr class="header">
                                 <th style="width:  60px;" id="temp">選択<br/><input type="checkbox" onclick="selectAll(this);" /></th>
                                 <th style="width: 160px;">書籍</th>
-                                <th style="width: 300px;">分類</th>
+                                <th style="width: 400px;">分類</th>
 
                                 <th style="width: 100px;">ステータス</th>
 
-                                <th style="width: 140px;">範囲</th>
+                                <th style="width: 100px;">範囲</th>
                                 <th style="width: 160px;">種類</th>
-                                <th style="width: 160px;">方式</th>
+                                <th style="width:  60px;">方式</th>
 
                                 <th style="width: 220px;">テスト期間</th>
 

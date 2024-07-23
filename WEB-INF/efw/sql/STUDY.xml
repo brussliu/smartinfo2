@@ -8,18 +8,9 @@
 			T."書籍" as book,
 			T."分類" as classification,
 			T."テスト方式1" as div1,
-			case when T."テスト方式2" = '0' then '全訳英'
-				 when T."テスト方式2" = '1' then '日訳英(音声付き)'
-				 when T."テスト方式2" = '2' then '日訳英(音声無し)'
-				 when T."テスト方式2" = '3' then '音声のみ'
-				 when T."テスト方式2" = '4' then '漢訳英(音声付き)'
-				 when T."テスト方式2" = '5' then '漢訳英(音声無し)'
-				 when T."テスト方式2" = '6' then 'ランダム'
-				 else '' end as div2,
-			case when T."テスト方式3" = '0' then 'キーボード入力'
-				 when T."テスト方式3" = '1' then '手書き入力(二つ端末)'
-				 when T."テスト方式3" = '2' then '手書き入力(一つ端末)'
-				 else '' end as div3,
+			T."テスト方式2" as div2,
+			case when T."テスト方式3" = '0' then 'keyboard'
+				 else 'handwriting' end as div3,
 			T."数量" as count,
 			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
 			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
@@ -89,29 +80,10 @@
 					B."書籍" = C."書籍" AND
 					B."分類" = C."分類" AND
 					B."単語SEQ" = C."単語SEQ" AND
-					B."ステータス" = '9' AND
-					(
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							C."例句2_英語" &lt;&gt; '' AND
-							B."誤り回数_単語" &lt;= 2 AND
-							B."誤り回数_例句1" &lt;= 2 AND
-							B."誤り回数_例句2" &lt;= 2
-						)
-						OR
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
-							B."誤り回数_単語" &lt;= 2 AND
-							B."誤り回数_例句1" &lt;= 2 
-						)
-						OR
-						(
-							(C."例句1_英語" = '' or C."例句1_英語" is NULL) AND 
-							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
-							B."誤り回数_単語" &lt;= 2
-						)
-					)
+					B."ステータス" in ('8','9') AND
+					B."判定結果_単語" = '○' AND
+					B."判定結果_例句1" in ('-','○') AND 
+                    B."判定結果_例句2" in ('-','○')
 				GROUP BY A."テスト番号"
 			) N2 ON T."テスト番号" = N2."テスト番号"
 		LEFT JOIN
@@ -120,26 +92,12 @@
 					A."テスト番号",count(B."単語SEQ") AS CT
 				FROM 
 					"STY_単語テスト情報" A,
-					"STY_単語テスト詳細情報" B,
-					"STY_単語情報" C
+					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."書籍" = C."書籍" AND
-					B."分類" = C."分類" AND
-					B."単語SEQ" = C."単語SEQ" AND
-					B."ステータス" = '9' AND 
-					(B."誤り回数_単語" &lt;= 2) AND
-					(
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							(B."誤り回数_例句1" is null OR B."誤り回数_例句1" &gt; 2)
-						)
-						OR
-						(
-							C."例句2_英語" &lt;&gt; '' AND 
-							(B."誤り回数_例句2" is null OR B."誤り回数_例句2" &gt; 2)
-						)
-					)
+					B."ステータス" in ('8','9') AND 
+					B."判定結果_単語" = '○' AND
+					(B."判定結果_例句1" = '×' OR B."判定結果_例句2" = '×')
 				GROUP BY A."テスト番号"
 			) N3 ON T."テスト番号" = N3."テスト番号"
 		LEFT JOIN
@@ -151,8 +109,8 @@
 					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."ステータス" = '9' AND
-					(B."誤り回数_単語" is null OR B."誤り回数_単語" &gt; 2)
+					B."ステータス" in ('8','9') AND
+					B."判定結果_単語" = '×'
 				GROUP BY A."テスト番号"
 			) N4 ON T."テスト番号" = N4."テスト番号"
 		LEFT JOIN
@@ -164,7 +122,7 @@
 					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."ステータス" = '9'
+					B."ステータス" IN ('8','9')
 				GROUP BY A."テスト番号"
 			) N5 ON T."テスト番号" = N5."テスト番号"
 		WHERE
@@ -192,18 +150,9 @@
 			T."書籍" as book,
 			T."分類" as classification,
 			T."テスト方式1" as div1,
-			case when T."テスト方式2" = '0' then '全訳英'
-				 when T."テスト方式2" = '1' then '日訳英(音声付き)'
-				 when T."テスト方式2" = '2' then '日訳英(音声無し)'
-				 when T."テスト方式2" = '3' then '音声のみ'
-				 when T."テスト方式2" = '4' then '漢訳英(音声付き)'
-				 when T."テスト方式2" = '5' then '漢訳英(音声無し)'
-				 when T."テスト方式2" = '6' then 'ランダム'
-				 else '' end as div2,
-			case when T."テスト方式3" = '0' then 'キーボード入力'
-				 when T."テスト方式3" = '1' then '手書き入力(二つ端末)'
-				 when T."テスト方式3" = '2' then '手書き入力(一つ端末)'
-				 else '' end as div3,
+			T."テスト方式2" as div2,
+			case when T."テスト方式3" = '0' then 'keyword'
+				 else 'handwriting' end as div3,
 			T."数量" as count,
 			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
 			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
@@ -259,36 +208,13 @@
 					A."テスト番号",count(B."単語SEQ") AS CT
 				FROM 
 					"STY_単語テスト情報" A,
-					"STY_単語テスト詳細情報" B,
-					"STY_単語情報" C
+					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."書籍" = C."書籍" AND
-					B."分類" = C."分類" AND
-					B."単語SEQ" = C."単語SEQ" AND
-					B."ステータス" = '9' AND
-					(
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							C."例句2_英語" &lt;&gt; '' AND
-							B."誤り回数_単語" &lt;= 2 AND
-							B."誤り回数_例句1" &lt;= 2 AND
-							B."誤り回数_例句2" &lt;= 2
-						)
-						OR
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
-							B."誤り回数_単語" &lt;= 2 AND
-							B."誤り回数_例句1" &lt;= 2 
-						)
-						OR
-						(
-							(C."例句1_英語" = '' or C."例句1_英語" is NULL) AND 
-							(C."例句2_英語" = '' or C."例句2_英語" is NULL) AND
-							B."誤り回数_単語" &lt;= 2
-						)
-					)
+					B."ステータス" in ('8','9') AND
+					B."判定結果_単語" = '○' AND
+					B."判定結果_例句1" in ('-','○') AND 
+                    B."判定結果_例句2" in ('-','○')
 				GROUP BY A."テスト番号"
 			) N2 ON T."テスト番号" = N2."テスト番号"
 		LEFT JOIN
@@ -297,26 +223,12 @@
 					A."テスト番号",count(B."単語SEQ") AS CT
 				FROM 
 					"STY_単語テスト情報" A,
-					"STY_単語テスト詳細情報" B,
-					"STY_単語情報" C
+					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."書籍" = C."書籍" AND
-					B."分類" = C."分類" AND
-					B."単語SEQ" = C."単語SEQ" AND
-					B."ステータス" = '9' AND 
-					(B."誤り回数_単語" &lt;= 2) AND
-					(
-						(
-							C."例句1_英語" &lt;&gt; '' AND 
-							(B."誤り回数_例句1" is null OR B."誤り回数_例句1" &gt; 2)
-						)
-						OR
-						(
-							C."例句2_英語" &lt;&gt; '' AND 
-							(B."誤り回数_例句2" is null OR B."誤り回数_例句2" &gt; 2)
-						)
-					)
+					B."ステータス" in ('8','9') AND 
+					B."判定結果_単語" = '○' AND
+					(B."判定結果_例句1" = '×' OR B."判定結果_例句2" = '×')
 				GROUP BY A."テスト番号"
 			) N3 ON T."テスト番号" = N3."テスト番号"
 		LEFT JOIN
@@ -328,8 +240,8 @@
 					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."ステータス" = '9' AND
-					(B."誤り回数_単語" is null OR B."誤り回数_単語" &gt; 2)
+					B."ステータス" in ('8','9') AND
+					B."判定結果_単語" = '×'
 				GROUP BY A."テスト番号"
 			) N4 ON T."テスト番号" = N4."テスト番号"
 		LEFT JOIN
@@ -341,7 +253,7 @@
 					"STY_単語テスト詳細情報" B
 				WHERE 
 					A."テスト番号" = B."テスト番号" AND 
-					B."ステータス" = '9'
+					B."ステータス" in ('8','9')
 				GROUP BY A."テスト番号"
 			) N5 ON T."テスト番号" = N5."テスト番号"
 		WHERE
@@ -399,7 +311,7 @@
 		SELECT
 			  "書籍" AS book
 			, "分類" AS classification
-			, "単語SEQ" AS seq
+			, "単語SEQ" AS wordseq
 			, "単語_英語" AS word_e
 			, "単語_日本語" AS word_j
 			, "単語_中国語" AS word_c
@@ -508,26 +420,19 @@
 			W."単語_英語" as word_e,
 			W."単語_日本語" as word_j,
 			W."単語_中国語" as word_c,
-			case when T."ステータス" = '9' and 
-				(W."単語_英語" is not null and W."単語_英語" &lt;&gt; '') and
-				(T."誤り回数_単語" is null or T."誤り回数_単語" &gt;= 3) then 'rgb(255,200,200)'
+			case when T."ステータス" in ('8','9') and T."判定結果_単語" = '×' then 'rgb(255,200,200)'
 			else '' end as word_color,
 			W."例句1_英語" as sen1_e,
 			W."例句1_日本語" as sen1_j,
 			W."例句1_中国語" as sen1_c,
-			case when T."ステータス" = '9' and 
-				(W."例句1_英語" is not null and W."例句1_英語" &lt;&gt; '') and
-				(T."誤り回数_例句1" is null or T."誤り回数_例句1" &gt;= 3) then 'rgb(255,200,200)'
+			case when T."ステータス" in ('8','9') and T."判定結果_例句1" = '×' then 'rgb(255,200,200)'
 			else '' end as sen1_color,
 			W."例句2_英語" as sen2_e,
 			W."例句2_日本語" as sen2_j,
 			W."例句2_中国語" as sen2_c,
-			case when T."ステータス" = '9' and 
-				(W."例句2_英語" is not null and W."例句2_英語" &lt;&gt; '') and
-				(T."誤り回数_例句2" is null or T."誤り回数_例句2" &gt;= 3) then 'rgb(255,200,200)'
+			case when T."ステータス" in ('8','9') and T."判定結果_例句2" = '×' then 'rgb(255,200,200)'
 			else '' end as sen2_color,
 			case when T."ステータス" = '1' then 'blue' else '' end as color
-
 		FROM "STY_単語テスト詳細情報" T
 		LEFT JOIN "STY_単語情報" W
 			ON T."書籍" = W."書籍" AND
@@ -611,6 +516,15 @@
 			"枝番号" = :testsubno
 	</sql>
 
+	<sql id="deleteTestWordNote">
+		delete from "STY_臨時画像" 
+		where 
+		"更新ID" = :userid and 
+		"区分" = '3' and 
+		"連番" = :seq
+	</sql>
+
+
 	<sql id="updateTestDetailInfo3">
 		UPDATE 
 		"STY_単語テスト詳細情報" T1
@@ -684,43 +598,37 @@
 				count(A."テスト番号") as testtimes,
 				--単語正しい回数
 				sum(
-					case when A."誤り回数_単語" is not null and A."誤り回数_単語" &lt; 3 then 1
+					case when A."判定結果_単語" = '○' then 1
 					else 0 end
 				) as word_right,
 				--単語誤り回数
 				sum(
-					case when A."誤り回数_単語" is null then 1
-						when A."誤り回数_単語" &gt;= 3 then 1
+					case when A."判定結果_単語" = '×' then 1
 					else 0 end
 				) as word_wrong,
 				--例句1正しい回数
 				sum(
-					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3 then 1
+					case when A."判定結果_例句1" = '○' then 1
 					else 0 end
 				) as sen1_right,
 				--例句1誤り回数
 				sum(
-					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is null then 1
-						when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" &gt;= 3 then 1
+					case when A."判定結果_例句1" = '×' then 1
 					else 0 end
 				) as sen1_wrong,
 				--例句2正しい回数
 				sum(
-					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3 then 1
+					case when A."判定結果_例句2" = '○' then 1
 					else 0 end
 				) as sen2_right,
 				--例句2誤り回数
 				sum(
-					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is null then 1
-						when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" &gt;= 3 then 1
+					case when A."判定結果_例句2" = '×' then 1
 					else 0 end
 				) as sen2_wrong,
 				--全部正解回数
 				sum(
-					case when A."誤り回数_単語" &lt;= 2 and 
-						(B."例句1_英語" is null or B."例句1_英語" = '' or (A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3)) and
-						(B."例句2_英語" is null or B."例句2_英語" = '' or (A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3)) 
-						then 1
+					case when A."判定結果_単語" in ('○','-') and A."判定結果_例句1" in ('○','-') and A."判定結果_例句2" in ('○','-') then 1
 					else 0 end
 				) as all_right,
 				sum(A."時間") as time
@@ -729,7 +637,7 @@
 			left join "STY_単語情報" B
 				on A."書籍" = B."書籍" and A."分類" = B."分類" and A."単語SEQ" = B."単語SEQ"
 			where
-				"ステータス" = '9'
+				"ステータス" in ('8','9')
 			group by
 				A."書籍",A."分類",A."単語SEQ"
 		) D
@@ -821,43 +729,37 @@
 				count(A."テスト番号") as testtimes,
 				--単語正しい回数
 				sum(
-					case when A."誤り回数_単語" is not null and A."誤り回数_単語" &lt; 3 then 1
+					case when A."判定結果_単語" = '○' then 1
 					else 0 end
 				) as word_right,
 				--単語誤り回数
 				sum(
-					case when A."誤り回数_単語" is null then 1
-						when A."誤り回数_単語" &gt;= 3 then 1
+					case when A."判定結果_単語" = '×' then 1
 					else 0 end
 				) as word_wrong,
 				--例句1正しい回数
 				sum(
-					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3 then 1
+					case when A."判定結果_例句1" = '○' then 1
 					else 0 end
 				) as sen1_right,
 				--例句1誤り回数
 				sum(
-					case when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" is null then 1
-						when B."例句1_英語" is not null and B."例句1_英語" &lt;&gt; '' and A."誤り回数_例句1" &gt;= 3 then 1
+					case when A."判定結果_例句1" = '×' then 1
 					else 0 end
 				) as sen1_wrong,
 				--例句2正しい回数
 				sum(
-					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3 then 1
+					case when A."判定結果_例句2" = '○' then 1
 					else 0 end
 				) as sen2_right,
 				--例句2誤り回数
 				sum(
-					case when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" is null then 1
-						when B."例句2_英語" is not null and B."例句2_英語" &lt;&gt; '' and A."誤り回数_例句2" &gt;= 3 then 1
+					case when A."判定結果_例句2" = '×' then 1
 					else 0 end
 				) as sen2_wrong,
 				--全部正解回数
 				sum(
-					case when A."誤り回数_単語" &lt;= 2 and 
-						(B."例句1_英語" is null or B."例句1_英語" = '' or (A."誤り回数_例句1" is not null and A."誤り回数_例句1" &lt; 3)) and
-						(B."例句2_英語" is null or B."例句2_英語" = '' or (A."誤り回数_例句2" is not null and A."誤り回数_例句2" &lt; 3)) 
-						then 1
+					case when A."判定結果_単語" in ('○','-') and A."判定結果_例句1" in ('○','-') and A."判定結果_例句2" in ('○','-') then 1
 					else 0 end
 				) as all_right,
 				sum(A."時間") as time
@@ -866,7 +768,7 @@
 			left join "STY_単語情報" B
 				on A."書籍" = B."書籍" and A."分類" = B."分類" and A."単語SEQ" = B."単語SEQ"
 			where
-				"ステータス" = '9'
+				"ステータス" in ('8','9')
 			group by
 				A."書籍",A."分類",A."単語SEQ"
 			) D
@@ -880,9 +782,10 @@
 				<if istrue="accuracy == ''"> 1 = 1 </if>
 				<if istrue="accuracy == '1'"> (DATA.testtimes &gt; 0 AND DATA.per = 100) </if>
 				<if istrue="accuracy == '2'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 100) </if>
-				<if istrue="accuracy == '3'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 85 and DATA.per &lt; 100)</if>
-				<if istrue="accuracy == '4'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 50 and DATA.per &lt; 85)</if>
-				<if istrue="accuracy == '5'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 50)</if>
+				<if istrue="accuracy == '3'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 85) </if>
+				<if istrue="accuracy == '4'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 85 and DATA.per &lt; 100)</if>
+				<if istrue="accuracy == '5'"> (DATA.testtimes &gt; 0 AND DATA.per &gt;= 50 and DATA.per &lt; 85)</if>
+				<if istrue="accuracy == '6'"> (DATA.testtimes &gt; 0 AND DATA.per &lt; 50)</if>
 			</if>
 			<if exists="keyword"> 
 				<if istrue="keyword != ''">
@@ -1341,10 +1244,82 @@
 		"枝番号" = :subno
 	</sql>
 
+	<sql id="selectRodomWord">
+		select * from
+			( 
+				( 
+					select
+						testtimes as tts
+						, * 
+					from
+						"V_単語情報リスト" V1 
+					where
+						V1.per &gt;= 85 
+						and 
+						V1.per &lt; 100 
+						<if exists="dayfrom"> and (
+							<if istrue="dayfrom != ''"> V1.classification &gt;= :dayfrom </if>
+							)
+						</if>
+						<if exists="dayto"> and (
+							<if istrue="dayto != ''"> V1.classification &lt;= :dayto </if>
+							)
+						</if>
+						and V1.book = :book
+					limit
+						(0.4 * :count) + 2
+				) 
+				union ( 
+					select
+						testtimes as tts
+						, * 
+					from
+						"V_単語情報リスト" V1 
+					where
+						V1.per &gt;= 100 
+						<if exists="dayfrom"> and (
+							<if istrue="dayfrom != ''"> V1.classification &gt;= :dayfrom </if>
+							)
+						</if>
+						<if exists="dayto"> and (
+							<if istrue="dayto != ''"> V1.classification &lt;= :dayto </if>
+							)
+						</if>
+						and V1.book = :book
+					limit
+						(0.2 * :count) + 10
+				) 
+				union ( 
+					select
+						case 
+							when testtimes is null 
+								then - 1 
+							else testtimes 
+							end as tts
+						, * 
+					from
+						"V_単語情報リスト" V1 
+					where
+						1 = 1 
+						<if exists="dayfrom"> and (
+							<if istrue="dayfrom != ''"> V1.classification &gt;= :dayfrom </if>
+							)
+						</if>
+						<if exists="dayto"> and (
+							<if istrue="dayto != ''"> V1.classification &lt;= :dayto </if>
+							)
+						</if>
+						and V1.book = :book
+					order by
+						tts 
+					limit
+						(0.4 * :count) + 10
+				)
+			) T 
+		limit :count
 
 
-
-
+	</sql>
 
 
 

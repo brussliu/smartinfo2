@@ -113,12 +113,37 @@
 
     // *********电子签名功能*********
     let canvas_box = $("#canvas_box");    // 获取canvas标签
-    canvas_box.jSignature({lineWidth:'1'}); // 初始化签名画板，初始化之后就可以进行操作
+    canvas_box.jSignature({lineWidth:'10'}); // 初始化签名画板，初始化之后就可以进行操作
     let signImgSrc = "";   // 提交后台的图片路径
     // 监听手动签名滑动开始、移动、释放时，执行输入框失去焦点的功能，解决签名时触发软键盘的问题
+    $("#canvas_box").on("click",function () {
+        console.log("click");
+    }).on("mouseover",function () {
+        console.log("mouseover");
+    }).on("mouseout",function () {
+        console.log("mouseout");
+    }).on("mousedown",function () {
+        console.log("mousedown");
+    }).on("mouseup",function () {
+        console.log("mouseup");
+    }).on("contextmenu",function () {
+        console.log("contextmenu");
+    }).on("dblclick",function () {
+        console.log("dblclick");
+    }).on("mousewheel",function () {
+        console.log("mousewheel");
+    }).on("keydown",function () {
+        console.log("keydown");
+    }).on("keyup",function () {
+        console.log("keyup");
+    }).on("mousemove",function () {
+        console.log("mousemove");
+    });
+
+
     $("#canvas_box").on("touchstart mousemove touchend",function () {
-        // console.log("走签名-mousemove事件");
-        $("input,textarea").blur();
+        console.log("走签名-mousemove事件");
+        //$("input,textarea").blur();
     });
 
      // 重置按钮，生成图片之后，可重置画板，并清空图片

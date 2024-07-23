@@ -34,7 +34,7 @@ study_word_downloadvoice.fire = function (params) {
 
 		var book = selectResult[i]["book"];
 		var classification = selectResult[i]["classification"];
-		var wordseq = selectResult[i]["seq"];
+		var wordseq = selectResult[i]["wordseq"];
 
 		// var type = "";
 		var word_e = selectResult[i]["word_e"] == null ? "" : selectResult[i]["word_e"].replaceAll(" ", "%20").replaceAll("'", "%27").replaceAll("～", "~");
