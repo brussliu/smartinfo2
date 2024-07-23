@@ -178,9 +178,9 @@
                     <table class="table_btn">
                         <tbody>
                             <tr>
-                                <td style="width: 200px;">
+                                <td style="width: 240px;">
                                     書籍:
-                                    <select id="opt_book" style="width: 120px;" onchange="initclassification();">
+                                    <select id="opt_book" style="width: 160px;" onchange="initclassification();">
                                         <option value=""></option>
                                     </select>
                                 </td>
@@ -196,9 +196,10 @@
                                         <option value=""></option>
                                         <option value="1">100%</option>
                                         <option value="2">100%未満</option>
-                                        <option value="3">85%～100%</option>
-                                        <option value="4">50%～85%</option>
-                                        <option value="5">50%未満</option>
+                                        <option value="3">85%未満</option>
+                                        <option value="4">85%～100%</option>
+                                        <option value="5">50%～85%</option>
+                                        <option value="6">50%未満</option>
                                     </select>
                                 </td>
                                 <td>
