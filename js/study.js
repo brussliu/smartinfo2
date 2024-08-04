@@ -331,6 +331,8 @@ function checkWord(){
         }
         $('#hiddenWordWrongTime').val(time);
 
+        $('#hiddenWordCheckResult').val("OK");
+
         rightVoice("word");
         overWord("OK");
         showSen1();
@@ -378,6 +380,7 @@ function checkSen1(){
         }
 
         $('#hiddenSen1WrongTime').val(time);
+        $('#hiddenSen1CheckResult').val("OK");
 
         rightVoice("sen1");
         overSen1("OK");
@@ -432,6 +435,7 @@ function checkSen2(){
         }
 
         $('#hiddenSen2WrongTime').val(time);
+        $('#hiddenSen2CheckResult').val("OK");
 
         rightVoice("sen2");
         overSen2("OK");
