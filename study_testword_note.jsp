@@ -38,8 +38,25 @@
         .E {
             border: 2px solid red;
             background: rgb(255,255,240);
-            width: 710px;
+            width: 696px;
             height: 296px;
+            cursor: url("img/pen.png"),auto;
+            position: relative;
+        }
+
+        .F {
+            border: 2px solid red;
+            background: rgb(255,255,240);
+            width: 716px;
+            height: 296px;
+            cursor: url("img/pen.png"),auto;
+            position: relative;
+        }
+        .G {
+            border: 2px solid red;
+            background: rgb(255,255,240);
+            width: 1907px;
+            height: 1170px;
             cursor: url("img/pen.png"),auto;
             position: relative;
         }
@@ -47,7 +64,7 @@
             height: 30px;
         } */
 
-        .B::after,.B::before,.D::after,.D::before,.E::after,.E::before {
+        .B::after,.B::before,.D::after,.D::before,.E::after,.E::before,.F::after,.F::before,.G::after,.G::before {
             content: ' ';
             position: absolute;
             left: 5%;
@@ -56,11 +73,11 @@
             background: lightgrey;
         }
 
-        .B::before,.D::before,.E::before {
+        .B::before,.D::before,.E::before,.F::before,.G::before {
             bottom: 30%;
         }
         
-        .B::after,.D::after,.E::after {
+        .B::after,.D::after,.E::after,.F::after,.G::after {
             bottom: 65%;
         }
 
@@ -242,11 +259,29 @@
         }else if(pc == "E"){
             $("#canvas_box").addClass("E");
             $("button").css("height","26px");
+            $("button").css("width","70px");
+            $("#unfull_btn").css("width","100px");
             $("button").css("margin-right","12px");
             $("#canvas_title").css("height","30px");
             $("#canvas_title").css("font-size","12px");
-            $("#canvas_foot").addClass("E_F");
             $("#canvas_foot").css("height","30px");
+            $("#canvas_title").css("width","700px");
+            $("#canvas_foot").css("width","700px");
+        // P40 pro
+        }else if(pc == "F"){
+            $("#canvas_box").addClass("F");
+            $("button").css("height","26px");
+            $("button").css("width","70px");
+            $("#unfull_btn").css("width","100px");
+            $("button").css("margin-right","12px");
+            $("#canvas_title").css("height","30px");
+            $("#canvas_title").css("font-size","12px");
+            $("#canvas_title").css("width","720px");
+            $("#canvas_foot").css("height","30px");
+            $("#canvas_foot").css("width","720px");
+        // CF-QV8
+        }else if(pc == "G"){
+            $("#canvas_box").addClass("G");
         }
         let canvas_box = $("#canvas_box");
         canvas_box.jSignature({lineWidth:'5'});

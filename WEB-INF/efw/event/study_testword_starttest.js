@@ -6,11 +6,12 @@ study_testword_starttest.paramsFormat = {
 	"#opt_dayfrom": null,
 	"#opt_dayto": null,
 
-	"#testwayhidden1": null,
 	"#opt_testcount": null,
-	"#opt_testkbn": null,
 
-	"#opt_testdiv": null,
+	"#testway1hidden": null,
+	"#opt_way2": null,
+	"#opt_way3": null,
+	"#testway4hidden": null,
 	
 };
 
@@ -28,9 +29,10 @@ study_testword_starttest.fire = function (params) {
 	var dayfrom = params["#opt_dayfrom"];
 	var dayto = params["#opt_dayto"];
 
-	var way1 = params["#testwayhidden1"];
-	var way2 = params["#opt_testkbn"];
-	var way3 = params["#opt_testdiv"];
+	var way1 = params["#testway1hidden"];
+	var way2 = params["#opt_way2"];
+	var way3 = params["#opt_way3"];
+	var way4 = params["#testway4hidden"];
 
 	var selectcount = params["#opt_testcount"];
 
@@ -105,6 +107,7 @@ study_testword_starttest.fire = function (params) {
 			div1 : way1Str,
 			div2 : way2,
 			div3 : way3,
+			div4 : way4,
 			count : selectResult.length,
 			userid : getUserId()
 		}
@@ -133,10 +136,12 @@ study_testword_starttest.fire = function (params) {
 	session.set("TEST_SUB_NO", 1);
 
 
-	if(way3 == 1 || way3 == 2){
+	if(way3 == 1){
 		return ret.navigate("study_testword_test2.jsp");
 	}
-
+	if(way4 == 3){
+		return ret.navigate("study_testword_test3.jsp");
+	}
 	// 画面へ結果を返す
 	return ret.navigate("study_testword_test.jsp");
 

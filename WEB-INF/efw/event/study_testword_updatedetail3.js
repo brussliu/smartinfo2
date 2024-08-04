@@ -1,6 +1,6 @@
-var study_testword_updatedetail = {};
-study_testword_updatedetail.name = "単語テスト開始";
-study_testword_updatedetail.paramsFormat = {
+var study_testword_updatedetail3 = {};
+study_testword_updatedetail3.name = "単語テスト開始";
+study_testword_updatedetail3.paramsFormat = {
 
 	"#hiddenOpt": null,
 	"#hiddenTestNo": null,
@@ -20,7 +20,7 @@ study_testword_updatedetail.paramsFormat = {
 	
 };
 
-study_testword_updatedetail.fire = function (params) {
+study_testword_updatedetail3.fire = function (params) {
 
 	var ret = new Result();
 
@@ -199,11 +199,6 @@ study_testword_updatedetail.fire = function (params) {
 				}
 			);
 
-			// session.set("TEST_NO", null);
-			// session.set("TEST_SUB_NO", null);
-
-			// return ret.eval("overTest();");
-
 		}
 
 		if(test_sub_no == wordCount){
@@ -233,22 +228,90 @@ study_testword_updatedetail.fire = function (params) {
 
 	}
 
-	// //  检索
-	// var selectResult2 = db.select(
-	// 	"STUDY",
-	// 	"selectTestInfo",
-	// 	{
-	// 		testno : testno,
-	// 	}
-	// ).getSingle();
 
-	if(way3 == "1"){
-		return ret.navigate("study_testword_test2.jsp");
+
+	// if(way3 == "1"){
+	// 	return ret.navigate("study_testword_test2.jsp");
+	// }
+	// if(way4 == "3"){
+	// 	return ret.navigate("study_testword_test3.jsp");
+	// }
+	// // 画面へ結果を返す
+	// return ret.navigate("study_testword_test.jsp");
+
+	var test_no = session.get("TEST_NO");
+	var test_sub_no = session.get("TEST_SUB_NO");
+	
+	//  检索
+	var selectResult = db.select(
+		"STUDY",
+		"selectTestInfo",
+		{
+			testno: test_no
+		}
+	).getSingle();
+
+	var selectDetailResult = db.select(
+		"STUDY",
+		"selectTestDetailInfo",
+		{
+			testno: test_no,
+			testsubno: test_sub_no
+		}
+	).getSingle();
+
+	var way2 = selectResult["div2"];
+	if(selectResult["div2"] == '6'){
+		way2 = parseInt(Math.round(Math.random() * 5));
 	}
-	if(way4 == "3"){
-		return ret.navigate("study_testword_test3.jsp");
-	}
-	// 画面へ結果を返す
-	return ret.navigate("study_testword_test.jsp");
+	var way3 = selectResult["div3"];
+	var way4 = selectResult["div4"];
+
+	ret.runat("body").withdata(
+		{
+
+			"#hiddenBook" : selectDetailResult["book"],
+			"#hiddenclassification" : selectDetailResult["classification"],
+			"#hiddenwordseq" : selectDetailResult["wordseq"],
+
+			"#hiddenTestNo" : test_no,
+			"#hiddenWordNo" : test_sub_no,
+			"#hiddenWordCount" : selectResult["ct"],
+
+			"#hiddenWordWrongTime" : null,
+			"#hiddenSen1WrongTime" : null,
+			"#hiddenSen2WrongTime" : null,
+
+			"#hiddenWordE" : selectDetailResult["word_e"],
+			"#hiddenWordJ" : selectDetailResult["word_j"],
+			"#hiddenWordC" : selectDetailResult["word_c"],
+
+			"#hiddenSen1E" : selectDetailResult["sen1_e"],
+			"#hiddenSen1J" : selectDetailResult["sen1_j"],
+			"#hiddenSen1C" : selectDetailResult["sen1_c"],
+
+			"#hiddenSen2E" : selectDetailResult["sen2_e"],
+			"#hiddenSen2J" : selectDetailResult["sen2_j"],
+			"#hiddenSen2C" : selectDetailResult["sen2_c"],
+
+			"#hiddenWay2" : way2,
+			"#hiddenWay3" : way3,
+			"#hiddenWay4" : way4,
+
+			"#hiddenMp3" : null
+			
+		}
+	);
+
+	var script = "beginTest();";
+	ret.eval(script);
+
+
+	// 開始時間を残す
+	session.set("TEST_SUB_NO_STARTTIME", (new Date()).getTime());
+
+
+
+	return ret;
 
 };

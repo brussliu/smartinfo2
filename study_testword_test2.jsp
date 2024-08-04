@@ -126,8 +126,27 @@
                 //     console.log('interval');
 
                 // }, 2000);
+                const windowFeatures =
+                "toolbar=no," + 
+                "location=no," + 
+                "directories=no," + 
+                "status=no," + 
+                "menubar=no," + 
+                "scrollbars=yes," + 
+                "resizable=yes," + 
+                "width=" + screen.availWidth + "," + 
+                "height=" + screen.availHeight;
 
-                timer = setInterval(function() {
+                //window.open("study_testword_note.jsp?flg=3&div=1&pc=G", 'wordnote', windowFeatures);
+
+
+                var win = window.open("",  'wordnote', windowFeatures);
+                if (win.location.href === "about:blank") {
+
+                    win.close();
+                    
+                    //窗口不存在
+                    timer = setInterval(function() {
 
                     var key = readKeyCode();
 
@@ -139,7 +158,15 @@
                     //     doKeydown(key);
                     // }
 
-                }, 800);
+                    }, 800);
+
+                } else {
+                    //窗口以已经存在了
+                    win.focus();
+                }
+
+
+
                 // window.addEventListener('message', function(event) {
 
                 //     if(event.data != null && event.data != ""){
@@ -371,7 +398,7 @@
                 "width=" + screen.availWidth + "," + 
                 "height=" + screen.availHeight;
 
-                window.open("study_testword_note.jsp?flg=3&div=1&pc=B", 'wordnote', windowFeatures);
+                window.open("study_testword_note.jsp?flg=3&div=1&pc=G", 'wordnote', windowFeatures);
 
                 clearInterval(timer);
             }
@@ -494,6 +521,7 @@
 
         <input type="hidden" id="hiddenWay2">
         <input type="hidden" id="hiddenWay3">
+        <input type="hidden" id="hiddenWay4">
 
         <input type="hidden" id="hiddenBook">
         <input type="hidden" id="hiddenclassification">

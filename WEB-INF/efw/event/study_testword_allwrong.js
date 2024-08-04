@@ -90,6 +90,7 @@ study_testword_allwrong.fire = function (params) {
 					div1 : "誤り単語",
 					div2 : "1",
 					div3 : "0",
+					div4 : "1",
 					count : n - 1,
 					userid : getUserId()
 				}
@@ -113,6 +114,7 @@ study_testword_allwrong.fire = function (params) {
 			div1 : "誤り単語",
 			div2 : "1",
 			div3 : "0",
+			div4 : "1",
 			count : new_n - 1,
 			userid : getUserId()
 		}

@@ -175,7 +175,7 @@
                     </div>
                 </div>
                 <div class="topnav">
-                    <p><a href="study_menu.jsp">メニュー</a> > 不正解情報管理<button id="btn_new" onclick="add()">新規</button></p>
+                    <p><a href="study_menu.jsp">メニュー</a> > 不正解情報管理</p>
                 </div>
                 <div class="content">
                     <div class="c_btn">

@@ -42,7 +42,19 @@ study_testword_continue.fire = function (params) {
 		}
 	).getSingle();
 
-	ret.eval("continueTestPopup('" + selectResult2["div3"] + "');");
+	var div3 = selectResult2["div3"];
+	var div4 = selectResult2["div4"];
+
+	if(div4 == "3"){
+		ret.eval("continueTestPopup('2');");
+	}else if(div3 == "1"){
+		ret.eval("continueTestPopup('1');");
+	}else{
+		ret.eval("continueTestPopup('0');");
+	}
+
+	//ret.eval("continueTestPopup('" + selectResult2["div3"] + "');");
+	
 	// 画面へ結果を返す
 	return ret;
 

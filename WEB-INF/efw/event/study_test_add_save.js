@@ -1,8 +1,17 @@
 var study_test_add_save = {};
-study_test_add_save.name = "納品情報管理画面初期表示";
+study_test_add_save.name = "テスト情報管理画面保存";
 study_test_add_save.paramsFormat = {
-
-
+	"#opt_academicyear":null,
+	"#text_name":null,
+	"#text_to":null,
+	"#text_from":null,
+	"#td_content1":null,
+	"#opt":null,
+	"comprehensive":null,
+	"monotechnical":null,
+	"tags":null,
+	"seq":null,
+	
 };
 
 study_test_add_save.fire = function (params) {
@@ -11,48 +20,158 @@ study_test_add_save.fire = function (params) {
 	// セッションチェック
 	if(sessionCheck(ret) == false){return ret};
 
-	// タイトル情報設定
-	setTitleInfo(ret);
+	var shopid = getShopId();
+	// 学年
+	var academicyear = params["#opt_academicyear"];
+	// 名称
+	var tname = params["#text_name"];
+	// 期間
+	var to = params["#text_to"];
+	var from = params["#text_from"];
+	// 内容
+	var content1 = params["#td_content1"];
+	var opt = params["#opt"];
 
-	//  检索
-	var selectResult = db.select(
-		"DELIVERY",
-		"selectdelivery",
-		{
-			shopid: getShopId()
+	// 	総合成績
+	var comprehensivemap = params["comprehensive"];
+	var comprehensive = comprehensivemap["table_inputdialog2"]
+	// 单科
+	var monotechnical = params["monotechnical"];
+	// 单科目录
+	var tags = params["tags"];
 
+	 
+	if(opt == 'new'){
+		
+		// seq
+		var newData =new Date().format("yyyyMMdd-HHmmss");
+		// TRN_テスト情報
+		var insertResult1 = db.change(
+			"STUDYTEST",
+			"savestudytest",
+			{
+				"seq":newData,
+				"academicyear":academicyear,
+				"tname":tname,
+				"to":to,
+				"from":from,
+				"img" :content1, 
+				"shopid": shopid,
+			}
+		);
+		// 综合
+		if(comprehensive[0] != ''){
+			var insertResult2 = db.change(
+				"STUDYTEST",
+				"savestudytestcomprehensive",
+				{
+					"seq":newData,
+					"score":comprehensive[0],
+					"fulls":comprehensive[1],
+					"gradeaverage":comprehensive[2],
+					"yearaverage":comprehensive[3], 
+					"academicrank1":comprehensive[4],
+					"academicrank2":comprehensive[5],
+					"academicyear1":comprehensive[6],
+					"academicyear2":comprehensive[7], 
+					"shopid": shopid,
+				}
+			);
 		}
-	).getArray();
+		// 单科
+		if(tags.length>0 && tags != ''){
+			for(var i=0;i<tags.length;i++){
+				var insertResult3 = db.change(
+					"STUDYTEST",
+					"savestudytestmonotechnical",
+					{
+						"seq":newData,
+						"tags":tags[i],
+						"col1":monotechnical[tags[i]][0],
+						"col2":monotechnical[tags[i]][1],
+						"col3":monotechnical[tags[i]][2],
+						"col4":monotechnical[tags[i]][3],
+						"col5":monotechnical[tags[i]][4],
+						"col6":monotechnical[tags[i]][5],
+						"col7":monotechnical[tags[i]][6],
+						"col8":monotechnical[tags[i]][7],
+						"col9":monotechnical[tags[i]][8],
+						"col10":monotechnical[tags[i]][9], 
+						"shopid": shopid,
+					}
+				);
+			}
+		}
+	}
 
-	var resultHTML =
-	' <tr>' +
-	' <td style="width: 50px;" class="c"><input type="radio" onclick="choice(this)" name="choice" value="{no}"></input></td>' +
-	' <td style="width: 155px" class="l a"><span class="l5" onclick="outputFile(this)">{no}</span> </td>' +
-			' <td style="width: 300px;" class="l"><span class="l5">{name}</span></td>' +
-			' <td style="width: 500px;" class="l"><span class="l5">{content}</span></td>' +
-			' <td style="width: 80px;" class="r"><span class="r5">{number}</span></td>' +
-			' <td style="width: 120px;" class="c">{state}</td>' +
+	if(opt == 'update'){
+		var seq = params["seq"];
+		// TRN_テスト情報
+		var updateResult1 = db.change(
+			"STUDYTEST",
+			"updatestudytest",
+			{
+				"seq":seq,
+				"academicyear":academicyear,
+				"tname":tname,
+				"to":to,
+				"from":from,
+				"img" :content1, 
+				"shopid": shopid 
+			}
+		);
+		// 综合
+		
+		if(comprehensive[0] != ''){
+			var updateResult2 = db.change(
+				"STUDYTEST",
+				"updatestudytestcomprehensive",
+				{
+					"seq":seq,
+					"score":comprehensive[0],
+					"fulls":comprehensive[1],
+					"gradeaverage":comprehensive[2],
+					"yearaverage":comprehensive[3], 
+					"academicrank1":comprehensive[4],
+					"academicrank2":comprehensive[5],
+					"academicyear1":comprehensive[6],
+					"academicyear2":comprehensive[7], 
+					"shopid": shopid
+				}
+			);
+		}else{
+			// 单科
+			if(tags.length>0 && tags != ''){
+				for(var i=0;i<tags.length;i++){
+					var updateResult3 = db.change(
+						"STUDYTEST",
+						"updatestudytestmonotechnical",
+						{
+							"seq":seq,
+							"tags":tags[i],
+							"col1":monotechnical[tags[i]][0],
+							"col2":monotechnical[tags[i]][1],
+							"col3":monotechnical[tags[i]][2],
+							"col4":monotechnical[tags[i]][3],
+							"col5":monotechnical[tags[i]][4],
+							"col6":monotechnical[tags[i]][5],
+							"col7":monotechnical[tags[i]][6],
+							"col8":monotechnical[tags[i]][7],
+							"col9":monotechnical[tags[i]][8],
+							"col10":monotechnical[tags[i]][9], 
+							"shopid": shopid,
+						}
+					);
+				}
+			}
+		}
+	
+	}
 
-			' <td style="width: 120px;" class="c">{logindate}</td>' +
-			' <td style="width: 120px;" class="c">{senddate}</td>' +
-			' <td style="width: 120px;" class="c">{receivedate}</td>' +
-			' <td style="width: 120px;" class="c">{completiondate}</td>' +
 
-			' <td style="width: 140px;" class="c">{amz1}</td>' +
-			' <td style="width: 300px;" class="l"><span class="l5">{amz2}</span></td>' +
-			' <td style="width: 160px;" class="c">{amz3}</td>' +
-			' <td style="width: 140px;" class="l"><span class="l5">{amz4}</span></td>' +
-			' <td style="width: 140px;" class="r"><span class="r5">{amz5}</span></td>' +
-			' <td style="width: 140px;" class="r"><span class="r5">{amz6}</span></td>' +
-			' </tr>'
-
-
-
-	ret.runat("#deliverytable").remove("tr").append(resultHTML).withdata(selectResult);
-
-	var script = "$('.c_detail_header').show();$('.c_detail_content').show();";
-	ret.eval(script);
-	ret.eval(" changeColor();");  
+ 
+	ret.eval(" study_test_inputdialog.dialog('close');");  
+	ret.eval(" init();");  
 	// 画面へ結果を返す
 	return ret;
 

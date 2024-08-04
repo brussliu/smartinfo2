@@ -48,7 +48,8 @@ study_testword_init.fire = function (params) {
 		"<tr class='tr1'>" +
 			"<td style='width:  60px;text-align: center;'><input type='checkbox' name='testitem' value='{testno}' onchange='checkTest(this)'></input></td>" +
 			"<td style='width: 160px;'><span class='l5'>{book}</span></td>" +
-			"<td style='width: 400px;'><span class='l5'>{classification}</span></td>" +
+			"<td style='width: 390px;'><span class='l5'>{classification}</span></td>" +
+			"<td style='width:  60px;text-align: center;'><img src='img/{div4}.png' width='30px;' height='30px;' style='display:{div4flg}'></td>" +
 			"<td style='width: 100px;'><span class='l5'>{status}</span></td>" +
 			"<td style='width: 100px;'><span class='l5'>{div1}</span></td>" +
 			"<td style='width: 160px;'><span class='l5'>{div2}</span></td>" +

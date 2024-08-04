@@ -98,19 +98,19 @@
 
                 <tr>
                     <td>期間：</td>
-                    <td><input type="date" style="width: 200px;" id="text_to"></input></td>
-                    <td style="width: 50px;text-align: center;">～</td>
                     <td><input type="date" style="width: 200px;" id="text_from"></input></td>
+                    <td style="width: 50px;text-align: center;">～</td>
+                    <td><input type="date" style="width: 200px;" id="text_to"></input></td>
                 </tr>
 
                 <tr style="height: 120px;">
                     <td>内容：</td>
-                    <td colspan="3" id="td_content1" class="">
+                    <td colspan="3"  >
                         <div class="imgcss">
-                            <img src="img\delete.png"></img>
+                            <img src="img\delete.png" ></img>
                            <img src="img\jian.png" onclick="deleteimg(this)"></img>
-                       </div>
-                        <img src="img\zhaoxiang.png" class="contentimg"></td> 
+                        </div>
+                        <img src="img\zhaoxiang.png" class="contentimg" id="td_content1"></td> 
                 </tr> 
             </tbody>
         </table>
@@ -227,10 +227,13 @@
                     <td>内容：</td>
                     <td id="td_content4" colspan="7">
                         <div class="imgcss">
-                             <img src="img\delete.png"></img>
+                             <img src="img\delete.png" class="imgsign"></img>
                             <img src="img\jian.png" onclick="deleteimg(this)"></img>
                         </div>
-                       
+                        <div class="imgcss">
+                            <img src="img\delete.png" class="imgsign"></img>
+                           <img src="img\jian.png" onclick="deleteimg(this)"></img>
+                       </div>
                         <img src="img\zhaoxiang.png" class="contentimg"></img>
                     </td>
                 
@@ -238,7 +241,16 @@
 
                 <tr style="height: 120px;">
                     <td> 内容(クリア)：</td>
-                    <td id="td_content5"  colspan="7"><img src="img\zhaoxiang.png" class="contentimg2"></td>
+                    <td id="td_content5"  colspan="7">
+                        <div class="imgcss">
+                            <img src="img\delete.png" class="imgsign"></img>
+                           <img src="img\jian.png" onclick="deleteimg(this)"></img>
+                       </div>
+                       <div class="imgcss">
+                           <img src="img\delete.png" class="imgsign"></img>
+                          <img src="img\jian.png" onclick="deleteimg(this)"></img>
+                      </div>
+                      <img src="img\zhaoxiang.png" class="contentimg2"></td>
                    
                 </tr>
 
@@ -288,7 +300,7 @@
         <table class="table_inputdialog_btn" border="0" style="border-top: 1px dashed black;">
             <tbody>
                 <tr>
-                    <td style="width: 650px;"></td>
+                    <td style="width: 650px;"><input type="hidden" id="opt"></input></td>
                     <td style="width: 200px;"><button class="btn" id="btn_login" data-tags="table_inputdialog3" onclick="tablelist()">登　録</button></td>
                     <td style="width: 200px;"><button class="btn" onclick="cel()">キャンセル</button></td>
                     <td style="width: 650px;"></td>

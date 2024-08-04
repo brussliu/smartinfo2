@@ -146,7 +146,7 @@
                             bookArr.push(book);
                         }
 
-                        status = $(this).parent().next().next().next().children().eq(0).html();
+                        status = $(this).parent().next().next().next().next().children().eq(0).html();
                         if(!statusArr.includes(status)){
                             statusArr.push(status);
                         }
@@ -262,6 +262,8 @@
 
                 if(parseInt(no) == 1){
                     window.open("study_testword_test2.jsp", 'fullscreenWindow', windowFeatures);
+                }else if(parseInt(no) == 2){
+                    window.open("study_testword_test3.jsp", 'fullscreenWindow', windowFeatures);
                 }else{
                     window.open("study_testword_test.jsp", 'fullscreenWindow', windowFeatures);
                 }
@@ -331,10 +333,10 @@
 
                 $("#testwordtable .tr1").each(function () {
 
-                    var status = $(this).children().eq(3).children().eq(0).html();
-                    var per = parseFloat($(this).children().eq(9).children().eq(0).html().replaceAll("%",""));
+                    var status = $(this).children().eq(4).children().eq(0).html();
+                    var per = parseFloat($(this).children().eq(10).children().eq(0).html().replaceAll("%",""));
                     
-                    var type = $(this).children().eq(5).children().eq(0).html();
+                    var type = $(this).children().eq(6).children().eq(0).html();
 
                     // console.log(status);
                     // console.log(per);
@@ -344,7 +346,7 @@
                     // }
                     if(status == "実施済" || status == "採点済"){
 
-                        var kikan = $(this).children().eq(7).children().eq(0).html().substring(0, 10);
+                        var kikan = $(this).children().eq(8).children().eq(0).html().substring(0, 10);
                         var today = (new Date()).format("yyyy/MM/dd");
 
                         if(kikan == today){
@@ -367,7 +369,7 @@
 
                     // 全訳英
                     if(type == "0"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/un.png' width='30px;' height='30px;'>" + "&nbsp;" + 
                             "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
@@ -377,7 +379,7 @@
                         );
                     // 日訳英（音声付き）
                     }else if(type == "1"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/japanese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
                             "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
@@ -387,7 +389,7 @@
                         );
                     // 日訳英（音声無し）
                     }else if(type == "2"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/japanese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
                             "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
@@ -398,7 +400,7 @@
                         
                     // 音声のみ
                     }else if(type == "3"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "------" +
                             "<div style='width:108px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
@@ -407,7 +409,7 @@
                         
                     // 漢訳英(音声付き)
                     }else if(type == "4"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/chinese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
                             "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
@@ -418,7 +420,7 @@
                         
                     // 漢訳英(音声無し)
                     }else if(type == "5"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/chinese.png' width='30px;' height='30px;'>" + "&nbsp;" + 
                             "<img src='img/yjls.png' width='20px;' height='20px;'>" + "&nbsp;" + 
@@ -429,7 +431,7 @@
                     
                     // ランダム
                     }else if(type == "6"){
-                        $(this).children().eq(5).html(
+                        $(this).children().eq(6).html(
                             "<div style='display: flex;align-items: center;margin-left: 5px;'>" +
                             "<img src='img/dice.png' width='30px;' height='30px;'>" +
                             // "<div style='width:122px;'><img src='img/audio.png' width='20px;' height='20px;' style='float: right;'></div>" +
@@ -468,7 +470,7 @@
                             bookArr.push(book);
                         }
 
-                        status = $(this).parent().next().next().next().children().eq(0).html();
+                        status = $(this).parent().next().next().next().next().children().eq(0).html();
                         if(!statusArr.includes(status)){
                             statusArr.push(status);
                         }
@@ -622,7 +624,9 @@
                             <tr class="header">
                                 <th style="width:  60px;" id="temp">選択<br/><input type="checkbox" onclick="selectAll(this);" /></th>
                                 <th style="width: 160px;">書籍</th>
-                                <th style="width: 400px;">分類</th>
+                                <th style="width: 390px;">分類</th>
+
+                                <th style="width: 60px;">区分</th>
 
                                 <th style="width: 100px;">ステータス</th>
 

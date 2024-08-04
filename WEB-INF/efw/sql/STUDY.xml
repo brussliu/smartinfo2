@@ -11,6 +11,12 @@
 			T."テスト方式2" as div2,
 			case when T."テスト方式3" = '0' then 'keyboard'
 				 else 'handwriting' end as div3,
+			case when T."テスト区分" = '1' then ''
+				when T."テスト区分" = '2' then 'rensyu'
+				else 'readbook' end as div4,
+			case when T."テスト区分" = '1' then 'none'
+				when T."テスト区分" = '2' then 'inline'
+				else 'inline' end as div4flg,
 			T."数量" as count,
 			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
 			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
@@ -153,6 +159,12 @@
 			T."テスト方式2" as div2,
 			case when T."テスト方式3" = '0' then 'keyword'
 				 else 'handwriting' end as div3,
+			case when T."テスト区分" = '1' then ''
+				when T."テスト区分" = '2' then 'rensyu'
+				else 'readbook' end as div4,
+			case when T."テスト区分" = '1' then 'none'
+				when T."テスト区分" = '2' then 'inline'
+				else 'inline' end as div4flg,
 			T."数量" as count,
 			to_char(T."開始時間", 'YYYY/MM/DD') as starttime,
 			to_char(T."終了時間", 'YYYY/MM/DD') as endtime,
@@ -375,6 +387,7 @@
 			:testno,
 			:book,
 			:classification,
+			:div4,
 			:div1,
 			:div2,
 			:div3,
@@ -394,6 +407,9 @@
 			T."テスト番号" as testno,
 			T."書籍" as book,
 			T."分類" as classification,
+
+			T."テスト区分" as div4,
+
 			T."テスト方式1" as div1,
 			T."テスト方式2" as div2,
 			T."テスト方式3" as div3,
@@ -642,8 +658,10 @@
 				A."書籍",A."分類",A."単語SEQ"
 		) D
 		ON W."書籍" = D."書籍" AND W."分類" = D."分類" AND W."単語SEQ" = D."単語SEQ"
+		LEFT JOIN "STY_単語テスト情報" S
+			ON T."テスト番号" = S."テスト番号" 
 		WHERE
-			1 = 1
+			S."テスト区分" = '1'
 			<if exists="testno">
 			AND
 			T."テスト番号" IN (@testno)
@@ -767,8 +785,11 @@
 				"STY_単語テスト詳細情報" A
 			left join "STY_単語情報" B
 				on A."書籍" = B."書籍" and A."分類" = B."分類" and A."単語SEQ" = B."単語SEQ"
+			left join "STY_単語テスト情報" C
+				on A."テスト番号" = C."テスト番号"
 			where
-				"ステータス" in ('8','9')
+				A."ステータス" in ('8','9') and
+				C."テスト区分" = '1'
 			group by
 				A."書籍",A."分類",A."単語SEQ"
 			) D
@@ -803,7 +824,7 @@
 				</if>
 			</if>
 		order by
-			DATA.book, DATA.classification, DATA.wordseq
+			DATA.per desc,DATA.book, DATA.classification, DATA.wordseq
 	</sql>
 
 	<sql id="searchWordBook">
@@ -1321,7 +1342,15 @@
 
 	</sql>
 
-
+	<sql id="deleteTempNote">
+		delete from "STY_臨時画像"
+		where 
+			"登録ID" is null
+			and
+			"更新ID" is null
+			and
+			"区分" = :flg 
+	</sql>
 
 
 </sqls>

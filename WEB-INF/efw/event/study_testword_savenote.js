@@ -22,7 +22,16 @@ study_testword_savenote.fire = function (params) {
 
 	if(content != null && content != ""){
 
-		//  检索
+		//  画像削除
+		db.change(
+			"STUDY",
+			"deleteTempNote",
+			{
+				flg : flg
+			}
+		);
+
+		//  画像登録
 		db.change(
 			"STUDY",
 			"insertTempNote",

@@ -177,7 +177,16 @@
 
             function goNext(){
 
-                //return;
+                if($('#hiddenWordCheckResult').val() != "OK"){
+                    $('#hiddenWordWrongTime').val(null);
+                }
+                if($('#hiddenSen1CheckResult').val() != "OK"){
+                    $('#hiddenSen1WrongTime').val(null);
+                }
+                if($('#hiddenSen2CheckResult').val() != "OK"){
+                    $('#hiddenSen2WrongTime').val(null);
+                }
+                
                 $('#hiddenOpt').val("next");
                 Efw('study_testword_updatedetail');
             }
@@ -289,6 +298,7 @@
 
         <input type="hidden" id="hiddenWay2">
         <input type="hidden" id="hiddenWay3">
+        <input type="hidden" id="hiddenWay4">
 
         <input type="hidden" id="hiddenBook">
         <input type="hidden" id="hiddenclassification">
@@ -299,5 +309,9 @@
         <input type="hidden" id="hiddenWordNoteSeq">
         <input type="hidden" id="hiddenSen1NoteSeq">
         <input type="hidden" id="hiddenSen2NoteSeq">
+
+        <input type="hidden" id="hiddenWordCheckResult">
+        <input type="hidden" id="hiddenSen1CheckResult">
+        <input type="hidden" id="hiddenSen2CheckResult">
     </body>
 </html>

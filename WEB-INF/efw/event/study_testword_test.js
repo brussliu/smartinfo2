@@ -38,6 +38,7 @@ study_testword_test.fire = function (params) {
 		way2 = parseInt(Math.round(Math.random() * 5));
 	}
 	var way3 = selectResult["div3"];
+	var way4 = selectResult["div4"];
 
 	ret.runat("body").withdata(
 		{
@@ -67,8 +68,8 @@ study_testword_test.fire = function (params) {
 			"#hiddenSen2C" : selectDetailResult["sen2_c"],
 
 			"#hiddenWay2" : way2,
-
 			"#hiddenWay3" : way3,
+			"#hiddenWay4" : way4,
 
 			"#hiddenMp3" : null
 			

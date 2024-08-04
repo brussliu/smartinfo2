@@ -6,6 +6,8 @@ create table public."STY_単語テスト情報" (
   , "書籍" character varying(50)
   , "分類" character varying(200)
 
+  , "テスト区分" character varying(1)
+
   , "テスト方式1" character varying(20)
   , "テスト方式2" character varying(20)
   , "テスト方式3" character varying(20)

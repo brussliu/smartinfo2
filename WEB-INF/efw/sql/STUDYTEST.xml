@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqls>
+<sqls>
+	<sql id="selectstudytest">
+		SELECT 
+			trn1."テストSEQ" seq,
+			trn1."テスト名称" tname,
+			trn1."テスト学年" academicyear,
+			case when trn1."期間FROM" is not null 
+			then concat(to_char(trn1."期間FROM" ,'YYYY/MM/DD') , '~',to_char(trn1."期間TO" ,'YYYY/MM/DD')) 
+			else '' end as fromto,
+			trn1."内容SEQ" contentseq1,
+			trn2."テスト科目" project,
+			trn2."内容SEQ" contentseq2,
+			trn2."内容クリアSEQ" contentseq3,
+			trn2."得点" score,
+			trn2."満点" fulls,
+
+			trn2."学級-平均点" gradeaverage,
+			trn2."学年-平均点" yearaverage,
+			concat(trn2."学級-順位" , '/' , trn2."学級-人数") academicrank,
+			concat(trn2."学年-順位" , '/' , trn2."学年-人数") academicyear2
+
+		FROM "TRN_テスト情報" trn1 LEFT JOIN "TRN_テスト科目情報" trn2
+			on trn1."テストSEQ" = trn2."テストSEQ"
+			and trn1."登録ID" = :shopid
+		where
+			1=1
+			<if exists="testname"> AND (  trn1."テスト名称" like  concat('%', :testname ,'%')  ) </if>
+			<if exists="subject"> AND (  trn2."テスト科目" like  concat('%', :subject ,'%')  ) </if>
+	</sql>
+ 
+	<sql id="selectstudytestbyseq"   paramPrefix="!">
+		SELECT  
+			trn1."テスト名称" tname,
+			trn1."テスト学年" academicyear,
+			to_char(trn1."期間FROM" ,'YYYY-MM-DD') froms,
+			to_char(trn1."期間TO" ,'YYYY-MM-DD')  tos,
+			trn1."内容SEQ" contentseq1,
+			trn2."テスト科目" project,
+			trn2."内容SEQ" contentseq2,
+			trn2."内容クリアSEQ" contentseq3,
+
+			COALESCE(cast(trn2."得点" as varchar) ,'') score,
+			COALESCE(cast(trn2."満点" as varchar) ,'')  fulls,
+			COALESCE(cast(trn2."学級-平均点" as varchar) ,'')  gradeaverage,
+			COALESCE(cast(trn2."学年-平均点" as varchar) ,'')  yearaverage,
+			COALESCE(cast(trn2."学級-順位" as varchar) ,'')  academicrank1 , 
+			COALESCE(cast(trn2."学級-人数" as varchar) ,'')  academicrank2,
+			COALESCE(cast(trn2."学年-順位" as varchar) ,'')  academicyear1, 
+			COALESCE(cast(trn2."学年-人数" as varchar) ,'')  academicyear2
+
+		FROM "TRN_テスト情報" trn1 , "TRN_テスト科目情報" trn2
+			where trn1."テストSEQ" = trn2."テストSEQ"
+			AND trn1."テストSEQ" = !seq
+			AND trn2."テスト科目" = !project
+			and trn1."登録ID" = !shopid
+	</sql>
+	<sql id="savestudytest"  paramPrefix="!">
+		INSERT INTO "TRN_テスト情報" 
+		VALUES (
+			!seq,
+			!academicyear,
+			!tname,
+			to_timestamp(!to, 'YYYY-MM-DD HH24:MI:SS'),
+			to_timestamp(!from, 'YYYY-MM-DD HH24:MI:SS'),
+			!img,
+			!shopid,
+			!shopid, 
+			now(),
+			now()
+		 			 
+		)
+	</sql>
+	<sql id="savestudytestcomprehensive" >
+		INSERT INTO "TRN_テスト科目情報" 
+		VALUES (
+			:seq,
+			'総合成績',
+			'',
+			'',
+			cast(:score AS integer),
+			cast(:fulls AS integer),
+			cast(:academicrank1 AS integer),
+			cast(:academicrank2 AS integer),
+			cast(:gradeaverage AS integer), 
+			cast(:academicyear1 AS integer),
+			cast(:academicyear2 AS integer),
+			cast(:yearaverage AS integer),
+			:shopid,
+			:shopid,
+			now(),
+			now()
+		 			 
+		)
+	</sql>
+	<sql id="savestudytestmonotechnical" >
+		INSERT INTO "TRN_テスト科目情報" 
+		VALUES (
+			:seq,
+			:tags,
+			:col1,
+			:col2,
+			cast(:col4 AS integer),
+			cast(:col3 AS integer),
+			cast(:col7 AS integer),
+			cast(:col8 AS integer),
+			cast(:col5 AS integer),
+			cast(:col9 AS integer),
+			cast(:col10 AS integer),
+			cast(:col6 AS integer),
+			:shopid,
+			:shopid,
+			now(),
+			now()
+		 			 
+		)
+	</sql>
+	
+	
+ 	<sql id="updatestudytest"  paramPrefix="!">
+		UPDATE  "TRN_テスト情報"
+			SET 	
+				"テスト学年" = !academicyear
+				,"テスト名称" = !tname
+				,"期間FROM" = to_timestamp(!from, 'YYYY-MM-DD HH24:MI:SS')
+				,"期間TO" = to_timestamp(!to, 'YYYY-MM-DD HH24:MI:SS')
+				,"内容SEQ" = !img
+				,"更新ID" = !shopid 
+				,"更新日時" = now()
+		where 
+			"テストSEQ" = !seq  
+			
+	</sql>
+
+ 	<sql id="updatestudytestcomprehensive">
+		UPDATE  "TRN_テスト科目情報"
+			SET 	
+				 "満点" = cast(:fulls AS integer)
+				,"得点" = cast(:score AS integer)
+				,"学級-順位" = cast(:academicrank1 AS integer)
+				,"学級-人数" = cast(:academicrank2 AS integer)
+				,"学級-平均点" = cast(:gradeaverage AS integer)
+				,"学年-順位" = cast(:academicyear1 AS integer)
+				,"学年-人数" = cast(:academicyear2 AS integer)
+				,"学年-平均点" = cast(:yearaverage AS integer)
+				,"更新ID" = :shopid 
+				,"更新日時" = now()
+		where 
+			"テストSEQ" = :seq  
+			AND 
+			"テスト科目" = '総合成績'
+	</sql>
+
+	 	<sql id="updatestudytestmonotechnical">
+		UPDATE  "TRN_テスト科目情報"
+			SET 	
+				"内容SEQ" = :col1 
+				,"内容クリアSEQ" = :col2 
+				,"満点" = cast(:col3 AS integer)
+				,"得点" = cast(:col4 AS integer)
+				,"学級-順位" = cast(:col5 AS integer)
+				,"学級-人数" = cast(:col6 AS integer)
+				,"学級-平均点" = cast(:col7 AS integer)
+				,"学年-順位" = cast(:col8 AS integer)
+				,"学年-人数" = cast(:col9 AS integer)
+				,"学年-平均点" = cast(:col10 AS integer)
+				,"更新ID" = :shopid 
+				,"更新日時" = now()
+		where 
+			"テストSEQ" = :seq  
+			AND 
+			"テスト科目" = :tags 
+	</sql>
+</sqls>
+
