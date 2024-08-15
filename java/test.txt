@@ -1,0 +1,120 @@
+
+    Dim ws1 As Worksheet
+    Dim ws2 As Worksheet
+    Dim ws3 As Worksheet
+    Dim ws4 As Worksheet
+
+Sub test()
+
+
+    Dim sheetName As String
+    sheetName = ActiveSheet.Name
+    
+
+    Set ws1 = ThisWorkbook.Sheets(sheetName)
+    
+    
+    Set ws = ThisWorkbook.Sheets(sheetName + "_EB")
+    Application.DisplayAlerts = False
+    ws.Delete
+    Application.DisplayAlerts = True
+        
+        
+    Set ws2 = ThisWorkbook.Sheets.Add
+    ws2.Name = sheetName + "_EB"
+    
+    
+    Set ws4 = ThisWorkbook.Sheets("log")
+    
+    Dim key As String
+
+    For i = 3 To 19
+    
+        key = ws1.Cells(i, 2).Value
+    
+        If key = "" Then
+        
+            Exit For
+            
+        End If
+        
+        cp1 (i - 2)
+        
+        cp2 (i - 2)
+        
+        getDataFromLog (key)
+        
+        
+    Next i
+    
+    
+    
+    
+    
+End Sub
+
+Function getDataFromLog(key As String)
+
+    Dim content As String
+    
+    Dim content_start As String
+    
+    Dim content_domainid As String
+    
+
+    For i = 8 To 9999
+    
+        content = ws4.Cells(i, 1).Value
+        
+    
+        If content = "" Then
+        
+            Exit For
+            
+        End If
+        
+        If InStr(1, content, "pkRtShoriKbnCheck", vbTextCompare) > 0 And InStr(1, content, "関連チェックID[" + key + "]", vbTextCompare) > 0 Then
+        
+        
+            content_start = ws4.Cells(i - 7, 1).Value
+            content_domainid = ws4.Cells(i - 1, 1).Value
+            
+            
+        End If
+        
+        
+        
+    Next i
+
+
+End Function
+
+Function cp2(no As Integer)
+
+    
+    Dim sourceRange As Range
+    Dim targetRange As Range
+
+    Set sourceRange = ws1.Range("B" + CStr(no + 2) + ":N" + CStr(no + 2))
+    Set targetRange = ws2.Range("B" + CStr(3 + (no - 1) * 10 + 2))
+
+    sourceRange.Copy Destination:=targetRange
+
+
+End Function
+
+Function cp1(no As Integer)
+
+
+    Set ws3 = ThisWorkbook.Sheets("model")
+    
+    Dim sourceRange As Range
+    Dim targetRange As Range
+
+    Set sourceRange = ws3.Range("B3:N9")
+    Set targetRange = ws2.Range("B" + CStr(3 + (no - 1) * 10))
+
+    sourceRange.Copy Destination:=targetRange
+
+
+End Function
