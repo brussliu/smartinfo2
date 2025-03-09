@@ -55,7 +55,7 @@ import_import.fire = function (params) {   //
 	var flg_file01 = importFile("01",	"UTF-8(BOM)",	"\t",	"\n",		null);
 	var flg_file02 = importFile("02",	"S-JIS",		"\t",	"\r\n",		null);
 	var flg_file03 = importFile("03",	"UTF-8",		"\t",	"\r\n",		null);
-	var flg_file04 = importFile("04",	"S-JIS",		",",	"\n",		null);
+	var flg_file04 = importFile("04",	"UTF-8",		",",	"\n",		null);
 	var flg_file05 = importFile("05",	"S-JIS",		"\t",	"\r\n",		null);
 	var flg_file06 = importFile06();
 	var flg_file07 = importFile("07",	"UTF-8(BOM)",	",",	"\r\n",		null);
@@ -67,7 +67,7 @@ import_import.fire = function (params) {   //
 	var flg_file12 = importFile("12",	"UTF-8(BOM)",	",",	"\r\n",		1);
 
 	var flg_file13 = importFile("13",	"S-JIS",		",",	"\n",		null);
-	var flg_file14 = importFile("14",	"S-JIS",		",",	"\n",		null);
+	var flg_file14 = importFile("14",	"UTF-8(BOM)",	",",	"\n",		1);
 
 	var flg_file15 = importFile("15",	"S-JIS",		",",	"\n",		null);
 

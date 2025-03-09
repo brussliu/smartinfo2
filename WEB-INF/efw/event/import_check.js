@@ -31,7 +31,7 @@ var FILE19_NAME = "19.広告明細費用レポート";
 var HEADER01_LENGTH = 341;
 var HEADER02_LENGTH = 1426;
 var HEADER03_LENGTH = 98;
-var HEADER04_LENGTH = 56;
+var HEADER04_LENGTH = 40;
 var HEADER05_LENGTH = 1372;
 var HEADER07_LENGTH = 201;
 var HEADER08_LENGTH = 139;
@@ -41,7 +41,7 @@ var HEADER11_LENGTH = 444;
 var HEADER12_LENGTH = 141;
 //var HEADER13_LENGTH = 523;
 var HEADER13_LENGTH = 363;
-var HEADER14_LENGTH = 458;
+var HEADER14_LENGTH = 455;
 var HEADER15_LENGTH = 151;
 var HEADER16_LENGTH = 107;
 var HEADER17_LENGTH = 315;
@@ -296,7 +296,11 @@ function checkFileTitleSize(fileno, filenamewithpath){
 	var headerlength = 0;
 	eval('headerlength = HEADER' + fileno + '_LENGTH;');
 
-	header.length.debug("LLLLLLLLLLLLLLLLLL");
+	headerlength.debug("LLLLLLLLLLLLLLLLLL1");
+
+	header.length.debug("LLLLLLLLLLLLLLLLLL2");
+
+	header.debug("LLLLLLLLLLLLLLLLLL2");
 
 	if(header.length != headerlength){
 
