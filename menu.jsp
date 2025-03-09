@@ -7,6 +7,7 @@
             <title>SmartInfo 2.0</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <link rel="icon" href="favicon.ico" type="image/x-icon" />
             <style>
                 /* content */
                 .content {

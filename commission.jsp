@@ -7,6 +7,7 @@
             <title>手数料見積情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <link href="favicon.ico" rel="icon" type="image/x-icon" />
             <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {

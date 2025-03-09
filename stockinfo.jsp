@@ -7,11 +7,7 @@
             <title>在庫情報管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
-            <link rel="icon" href="/img/tb.jpg" sizes="50x50"/> 
-            <!-- <link rel="shortcut icon" href="/img/tb.jpg"/> -->
-
-            <link href="/img/tb1.ico" rel="icon" type="image/x-icon" />
-            <link href="/img/tb1.ico" rel="shortcut icon" type="image/x-icon" />
+            <link href="favicon.ico" rel="icon" type="image/x-icon" />
             <script type="text/javascript" src="js/common.js"></script>
             <script>
                 function scrollHead(obj) {

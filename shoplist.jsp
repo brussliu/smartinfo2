@@ -6,7 +6,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>SmartInfo 2.0</title>
             <link rel="stylesheet" href="css/common.css" type="text/css"/>
-
+            <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
             <efw:Client />
             <script>
 

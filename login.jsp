@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>SmartInfo 2.0</title>
+  <link href="favicon.ico" rel="icon" type="image/x-icon" />
 	<efw:Client/>
    	<style>
 	  /* img{

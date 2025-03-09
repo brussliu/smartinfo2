@@ -7,6 +7,7 @@
             <title>代行発送商品管理</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <link href="favicon.ico" rel="icon" type="image/x-icon" />
             <script type="text/javascript" src="js/common.js"></script>
 
             <script>

@@ -6,6 +6,7 @@
         <title>単語テスト</title>
         <efw:Client />
         <link rel="stylesheet" href="css/common.css" type="text/css" />
+        <link href="favicon.ico" rel="icon" type="image/x-icon" />
         <script type="text/javascript" src="js/common.js"></script>
         <script type="text/javascript" src="js/study2.js"></script>
         <style>

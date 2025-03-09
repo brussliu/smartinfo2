@@ -7,6 +7,7 @@
             <title>商品スキャン</title>
             <efw:Client />
             <link rel="stylesheet" href="css/common.css" type="text/css" />
+            <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
             <script type="text/javascript" src="js/common.js"></script>
 
             <script>
